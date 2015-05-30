@@ -1,0 +1,40 @@
+Users:  first_name, last_name, email, volunter_number, date_joined, active, has:roll
+
+Issue:  Title, description, priotity, time_reported, time_completed, issue_number
+        has:state, has:comments, has:reporter, has:assignee, has:images, 
+        has:location, has:route, has:region, has:category
+        > rails g scaffold Issue title:string:index, issue_number:integer:index:uniq, description:text, priotity:integer:index, time_reported:datetime:index, time_completed:datetime:index
+
+Title: name
+
+Category: name, belongs:issue
+        > rails g scaffold category issue:belogs_to
+
+Comment: belogs_to:issue:user:route:region
+Image: src, title(o), description(o)
+State: draft, submitted, acknowledged, in-progress, resolved, re-opened, archived, deleted
+Location: name, coord, url
+Route: Name, url to gpx track, has:comments
+Region: Name, comments
+Roll: name
+
+
+FEATURES
+* Issue has many followers and User has many interests
+* Updates on issues are posted to users home page
+* User can express interest in region of route
+* Emails sent to users when activity within interest occurs
+
+VIEWS
+* Home page shows newsfeed and stats
+* Users: index, show, edit
+* Issues: index (filters), show, edit, new
+* Regions: index, edit, new, show (lists routes and most recent issues)
+* Routes: index, edit, new, show
+
+
+(o) = optional
+
+
+## Comands
+rails g scaffold 
