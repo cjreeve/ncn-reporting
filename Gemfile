@@ -34,6 +34,11 @@ group :assets do
   gem 'foundation-icons-sass-rails'
 end
 
+group :test do
+  gem 'pry'
+  gem 'better_errors'
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

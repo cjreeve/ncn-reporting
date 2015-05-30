@@ -5,6 +5,6 @@ class Issue < ActiveRecord::Base
   private
   
   def set_issue_number
-    self.issue_number = Issue.last.issue_number + 1
+    self.issue_number = Issue.last.try(:issue_number).to_i + 1
   end
 end

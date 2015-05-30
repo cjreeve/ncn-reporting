@@ -1,0 +1,47 @@
+    <script>
+// This example displays a marker at the center of Australia.
+// When the user clicks the marker, an info window opens.
+
+function initialize() {
+
+
+  var mapCenter = new google.maps.LatLng(51.509628, -0.11842);
+  var mapOptions = {
+    zoom: 12,
+    center: mapCenter
+  };
+
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+  var locations = <%=raw locations %>;
+
+  for (var i = 0; i < locations.length; i++) {
+
+    var location= locations[i]
+
+    var contentString = location[0];
+    
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+
+    var myLatLng = new google.maps.LatLng(location[1], location[2]);
+
+    console.log(myLatLng)
+
+    var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        icon: "http://maps.google.com/mapfiles/ms/icons/"+location[4]+"-dot.png",
+        title: location[0],
+        zIndex: location[3]
+    });
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map,marker);
+    });
+  }
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
