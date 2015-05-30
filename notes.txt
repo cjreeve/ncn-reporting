@@ -3,7 +3,7 @@ Users:  first_name, last_name, email, volunter_number, date_joined, active, has:
 Issue:  Title, description, priotity, time_reported, time_completed, issue_number
         has:state, has:comments, has:reporter, has:assignee, has:images, 
         has:location, has:route, has:region, has:category
-        > rails g scaffold Issue title:string:index, issue_number:integer:index:uniq, description:text, priotity:integer:index, time_reported:datetime:index, time_completed:datetime:index
+        > rails g scaffold Issue issue_number:integer:uniq:index, title:string:index, description:text, priority:integer:index, time_reported:datetime:index, time_completed:datetime:index
 
 Title: name
 

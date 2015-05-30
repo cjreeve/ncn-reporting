@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Issue number:</strong>
+  <%= @issue.issue_number %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @issue.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @issue.description %>
+</p>
+
+<p>
+  <strong>Priority:</strong>
+  <%= @issue.priority %>
+</p>
+
+<p>
+  <strong>Time reported:</strong>
+  <%= @issue.time_reported %>
+</p>
+
+<p>
+  <strong>Time completed:</strong>
+  <%= @issue.time_completed %>
+</p>
+
+<%= link_to 'Edit', edit_issue_path(@issue) %> |
+<%= link_to 'Back', issues_path %>
