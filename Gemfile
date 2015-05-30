@@ -21,6 +21,8 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 
+gem 'foundation-rails'
+
 # Gems used for precompilling assets
 group :assets do
   gem 'sass-rails'
@@ -28,7 +30,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   # Add Foundation Here
   gem 'compass-rails' # you need this or you get an err
-  gem 'zurb-foundation'
+  gem 'foundation-icons-sass-rails'
 end
 
 # Use ActiveModel has_secure_password
