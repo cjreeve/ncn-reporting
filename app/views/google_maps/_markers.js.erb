@@ -4,28 +4,36 @@
 
 function initialize() {
 
+  <%
+    coord_stats = get_issue_coord_stats(issues)
+    if (defined? this_issue)
+      this_lat = this_issue.lat
+      this_lng = this_issue.lng
+    else
+      this_lat = coord_stats[:average_coord][0]
+      this_lng = coord_stats[:average_coord][1]
+    end
+  %>
 
-  var mapCenter = new google.maps.LatLng(51.509628, -0.11842);
+
+  var mapCenter = new google.maps.LatLng(<%= this_lat %>, <%= this_lng %>);
   var mapOptions = {
-    zoom: 12,
+    zoom: <%= (1.0/coord_stats[:max_spread]).to_i %>,
     center: mapCenter
   };
 
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
   <%
-  # locations = [
-  #   ['Bondi Beach', 51.530244, -0.110010, 3, 'yellow'],
-  #   ['Coogee Beach', 51.501294, -0.187944, 2, 'green'],
-  #   ['Cronulla Beach', 51.512513, -0.084089, 1, 'red']
-  # ]
     issue_counter = issues.count + 1
     locations = issues.collect do |issue|
-      [ issue.title,
-      issue.lat,
-      issue.lng,
-      (issue_counter -= 1),
-      marker_style(issue.priority) ]
+      [ 
+        issue.title,
+        issue.lat,
+        issue.lng,
+        (issue_counter -= 1),
+        marker_style(issue.priority) 
+      ]
     end
   %>
 <%# binding.pry %>
@@ -45,7 +53,6 @@ function initialize() {
 
     var myLatLng = new google.maps.LatLng(location[1], location[2]);
 
-    console.log(myLatLng)
 
     var marker = new google.maps.Marker({
         position: myLatLng,
@@ -54,6 +61,22 @@ function initialize() {
         title: location[0],
         zIndex: location[3]
     });
+
+    <% if (defined? this_issue) %>
+    var contentString = "<%= this_issue.description %>";
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+    var myLatLng = new google.maps.LatLng(<%= this_issue.lat %>, <%= this_issue.lng %>);
+    var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        icon: "http://maps.google.com/mapfiles/ms/icons/pink.png",
+        title: "<%= this_issue.title %>",
+        zIndex: 10000
+    });
+    <% end %>
+
     google.maps.event.addListener(marker, 'click', function() {
       infowindow.open(map,marker);
     });
