@@ -13,7 +13,25 @@ function initialize() {
 
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
+  <%
+  # locations = [
+  #   ['Bondi Beach', 51.530244, -0.110010, 3, 'yellow'],
+  #   ['Coogee Beach', 51.501294, -0.187944, 2, 'green'],
+  #   ['Cronulla Beach', 51.512513, -0.084089, 1, 'red']
+  # ]
+    issue_counter = issues.count + 1
+    locations = issues.collect do |issue|
+      [ issue.title,
+      issue.lat,
+      issue.lng,
+      (issue_counter -= 1),
+      marker_style(issue.priority) ]
+    end
+  %>
+<%# binding.pry %>
   var locations = <%=raw locations %>;
+
+  console.log(locations)
 
   for (var i = 0; i < locations.length; i++) {
 
@@ -32,7 +50,7 @@ function initialize() {
     var marker = new google.maps.Marker({
         position: myLatLng,
         map: map,
-        icon: "http://maps.google.com/mapfiles/ms/icons/"+location[4]+"-dot.png",
+        icon: location[4],
         title: location[0],
         zIndex: location[3]
     });

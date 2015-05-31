@@ -2,7 +2,7 @@ class CreateIssues < ActiveRecord::Migration
   def change
     create_table :issues do |t|
       t.integer :issue_number
-      t.string :title
+      t.string :title, null: false, default: ''
       t.text :description
       t.integer :priority
       t.datetime :time_reported

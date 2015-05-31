@@ -1,14 +1,4 @@
-<% 
-  locations = [
-    ['Bondi Beach', 51.530244, -0.110010, 3, 'yellow'],
-    ['Coogee Beach', 51.501294, -0.187944, 2, 'green'],
-    ['Cronulla Beach', 51.512513, -0.084089, 1, 'red']
-  ]
-%>
-
-<%= render 'google_maps/markers.js', locations: locations %>
-<%#= render(:partial => 'google_maps/markers', :handlers => [:erb], :formats => [:js]) %>
-
+<%= render 'google_maps/markers.js', issues: [@issue], this_issue: @issue %>
 
 
 <article class='issue'>
@@ -22,10 +12,28 @@
       <%= @issue.issue_number %>
     </p>
     
-    <p>
-      <strong>Title:</strong>
-      <%= @issue.title %>
-    </p>
+    <div class='row'>
+      <div class='medium-6 columns'>
+        <p>
+          <strong>Title:</strong>
+          <%= @issue.title %>
+        </p>
+      </div>
+      <div class='medium-6 columns'>
+        <p>
+          <strong>Location:</strong>
+          <%= @issue.location_name %>
+        </p>
+        <p>
+          <strong>Coordinate:</strong>
+          <%=
+            if @issue.coordinate.present?
+              link_to @issue.coordinate, "http://maps.google.com/?q=#{@issue.lat},#{@issue.lng}", tarket: :_blank
+            end
+          %>
+        </p>
+      </div>
+    </div>
     
     <p>
       <strong>Description:</strong>
@@ -48,8 +56,8 @@
     </p>
     
     <%= link_to 'Edit', edit_issue_path(@issue) %> |
-    <%= link_to 'Back', issues_path %>
-    
+    <%= link_to 'Index', issues_path %>
+    <br><br>
 
     
     <div id="map-canvas" style="width: 100%; height: 400px;"></div>

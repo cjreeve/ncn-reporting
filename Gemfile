@@ -34,7 +34,7 @@ group :assets do
   gem 'foundation-icons-sass-rails'
 end
 
-group :test do
+group :development do
   gem 'pry'
   gem 'better_errors'
 end

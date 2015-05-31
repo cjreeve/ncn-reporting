@@ -13,9 +13,23 @@
     <% end %>
   
     <%#= f.input :issue_number %>
-    <%= f.input :title %>
+    <div class='row'>
+      <div class='medium-6 columns'>
+        <%= f.input :title, required: true %>
+      </div>
+      <div class='medium-6 columns'>
+        <%= f.input :location_name, label: 'Location' %>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='medium-6 columns'>
+        <%= f.input :priority, input_html: { min: 0, max: 3 } %>
+      </div>
+      <div class='medium-6 columns'>
+        <%= f.input :coordinate, required: true, label: 'Coordinate (e.g. 51.52009, -0.10309)' %>
+        </div>
+    </div>
     <%= f.input :description %>
-    <%= f.input :priority %>
     <%#= f.input :time_reported, as: :hiden, input_html: { value: Time.now } %>
     <%#= f.input :time_completed %>
     <%= f.button :submit %>
