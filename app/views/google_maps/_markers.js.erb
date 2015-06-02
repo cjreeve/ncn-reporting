@@ -1,88 +1,80 @@
-    <script>
-// This example displays a marker at the center of Australia.
-// When the user clicks the marker, an info window opens.
+<script>
 
-function initialize() {
+  function initialize() {
 
-  <%
-    coord_stats = get_issue_coord_stats(issues)
-    if (defined? this_issue)
-      this_lat = this_issue.lat
-      this_lng = this_issue.lng
-    else
-      this_lat = coord_stats[:average_coord][0]
-      this_lng = coord_stats[:average_coord][1]
-    end
-  %>
+    <%
+      coord_stats = get_issue_coord_stats(issues)
+      if (defined? this_issue)
+        this_lat = this_issue.lat
+        this_lng = this_issue.lng
+      else
+        this_lat = coord_stats[:average_coord][0]
+        this_lng = coord_stats[:average_coord][1]
+      end
+    %>
 
 
-  var mapCenter = new google.maps.LatLng(<%= this_lat %>, <%= this_lng %>);
-  var mapOptions = {
-    zoom: <%= (1.0/coord_stats[:max_spread]).to_i %>,
-    center: mapCenter
-  };
+    var mapCenter = new google.maps.LatLng(<%= this_lat %>, <%= this_lng %>);
+    var mapOptions = {
+      zoom: <%= (1.0/coord_stats[:max_spread]).to_i %>,
+      center: mapCenter
+    };
 
-  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-  <%
-    issue_counter = issues.count + 1
-    locations = issues.collect do |issue|
-      [ 
-        issue.title,
-        issue.lat,
-        issue.lng,
-        (issue_counter -= 1),
-        marker_style(issue.priority) 
-      ]
-    end
-  %>
-<%# binding.pry %>
-  var locations = <%=raw locations %>;
+    <%
+      issue_counter = issues.count + 1
+      locations = issues.collect do |issue|
+        [ 
+          issue.title,
+          issue.lat,
+          issue.lng,
+          (issue_counter -= 1),
+          marker_style(issue.priority) 
+        ]
+      end
+    %>
 
-  console.log(locations)
+    var locations = <%=raw locations %>;
 
-  for (var i = 0; i < locations.length; i++) {
+    // console.log(locations)
 
-    var location= locations[i]
-
-    var contentString = location[0];
-    
-    var infowindow = new google.maps.InfoWindow({
-        content: contentString
-    });
-
-    var myLatLng = new google.maps.LatLng(location[1], location[2]);
-
-
-    var marker = new google.maps.Marker({
-        position: myLatLng,
-        map: map,
-        icon: location[4],
-        title: location[0],
-        zIndex: location[3]
-    });
+    for (var i = 0; i < locations.length; i++) {
+      createMarker(map, locations[i]);
+    }
 
     <% if (defined? this_issue) %>
-    var contentString = "<%= this_issue.description %>";
-    var infowindow = new google.maps.InfoWindow({
-        content: contentString
-    });
-    var myLatLng = new google.maps.LatLng(<%= this_issue.lat %>, <%= this_issue.lng %>);
-    var marker = new google.maps.Marker({
-        position: myLatLng,
-        map: map,
-        icon: "http://maps.google.com/mapfiles/ms/icons/pink.png",
-        title: "<%= this_issue.title %>",
-        zIndex: 10000
-    });
+      var myTitle = "<%= this_issue.title %>";
+      var myLat = <%= this_issue.lat %>;
+      var myLng = <%= this_issue.lng %>;
+      var zIndex = 10000;
+      var icon = "http://maps.google.com/mapfiles/ms/icons/pink.png";
+      createMarker(map,[myTitle, myLat, myLng, zIndex, icon]);
     <% end %>
-
-    google.maps.event.addListener(marker, 'click', function() {
-      infowindow.open(map,marker);
-    });
   }
-}
 
-google.maps.event.addDomListener(window, 'load', initialize);
+  function createMarker(map, location) {
+      var contentString = location[0];
 
-    </script>
+      var infowindow = new google.maps.InfoWindow({
+          content: contentString
+      });
+
+      var myLatLng = new google.maps.LatLng(location[1], location[2]);
+
+      var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          icon: location[4],
+          title: location[0],
+          zIndex: location[3]
+      });
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map,marker);
+      });
+      return marker;
+  }
+
+  google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
