@@ -1,6 +1,6 @@
 class AddCoordinateToIssues < ActiveRecord::Migration
   def up
-    add_column :issues, :location_name, :string
+    add_column :issues, :location_name, :string, null: false, default: ''
     add_column :issues, :lat, :float
     add_column :issues, :lng, :float
     add_index :issues, :location_name

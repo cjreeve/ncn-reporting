@@ -16,6 +16,7 @@
             <th>Lat</th>
             <th>Lng</th>
             <th>Time reported</th>
+            <th>State</th>
             <th colspan="3"></th>
           </tr>
         </thead>
@@ -29,6 +30,7 @@
               <td><%= issue.lat %></td>
               <td><%= issue.lng %></td>
               <td><%= issue.time_reported %></td>
+              <td><%= issue.state %></td>
               <td><%= link_to 'Show', issue %></td>
               <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
               <td style="background-color: <%= priority_colour(issue.priority) %>"><%#= link_to '×', issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>

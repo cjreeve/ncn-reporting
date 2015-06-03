@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150531142243) do
+ActiveRecord::Schema.define(version: 20150603225832) do
 
   create_table "issues", force: true do |t|
     t.integer  "issue_number"
@@ -22,15 +22,17 @@ ActiveRecord::Schema.define(version: 20150531142243) do
     t.datetime "time_completed"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "location_name"
     t.float    "lat"
     t.float    "lng"
+    t.string   "state",          default: "draft", null: false
+    t.string   "location_name",  default: "",      null: false
   end
 
   add_index "issues", ["issue_number"], name: "index_issues_on_issue_number", unique: true
   add_index "issues", ["lat"], name: "index_issues_on_lat"
   add_index "issues", ["lng"], name: "index_issues_on_lng"
   add_index "issues", ["location_name"], name: "index_issues_on_location_name"
+  add_index "issues", ["state"], name: "index_issues_on_state"
   add_index "issues", ["time_completed"], name: "index_issues_on_time_completed"
   add_index "issues", ["time_reported"], name: "index_issues_on_time_reported"
 
