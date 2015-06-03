@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def marker_style(priority, state = nil)
-    if priority.present?
+    if priority.present? && priority > 0
       marker_colour = "green" if priority == 1
       marker_colour = "yellow" if priority == 2
       marker_colour = "red" if priority == 3
@@ -33,6 +33,21 @@ module ApplicationHelper
       max_lat: max_lat, min_lat: min_lat, max_lng: max_lng, min_lng: min_lng,
       max_spread: max_spread
     }
+  end
+
+  def priority_colour(priority)
+
+    case priority
+    when 3
+      '#F99'
+    when 2
+      '#FE9'
+    when 1
+      '#A8F5A8'
+    else
+      '#EEF'
+    end
+
   end
 
 end

@@ -31,7 +31,7 @@
               <td><%= issue.time_reported %></td>
               <td><%= link_to 'Show', issue %></td>
               <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
-              <td><%= link_to '×', issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td style="background-color: <%= priority_colour(issue.priority) %>"><%#= link_to '×', issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             </tr>
           <% end %>
         </tbody>
