@@ -51,6 +51,25 @@
       var icon = "http://maps.google.com/mapfiles/ms/icons/pink.png";
       createMarker(map,[myTitle, myLat, myLng, zIndex, icon]);
     <% end %>
+
+    // var sw = new google.maps.LatLng(<%= coord_stats[:min_lat] %>, <%= coord_stats[:min_lng] %>);
+    // var ne = new google.maps.LatLng(<%= coord_stats[:max_lat] %>, <%= coord_stats[:max_lng] %>);
+    var GLOBE_WIDTH = 256; // a constant in Google's map projection
+    var west = <%= coord_stats[:min_lng] %>;
+    var east = <%= coord_stats[:max_lng] %>;
+    console.log(east);
+    var angle = east - west;
+    if (angle < 0) {
+      angle += 360;
+    }
+    pixelWidth = 1000;
+    var zoom = Math.round(Math.log(pixelWidth * 360 / angle / GLOBE_WIDTH) / Math.LN2);
+    map.setZoom(zoom-2);
+
+    if(map.getZoom()> 15){
+      map.setZoom(15);
+    }
+
   }
 
   function createMarker(map, location) {
@@ -75,6 +94,18 @@
       return marker;
   }
 
+
+
+
+  // map.fitBounds(bounds);
+  // var listener = google.maps.event.addListener(map, "idle", function() { 
+  //   if (map.getZoom() > 16) map.setZoom(16); 
+  //   google.maps.event.removeListener(listener); 
+  // });
+
+
   google.maps.event.addDomListener(window, 'load', initialize);
+
+
 
 </script>
