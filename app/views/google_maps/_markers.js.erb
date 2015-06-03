@@ -30,7 +30,8 @@
           issue.lat,
           issue.lng,
           (issue_counter -= 1),
-          marker_style(issue.priority) 
+          marker_style(issue.priority),
+          formatted_description(issue.title, issue.description)
         ]
       end
     %>
@@ -49,7 +50,8 @@
       var myLng = <%= this_issue.lng %>;
       var zIndex = 10000;
       var icon = "http://maps.google.com/mapfiles/ms/icons/pink.png";
-      createMarker(map,[myTitle, myLat, myLng, zIndex, icon]);
+      var description = <%= this_issue.description %>;
+      createMarker(map,[myTitle, myLat, myLng, zIndex, icon, description]);
     <% end %>
 
     // var sw = new google.maps.LatLng(<%= coord_stats[:min_lat] %>, <%= coord_stats[:min_lng] %>);
@@ -73,7 +75,7 @@
   }
 
   function createMarker(map, location) {
-      var contentString = location[0];
+      var contentString = location[5];
 
       var infowindow = new google.maps.InfoWindow({
           content: contentString

@@ -36,7 +36,6 @@ module ApplicationHelper
   end
 
   def priority_colour(priority)
-
     case priority
     when 3
       '#F99'
@@ -47,7 +46,16 @@ module ApplicationHelper
     else
       '#EEF'
     end
+  end
 
+  def formatted_description(title, text)
+    '<div id="content">' +
+      '<div id="siteNotice">'+'</div>'+
+      '<h3 id="firstHeading" class="firstHeading">' + title + '</h3>'+
+      '<div id="bodyContent">'+
+        '<p>' + text + '</p>' +
+      '</div>' +
+    '</div>'
   end
 
 end
