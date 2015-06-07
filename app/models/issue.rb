@@ -5,9 +5,27 @@ class Issue < ActiveRecord::Base
   before_validation :set_issue_number
   before_validation :coordinate_to_latlng
 
-  # def coordinate
-  #   "#{self.lat}, #{self.lng}"
-  # end
+  state_machine :state, initial: :draft do
+    event :publish do
+      transition [:draft, :archived] => :open
+    end
+    event :archive do
+      transition open: :archived
+    end
+    event :resolve do
+      transition [:open, :reopened] => :resolved
+    end
+    event :reject do
+      transition [:open, :reopened] => :unsolveable
+    end
+    event :close do
+      transition [:resolved, :unsolveable] => :closed
+    end
+    event :reopen do
+      transition [:unsolveable, :resolved, :closed] => :reopened, archived: :open
+    end
+  end
+
   
   private
   
@@ -16,7 +34,9 @@ class Issue < ActiveRecord::Base
   end
 
   def coordinate_to_latlng
-    self.lat = self.coordinate.split(/[\s,]+/)[0]
-    self.lng = self.coordinate.split(/[\s,]+/)[1]
+    if self.coordinate.present?
+      self.lat = self.coordinate.split(/[\s,]+/)[0]
+      self.lng = self.coordinate.split(/[\s,]+/)[1]
+    end
   end
 end
