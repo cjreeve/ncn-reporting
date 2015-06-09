@@ -62,6 +62,43 @@ class IssuesController < ApplicationController
     end
   end
 
+  def publish
+    @issue = Issue.find(params[:id])
+    @issue.publish!
+    @issues = Issue.all.order('lng DESC')
+    render :show
+  end
+
+  def archive
+    @issue = Issue.find(params[:id])
+    @issue.archive!
+    @issues = Issue.all.order('lng DESC')
+    render :show
+  end
+
+  def resolve
+    @issue = Issue.find(params[:id])
+    @issue.resolve!
+    @issues = Issue.all.order('lng DESC')
+    render :show
+  end
+
+  def reject
+    @issue = Issue.find(params[:id])
+    @issue.reject!
+    @issues = Issue.all.order('lng DESC')
+    redirect :show
+  end
+
+  def reopen
+    @issue = Issue.find(params[:id])
+    @issue.reopen!
+    @issues = Issue.all.order('lng DESC')
+    render :show
+  end
+
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_issue

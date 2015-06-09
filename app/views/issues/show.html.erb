@@ -54,10 +54,26 @@
       <strong>Time completed:</strong>
       <%= @issue.time_completed %>
     </p>
+
+    <p>
+      Status: <%= @issue.state %>
+    </p>
+
+    <p>
+      <%= button_to('Publish', [:publish, @issue], method: :put) if @issue.draft? %>
+      <% if @issue.open? || @issue.reopened? %>
+        <%= button_to 'Resolve', [:resolve, @issue], method: :put %>
+        <%= button_to "Can't resolve", [:reject, @issue], method: :put %>
+      <% end %>
+      <%= button_to('Reopen', [:reopen, @issue], method: :put) if @issue.openable? %>
+      <%= (button_to 'Archive', [:archive, @issue], method: :put) if @issue.open? %>
+    </p>
     
     <%= link_to 'Edit', edit_issue_path(@issue) %> |
     <%= link_to 'Index', issues_path %>
     <br><br>
+
+      
 
     
     <div id="map-canvas" style="width: 100%; height: 400px;"></div>
@@ -66,3 +82,4 @@
   </div>
 </article>
 
+ 

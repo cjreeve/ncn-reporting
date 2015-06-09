@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :issues
+  resources :issues 
+  put '/issues/:id/publish' => 'issues#publish', as: 'publish_issue'
+  put '/issues/:id/archive' => 'issues#archive', as: 'archive_issue'
+  put '/issues/:id/resolve' => 'issues#resolve', as: 'resolve_issue'
+  put '/issues/:id/reject' => 'issues#reject', as: 'reject_issue'
+  put '/issues/:id/reopen' => 'issues#reopen', as: 'reopen_issue'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
