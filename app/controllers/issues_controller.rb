@@ -62,41 +62,26 @@ class IssuesController < ApplicationController
     end
   end
 
-  def publish
+  def progress
     @issue = Issue.find(params[:id])
-    @issue.publish!
     @issues = Issue.all.order('lng DESC')
-    render :show
+    if params[:publish] && @issue.publishable?
+      @issue.publish!
+    elsif params[:resolve] && @issue.resolveable?
+      @issue.resolve!
+    elsif params[:close] && @issue.closeable?
+      @issue.close!
+    elsif params[:reopen] && @issue.openable?
+      @issue.reopen!
+    elsif params[:archive] && @issue.archiveale?
+      @issue.archive!
+    elsif params[:reject] && @issue.rejectable?
+      @issue.reject!
+    else
+      redirect_to :show, alert: "Invalid progress request"
+    end
+    redirect_to issue_path
   end
-
-  def archive
-    @issue = Issue.find(params[:id])
-    @issue.archive!
-    @issues = Issue.all.order('lng DESC')
-    render :show
-  end
-
-  def resolve
-    @issue = Issue.find(params[:id])
-    @issue.resolve!
-    @issues = Issue.all.order('lng DESC')
-    render :show
-  end
-
-  def reject
-    @issue = Issue.find(params[:id])
-    @issue.reject!
-    @issues = Issue.all.order('lng DESC')
-    redirect :show
-  end
-
-  def reopen
-    @issue = Issue.find(params[:id])
-    @issue.reopen!
-    @issues = Issue.all.order('lng DESC')
-    render :show
-  end
-
 
 
   private

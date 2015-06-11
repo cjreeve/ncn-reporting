@@ -13,7 +13,6 @@
       end
     %>
 
-
     var mapCenter = new google.maps.LatLng(<%= this_lat %>, <%= this_lng %>);
     var mapOptions = {
       zoom: <%= (1.0/coord_stats[:max_spread]).to_i %>,
@@ -50,16 +49,18 @@
       var myLng = <%= this_issue.lng %>;
       var zIndex = 10000;
       var icon = "http://maps.google.com/mapfiles/ms/icons/pink.png";
-      var description = <%= this_issue.description %>;
+      var description = "<%= this_issue.description %>";
+      <%# binding.pry %>
       createMarker(map,[myTitle, myLat, myLng, zIndex, icon, description]);
     <% end %>
+
 
     // var sw = new google.maps.LatLng(<%= coord_stats[:min_lat] %>, <%= coord_stats[:min_lng] %>);
     // var ne = new google.maps.LatLng(<%= coord_stats[:max_lat] %>, <%= coord_stats[:max_lng] %>);
     var GLOBE_WIDTH = 256; // a constant in Google's map projection
     var west = <%= coord_stats[:min_lng] %>;
     var east = <%= coord_stats[:max_lng] %>;
-    console.log(east);
+    
     var angle = east - west;
     if (angle < 0) {
       angle += 360;

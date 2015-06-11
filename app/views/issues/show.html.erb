@@ -60,13 +60,13 @@
     </p>
 
     <p>
-      <%= button_to('Publish', [:publish, @issue], method: :put) if @issue.draft? %>
+      <%= button_to('Publish', [:progress, @issue], method: :put, params: [:publish], class: 'button tiny success') if @issue.draft? %>
       <% if @issue.open? || @issue.reopened? %>
-        <%= button_to 'Resolve', [:resolve, @issue], method: :put %>
-        <%= button_to "Can't resolve", [:reject, @issue], method: :put %>
+        <%= button_to 'Resolve', [:progress, @issue], method: :put, params: [:resolve], class: 'button tiny success' %>
+        <%= button_to "Can't resolve", [:progress, @issue], method: :put, params: [:reject], class: 'button tiny secondary' %>
       <% end %>
-      <%= button_to('Reopen', [:reopen, @issue], method: :put) if @issue.openable? %>
-      <%= (button_to 'Archive', [:archive, @issue], method: :put) if @issue.open? %>
+      <%= button_to('Reopen', [:progress, @issue], method: :put, params: [:reopen], class: 'button tiny secondary') if @issue.openable? %>
+      <%= (button_to 'Archive', [:progress, @issue], method: :put, params: [:archive], class: 'button tiny secondary') if @issue.open? %>
     </p>
     
     <%= link_to 'Edit', edit_issue_path(@issue) %> |

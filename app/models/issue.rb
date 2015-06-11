@@ -7,7 +7,7 @@ class Issue < ActiveRecord::Base
 
   state_machine :state, initial: :draft do
     event :publish do
-      transition [:draft, :archived] => :open
+      transition draft: :open
     end
     event :archive do
       transition open: :archived
@@ -32,10 +32,29 @@ class Issue < ActiveRecord::Base
     # end
   end
 
+  def publishable?
+    self.draft?
+  end
+
   def openable?
     !self.draft? && !self.open? && !self.reopened?
   end
 
+  def closeable?
+    self.unsolveable? || self.resolved?
+  end
+
+  def rejectable?
+    self.open? || self.reopened?
+  end
+
+  def resolveable?
+    self.open? || self.reopened?
+  end
+
+  def archiveable?
+    self.open?
+  end
   
   private
   
