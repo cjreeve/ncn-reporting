@@ -24,36 +24,34 @@ class Issue < ActiveRecord::Base
     event :reopen do
       transition [:unsolveable, :resolved, :closed] => :reopened, archived: :open
     end
-
-    # state all - [:open, :draft] do
-    #   def openable?
-    #     true
-    #   end
-    # end
   end
 
   def publishable?
-    self.draft?
+    self.state_events.include?(:publish)
   end
 
   def openable?
-    !self.draft? && !self.open? && !self.reopened?
+    self.state_events.include?(:open)
+  end
+
+  def reopenable?
+    self.state_events.include?(:reopen)
   end
 
   def closeable?
-    self.unsolveable? || self.resolved?
+    self.state_events.include?(:close)
   end
 
   def rejectable?
-    self.open? || self.reopened?
+    self.state_events.include?(:reject)
   end
 
   def resolveable?
-    self.open? || self.reopened?
+    self.state_events.include?(:resolve)
   end
 
   def archiveable?
-    self.open?
+    self.state_events.include?(:archive)
   end
   
   private
