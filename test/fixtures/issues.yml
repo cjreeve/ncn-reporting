@@ -5,13 +5,13 @@ one:
   title: MyString
   description: 
   priority: 1
-  time_reported: 2015-05-30 14:47:32
-  time_completed: 2015-05-30 14:47:32
+  reported_at: 2015-05-30 14:47:32
+  completed_at: 2015-05-30 14:47:32
 
 two:
   issue_number: 1
   title: MyString
   description: 
   priority: 1
-  time_reported: 2015-05-30 14:47:32
-  time_completed: 2015-05-30 14:47:32
+  reported_at: 2015-05-30 14:47:32
+  completed_at: 2015-05-30 14:47:32

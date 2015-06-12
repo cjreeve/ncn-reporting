@@ -67,6 +67,7 @@ class IssuesController < ApplicationController
     @issues = Issue.all.order('lng DESC')
     if params[:publish] && @issue.publishable?
       @issue.publish!
+      @issue.published_on = Time.now.in_time_zone('London')
     elsif params[:resolve] && @issue.resolveable?
       @issue.resolve!
     elsif params[:close] && @issue.closeable?
@@ -93,7 +94,7 @@ class IssuesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def issue_params
-      params.require(:issue).permit(:issue_number, :title, :description, :priority, :time_reported,
-        :time_completed, :location_name, :coordinate)
+      params.require(:issue).permit(:issue_number, :title, :description, :priority, :reported_at,
+        :completed_at, :location_name, :coordinate)
     end
 end

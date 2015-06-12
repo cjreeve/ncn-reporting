@@ -5,13 +5,13 @@ class CreateIssues < ActiveRecord::Migration
       t.string :title, null: false, default: ''
       t.text :description, null: false, default: ''
       t.integer :priority
-      t.datetime :time_reported
-      t.datetime :time_completed
+      t.datetime :reported_at
+      t.datetime :completed_at
 
       t.timestamps
     end
     add_index :issues, :issue_number, unique: true
-    add_index :issues, :time_reported
-    add_index :issues, :time_completed
+    add_index :issues, :reported_at
+    add_index :issues, :completed_at
   end
 end
