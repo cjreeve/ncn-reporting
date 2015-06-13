@@ -68,19 +68,27 @@ module ApplicationHelper
     end
   end
 
-  def tab_sort_dir(order, params)
-    (params[:order] == order && params[:dir]) == 'desc' ? :asc : :desc
+  def tab_sort_dir(this_order, current_order, direction)
+    (this_order == current_order && direction == 'desc') ? :asc : :desc
   end
 
-  def tab_arrow(order, params)
-    if params[:order] == order
-      if params[:dir] == 'desc'
-        "&darr;".html_safe
+  def tab_arrow(this_order, current_order, direction)
+    if this_order == current_order
+      if direction == 'desc'
+        "&darr;"
       else
-        "&uarr;".html_safe
+        "&uarr;"
       end
     else
-      "&nbsp".html_safe
+      "&nbsp"
+    end
+  end
+
+  def tab_link(name, this_order, params)
+    current_order = params[:order]
+    direction = params[:dir]
+    link_to issues_path(order: this_order.to_sym, dir: tab_sort_dir(this_order, current_order, direction)) do
+      "#{name} #{ tab_arrow(this_order, current_order, direction) }".html_safe
     end
   end
 
