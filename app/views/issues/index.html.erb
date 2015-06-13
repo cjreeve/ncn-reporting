@@ -10,31 +10,15 @@
       <table>
         <thead>
           <tr>
-            <th title='Sort by issue number' class="<%= tab_selection_style(params) %>">
-              <%= tab_link('No.', 'number', params) %>
-            </th>
-            <th title='Sort by summary of problem'>
-              <%= tab_link('Issue', 'title', params) %>
-            </th>
-            <th title='Sort by location summary'>
-              <%= tab_link('Location', 'location', params) %>
-            </th>
-            <th title='Sort by latitude'>
-              <%= tab_link('Lat', 'lat', params) %>
-            </th>
-            <th title='Sort by longitude'>
-              <%= tab_link('Lng', 'lng', params) %>
-            </th>
-            <th title='Sort by date of last modification or comment'>
-              <%= tab_link('Last updated', 'modified', params) %>
-            </th>
-            <th title='Sort by issue status'>
-              <%= tab_link('Sate', 'state', params) %>
-            </th>
+            <%= table_header('No.', 'issue number', 'number', params) %>
+            <%= table_header('Issue', 'summary of problem', 'title', params) %>
+            <%= table_header('Location', 'location summary', 'location', params) %>
+            <%= table_header('Lat', 'latitude', 'lat', params) %>
+            <%= table_header('Lng', 'longitude', 'lng', params) %>
+            <%= table_header('Last updated', 'date of last modification or comment', 'modified', params) %>
+            <%= table_header('Sate', 'issue status', 'state', params) %>
             <th colspan="2"> </th>
-            <th title='Sort by priority'>
-              <%= tab_link('p', 'priority', params) %>
-            </th>
+            <%= table_header('p', 'priority', 'priority', params) %>
           </tr>
         </thead>
 

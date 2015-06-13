@@ -84,12 +84,21 @@ module ApplicationHelper
     end
   end
 
-  def tab_link(name, this_order, params)
-    current_order = params[:order]
-    direction = params[:dir]
+  def tab_link(name, this_order, current_order, direction)
     link_to issues_path(order: this_order.to_sym, dir: tab_sort_dir(this_order, current_order, direction)) do
       "#{name} #{ tab_arrow(this_order, current_order, direction) }".html_safe
     end
+  end
+
+  def table_header(tab_name, tab_title, order, params)
+    current_order = params[:order]
+    direction = params[:dir]
+    content_tag(
+      :th,
+      tab_link(tab_name, order, current_order, direction),
+      class: (params[:order] == order ? 'selected' : ''),
+      title: 'Sort by ' + tab_title
+    )
   end
 
 end
