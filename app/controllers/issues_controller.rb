@@ -4,7 +4,26 @@ class IssuesController < ApplicationController
   # GET /issues
   # GET /issues.json
   def index
-    @issues = Issue.all.order('issue_number DESC')
+    where_option = ""
+    order = :issue_number
+    direction = :desc
+    order = :issue_number if params[:order] == 'number'
+    order = :title if params[:order] == 'title'
+    order = :location if params[:location] == 'number'
+    order = :lat if params[:order] == 'lat'
+    order = :lng if params[:order] == 'lng'
+    order = :updated_at if params[:order] == 'modified'
+    order = :state if params[:order] == 'state'
+    order = :priority if params[:order] == 'priority'
+
+    if params[:dir] == 'asc'
+      direction = :asc
+    else
+      direction = :desc
+    end
+
+    @issues = Issue.all.order(order => direction)
+    
   end
 
   # GET /issues/1

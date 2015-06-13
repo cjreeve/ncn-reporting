@@ -58,4 +58,30 @@ module ApplicationHelper
     '</div>'
   end
 
+  def tab_selection_style(params)
+    if params[:order] == 'number'
+      if params[:dir] == 'desc'
+        'desc'
+      elsif params[:dir] == 'asc'
+        'asc'
+      end
+    end
+  end
+
+  def tab_sort_dir(order, params)
+    (params[:order] == order && params[:dir]) == 'desc' ? :asc : :desc
+  end
+
+  def tab_arrow(order, params)
+    if params[:order] == order
+      if params[:dir] == 'desc'
+        "&darr;".html_safe
+      else
+        "&uarr;".html_safe
+      end
+    else
+      "&nbsp".html_safe
+    end
+  end
+
 end
