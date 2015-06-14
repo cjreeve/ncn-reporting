@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'issues#index'
+
   resources :issues do
     member do
       put 'progress'
