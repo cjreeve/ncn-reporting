@@ -5,7 +5,8 @@
   <div class='row'>
     <div class='small-12 columns'>
 
-      <h1>Listing issues</h1>
+      <h1>Issues</h1> 
+      &nbsp;-&nbsp;<%= link_to 'create new', new_issue_path, class: 'create-new-issue' %>
 
       <table>
         <thead>
@@ -41,8 +42,6 @@
       </table>
 
       <br>
-
-      <%= link_to 'New Issue', new_issue_path %>
 
       <div id="map-canvas" style="width: 100%; height: 400px;"></div>
 

@@ -96,7 +96,7 @@ module ApplicationHelper
     content_tag(
       :th,
       tab_link(tab_name, order, current_order, direction),
-      class: (params[:order] == order ? 'selected' : ''),
+      class: 'tab ' + (params[:order] == order ? 'selected' : ''),
       title: 'Sort by ' + tab_title
     )
   end
