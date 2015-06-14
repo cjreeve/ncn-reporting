@@ -3,8 +3,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'ruby' '2.2.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
@@ -36,8 +35,14 @@ group :assets do
 end
 
 group :development do
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
   gem 'pry'
   gem 'better_errors'
+end
+
+group :production do
+  gem 'pg'
 end
 
 # Use ActiveModel has_secure_password

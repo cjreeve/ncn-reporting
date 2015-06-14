@@ -78,6 +78,7 @@ GEM
     mime-types (2.6.1)
     minitest (5.7.0)
     multi_json (1.11.0)
+    pg (0.18.2)
     pry (0.10.0)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -151,6 +152,7 @@ DEPENDENCIES
   foundation-rails
   jbuilder (~> 2.0)
   jquery-rails
+  pg
   pry
   rails (= 4.1.6)
   sass-rails
