@@ -1,5 +1,5 @@
 
-<%= render 'google_maps/markers.js', issues: @issues %>
+<%= render('google_maps/markers.js', issues: @issues) if @issues.present? %>
 
 <article class='issue'>
   <div class='row'>
