@@ -86,7 +86,7 @@ class IssuesController < ApplicationController
     @issues = Issue.all.order('lng DESC')
     if params[:publish] && @issue.publishable?
       @issue.publish!
-      @issue.published_on = Time.now.in_time_zone('London')
+      @issue.reported_at = Time.now.in_time_zone('London')
     elsif params[:resolve] && @issue.resolveable?
       @issue.resolve!
     elsif params[:close] && @issue.closeable?
