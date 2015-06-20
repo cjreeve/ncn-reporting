@@ -1,6 +1,8 @@
 class Issue < ActiveRecord::Base
 
   attr_accessor :coordinate
+
+  belongs_to :route
   
   before_validation :set_issue_number
   before_validation :coordinate_to_latlng

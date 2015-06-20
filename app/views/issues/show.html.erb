@@ -56,6 +56,11 @@
     </p>
 
     <p>
+      <strong>Route:</strong>
+      <%= @issue.route.name if @issue.route %>
+    </p>
+
+    <p>
       Status: <%= @issue.state %>
     </p>
 

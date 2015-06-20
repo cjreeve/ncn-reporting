@@ -27,7 +27,15 @@
       </div>
       <div class='medium-6 columns'>
         <%= f.input :coordinate, required: true, label: 'Coordinate (e.g. 51.52009, -0.10309)' %>
-        </div>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='medium-6 columns'>
+        <%= f.input :route_id, collection: @routes, as: :select %>
+      </div>
+      <div class='medium-6 columns'>
+
+      </div>
     </div>
     <%= f.input :description %>
     <%= f.button :submit %>

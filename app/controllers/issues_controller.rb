@@ -22,8 +22,10 @@ class IssuesController < ApplicationController
       direction = :desc
     end
 
-    @issues = Issue.all.order(order => direction)
-    
+    @routes = Route.all.order(:name)
+    options = {}
+    options[:route] = params[:route].to_i if params[:route].present?
+    @issues = Issue.where(options).order(order => direction)
   end
 
   # GET /issues/1
@@ -35,10 +37,12 @@ class IssuesController < ApplicationController
   # GET /issues/new
   def new
     @issue = Issue.new
+    @routes = Route.all.order(:name)
   end
 
   # GET /issues/1/edit
   def edit
+    @routes = Route.all.order(:name)
   end
 
   # POST /issues
@@ -114,6 +118,6 @@ class IssuesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def issue_params
       params.require(:issue).permit(:issue_number, :title, :description, :priority, :reported_at,
-        :completed_at, :location_name, :coordinate)
+        :completed_at, :location_name, :coordinate, :route_id)
     end
 end

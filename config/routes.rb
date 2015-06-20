@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :routes
+
   root 'issues#index'
 
   resources :issues do

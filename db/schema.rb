@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150612182047) do
+ActiveRecord::Schema.define(version: 20150617215438) do
 
   create_table "issues", force: true do |t|
     t.integer  "issue_number"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20150612182047) do
     t.float    "lng"
     t.string   "state",         default: "draft", null: false
     t.string   "location_name", default: "",      null: false
+    t.integer  "route_id"
   end
 
   add_index "issues", ["completed_at"], name: "index_issues_on_completed_at"
@@ -34,6 +35,15 @@ ActiveRecord::Schema.define(version: 20150612182047) do
   add_index "issues", ["lng"], name: "index_issues_on_lng"
   add_index "issues", ["location_name"], name: "index_issues_on_location_name"
   add_index "issues", ["reported_at"], name: "index_issues_on_reported_at"
+  add_index "issues", ["route_id"], name: "index_issues_on_route_id"
   add_index "issues", ["state"], name: "index_issues_on_state"
+
+  create_table "routes", force: true do |t|
+    t.string   "name",       default: "", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "routes", ["name"], name: "index_routes_on_name", unique: true
 
 end

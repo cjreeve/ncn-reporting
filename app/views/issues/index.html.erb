@@ -4,8 +4,27 @@
 <article class='issue'>
   <div class='row'>
     <div class='small-12 columns'>
+      <%#= simple_form_for(:routes, url: issues_path, method: :get) do |f| %>
+        <%#= f.input :id, collection: @routes, label: false, input_html: { name: :routes } %>
+      <%# end %>
+      <ul class='small-block-grid-1 medium-block-grid-4 issue-filters'>
+        <li>
+          <%= form_tag issues_path, method: :get do %>
+            <%= select_tag(
+              :route,
+              options_for_select(
+                @routes.collect{ |r| [r.name, r.id] },
+                selected: params[:route]),
+              {class: 'small', prompt: 'all routes'},
+            )%>
+            <%#= select_tag :routes,
+                 options_from_collection_for_select(@routes, :id, :name),
+                 multiple: true, class: 'multiselectuser' %>
+          <% end %>
+        </li>
+      </ul>
 
-      <h1>Issues</h1> 
+      <h1>Issues</h1>
       &nbsp;-&nbsp;<%= link_to 'create new', new_issue_path, class: 'create-new-issue' %>
 
       <table>
