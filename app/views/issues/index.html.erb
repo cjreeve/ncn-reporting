@@ -13,13 +13,21 @@
             <%= select_tag(
               :route,
               options_for_select(
-                @routes.collect{ |r| [r.name, r.id] },
+                @routes.collect{ |x| [x.name, x.id] },
                 selected: params[:route]),
-              {class: 'small', prompt: 'all routes'},
+              {class: '', prompt: 'all routes'},
             )%>
-            <%#= select_tag :routes,
-                 options_from_collection_for_select(@routes, :id, :name),
-                 multiple: true, class: 'multiselectuser' %>
+          <% end %>
+        </li>
+        <li>
+          <%= form_tag issues_path, method: :get do %>
+            <%= select_tag(
+              :state,
+              options_for_select(
+                ["all"] + @states,
+                selected: params[:state]),
+              {prompt: 'status (default)'},
+            )%>
           <% end %>
         </li>
       </ul>

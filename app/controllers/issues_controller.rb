@@ -24,8 +24,16 @@ class IssuesController < ApplicationController
 
     @routes = Route.all.order(:name)
     options = {}
+    exclusions = {}
+    @states = Issue.state_machine.states.collect(&:name)
+
     options[:route] = params[:route].to_i if params[:route].present?
-    @issues = Issue.where(options).order(order => direction)
+    if params[:state].present? && @states.include?(params[:state].to_sym)
+      options[:state] = params[:state]
+    else
+      exclusions[:state] = ['draft', 'closed'] unless params[:state] == "all"
+    end
+    @issues = Issue.where(options).where.not(exclusions).order(order => direction)
   end
 
   # GET /issues/1
