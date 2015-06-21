@@ -8,27 +8,44 @@
         <%#= f.input :id, collection: @routes, label: false, input_html: { name: :routes } %>
       <%# end %>
       <ul class='small-block-grid-1 medium-block-grid-4 issue-filters'>
-        <li>
-          <%= form_tag issues_path, method: :get do %>
-            <%= select_tag(
-              :route,
-              options_for_select(
-                @routes.collect{ |x| [x.name, x.id] },
-                selected: params[:route]),
-              {class: '', prompt: 'all routes'},
-            )%>
-          <% end %>
+        <li><%# binding.pry %>
+          <a class="button select" data-dropdown="routeSelection" aria-controls="routeSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_route ? @current_route.name + " ▼" : "all routes ▼" %></a>
+          <ul id="routeSelection" class="f-dropdown" data-dropdown-content tabindex="-1" aria-hidden="true" aria-autoclose="false" tabindex="-1">
+            <% unless @current_route.nil? %>
+              <li>
+                <%= link_to "all routes", issues_path(the_params(params, [:route, nil])) %>
+              </li>
+            <% end %>
+            <% @routes.each do |route| %>
+              <% unless @current_route == route %>
+                <li>
+                  <%= link_to route.name, issues_path(the_params(params, [:route, route.id])) %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
         </li>
         <li>
-          <%= form_tag issues_path, method: :get do %>
-            <%= select_tag(
-              :state,
-              options_for_select(
-                ["all"] + @states,
-                selected: params[:state]),
-              {prompt: 'status (default)'},
-            )%>
-          <% end %>
+          <a class="button select" data-dropdown="autoCloseExample" aria-controls="autoCloseExample" data-options="is_hover:true" aria-expanded="false"><%= @current_state ? @current_state + " ▼" : "status (default) ▼" %></a>
+          <ul id="autoCloseExample" class="f-dropdown" data-dropdown-content tabindex="-1" aria-hidden="true" aria-autoclose="false" tabindex="-1">
+            <% unless @current_state.nil? %>
+              <li>
+                <%= link_to "default", issues_path(the_params(params, [:state, nil])) %>
+              </li>
+            <% end %>
+            <% unless @current_state && @current_state == "all" %>
+              <li>
+                <%= link_to "all", issues_path(the_params(params, [:state, "all"])) %>
+              </li>
+            <% end %>
+            <% @states.each do |state| %>
+              <% unless @current_state && @current_state == state %>
+                <li>
+                  <%= link_to state, issues_path(the_params(params, [:state, state])) %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
         </li>
       </ul>
 

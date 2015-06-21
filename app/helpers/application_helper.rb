@@ -84,8 +84,10 @@ module ApplicationHelper
     end
   end
 
-  def tab_link(name, this_order, current_order, direction)
-    link_to issues_path(order: this_order.to_sym, dir: tab_sort_dir(this_order, current_order, direction)) do
+  def tab_link(name, this_order, current_order, direction, the_params)
+    the_params[:order] = this_order.to_sym
+    the_params[:dir] = tab_sort_dir(this_order, current_order, direction)
+    link_to issues_path(the_params) do
       "#{name} #{ tab_arrow(this_order, current_order, direction) }".html_safe
     end
   end
@@ -95,10 +97,20 @@ module ApplicationHelper
     direction = params[:dir]
     content_tag(
       :th,
-      tab_link(tab_name, order, current_order, direction),
+      tab_link(tab_name, order, current_order, direction, the_params(params)),
       class: 'tab ' + (params[:order] == order ? 'selected' : ''),
       title: 'Sort by ' + tab_title
     )
+  end
+
+  def the_params(params, new_param = nil)
+    the_params = {}
+    the_params[:dir] = params[:dir] if params[:dir].present?
+    the_params[:order] = params[:order] if params[:order].present?
+    the_params[:route] = params[:route] if params[:route].present?
+    the_params[:state] = params[:state] if params[:state].present?
+    the_params[new_param[0]] = new_param[1] if new_param.present?
+    the_params
   end
 
 end

@@ -27,13 +27,20 @@ class IssuesController < ApplicationController
     exclusions = {}
     @states = Issue.state_machine.states.collect(&:name)
 
-    options[:route] = params[:route].to_i if params[:route].present?
+    options[:route] = params[:route].to_i if params[:route].present? && params[:route] != "all"
     if params[:state].present? && @states.include?(params[:state].to_sym)
       options[:state] = params[:state]
     else
       exclusions[:state] = ['draft', 'closed'] unless params[:state] == "all"
     end
     @issues = Issue.where(options).where.not(exclusions).order(order => direction)
+
+    @current_route = (params[:route].present? && @routes.collect(&:id).include?(params[:route].to_i)) ? Route.find(params[:route].to_i) : nil
+    @current_state = (params[:state].present? && @states.include?(params[:state].to_sym)) ? params[:state] : nil
+    @current_state = "all" if params[:state] == "all"
+
+    # @current_params = the_params(params)
+    # binding.pry
   end
 
   # GET /issues/1

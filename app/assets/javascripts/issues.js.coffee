@@ -1,9 +1,9 @@
-jQuery ->
+# jQuery ->
 
-  $(document).ready ->
+#   $(document).ready ->
 
-    if $('.issue-filters').length > 0
+#     if $('.issue-filters').length > 0
 
-      $('.issue-filters select').on 'change', ->
+#       $('.issue-filters select').on 'change', ->
 
-        $(this).closest('form').submit();
+#         $(this).closest('form').submit();

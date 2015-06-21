@@ -65,7 +65,7 @@
     if (angle < 0) {
       angle += 360;
     }
-    pixelWidth = 1000;
+    pixelWidth = 600;
     var zoom = Math.round(Math.log(pixelWidth * 360 / angle / GLOBE_WIDTH) / Math.LN2);
     map.setZoom(zoom-2);
 
