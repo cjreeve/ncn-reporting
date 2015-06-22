@@ -6357,6 +6357,14 @@ article.issue .tab:hover {
     text-decoration: none; }
 article.issue .issue-filters .f-dropdown {
   max-width: 178px; }
+article.issue .issue-images {
+  position: relative; }
+  article.issue .issue-images .caption {
+    position: absolute;
+    bottom: 0;
+    background-color: rgba(250, 250, 250, 0.5);
+    width: 100%;
+    padding: 0 0.625rem; }
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Set default font family to sans-serif.
