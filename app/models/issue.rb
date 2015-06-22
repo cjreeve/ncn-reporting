@@ -5,7 +5,7 @@ class Issue < ActiveRecord::Base
   belongs_to :route
   
   before_validation :set_issue_number
-  before_validation :coordinate_to_latlng
+  after_validation :coordinate_to_latlng
 
   state_machine :state, initial: :draft do
     event :publish do

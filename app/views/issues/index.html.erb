@@ -1,5 +1,5 @@
 
-<%= render('google_maps/markers.js', issues: @issues) if @issues.present? %>
+<%= render('google_maps/markers.js', issues: @issues.where.not(lat: nil, lng: nil)) if @issues.present? %>
 
 <article class='issue'>
   <div class='row'>
@@ -79,7 +79,7 @@
               <td><%= issue.state %></td>
               <td><%= link_to 'Show', issue %></td>
               <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
-              <td style="background-color: <%= priority_colour(issue.priority) %>"><%#= link_to '×', issue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td style="background-color: <%= priority_colour(issue.priority) %>"> </td>
             </tr>
           <% end %>
         </tbody>

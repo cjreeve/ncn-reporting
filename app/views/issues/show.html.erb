@@ -1,4 +1,4 @@
-<%= render 'google_maps/markers.js', issues: @issues, this_issue: @issue %>
+<%= render 'google_maps/markers.js', issues: @issues.where.not(lat: nil, lng: nil), this_issue: @issue %>
 
 
 <article class='issue'>
@@ -94,6 +94,7 @@
     
     <%= link_to 'Edit', edit_issue_path(@issue) %> |
     <%= link_to 'Index', issues_path %>
+    <%= link_to 'delete', @issue, method: :delete, data: { confirm: 'Are you sure?' }, style: "float: right" %>
     <br><br>
 
       
