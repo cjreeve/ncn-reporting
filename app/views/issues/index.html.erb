@@ -7,7 +7,7 @@
       <%#= simple_form_for(:routes, url: issues_path, method: :get) do |f| %>
         <%#= f.input :id, collection: @routes, label: false, input_html: { name: :routes } %>
       <%# end %>
-      <ul class='small-block-grid-1 medium-block-grid-4 issue-filters'>
+      <ul class='small-block-grid-1 medium-block-grid-4 large-block-grid-5 issue-filters'>
         <li><%# binding.pry %>
           <a class="button select" data-dropdown="routeSelection" aria-controls="routeSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_route ? @current_route.name + " ▼" : "all routes ▼" %></a>
           <ul id="routeSelection" class="f-dropdown" data-dropdown-content tabindex="-1" aria-hidden="true" aria-autoclose="false" tabindex="-1">

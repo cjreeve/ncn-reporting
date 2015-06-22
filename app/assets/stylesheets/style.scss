@@ -4,5 +4,13 @@ html body{
       text-decoration: underline;
     }
   }
-
+  .button.select{
+    background-color: $light-blue-grey;
+    &:hover{
+      background-color: darken($light-blue-grey, 6);
+    }
+    width: 100%;
+    height: rem-calc(50);
+    padding: rem-calc(15 3);
+  }
 }
