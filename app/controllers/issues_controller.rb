@@ -52,12 +52,16 @@ class IssuesController < ApplicationController
   # GET /issues/new
   def new
     @issue = Issue.new
+    @issue.images.build
     @routes = Route.all.order(:name)
+    @image = Image.new
   end
 
   # GET /issues/1/edit
   def edit
     @routes = Route.all.order(:name)
+    @routes = Route.all.order(:name)
+    @image = Image.new
   end
 
   # POST /issues

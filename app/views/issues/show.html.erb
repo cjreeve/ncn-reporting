@@ -39,6 +39,11 @@
       <strong>Description:</strong>
       <%= @issue.description %>
     </p>
+
+  </div>
+</div>
+<div class='row'>
+  <div class='medium-6 columns'>
     
     <p>
       <strong>Priority:</strong>
@@ -63,6 +68,21 @@
     <p>
       Status: <%= @issue.state %>
     </p>
+  </div>
+  <div class='medium-6 columns'>
+    <% if @issue.images.present? %>
+      <div class='issue-images'>
+        <%= image_tag @issue.images.first.url %>
+        <div class='caption'>
+          <%= @issue.images.first.caption %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class='row'>
+  <div class='small-12 columns'>
 
     <p>
       <%= 

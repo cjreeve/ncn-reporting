@@ -3,6 +3,9 @@ class Issue < ActiveRecord::Base
   attr_accessor :coordinate
 
   belongs_to :route
+  has_many :images
+
+  accepts_nested_attributes_for(:images, allow_destroy: true, reject_if: :all_blank)
   
   before_validation :set_issue_number
   after_validation :coordinate_to_latlng

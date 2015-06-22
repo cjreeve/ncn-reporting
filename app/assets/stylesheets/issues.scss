@@ -18,4 +18,14 @@ article.issue{
       max-width: 178px;
     }
   }
+  .issue-images{
+    position: relative;
+    .caption{
+      position: absolute;
+      bottom: 0;
+      background-color: rgba(250,250,250,0.5);
+      width: 100%;
+      padding: rem-calc(0 10);
+    }
+  }
 }

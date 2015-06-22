@@ -1,5 +1,5 @@
 
-  <%= simple_form_for(@issue) do |f| %>
+  <%= simple_form_for @issue do |f| %>
     <% if @issue.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@issue.errors.count, "error") %> prohibited this issue from being saved:</h2>
@@ -37,6 +37,16 @@
 
       </div>
     </div>
+    <%= f.simple_fields_for :images do |g|  %>
+      <div class='row'>
+        <div class='medium-6 columns'>
+          <%= g.input :url %>
+        </div>
+        <div class='medium-6 columns'>
+          <%= g.input :caption %>
+        </div>
+      </div>
+    <% end %>
     <%= f.input :description %>
     <%= f.button :submit %>
   <% end %>
