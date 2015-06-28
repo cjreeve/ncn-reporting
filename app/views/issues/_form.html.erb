@@ -27,7 +27,7 @@
       </div>
       <div class='medium-6 columns'>
         <%= f.input :coordinate, label: 'Coordinate (e.g. 51.52009, -0.10309)' %>
-        <a href="#" id="openCoordModal">Find your coordinate</a>
+        <%= link_to 'Find your coordinate', '#', id: "openCoordModal", class: 'input-prompt' %>
       </div>
     </div>
     <div class='row'>
@@ -35,8 +35,6 @@
         <%= f.input :route_id, collection: @routes, as: :select %>
       </div>
       <div class='medium-6 columns'>
-
-        
 
         <div id="myCoordModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
           <p class='show-for-small-only'>
@@ -55,10 +53,12 @@
     <%= f.simple_fields_for :images do |g|  %>
       <div class='row'>
         <div class='medium-6 columns'>
-          <%= g.input :url %>
+          <%= g.input :url, label: 'Photo url' %>
+          <%= link_to 'photos.google.com', 'https://photos.google.com/', class: 'input-prompt', include: '_blank' %>
+          <span data-tooltip aria-haspopup="true" class="has-tip input-prompt" title="You can upload photos to the volunteers google acoount. Once uploaded, click the share icon and get the get/copy the shareable link. Then paste the image url here.">(?)</span>
         </div>
         <div class='medium-6 columns'>
-          <%= g.input :caption %>
+          <%= g.input :caption, label: 'Photo caption' %>
         </div>
       </div>
     <% end %>

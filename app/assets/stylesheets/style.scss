@@ -14,7 +14,7 @@ html body{
     padding: rem-calc(15 3);
   }
 
-  textarea{
+  textarea, select{
     margin-bottom: rem-calc(16);
   }
 
@@ -26,5 +26,11 @@ html body{
       background: none;
       color: red;
     }
+  }
+
+  .input-prompt{
+    display: inline-block;
+    margin-bottom: rem-calc(10);
+    font-size: rem-calc(12);
   }
 }
