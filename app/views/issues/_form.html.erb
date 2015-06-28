@@ -15,10 +15,10 @@
     <%#= f.input :issue_number %>
     <div class='row'>
       <div class='medium-6 columns'>
-        <%= f.input :title, required: true %>
+        <%= f.input :title, required: true, label: 'Title (e.g. sign turned)' %>
       </div>
       <div class='medium-6 columns'>
-        <%= f.input :location_name, label: 'Location' %>
+        <%= f.input :location_name, label: 'Location (e.g. street name)' %>
       </div>
     </div>
     <div class='row'>
