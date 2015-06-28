@@ -26,7 +26,8 @@
         <%= f.input :priority, input_html: { min: 0, max: 3 } %>
       </div>
       <div class='medium-6 columns'>
-        <%= f.input :coordinate, required: true, label: 'Coordinate (e.g. 51.52009, -0.10309)' %>
+        <%= f.input :coordinate, label: 'Coordinate (e.g. 51.52009, -0.10309)' %>
+        <a href="#" id="openCoordModal">Find your coordinate</a>
       </div>
     </div>
     <div class='row'>
@@ -35,10 +36,15 @@
       </div>
       <div class='medium-6 columns'>
 
-        <a href="#" id="openCoordModal">Find your current coordinate</a>
+        
 
         <div id="myCoordModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-          <h2 id="modalTitle">Double Click for your coordinate then close the window</h2>
+          <p class='show-for-small-only'>
+            Tap the location and close
+          </p>
+          <p class='show-for-medium-up'>
+            Click the location and close
+          </p>
 
           <div id="coord-map-canvas" style="height: 400px;"></div>
           <a class="close-reveal-modal" aria-label="Close">&#215;</a>

@@ -13,4 +13,18 @@ html body{
     height: rem-calc(50);
     padding: rem-calc(15 3);
   }
+
+  textarea{
+    margin-bottom: rem-calc(16);
+  }
+
+  .required.error{
+    input{
+      border: rem-calc(1) solid red;
+    }
+    .error{
+      background: none;
+      color: red;
+    }
+  }
 }

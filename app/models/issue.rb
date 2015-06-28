@@ -8,6 +8,9 @@ class Issue < ActiveRecord::Base
   accepts_nested_attributes_for(:images, allow_destroy: true, reject_if: :all_blank)
   
   before_validation :set_issue_number
+
+  validates :title, presence: true
+
   after_validation :coordinate_to_latlng
 
   state_machine :state, initial: :draft do
