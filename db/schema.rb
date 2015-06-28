@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150622213224) do
+ActiveRecord::Schema.define(version: 20150628214959) do
 
   create_table "images", force: true do |t|
     t.string   "url"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20150622213224) do
     t.string   "state",         default: "draft", null: false
     t.string   "location_name", default: "",      null: false
     t.integer  "route_id"
+    t.string   "url"
   end
 
   add_index "issues", ["completed_at"], name: "index_issues_on_completed_at"
