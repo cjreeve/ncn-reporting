@@ -7,19 +7,26 @@
     
     <p id="notice"><%= notice %></p>
     
-    <p>
-      <strong>Issue number:</strong>
-      <%= @issue.issue_number %>
-    </p>
+
     
     <div class='row'>
       <div class='medium-6 columns'>
+        <p>
+          <strong>Issue number:</strong>
+          <%= @issue.issue_number %>
+        </p>
+        
         <p>
           <strong>Title:</strong>
           <%= @issue.title %>
         </p>
       </div>
       <div class='medium-6 columns'>
+        <p>
+          <strong>Priority:</strong>
+          <%= @issue.priority %>
+        </p>
+
         <p>
           <strong>Location:</strong>
           <%= @issue.location_name %>
@@ -56,12 +63,7 @@
         <b>url: </b><%= link_to general_url, @issue.url, target: '_blank' %>
       </p>
     <% end %>
-    
-    <p>
-      <strong>Priority:</strong>
-      <%= @issue.priority %>
-    </p>
-    
+
     <p>
       <strong>Time reported:</strong>
       <%= @issue.reported_at %>
