@@ -6346,13 +6346,17 @@ html body .button.select {
   padding: 0.9375rem 0.1875rem; }
   html body .button.select:hover {
     background-color: #a7a7d3; }
-html body textarea {
+html body textarea, html body select {
   margin-bottom: 1rem; }
 html body .required.error input {
   border: 0.0625rem solid red; }
 html body .required.error .error {
   background: none;
   color: red; }
+html body .input-prompt {
+  display: inline-block;
+  margin-bottom: 0.625rem;
+  font-size: 0.75rem; }
 
 article.issue h1 {
   display: inline-block; }
@@ -6374,10 +6378,8 @@ article.issue .issue-images {
     padding: 0 0.625rem; }
 article.issue #issue_coordinate {
   margin-bottom: 0; }
-article.issue #openCoordModal {
-  display: inline-block;
-  margin-bottom: 0.625rem;
-  font-size: 0.75rem; }
+article.issue #issue_images_attributes_0_url {
+  margin-bottom: 0; }
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Set default font family to sans-serif.

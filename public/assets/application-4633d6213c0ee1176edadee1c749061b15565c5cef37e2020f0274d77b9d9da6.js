@@ -17171,14 +17171,16 @@ $(document).ready(function() {
 
     var lat = 51.517106;
     var lng = -0.113615;
+    var zoom = 11;
 
     if (myCoord) {
       lat = myCoord.latitude;
       lng = myCoord.longitude;
+      zoom = 17;
     } 
 
     var mapOptions = {
-      zoom: 16,
+      zoom: zoom,
       center: new google.maps.LatLng(lat, lng)
     };
     coordFinderMap = new google.maps.Map(document.getElementById('coord-map-canvas'),
