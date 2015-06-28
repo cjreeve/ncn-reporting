@@ -35,6 +35,15 @@
       </div>
       <div class='medium-6 columns'>
 
+        <a href="#" id="openCoordModal">Find your current coordinate</a>
+
+        <div id="myCoordModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+          <h2 id="modalTitle">Double Click for your coordinate then close the window</h2>
+
+          <div id="coord-map-canvas" style="height: 400px;"></div>
+          <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+        </div>
+
       </div>
     </div>
     <%= f.simple_fields_for :images do |g|  %>
