@@ -1,0 +1,15 @@
+<%= simple_form_for(@area) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="row form-inputs">
+    <div class='medium-6 columns'>
+      <%= f.input :name %>
+    </div>
+  </div>
+
+  <div class="row form-actions">
+    <div class='medium-6 columns'>
+      <%= f.button :submit %>
+    </div>
+  </div>
+<% end %>

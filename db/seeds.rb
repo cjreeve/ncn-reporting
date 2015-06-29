@@ -5,3 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+%w{South-West South-East South-Central Central North North-East North-West}.each do |area_name|
+  Area.find_or_create_by(name: area_name)
+end

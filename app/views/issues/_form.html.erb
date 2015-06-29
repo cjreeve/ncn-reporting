@@ -29,10 +29,11 @@
         <%= f.input :coordinate, label: 'Coordinate (e.g. 51.52009, -0.10309)' %>
         <%= link_to 'Find your coordinate', '#', id: "openCoordModal", class: 'input-prompt' %>
       </div>
-    </div>
-    <div class='row'>
       <div class='medium-6 columns'>
         <%= f.input :route_id, collection: @routes, as: :select %>
+      </div>
+      <div class='medium-6 columns'>
+        <%= f.input :area_id, collection: @areas, as: :select %>
       </div>
       <div class='medium-6 columns'>
 

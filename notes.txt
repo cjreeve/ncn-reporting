@@ -14,9 +14,14 @@ Comment: belogs_to:issue:user:route:region
 Image: src, title(o), description(o)
 State: draft, submitted, acknowledged, in-progress, resolved, re-opened, archived, deleted
 Location: name, coord, url
+
 Route: Name, url to gpx track, has:comments
        > rails g scaffold Route name:string
        > rails g migration AddRouteRefToIssues route:references
+Area: Name
+       > rails g scaffold Area name:string 
+       > rails g migration AddAreaRefToIssues area:references
+
 Region: Name, comments
 Roll: name
 

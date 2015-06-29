@@ -3,6 +3,7 @@ class Issue < ActiveRecord::Base
   attr_accessor :coordinate
 
   belongs_to :route
+  belongs_to :area
   has_many :images
 
   accepts_nested_attributes_for(:images, allow_destroy: true, reject_if: :all_blank)

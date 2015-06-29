@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150628214959) do
+ActiveRecord::Schema.define(version: 20150629212253) do
+
+  create_table "areas", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "images", force: true do |t|
     t.string   "url"
@@ -38,8 +44,10 @@ ActiveRecord::Schema.define(version: 20150628214959) do
     t.string   "location_name", default: "",      null: false
     t.integer  "route_id"
     t.string   "url"
+    t.integer  "area_id"
   end
 
+  add_index "issues", ["area_id"], name: "index_issues_on_area_id"
   add_index "issues", ["completed_at"], name: "index_issues_on_completed_at"
   add_index "issues", ["issue_number"], name: "index_issues_on_issue_number", unique: true
   add_index "issues", ["lat"], name: "index_issues_on_lat"

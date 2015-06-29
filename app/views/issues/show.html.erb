@@ -76,7 +76,12 @@
 
     <p>
       <strong>Route:</strong>
-      <%= @issue.route.name if @issue.route %>
+      <%= @issue.route.name if @issue.route.present? %>
+    </p>
+
+    <p>
+      <strong>area:</strong>
+      <%= @issue.area.name if @issue.area.present? %>
     </p>
 
     <p>

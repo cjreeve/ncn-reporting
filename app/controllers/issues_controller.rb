@@ -23,11 +23,13 @@ class IssuesController < ApplicationController
     end
 
     @routes = Route.all.order(:name)
+    @areas = Area.all.order(:name)
     options = {}
     exclusions = {}
     @states = Issue.state_machine.states.collect(&:name)
 
     options[:route] = params[:route].to_i if params[:route].present? && params[:route] != "all"
+    options[:area] = params[:area].to_i if params[:area].present? && params[:area] != "all"
     if params[:state].present? && @states.include?(params[:state].to_sym)
       options[:state] = params[:state]
     else
@@ -36,8 +38,10 @@ class IssuesController < ApplicationController
     @issues = Issue.where(options).where.not(exclusions).order(order => direction)
 
     @current_route = (params[:route].present? && @routes.collect(&:id).include?(params[:route].to_i)) ? Route.find(params[:route].to_i) : nil
+    @current_area = (params[:area].present? && @areas.collect(&:id).include?(params[:area].to_i)) ? Area.find(params[:area].to_i) : nil
     @current_state = (params[:state].present? && @states.include?(params[:state].to_sym)) ? params[:state] : nil
     @current_state = "all" if params[:state] == "all"
+
 
     # @current_params = the_params(params)
     # binding.pry
@@ -61,6 +65,7 @@ class IssuesController < ApplicationController
   def edit
     @routes = Route.all.order(:name)
     @routes = Route.all.order(:name)
+    @areas = Area.all.order(:name)
     @image = Image.new
   end
 
@@ -137,6 +142,7 @@ class IssuesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def issue_params
       params.require(:issue).permit(:issue_number, :title, :description, :priority, :reported_at,
-        :completed_at, :location_name, :coordinate, :route_id, :url, images_attributes: [:id, :url, :caption, :_destroy])
+        :completed_at, :location_name, :coordinate, :route_id, :area_id, :url, 
+        images_attributes: [:id, :url, :caption, :_destroy])
     end
 end
