@@ -108,6 +108,7 @@ module ApplicationHelper
     the_params[:dir] = params[:dir] if params[:dir].present?
     the_params[:order] = params[:order] if params[:order].present?
     the_params[:route] = params[:route] if params[:route].present?
+    the_params[:area] = params[:area] if params[:area].present?
     the_params[:state] = params[:state] if params[:state].present?
     the_params[new_param[0]] = new_param[1] if new_param.present?
     the_params
