@@ -6357,6 +6357,10 @@ html body .input-prompt {
   display: inline-block;
   margin-bottom: 0.625rem;
   font-size: 0.75rem; }
+html body .f-dropdown {
+  outline: none; }
+html body a.button.select {
+  text-decoration: none; }
 
 article.issue h1 {
   display: inline-block; }
