@@ -110,9 +110,9 @@
               <td><%= issue.issue_number %></td>
               <td><%= issue.title %></td>
               <td><%= issue.location_name[0..50] %></td>
-              <td><%= sprintf("%1.4f", issue.lat) %></td>
-              <td><%= sprintf("%1.4f", issue.lng) %></td>
-              <td><%= issue.updated_at.strftime("%d-%b-%Y") %></td>
+              <td><%= sprintf("%1.4f", issue.lat) if issue.lat %></td>
+              <td><%= sprintf("%1.4f", issue.lng) if issue.lng %></td>
+              <td><%= issue.updated_at.strftime("%d-%b-%Y") if issue.updated_at %></td>
               <td><%= issue.state %></td>
               <td><%= link_to 'Show', issue %></td>
               <td><%= link_to 'Edit', edit_issue_path(issue) %></td>

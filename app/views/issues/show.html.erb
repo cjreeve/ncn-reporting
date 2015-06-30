@@ -66,12 +66,12 @@
 
     <p>
       <strong>Time reported:</strong>
-      <%= @issue.reported_at %>
+      <%= @issue.reported_at.strftime("%d %b %Y") if @issue.reported_at %>
     </p>
     
     <p>
       <strong>Time completed:</strong>
-      <%= @issue.completed_at %>
+      <%= @issue.completed_at.strftime("%d %b %Y") if @issue.completed_at %>
     </p>
 
     <p>

@@ -5,8 +5,46 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+[["NCN1", "NCN 1"], ["NCN4", "NCN 4"], ["NCN13", "NCN 13"], ["NCN20", "NCN 20"], ["NCN21", "NCN 21"]].each do |route_names|
+  route = Route.find_by(name: route_names[0])
+  if route
+    route.name = route_names[1]
+    route.save
+  end
+end
 
+
+["NCN 1", "NCN 4", "NCN 6", "NCN 12", "NCN 13", "NCN 20", "NCN 61", "NCN 125", "NCN 136", "NCN 208", "NCN 425"].each do |route_name|
+  Route.find_or_create_by(name: route_name)
+end
 
 %w{South-West South-East South-Central Central North North-East North-West}.each do |area_name|
   Area.find_or_create_by(name: area_name)
 end
+
+
+
+area = Area.find_by_name('South-West')
+route = Route.find_by(name: "NCN 20")
+
+issue = Issue.find_or_create_by(title: "Sign turned", lat: "51.456840", lng: "-0.192560")
+issue.route = route
+issue.area = area
+issue.images << Image.new unless issue.images.present?
+issue.images[0].url = "https://lh3.googleusercontent.com/CBj_HjX3jAV6h2g8W7its3ioBdSXUdtwQ64naDDQXjc=w602-h802-no"
+issue.description = ""
+issue.priority = 2
+issue.reported_at = "28.05.2015"
+issue.state = "open"
+issue.save
+
+issue = Issue.find_or_create_by(title: "Graffiti on signs", lat: "51.438167", lng: "-0.189556")
+issue.route = route
+issue.area = area
+issue.images << Image.new unless issue.images.present?
+issue.images[0].url = "https://lh3.googleusercontent.com/W-I56RxNYyo2geeGYasQJ0yZ66vxE-moBagZof6PIr0=w602-h802-no"
+issue.description = ""
+issue.priority = 2
+issue.reported_at = "28.05.2015"
+issue.state = "open"
+issue.save

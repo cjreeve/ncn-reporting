@@ -49,6 +49,8 @@ module ApplicationHelper
   end
 
   def formatted_description(title, text)
+    title ||= ''
+    text ||= ''
     '<div id="content">' +
       '<div id="siteNotice">'+'</div>'+
       '<h3 id="firstHeading" class="firstHeading">' + title + '</h3>'+

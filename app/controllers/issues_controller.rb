@@ -22,7 +22,7 @@ class IssuesController < ApplicationController
       direction = :desc
     end
 
-    @routes = Route.all.order(:name)
+    @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub(/[^0-9 ]/i, '').to_i }
     @areas = Area.all.order(:name)
     options = {}
     exclusions = {}
