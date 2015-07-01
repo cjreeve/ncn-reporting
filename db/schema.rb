@@ -11,13 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150629212253) do
+ActiveRecord::Schema.define(version: 20150701220346) do
 
   create_table "areas", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "categories", force: true do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "categories", ["name"], name: "index_categories_on_name", unique: true
+
+  create_table "category_problem_selections", force: true do |t|
+    t.integer  "category_id"
+    t.integer  "problem_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "category_problem_selections", ["category_id"], name: "index_category_problem_selections_on_category_id"
+  add_index "category_problem_selections", ["problem_id"], name: "index_category_problem_selections_on_problem_id"
 
   create_table "images", force: true do |t|
     t.string   "url"
@@ -45,17 +63,29 @@ ActiveRecord::Schema.define(version: 20150629212253) do
     t.integer  "route_id"
     t.string   "url"
     t.integer  "area_id"
+    t.integer  "category_id"
+    t.integer  "problem_id"
   end
 
   add_index "issues", ["area_id"], name: "index_issues_on_area_id"
+  add_index "issues", ["category_id"], name: "index_issues_on_category_id"
   add_index "issues", ["completed_at"], name: "index_issues_on_completed_at"
   add_index "issues", ["issue_number"], name: "index_issues_on_issue_number", unique: true
   add_index "issues", ["lat"], name: "index_issues_on_lat"
   add_index "issues", ["lng"], name: "index_issues_on_lng"
   add_index "issues", ["location_name"], name: "index_issues_on_location_name"
+  add_index "issues", ["problem_id"], name: "index_issues_on_problem_id"
   add_index "issues", ["reported_at"], name: "index_issues_on_reported_at"
   add_index "issues", ["route_id"], name: "index_issues_on_route_id"
   add_index "issues", ["state"], name: "index_issues_on_state"
+
+  create_table "problems", force: true do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "problems", ["name"], name: "index_problems_on_name", unique: true
 
   create_table "routes", force: true do |t|
     t.string   "name",       default: "", null: false

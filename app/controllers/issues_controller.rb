@@ -59,6 +59,7 @@ class IssuesController < ApplicationController
     @issue.images.build
     @routes = Route.all.order(:name)
     @image = Image.new
+    @categories = Category.all
   end
 
   # GET /issues/1/edit

@@ -1,16 +1,24 @@
 Users:  first_name, last_name, email, volunter_number, date_joined, active, has:roll
 
-Issue:  Title, description, priotity, reported_at, completed_at, issue_number
+Issue:  Title, description, priority, reported_at, completed_at, issue_number
         has:state, has:comments, has:reporter, has:assignee, has:images, 
-        has:location, has:route, has:region, has:category
+        has:location, has:route, has:region, belongs_to:category
         > rails g scaffold Issue issue_number:integer:uniq:index title:string:index description:text priority:integer:index, reported_at:datetime:index, completed_at:datetime:index
 
 Title: name
 
-Category: name, belongs:issue
-        > rails g scaffold category issue:belogs_to
+Category: name has_many:category_problem_selections has_many:issues
+        > rails g scaffold category name:string:uniq
+        > rails g migration AddCategoryToIssues category:references
 
-Comment: belogs_to:issue:user:route:region
+CategoryProblemSelection
+        > rails g model CategoryProblemSelection category:references problem:references
+
+Problem: name, belongs:category
+        > rails g scaffold problem name:string:uniq
+        > rails g migration AddProblemToIssues problem:references
+
+Comment: belongs_to:issue:user:route:region
 Image: src, title(o), description(o)
 State: draft, submitted, acknowledged, in-progress, resolved, re-opened, archived, deleted
 Location: name, coord, url

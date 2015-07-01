@@ -15,10 +15,12 @@
     <%#= f.input :issue_number %>
     <div class='row'>
       <div class='medium-6 columns'>
-        <%= f.input :title, required: true, label: 'Title (e.g. sign turned)' %>
+        <%= f.input :category_id, collection: @categories, label: 'Select issue category' %>
+        <%#= f.input :title, required: true, label: 'Title (e.g. sign turned)' %>
       </div>
       <div class='medium-6 columns'>
-        <%= f.input :location_name, label: 'Location (e.g. street name)' %>
+        <%= f.input :problem_id, collection: [], label: 'The problem', disabled: true %>
+        <%#= f.input :location_name, label: 'Location (e.g. street name)' %>
       </div>
     </div>
     <div class='row'>
