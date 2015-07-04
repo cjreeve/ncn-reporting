@@ -7,60 +7,101 @@
     
     <p id="notice"><%= notice %></p>
     
+    <h1>Issue <%= @issue.issue_number %></h1>
 
     
     <div class='row'>
       <div class='medium-6 columns'>
-        <p>
-          <strong>Issue number:</strong>
-          <%= @issue.issue_number %>
-        </p>
-        
-        <p>
-          <strong>Category:</strong>
-          <%= @issue.category.name if @issue.category %>
-        </p>
-        <p>
-          <strong>Problem:</strong>
-          <%= 
-            if @issue.problem
-              @issue.problem.name 
-            else
-              @issue.title
-            end
-          %>
-        </p>
+
+        <table>
+          <body>
+            <tr>
+              <td>Category:</td>
+              <td><%= @issue.category.name if @issue.category %></td>
+            </tr>
+            <tr>
+              <td>Problem:</td>
+              <td>
+                <%= 
+                  if @issue.problem
+                    @issue.problem.name 
+                  else
+                    @issue.title
+                  end
+                %>
+              </td>
+            </tr>
+            <tr>
+              <td>Priority:</td>
+              <td><%= Issue::PRIORITY[@issue.priority] if @issue.priority %></td>
+            </tr>
+          </body>
+        </table>
+
       </div>
       <div class='medium-6 columns'>
-        <p>
-          <strong>Priority:</strong>
-          <%= @issue.priority %>
-        </p>
+        <h4><%= @issue.state %></h4>
 
-        <p>
-          <strong>Location:</strong>
-          <%= @issue.location_name %>
-        </p>
-        <p>
-          <strong>Coordinate:</strong>
-          <%=
-            if @issue.coordinate.present?
-              link_to @issue.coordinate, "http://maps.google.com/?q=#{@issue.lat},#{@issue.lng}", tarket: :_blank
-            end
-          %>
-        </p>
+        <table>
+          <body>
+            <% if @issue.reported_at %>
+              <tr>
+                <td>Time reported:</td>
+                <td><%= @issue.reported_at.strftime("%d %b %Y") %></td>
+              </tr>
+            <% end %>
+            <% if @issue.completed_at && @issue.resolved? || @issue.closed? %>
+              <tr>
+                <td>Time completed:</td>
+                <td><%= @issue.completed_at.strftime("%d %b %Y") %></td>
+              </tr>
+            <% end %>
+          </body>
+        </table>
+
       </div>
     </div>
     
+  </div>
+</div>
+<div class='row'>
+  <div class='medium-6 columns'>
+
+    <table>
+      <body>
+        <% if @issue.route.present? %>
+          <tr>
+            <td>Route:</td>
+            <td><%= @issue.route.name %></td>
+          </tr>
+        <% end %>
+        <% if @issue.area.present? %>
+          <td>Area:</td>
+          <td><%= @issue.area.name %></td>
+        <% end %>
+        <% if @issue.location_name.present? %>
+          <tr>
+            <td>Location:</td>
+            <td><%= @issue.location_name %></td>
+          </tr>
+        <% end %>
+        <% if @issue.coordinate.present? %>
+          <tr>
+            <td>Coordiante:</td>
+            <td><%= link_to @issue.coordinate, "http://maps.google.com/?q=#{@issue.lat},#{@issue.lng}", tarket: :_blank %></td>
+          </tr>
+        <% end %>
+      </body>
+    </table>
+
     <p>
       <strong>Description:</strong>
       <%= @issue.description %>
     </p>
 
   </div>
-</div>
-<div class='row'>
   <div class='medium-6 columns'>
+
     <% if @issue.url.present? %>
       <% 
         if @issue.url.length > 30
@@ -74,31 +115,7 @@
       </p>
     <% end %>
 
-    <p>
-      <strong>Time reported:</strong>
-      <%= @issue.reported_at.strftime("%d %b %Y") if @issue.reported_at %>
-    </p>
-    
-    <p>
-      <strong>Time completed:</strong>
-      <%= @issue.completed_at.strftime("%d %b %Y") if @issue.completed_at %>
-    </p>
 
-    <p>
-      <strong>Route:</strong>
-      <%= @issue.route.name if @issue.route.present? %>
-    </p>
-
-    <p>
-      <strong>area:</strong>
-      <%= @issue.area.name if @issue.area.present? %>
-    </p>
-
-    <p>
-      Status: <%= @issue.state %>
-    </p>
-  </div>
-  <div class='medium-6 columns'>
     <% if @issue.images.present? %>
       <div class='issue-images'>
         <%= image_tag @issue.images.first.url %>

@@ -9,6 +9,12 @@ class Issue < ActiveRecord::Base
   belongs_to :problem
 
   accepts_nested_attributes_for(:images, allow_destroy: true, reject_if: :all_blank)
+
+  PRIORITY = {
+    1 => 'low',
+    2 => 'medium',
+    3 => 'high'
+  }
   
   before_validation :set_issue_number
   before_validation :set_priority
