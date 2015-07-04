@@ -110,9 +110,17 @@
           general_url = @issues_url
         end
       %>
-      <p>
-        <b>url: </b><%= link_to general_url, @issue.url, target: '_blank' %>
-      </p>
+      <% if @issue.url.present? %>
+        <p>
+          <% if @issue.url.include?('google') && @issue.url.include?('maps') && @issue.url.include?('3Dmaps') %>
+            street view:
+          <% else %>
+            url:
+          <% end %>
+
+          <%= link_to general_url, @issue.url, target: '_blank' %>
+        </p>
+      <% end %>
     <% end %>
 
 
