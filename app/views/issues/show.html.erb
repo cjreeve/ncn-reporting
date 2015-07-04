@@ -46,16 +46,19 @@
           <body>
             <% if @issue.reported_at %>
               <tr>
-                <td>Time reported:</td>
-                <td><%= @issue.reported_at.strftime("%d %b %Y") %></td>
+                <td>Reported:</td>
+                <td><%= @issue.reported_at.strftime("%H:%M - %d %b %Y") %></td>
               </tr>
             <% end %>
             <% if @issue.completed_at && @issue.resolved? || @issue.closed? %>
               <tr>
-                <td>Time completed:</td>
-                <td><%= @issue.completed_at.strftime("%d %b %Y") %></td>
+                <td>Completed:</td>
+                <td><%= @issue.completed_at.strftime("%H:%M - %d %b %Y") %></td>
               </tr>
             <% end %>
+            <tr>
+              <td>Updated:</td>
+              <td><%= @issue.updated_at.strftime("%H:%M - %d %b %Y") %></td>
           </body>
         </table>
 
@@ -85,12 +88,16 @@
             <td><%= @issue.location_name %></td>
           </tr>
         <% end %>
-        <% if @issue.coordinate.present? %>
           <tr>
             <td>Coordiante:</td>
-            <td><%= link_to @issue.coordinate, "http://maps.google.com/?q=#{@issue.lat},#{@issue.lng}", tarket: :_blank %></td>
+            <td>
+              <%= 
+                if @issue.coordinate.present?
+                  link_to @issue.coordinate, "http://maps.google.com/?q=#{@issue.lat},#{@issue.lng}", tarket: :_blank 
+                end 
+              %>
+            </td>
           </tr>
-        <% end %>
       </body>
     </table>
 

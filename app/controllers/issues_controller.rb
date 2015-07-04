@@ -124,9 +124,12 @@ class IssuesController < ApplicationController
     @issues = Issue.all.order('lng DESC')
     if params[:publish] && @issue.publishable?
       @issue.publish!
-      @issue.reported_at = Time.now.in_time_zone('London')
+      @issue.reported_at = DateTime.now.in_time_zone('London')
+      @issue.save
     elsif params[:resolve] && @issue.resolveable?
       @issue.resolve!
+      @issue.completed_at = DateTime.now.in_time_zone('London')
+      @issue.save
     elsif params[:close] && @issue.closeable?
       @issue.close!
     elsif params[:reopen] && @issue.reopenable?
@@ -146,7 +149,7 @@ class IssuesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_issue
       @issue = Issue.find(params[:id])
-      @issue.coordinate = "#{@issue.lat}, #{@issue.lng}"
+      @issue.coordinate = "#{@issue.lat}, #{@issue.lng}" if @issue.lat && @issue.lng
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
