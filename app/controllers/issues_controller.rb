@@ -60,6 +60,7 @@ class IssuesController < ApplicationController
     @issue = Issue.new
     @issue.images.build
     @routes = Route.all.order(:name)
+    @areas = Area.all.order(:name)
     @image = Image.new
     @categories = Category.all
     # @problems = @categories.first.problems

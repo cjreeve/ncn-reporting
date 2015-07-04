@@ -41,4 +41,8 @@ html body{
   a.button.select{
     text-decoration: none;
   }
+
+  select{
+    padding: rem-calc(5 8);
+  }
 }
