@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :problems
 
-  resources :categories
+  resources :categories do
+    get :problems
+  end
 
   resources :areas
 

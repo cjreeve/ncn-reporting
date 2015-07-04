@@ -9,6 +9,8 @@ class IssuesController < ApplicationController
     direction = :desc
     order = :issue_number if params[:order] == 'number'
     order = :title if params[:order] == 'title'
+    order = :category if params[:order] == 'category'
+    order = :problem if params[:order] == 'problem'
     order = :location if params[:location] == 'number'
     order = :lat if params[:order] == 'lat'
     order = :lng if params[:order] == 'lng'
@@ -60,6 +62,9 @@ class IssuesController < ApplicationController
     @routes = Route.all.order(:name)
     @image = Image.new
     @categories = Category.all
+    # @problems = @categories.first.problems
+    @problems = {}
+    @categories.each { |c| @problems[c.id] = c.problems }
   end
 
   # GET /issues/1/edit
@@ -67,6 +72,9 @@ class IssuesController < ApplicationController
     @routes = Route.all.order(:name)
     @routes = Route.all.order(:name)
     @areas = Area.all.order(:name)
+    @categories = Category.all
+    @problems = {}
+    @categories.each { |c| @problems[c.id] = c.problems }
     @image = Image.new
   end
 
@@ -74,6 +82,7 @@ class IssuesController < ApplicationController
   # POST /issues.json
   def create
     @issue = Issue.new(issue_params)
+    # binding.pry
 
     respond_to do |format|
       if @issue.save
@@ -143,7 +152,7 @@ class IssuesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def issue_params
       params.require(:issue).permit(:issue_number, :title, :description, :priority, :reported_at,
-        :completed_at, :location_name, :coordinate, :route_id, :area_id, :url, 
+        :completed_at, :location_name, :coordinate, :route_id, :area_id, :url, :category_id, :problem_id,
         images_attributes: [:id, :url, :caption, :_destroy])
     end
 end

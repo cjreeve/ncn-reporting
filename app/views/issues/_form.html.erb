@@ -15,22 +15,32 @@
     <%#= f.input :issue_number %>
     <div class='row'>
       <div class='medium-6 columns'>
-        <%= f.input :category_id, collection: @categories, label: 'Select issue category' %>
+        <%= f.input :category_id, collection: @categories, label: 'Select issue category', include_blank: false %>
         <%#= f.input :title, required: true, label: 'Title (e.g. sign turned)' %>
       </div>
       <div class='medium-6 columns'>
-        <%= f.input :problem_id, collection: [], label: 'The problem', disabled: true %>
-        <%#= f.input :location_name, label: 'Location (e.g. street name)' %>
+        
+        <ul class='list-style category-problems-list'>
+          <% @categories.each do |category| %>
+            <li id="category-<%= category.id %>-problems" class='category-problems' style='display: none'>
+              <%= f.input :problem_id, collection: @problems[category.id], label: 'The problem', disabled: true %>
+            </li>
+          <% end %>
+        </ul>
+        <%#= f.input :problem_id, collection: @problems, label: 'The problem' %>
       </div>
     </div>
     <div class='row'>
       <div class='medium-6 columns'>
-        <%= f.input :priority, input_html: { min: 0, max: 3 } %>
-      </div>
-      <div class='medium-6 columns'>
+        <%#= f.input :priority, input_html: { min: 0, max: 3 } %>
         <%= f.input :coordinate, label: 'Coordinate (e.g. 51.52009, -0.10309)' %>
         <%= link_to 'Find your coordinate', '#', id: "openCoordModal", class: 'input-prompt' %>
       </div>
+      <div class='medium-6 columns'>
+        <%= f.input :location_name, label: 'Location (e.g. street name)' %>
+      </div>
+    </div>
+    <div class='row'>
       <div class='medium-6 columns'>
         <%= f.input :route_id, collection: @routes, as: :select %>
       </div>
@@ -69,3 +79,6 @@
     <%= f.input :description %>
     <%= f.button :submit %>
   <% end %>
+
+
+<div id="data-store"> </div>

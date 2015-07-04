@@ -16,6 +16,7 @@
 //= require foundation
 //# require turbolinks
 //= require issues
+//= require problems
 //# require_tree .
 
 $(function(){ $(document).foundation(); });

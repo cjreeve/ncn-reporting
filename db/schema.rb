@@ -80,7 +80,8 @@ ActiveRecord::Schema.define(version: 20150701220346) do
   add_index "issues", ["state"], name: "index_issues_on_state"
 
   create_table "problems", force: true do |t|
-    t.string   "name",       null: false
+    t.string   "name",             null: false
+    t.integer  "default_priority"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -22,6 +22,15 @@ end
   Area.find_or_create_by(name: area_name)
 end
 
+[ ["Graffiti", 1], ["Turned", 2], ["Missing", 2], ["Wrong", 2], ["Obstruction", 2],["Obstruction!", 3], 
+  ["Overgrown", 1], ["Uneven", 1], ["Pothole(s)", 2], ["Damaged", 1], ["Dangerous", 3], ["Other", 1]
+].each do |problem_data|
+  Problem.find_or_create_by(name: problem_data[0], default_priority: problem_data[1])
+end
+
+%w{Signage Vegetation Surface Access Mile_Posts Portrait_Benches Other}.each do |category_name|
+  category = Category.find_or_create_by(name: category_name.gsub('_',' '))
+end
 
 
 area = Area.find_by_name('South-West')

@@ -5,12 +5,15 @@ class Issue < ActiveRecord::Base
   belongs_to :route
   belongs_to :area
   has_many :images
+  belongs_to :category
+  belongs_to :problem
 
   accepts_nested_attributes_for(:images, allow_destroy: true, reject_if: :all_blank)
   
   before_validation :set_issue_number
+  before_validation :set_priority
 
-  validates :title, presence: true
+  # validates :title, presence: true
 
   after_validation :coordinate_to_latlng
 
@@ -73,6 +76,12 @@ class Issue < ActiveRecord::Base
     if self.coordinate.present?
       self.lat = self.coordinate.split(/[\s,]+/)[0]
       self.lng = self.coordinate.split(/[\s,]+/)[1]
+    end
+  end
+
+  def set_priority
+    if self.problem_id.present?
+      self.priority = Problem.find(self.problem_id).default_priority
     end
   end
 end

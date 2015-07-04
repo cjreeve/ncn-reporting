@@ -17,8 +17,18 @@
         </p>
         
         <p>
-          <strong>Title:</strong>
-          <%= @issue.title %>
+          <strong>Category:</strong>
+          <%= @issue.category.name if @issue.category %>
+        </p>
+        <p>
+          <strong>Problem:</strong>
+          <%= 
+            if @issue.problem
+              @issue.problem.name 
+            else
+              @issue.title
+            end
+          %>
         </p>
       </div>
       <div class='medium-6 columns'>

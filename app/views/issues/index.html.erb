@@ -96,7 +96,9 @@
         <thead>
           <tr>
             <%= table_header('No.', 'issue number', 'number', params) %>
-            <%= table_header('Issue', 'summary of problem', 'title', params) %>
+            <%#= table_header('Issue', 'summary of problem', 'title', params) %>
+            <%= table_header('Category', 'category', 'category_id', params) %>
+            <%= table_header('Issue', 'problem', 'problem_id', params) %>
             <%= table_header('Location', 'location summary', 'location', params) %>
             <%= table_header('Lat', 'latitude', 'lat', params) %>
             <%= table_header('Lng', 'longitude', 'lng', params) %>
@@ -111,7 +113,16 @@
           <% @issues.each do |issue| %>
             <tr>
               <td><%= issue.issue_number %></td>
-              <td><%= issue.title %></td>
+              <td><%= issue.category.name if issue.category %></td>
+              <td>
+                <%=
+                  if issue.problem
+                    issue.problem.name
+                  else
+                    issue.title
+                  end
+                %>
+              </td>
               <td><%= issue.location_name[0..50] %></td>
               <td><%= sprintf("%1.4f", issue.lat) if issue.lat %></td>
               <td><%= sprintf("%1.4f", issue.lng) if issue.lng %></td>

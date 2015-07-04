@@ -1,7 +1,8 @@
 class CreateProblems < ActiveRecord::Migration
   def change
     create_table :problems do |t|
-      t.string :name, null: false
+      t.string :name, null: false, default: ''
+      t.integer :default_priority
 
       t.timestamps
     end
