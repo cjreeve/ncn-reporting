@@ -28,32 +28,32 @@ end
   Problem.find_or_create_by(name: problem_data[0], default_priority: problem_data[1])
 end
 
-%w{Signage Vegetation Surface Access Mile_Posts Portrait_Benches Other}.each do |category_name|
+%w{Signage Vegetation Surface Access Mile_Posts Portrait_Benches}.each do |category_name|
   category = Category.find_or_create_by(name: category_name.gsub('_',' '))
 end
 
 
-area = Area.find_by_name('South-West')
-route = Route.find_by(name: "NCN 20")
+# area = Area.find_by_name('South-West')
+# route = Route.find_by(name: "NCN 20")
 
-issue = Issue.find_or_create_by(title: "Sign turned", lat: "51.456840", lng: "-0.192560")
-issue.route = route
-issue.area = area
-issue.images << Image.new unless issue.images.present?
-issue.images[0].url = "https://lh3.googleusercontent.com/CBj_HjX3jAV6h2g8W7its3ioBdSXUdtwQ64naDDQXjc=w602-h802-no"
-issue.description = ""
-issue.priority = 2
-issue.reported_at = "28.05.2015"
-issue.state = "open"
-issue.save
+# issue = Issue.find_or_create_by(title: "Sign turned", lat: "51.456840", lng: "-0.192560")
+# issue.route = route
+# issue.area = area
+# issue.images << Image.new unless issue.images.present?
+# issue.images[0].url = "https://lh3.googleusercontent.com/CBj_HjX3jAV6h2g8W7its3ioBdSXUdtwQ64naDDQXjc=w602-h802-no"
+# issue.description = ""
+# issue.priority = 2
+# issue.reported_at = "28.05.2015"
+# issue.state = "open"
+# issue.save
 
-issue = Issue.find_or_create_by(title: "Graffiti on signs", lat: "51.438167", lng: "-0.189556")
-issue.route = route
-issue.area = area
-issue.images << Image.new unless issue.images.present?
-issue.images[0].url = "https://lh3.googleusercontent.com/W-I56RxNYyo2geeGYasQJ0yZ66vxE-moBagZof6PIr0=w602-h802-no"
-issue.description = ""
-issue.priority = 2
-issue.reported_at = "28.05.2015"
-issue.state = "open"
-issue.save
+# issue = Issue.find_or_create_by(title: "Graffiti on signs", lat: "51.438167", lng: "-0.189556")
+# issue.route = route
+# issue.area = area
+# issue.images << Image.new unless issue.images.present?
+# issue.images[0].url = "https://lh3.googleusercontent.com/W-I56RxNYyo2geeGYasQJ0yZ66vxE-moBagZof6PIr0=w602-h802-no"
+# issue.description = ""
+# issue.priority = 2
+# issue.reported_at = "28.05.2015"
+# issue.state = "open"
+# issue.save
