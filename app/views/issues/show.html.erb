@@ -53,7 +53,7 @@
                 <td><%= @issue.reported_at.strftime("%H:%M - %d %b %Y") %></td>
               </tr>
             <% end %>
-            <% if @issue.completed_at && (@issue.resolved? || && @issue.closed?) %>
+            <% if @issue.completed_at && (@issue.resolved? || @issue.closed?) %>
               <tr>
                 <td>Completed:</td>
                 <td><%= @issue.completed_at.strftime("%H:%M - %d %b %Y") %></td>
