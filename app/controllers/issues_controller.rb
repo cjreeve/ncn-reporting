@@ -33,7 +33,11 @@ class IssuesController < ApplicationController
     options[:route] = params[:route].to_i if params[:route].present? && params[:route] != "all"
     options[:area] = params[:area].to_i if params[:area].present? && params[:area] != "all"
     if params[:state].present? && @states.include?(params[:state].to_sym)
-      options[:state] = params[:state]
+      if params[:state] = 'open'
+        options[:state] = ['open', 'reopened']
+      else
+        options[:state] = params[:state]
+      end
     else
       exclusions[:state] = ['draft', 'closed'] unless params[:state] == "all"
     end
