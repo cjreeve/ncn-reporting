@@ -9,8 +9,8 @@
       <%# end %>
       <ul class='small-block-grid-1 medium-block-grid-4 large-block-grid-5 issue-filters'>
         <li><%# binding.pry %>
-          <a class="button select" data-dropdown="routeSelection" aria-controls="routeSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_route ? @current_route.name + " ▼" : "all routes ▼" %></a>
-          <ul id="routeSelection" class="f-dropdown" data-dropdown-content tabindex="-1" aria-hidden="true" aria-autoclose="false" tabindex="-1">
+          <a href="#" class="button select" data-dropdown="routeSelection" aria-controls="routeSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_route ? @current_route.name + " ▼" : "all routes ▼" %></a>
+          <ul id="routeSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
             <% unless @current_route.nil? %>
               <li>
                 <%= link_to "all routes", issues_path(the_params(params, [:route, nil])) %>
@@ -26,8 +26,8 @@
           </ul>
         </li>
         <li>
-          <a class="button select" data-dropdown="areaSelection" aria-controls="areaSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_area ? @current_area.name + " ▼" : "all areas ▼" %></a>
-          <ul id="areaSelection" class="f-dropdown" data-dropdown-content tabindex="-1" aria-hidden="true" aria-autoclose="false" tabindex="-1">
+          <a href="#" class="button select" data-dropdown="areaSelection" aria-controls="areaSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_area ? @current_area.name + " ▼" : "all areas ▼" %></a>
+          <ul id="areaSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
             <% unless @current_area.nil? %>
               <li>
                 <%= link_to "all areas", issues_path(the_params(params, [:area, nil])) %>
@@ -43,8 +43,8 @@
           </ul>
         </li>
         <li>
-          <a class="button select" data-dropdown="autoCloseExample" aria-controls="autoCloseExample" data-options="is_hover:true" aria-expanded="false"><%= @current_state ? @current_state + " ▼" : "status (default) ▼" %></a>
-          <ul id="autoCloseExample" class="f-dropdown" data-dropdown-content tabindex="-1" aria-hidden="true" aria-autoclose="false" tabindex="-1">
+          <a href="#" class="button select" data-dropdown="stateSelection" aria-controls="stateSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_state ? @current_state + " ▼" : "status (default) ▼" %></a>
+          <ul id="stateSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
             <% unless @current_state.nil? %>
               <li>
                 <%= link_to "default", issues_path(the_params(params, [:state, nil])) %>
