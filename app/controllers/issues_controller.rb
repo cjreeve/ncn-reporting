@@ -53,7 +53,7 @@ class IssuesController < ApplicationController
   # GET /issues/1
   # GET /issues/1.json
   def show
-    @issues = Issue.all.order('lng DESC')
+    @issues = Issue.where(route: @issue.route, area: @issue.area).order('lng DESC')
   end
 
   # GET /issues/new
