@@ -90,7 +90,7 @@ class IssuesController < ApplicationController
     @categories = Category.all
     @problems = {}
     @categories.each { |c| @problems[c.id] = c.problems }
-    @image = Image.new
+    @issue.images << Image.new unless @issue.images.present?
   end
 
   # POST /issues

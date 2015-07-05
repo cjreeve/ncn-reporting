@@ -1,9 +1,16 @@
-<p id="notice"><%= notice %></p>
+<article class='problem'>
+  <div class='row'>
+    <div class='small-12 columns'>
 
-<p>
-  <strong>Name:</strong>
-  <%= @problem.name %>
-</p>
+      <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_problem_path(@problem) %> |
-<%= link_to 'Back', problems_path %>
+      <p>
+        <strong>Name:</strong>
+        <%= @problem.name %>
+      </p>
+
+      <%= link_to 'Edit', edit_problem_path(@problem) %> |
+      <%= link_to 'Back', problems_path %>
+    </div>
+  </div>
+</article>
