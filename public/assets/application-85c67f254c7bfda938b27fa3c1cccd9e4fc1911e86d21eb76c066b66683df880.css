@@ -6361,6 +6361,8 @@ html body .f-dropdown {
   outline: none; }
 html body a.button.select {
   text-decoration: none; }
+html body select {
+  padding: 0.3125rem 0.5rem; }
 
 article.issue h1 {
   display: inline-block; }
@@ -6384,6 +6386,16 @@ article.issue #issue_coordinate {
   margin-bottom: 0; }
 article.issue #issue_images_attributes_0_url {
   margin-bottom: 0; }
+article.issue .category-problems-list {
+  list-style-type: none;
+  margin: 0; }
+article.issue .issues-table-container {
+  display: inline-block; }
+article.issue .pagination {
+  display: inline-block;
+  float: right; }
+article.issue form.button_to {
+  display: inline-block; }
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Set default font family to sans-serif.

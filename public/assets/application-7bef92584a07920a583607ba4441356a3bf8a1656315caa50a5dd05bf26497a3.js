@@ -17208,6 +17208,24 @@ $(document).ready(function() {
   }
 
 });
+(function() {
+  jQuery(function() {
+    return $(document).ready(function() {
+      $('#issue_category_id').on('change', function(e) {
+        var categoryOptions;
+        $('.category-problems').hide();
+        $('.category-problems').find('select').addClass('disabled');
+        $('.category-problems').find('select').prop('disabled', 'disabled');
+        categoryOptions = $('#category-' + $(this).find('option:selected').attr('value') + '-problems');
+        categoryOptions.show();
+        categoryOptions.find('select').removeClass('disabled');
+        return categoryOptions.find('select').removeAttr('disabled');
+      });
+      return $('#issue_category_id').trigger('change');
+    });
+  });
+
+}).call(this);
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -17225,6 +17243,7 @@ $(document).ready(function() {
 
 
 //# require turbolinks
+
 
 //# require_tree .
 
