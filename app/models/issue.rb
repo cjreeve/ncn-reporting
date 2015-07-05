@@ -18,8 +18,10 @@ class Issue < ActiveRecord::Base
   
   before_validation :set_issue_number
   before_validation :set_priority
+  before_validation :set_title
 
-  # validates :title, presence: true
+  validates :title, presence: true
+  validates :problem, presence: true
 
   after_validation :coordinate_to_latlng
 
@@ -89,5 +91,10 @@ class Issue < ActiveRecord::Base
     if self.problem_id.present?
       self.priority = Problem.find(self.problem_id).default_priority
     end
+  end
+
+  def set_title
+    problem = Problem.find(self.problem_id) if self.problem_id
+    self.title = problem.name unless problem.name == 'other'
   end
 end

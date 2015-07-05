@@ -6,10 +6,13 @@
     <div class='small-12 columns'>
     
     <p id="notice"><%= notice %></p>
-    
+
+   
+
     <h1>Issue <%= @issue.issue_number %></h1>
 
-    
+    <%= link_to '◄ back to index', issues_path, style: 'float:right' %>
+
     <div class='row'>
       <div class='medium-6 columns'>
 
@@ -133,7 +136,7 @@
 
     <% if @issue.images.present? %>
       <div class='issue-images'>
-        <%= image_tag @issue.images.first.url %>
+        <%= image_tag @issue.images.first.url, alt: "image can't be found" %>
         <div class='caption'>
           <%= @issue.images.first.caption %>
         </div>

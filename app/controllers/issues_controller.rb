@@ -9,7 +9,6 @@ class IssuesController < ApplicationController
     direction = :desc
     order = :issue_number if params[:order] == 'number'
     order = :title if params[:order] == 'title'
-    order = :category if params[:order] == 'category'
     order = :problem if params[:order] == 'problem'
     order = :location if params[:location] == 'number'
     order = :lat if params[:order] == 'lat'
@@ -18,10 +17,16 @@ class IssuesController < ApplicationController
     order = :state if params[:order] == 'state'
     order = :priority if params[:order] == 'priority'
 
+
     if params[:dir] == 'asc'
       direction = :asc
     else
       direction = :desc
+    end
+
+    if params[:order] == 'category'
+      join_table = :category
+      order = "categories.name #{ direction.to_s }"
     end
 
     @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub(/[^0-9 ]/i, '').to_i }
@@ -41,7 +46,11 @@ class IssuesController < ApplicationController
     else
       exclusions[:state] = ['draft', 'closed'] unless params[:state] == "all"
     end
-    @issues = Issue.where(options).where.not(exclusions).order(order => direction).paginate(page: params[:page], per_page: 6)
+    if defined? join_table
+      @issues = Issue.joins(join_table).where(options).where.not(exclusions).order(order).paginate(page: params[:page], per_page: 6)
+    else
+      @issues = Issue.where(options).where.not(exclusions).order(order => direction).paginate(page: params[:page], per_page: 6)
+    end
     @issues_with_coords = @issues.where.not(lat: nil, lng: nil)
 
     @current_route = (params[:route].present? && @routes.collect(&:id).include?(params[:route].to_i)) ? Route.find(params[:route].to_i) : nil
