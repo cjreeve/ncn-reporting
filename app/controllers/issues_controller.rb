@@ -6,11 +6,10 @@ class IssuesController < ApplicationController
   def index
     where_option = ""
     order = :issue_number
-    direction = :desc
     order = :issue_number if params[:order] == 'number'
     order = :title if params[:order] == 'title'
     order = :problem if params[:order] == 'problem'
-    order = :location if params[:location] == 'number'
+    order = :location_name if params[:order] == 'location'
     order = :lat if params[:order] == 'lat'
     order = :lng if params[:order] == 'lng'
     order = :updated_at if params[:order] == 'modified'
@@ -24,8 +23,9 @@ class IssuesController < ApplicationController
       direction = :desc
     end
 
+    table_name = ''
     if params[:order] == 'category'
-      join_table = :category
+      table_name = :category
       order = "categories.name #{ direction.to_s }"
     end
 
@@ -46,8 +46,8 @@ class IssuesController < ApplicationController
     else
       exclusions[:state] = ['draft', 'closed'] unless params[:state] == "all"
     end
-    if defined? join_table
-      @issues = Issue.joins(join_table).where(options).where.not(exclusions).order(order).paginate(page: params[:page], per_page: 6)
+    if table_name.present?
+      @issues = Issue.joins(table_name).where(options).where.not(exclusions).order(order).paginate(page: params[:page], per_page: 6)
     else
       @issues = Issue.where(options).where.not(exclusions).order(order => direction).paginate(page: params[:page], per_page: 6)
     end
