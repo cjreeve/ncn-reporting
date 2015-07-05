@@ -27,6 +27,7 @@ gem 'spring',        group: :development
 gem 'foundation-rails'
 gem 'simple_form'
 gem 'state_machine'
+gem 'will_paginate'
 
 # Gems used for precompilling assets
 group :assets do

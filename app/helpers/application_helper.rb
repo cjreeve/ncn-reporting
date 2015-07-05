@@ -29,7 +29,7 @@ module ApplicationHelper
     max_spread = (max_lat - min_lat > max_lng - min_lng) ? (max_lat - min_lat) : (max_lng - min_lng)
     max_spread = 0.06 if max_spread == 0
     {
-      average_coord: [total_lat/issues.count, total_lng/issues.count],
+      average_coord: [total_lat/issues.length, total_lng/issues.length],
       max_lat: max_lat, min_lat: min_lat, max_lng: max_lng, min_lng: min_lng,
       max_spread: max_spread
     }
@@ -114,6 +114,13 @@ module ApplicationHelper
     the_params[:state] = params[:state] if params[:state].present?
     the_params[new_param[0]] = new_param[1] if new_param.present?
     the_params
+  end
+
+  def generate_issue_title(issue)
+    title = (issue.category.present? ? issue.category.name : '') +
+            (issue.problem.present? ? (' - ' + issue.problem.name) : '')
+    title = issue.title unless title.present?
+    title
   end
 
 end

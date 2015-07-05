@@ -1,5 +1,5 @@
 
-<%= render('google_maps/markers.js', issues: @issues.where.not(lat: nil, lng: nil)) if @issues.present? %>
+<%= render('google_maps/markers.js', issues: @issues_with_coords) if @issues_with_coords.present? %>
 
 <article class='issue'>
   <div class='row'>
@@ -91,7 +91,8 @@
 
       <h1>Issues</h1>
       &nbsp;-&nbsp;<%= link_to 'create new', new_issue_path, class: 'create-new-issue' %>
-
+      <div class='issues-table-container'>
+        <%= will_paginate @issues %>
       <table>
         <thead>
           <tr>
@@ -135,6 +136,7 @@
           <% end %>
         </tbody>
       </table>
+      </div>
 
       <br>
 

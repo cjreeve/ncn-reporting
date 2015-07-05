@@ -37,7 +37,8 @@ class IssuesController < ApplicationController
     else
       exclusions[:state] = ['draft', 'closed'] unless params[:state] == "all"
     end
-    @issues = Issue.where(options).where.not(exclusions).order(order => direction)
+    @issues = Issue.where(options).where.not(exclusions).order(order => direction).paginate(page: params[:page], per_page: 6)
+    @issues_with_coords = @issues.where.not(lat: nil, lng: nil)
 
     @current_route = (params[:route].present? && @routes.collect(&:id).include?(params[:route].to_i)) ? Route.find(params[:route].to_i) : nil
     @current_area = (params[:area].present? && @areas.collect(&:id).include?(params[:area].to_i)) ? Area.find(params[:area].to_i) : nil

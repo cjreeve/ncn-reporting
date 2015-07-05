@@ -41,4 +41,11 @@ article.issue{
     list-style-type: none;
     margin: 0;
   }
+  .issues-table-container{
+    display: inline-block;
+  }
+  .pagination{
+    display: inline-block;
+    float: right;
+  }
 }
