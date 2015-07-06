@@ -52,4 +52,11 @@ article.issue{
   form.button_to{
     display: inline-block;
   }
+
+  .issues-table-container{
+    width: 100%;
+    table.issues{
+     width: 100%;
+   }
+  }
 }
