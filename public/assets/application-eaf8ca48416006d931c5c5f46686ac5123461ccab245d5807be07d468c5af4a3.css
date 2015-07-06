@@ -6396,6 +6396,10 @@ article.issue .pagination {
   float: right; }
 article.issue form.button_to {
   display: inline-block; }
+article.issue .issues-table-container {
+  width: 100%; }
+  article.issue .issues-table-container table.issues {
+    width: 100%; }
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Set default font family to sans-serif.
