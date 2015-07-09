@@ -6,8 +6,6 @@ $(document).ready(function() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       myCoord = position.coords;
-      // myLat = position.coords.latitude;
-      // myLng = position.coords.longitude;
     });
   } 
 
@@ -28,6 +26,7 @@ $(document).ready(function() {
       lat = myCoord.latitude;
       lng = myCoord.longitude;
       zoom = 17;
+      document.getElementById('issue_coordinate').value = lat.toFixed(5) + ", " + lng.toFixed(5);
     } 
 
     var mapOptions = {
@@ -37,12 +36,22 @@ $(document).ready(function() {
     coordFinderMap = new google.maps.Map(document.getElementById('coord-map-canvas'),
         mapOptions);
 
+    if (myCoord) {
+      // show crosshair
+      var crosshairPosition = new google.maps.LatLng(lat, lng);
+      crosshairMarker = new google.maps.Marker({
+        position: crosshairPosition,
+        map: coordFinderMap,
+        icon: '/images/crosshair.svg'
+      });
+    }
+
     // var bikeLayer = new google.maps.BicyclingLayer();
     // bikeLayer.setMap(coordFinderMap);
 
     google.maps.event.addListener(coordFinderMap, 'click', function(e) {
       placeMarker(e.latLng, coordFinderMap);
-      var theCoord = e.latLng.lat() + ", " + e.latLng.lng()
+      var theCoord = e.latLng.lat().toFixed(5) + ", " + e.latLng.lng().toFixed(5)
       document.getElementById('issue_coordinate').value = theCoord;
     });
   };
