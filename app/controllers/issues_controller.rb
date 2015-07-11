@@ -59,8 +59,10 @@ class IssuesController < ApplicationController
     @current_state = "all" if params[:state] == "all"
 
 
-    # @current_params = the_params(params)
-    # binding.pry
+    respond_to do |format|
+      format.html
+      format.csv { send_data @issues.to_csv }
+    end
   end
 
   # GET /issues/1

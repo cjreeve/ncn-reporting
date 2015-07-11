@@ -97,4 +97,44 @@ class Issue < ActiveRecord::Base
     problem = Problem.find(self.problem_id) if self.problem_id
     self.title = problem.name unless problem.name == 'other'
   end
+
+  def self.to_csv
+    CSV.generate do |csv|
+      # csv << column_names
+      csv << ["number",
+       "category",
+       "problem",
+       "status",
+       "route",
+       "area",
+       "location",
+       "latitude",
+       "longitude",
+       "description",
+       "url",
+       "priority",
+       "date reported",
+       "date completed"]
+
+      all.each do |issue|
+        issue_values = []
+        issue_values << issue.issue_number
+        issue_values << issue.category.name
+        issue_values << issue.title
+        issue_values << issue.state
+        issue_values << (issue.route ? issue.route.name : '')
+        issue_values << (issue.area ? issue.area.name : '')
+        issue_values << (issue.location_name ? issue.location_name : '')
+        issue_values << (issue.lat ? issue.lat : '')
+        issue_values << (issue.lng ? issue.lng : '')
+        issue_values << (issue.description ? issue.description : '')
+        issue_values << (issue.url ? issue.url : '')
+        issue_values << (issue.priority ? issue.priority : '')
+        issue_values << (issue.reported_at ? issue.reported_at.strftime("%d/%m/%Y") : '')
+        issue_values << (issue.completed_at ? issue.completed_at.strftime("%d/%m/%Y") : '')  
+        # csv << issue.attributes.values_at(*column_names)
+        csv << issue_values
+      end
+    end
+  end
 end

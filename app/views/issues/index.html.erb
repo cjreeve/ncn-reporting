@@ -136,6 +136,9 @@
           <% end %>
         </tbody>
       </table>
+      <div class='download-issues'>
+        <%= link_to "Download CSV", issues_path(format: "csv", state: params[:state], order: params[:order]) %>
+      </div>
       </div>
 
       <br>

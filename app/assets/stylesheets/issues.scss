@@ -57,6 +57,14 @@ article.issue{
     width: 100%;
     table.issues{
      width: 100%;
+     margin-bottom: 0;
+   }
+   .download-issues{
+     margin-bottom: rem-calc(15);
+     text-align: right;
+     a{
+       font-size: rem-calc(10);
+     }
    }
   }
 }
