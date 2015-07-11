@@ -4,6 +4,13 @@ class IssuesController < ApplicationController
   # GET /issues
   # GET /issues.json
   def index
+
+    if params[:format] == 'csv'
+      per_page = Issue.count
+    else
+      per_page = 6
+    end
+
     where_option = ""
     order = :issue_number
     order = :issue_number if params[:order] == 'number'
@@ -46,10 +53,11 @@ class IssuesController < ApplicationController
     else
       exclusions[:state] = ['draft', 'closed'] unless params[:state] == "all"
     end
+
     if table_name.present?
-      @issues = Issue.joins(table_name).where(options).where.not(exclusions).order(order).paginate(page: params[:page], per_page: 6)
+      @issues = Issue.joins(table_name).where(options).where.not(exclusions).order(order).paginate(page: params[:page], per_page: per_page)
     else
-      @issues = Issue.where(options).where.not(exclusions).order(order => direction).paginate(page: params[:page], per_page: 6)
+      @issues = Issue.where(options).where.not(exclusions).order(order => direction).paginate(page: params[:page], per_page: per_page)
     end
     @issues_with_coords = @issues.where.not(lat: nil, lng: nil)
 

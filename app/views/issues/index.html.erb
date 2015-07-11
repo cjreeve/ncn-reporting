@@ -13,13 +13,13 @@
           <ul id="routeSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
             <% unless @current_route.nil? %>
               <li>
-                <%= link_to "all routes", issues_path(the_params(params, [:route, nil])) %>
+                <%= link_to "all routes", issues_path(the_params(params, {route: nil})) %>
               </li>
             <% end %>
             <% @routes.each do |route| %>
               <% unless @current_route == route %>
                 <li>
-                  <%= link_to route.name, issues_path(the_params(params, [:route, route.id])) %>
+                  <%= link_to route.name, issues_path(the_params(params, {route: route.id})) %>
                 </li>
               <% end %>
             <% end %>
@@ -30,13 +30,13 @@
           <ul id="areaSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
             <% unless @current_area.nil? %>
               <li>
-                <%= link_to "all areas", issues_path(the_params(params, [:area, nil])) %>
+                <%= link_to "all areas", issues_path(the_params(params, {area: nil})) %>
               </li>
             <% end %>
             <% @areas.each do |area| %>
               <% unless @current_area == area %>
                 <li>
-                  <%= link_to area.name, issues_path(the_params(params, [:area, area.id])) %>
+                  <%= link_to area.name, issues_path(the_params(params, {area: area.id})) %>
                 </li>
               <% end %>
             <% end %>
@@ -47,18 +47,18 @@
           <ul id="stateSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
             <% unless @current_state.nil? %>
               <li>
-                <%= link_to "default", issues_path(the_params(params, [:state, nil])) %>
+                <%= link_to "default", issues_path(the_params(params, {state: nil})) %>
               </li>
             <% end %>
             <% unless @current_state && @current_state == "all" %>
               <li>
-                <%= link_to "all", issues_path(the_params(params, [:state, "all"])) %>
+                <%= link_to "all", issues_path(the_params(params, {state: "all"})) %>
               </li>
             <% end %>
             <% @states.each do |state| %>
               <% unless ((@current_state && @current_state == state) || state == :reopened) %>
                 <li>
-                  <%= link_to state, issues_path(the_params(params, [:state, state])) %>
+                  <%= link_to state, issues_path(the_params(params, {state: state})) %>
                 </li>
               <% end %>
             <% end %>
@@ -129,7 +129,7 @@
               <td><%= sprintf("%1.4f", issue.lng) if issue.lng %></td>
               <td><%= issue.updated_at.strftime("%d-%b-%Y") if issue.updated_at %></td>
               <td><%= issue.state %></td>
-              <td><%= link_to 'Show', issue %></td>
+              <td><%= link_to 'Show', issue_path(the_params(params, {id: issue.id})) %></td>
               <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
               <td style="background-color: <%= priority_colour(issue.priority) %>"> </td>
             </tr>
@@ -137,7 +137,9 @@
         </tbody>
       </table>
       <div class='download-issues'>
-        <%= link_to "Download CSV", issues_path(format: "csv", state: params[:state], order: params[:order]) %>
+        <%= link_to "Download CSV", 
+          issues_path(the_params(params, {format: "csv"})) 
+        %>
       </div>
       </div>
 

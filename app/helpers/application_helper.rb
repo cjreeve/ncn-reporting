@@ -105,15 +105,14 @@ module ApplicationHelper
     )
   end
 
-  def the_params(params, new_param = nil)
+  def the_params(params, new_params = {})
     the_params = {}
     the_params[:dir] = params[:dir] if params[:dir].present?
     the_params[:order] = params[:order] if params[:order].present?
     the_params[:route] = params[:route] if params[:route].present?
     the_params[:area] = params[:area] if params[:area].present?
     the_params[:state] = params[:state] if params[:state].present?
-    the_params[new_param[0]] = new_param[1] if new_param.present?
-    the_params
+    the_params.merge!(new_params)
   end
 
   def generate_issue_title(issue)
