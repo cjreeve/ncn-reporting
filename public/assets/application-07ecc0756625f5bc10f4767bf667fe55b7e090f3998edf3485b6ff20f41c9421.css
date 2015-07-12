@@ -6399,7 +6399,13 @@ article.issue form.button_to {
 article.issue .issues-table-container {
   width: 100%; }
   article.issue .issues-table-container table.issues {
-    width: 100%; }
+    width: 100%;
+    margin-bottom: 0; }
+  article.issue .issues-table-container .download-issues {
+    margin-bottom: 0.9375rem;
+    text-align: right; }
+    article.issue .issues-table-container .download-issues a {
+      font-size: 0.625rem; }
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Set default font family to sans-serif.
