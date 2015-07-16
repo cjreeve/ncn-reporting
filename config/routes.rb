@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: { registrations: "users/registrations" }
   resources :problems
 
   resources :categories do
@@ -11,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :routes
 
-  root 'issues#index'
+  root to: 'issues#index'
 
   resources :issues do
     member do

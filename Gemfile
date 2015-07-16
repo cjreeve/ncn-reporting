@@ -28,6 +28,8 @@ gem 'foundation-rails'
 gem 'simple_form'
 gem 'state_machine'
 gem 'will_paginate'
+gem 'devise'
+gem 'cancan'
 
 # Gems used for precompilling assets
 group :assets do
