@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+
+  namespace :admin do
+    # get 'users/index'
+    # get 'users/show'
+    # get 'users/edit'
+    resources :users
+    # delete 'users/destroy'
+  end
+
   devise_for :users, controllers: { registrations: "users/registrations" }
   resources :problems
 

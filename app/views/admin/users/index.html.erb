@@ -1,0 +1,28 @@
+
+<article class='admin'>
+  <div class='row'>
+    <div class='small-12 columns'>
+      <h1>Admin: Users</h1>
+      <table>
+        <thead>
+          <tr>
+            <td>Name</td>
+            <td>Role</td>
+            <td>Email</td>
+            <td> </td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= link_to user.name, admin_user_path(user) %></td>
+              <td><%= user.role %></td>
+              <td><%= user.email %></td>
+              <td><%= link_to "&times;".html_safe, admin_user_path(user), method: :delete, data: { confirm: "Are you sure? This can't be undone."} %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</article>
