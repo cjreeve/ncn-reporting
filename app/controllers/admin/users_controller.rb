@@ -4,9 +4,20 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
   end
 
   def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to admin_user_url(@user), notice: 'User was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -16,5 +27,11 @@ class Admin::UsersController < ApplicationController
       format.html { redirect_to admin_users_url, notice: 'User was successfully removed.' }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :role)
   end
 end
