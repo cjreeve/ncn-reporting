@@ -1,0 +1,16 @@
+<article class='admin'>
+  <div class='row'>
+    <div class='small-12 medium-6 large-4 columns'>
+      <h1>Admin: New user account</h1>
+      
+      <%= simple_form_for(@user, url: admin_users_path(@user), html: { method: :post }) do |f| %>
+        <%= render 'admin/users/form', f: f %>
+        <div class="form-actions">
+          <%= f.button :submit, "Create" %>
+        </div>
+      <% end %>
+      
+      <%= link_to 'Back', admin_users_path %>
+      </div>
+  </div>
+</article>

@@ -16,14 +16,16 @@
           <tr>
             <td>Created:</td><td><%= @user.created_at.strftime("%d %b %Y - %H:%M") %></td>
           </tr>
-          <tr>
-            <td>Active:</td><td><%= @user.updated_at.strftime("%d %b %Y - %H:%M") %></td>
-          </tr>
-<!--           <tr>
-            <td>Signed in:</td><td><%#= @user.current_sign_in_at.strftime("%d %b %Y - %H:%M") %></td>
-          <tr> -->
-            <td>Sign-in IP:</td><td><%= @user.current_sign_in_ip %></td>
-          </tr>
+          <% if @user.current_sign_in_at %>
+            <tr>
+              <td>Active:</td><td><%= @user.updated_at.strftime("%d %b %Y - %H:%M") %></td>
+            </tr>
+  <!--           <tr>
+              <td>Signed in:</td><td><%#= @user.current_sign_in_at.strftime("%d %b %Y - %H:%M") %></td>
+            <tr> -->
+              <td>Sign-in IP:</td><td><%= @user.current_sign_in_ip %></td>
+            </tr>
+          <% end %>
 
         </tbody>
       </table>
