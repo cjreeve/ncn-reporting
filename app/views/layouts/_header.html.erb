@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="small-12 columns">
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <%= link_to 'NCN Reporting', '/' %>
+    <%= 
+      if user.present?
+        link_to 'logout', destroy_user_session_path, method: :delete, style: 'float:right'
+      end
+    %>
+  </div>
+</div>
