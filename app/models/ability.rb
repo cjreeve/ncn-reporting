@@ -14,7 +14,7 @@ class Ability
       can :manage, Image
       can :manage, Problem
       can :manage, Route
-      # can
+      can :read, User
     end
 
     if user.role == "ranger"
@@ -22,11 +22,13 @@ class Ability
       can [:destroy], Issue, user_id: user.id
       can :manage, Category
       can :manage, Problem
+      can :read, User
     end
 
     if user.role == "volunteer"
       can [:read, :create, :edit, :update, :progress], Issue
       can [:destroy], Issue, user_id: user.id
+      can :read, User
     end
 
 

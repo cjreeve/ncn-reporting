@@ -184,7 +184,11 @@ class IssuesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_issue
-      @issue = Issue.find(params[:id])
+      if params[:issue_number]
+        @issue = Issue.find_by(issue_number: params[:issue_number])
+      else
+        @issue = Issue.find(params[:id])
+      end
       @issue.coordinate = "#{@issue.lat}, #{@issue.lng}" if @issue.lat && @issue.lng
     end
 

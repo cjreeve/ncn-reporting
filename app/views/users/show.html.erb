@@ -1,0 +1,40 @@
+<article class='user'>
+  <div class='row'>
+    <div class='small-12 medium-6 large-4 columns'>
+
+      <h1><%= @user.name %></h1>
+
+      <table>
+        <tbody>
+          <tr>
+            <td>Email:</td><td><%= @user.email %></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Recently created issues</h3>
+      <table>
+        <thead>
+          <tr>
+            <td>No.</td>
+            <td>Category</td>
+            <td>Issue</td>
+            <td>Location</td>
+            <td>Status</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @user.issues[0..6].each do |issue| %>
+            <tr>
+              <td><%= link_to issue.issue_number, issue_number_path(issue.issue_number) %></td>
+              <td><%= issue.category.name if issue.category %></td>
+              <td><%= issue.the_problem %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table
+
+
+    </div>
+  </div>
+</div>

@@ -115,15 +115,7 @@
             <tr>
               <td><%= issue.issue_number %></td>
               <td><%= issue.category.name if issue.category %></td>
-              <td>
-                <%=
-                  if issue.problem
-                    issue.problem.name
-                  else
-                    issue.title
-                  end
-                %>
-              </td>
+              <td><%= issue.the_problem %></td>
               <td><%= issue.location_name[0..50] %></td>
               <td><%= sprintf("%1.4f", issue.lat) if issue.lat %></td>
               <td><%= sprintf("%1.4f", issue.lng) if issue.lng %></td>

@@ -73,6 +73,14 @@ class Issue < ActiveRecord::Base
   def archiveable?
     self.state_events.include?(:archive)
   end
+
+  def the_problem
+    if self.problem
+      self.problem.name
+    else
+      self.title
+    end
+  end
   
   private
   

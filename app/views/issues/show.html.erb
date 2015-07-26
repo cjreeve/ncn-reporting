@@ -45,7 +45,14 @@
         <table>
           <body>
             <tr>
-              <td>Reporter:</td><td><%= @issue.user.name if @issue.user %></td>
+              <td>Reporter:</td>
+              <td>
+                <%= 
+                  if @issue.user
+                    link_to @issue.user.name, user_path(@issue.user)
+                  end
+                %>
+              </td>
             </tr>
             <% if @issue.reported_at %>
               <tr>
