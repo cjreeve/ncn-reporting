@@ -1,5 +1,7 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource except: [:create]
+  # authorize_resource except: [:create, :destroy]
 
   # GET /issues
   # GET /issues.json
@@ -77,6 +79,10 @@ class IssuesController < ApplicationController
   # GET /issues/1.json
   def show
     @issues = Issue.where(route: @issue.route, area: @issue.area).order('lng DESC')
+
+    if (current_user && (current_user.role == "admin" || current_user.role == "staff" || current_user == @issue.user))
+      authorize! :destroy, @issue
+    end
   end
 
   # GET /issues/new
@@ -107,7 +113,6 @@ class IssuesController < ApplicationController
   # POST /issues.json
   def create
     @issue = Issue.new(issue_params)
-    # binding.pry
 
     respond_to do |format|
       if @issue.save
@@ -137,6 +142,12 @@ class IssuesController < ApplicationController
   # DELETE /issues/1
   # DELETE /issues/1.json
   def destroy
+    #   binding.pry
+
+    if (current_user && (current_user.role == "admin" || current_user.role == "staff" || current_user == @issue.user))
+      authorize! :destroy, @issue
+    end
+
     @issue.destroy
     respond_to do |format|
       format.html { redirect_to issues_url, notice: 'Issue was successfully destroyed.' }
@@ -180,7 +191,7 @@ class IssuesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def issue_params
       params.require(:issue).permit(:issue_number, :title, :description, :priority, :reported_at,
-        :completed_at, :location_name, :coordinate, :route_id, :area_id, :url, :category_id, :problem_id,
+        :completed_at, :location_name, :coordinate, :route_id, :area_id, :url, :category_id, :problem_id, :user_id,
         images_attributes: [:id, :url, :caption, :_destroy])
     end
 end

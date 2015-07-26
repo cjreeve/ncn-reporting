@@ -6,4 +6,5 @@ class User < ActiveRecord::Base
 
   ROLES = %w[admin staff ranger volunteer locked]
 
+  has_many :issues
 end

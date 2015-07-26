@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714134036) do
+ActiveRecord::Schema.define(version: 20150724175348) do
 
   create_table "areas", force: true do |t|
     t.string   "name",       default: "", null: false
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 20150714134036) do
     t.integer  "area_id"
     t.integer  "category_id"
     t.integer  "problem_id"
+    t.integer  "user_id"
   end
 
   add_index "issues", ["area_id"], name: "index_issues_on_area_id"
@@ -80,6 +81,7 @@ ActiveRecord::Schema.define(version: 20150714134036) do
   add_index "issues", ["reported_at"], name: "index_issues_on_reported_at"
   add_index "issues", ["route_id"], name: "index_issues_on_route_id"
   add_index "issues", ["state"], name: "index_issues_on_state"
+  add_index "issues", ["user_id"], name: "index_issues_on_user_id"
 
   create_table "problems", force: true do |t|
     t.string   "name",             default: "", null: false

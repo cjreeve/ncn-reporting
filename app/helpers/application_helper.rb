@@ -14,10 +14,10 @@ module ApplicationHelper
   def get_issue_coord_stats(issues)
     total_lat = 0.0
     total_lng = 0.0
-    max_lat = issues.first.lat
-    min_lat = issues.first.lat
-    max_lng = issues.first.lng
-    min_lng = issues.first.lng
+    max_lat = (issues.present? ? issues.first.lat : 0)
+    min_lat = (issues.present? ? issues.first.lat : 0)
+    max_lng = (issues.present? ? issues.first.lng : 0)
+    min_lng = (issues.present? ? issues.first.lng : 0)
     issues.each do |issue|
       total_lat += issue.lat
       total_lng += issue.lng

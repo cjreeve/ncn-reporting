@@ -44,6 +44,9 @@
 
         <table>
           <body>
+            <tr>
+              <td>Reporter:</td><td><%= @issue.user.name if @issue.user %></td>
+            </tr>
             <% if @issue.reported_at %>
               <tr>
                 <td>Reported:</td>
@@ -59,6 +62,7 @@
             <tr>
               <td>Updated:</td>
               <td><%= @issue.updated_at.strftime("%H:%M - %d %b %Y") %></td>
+            </tr>
           </body>
         </table>
 
@@ -175,7 +179,9 @@
     
     <%= link_to 'Edit', edit_issue_path(@issue) %> |
     <%= link_to 'Index', issues_path %>
-    <%= link_to 'delete', @issue, method: :delete, data: { confirm: 'Are you sure?' }, style: "float: right" %>
+    <% if can? :destroy, @issue %>
+      <%= link_to 'delete', @issue, method: :delete, data: { confirm: 'Are you sure?' }, style: "float: right" %>
+    <% end %>
     <br><br>
 
       

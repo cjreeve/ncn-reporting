@@ -13,6 +13,10 @@
     <% end %>
   
     <%#= f.input :issue_number %>
+    <% unless @issue.user_id.present? %>
+      <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+    <% end %>
+
     <div class='row'>
       <div class='medium-6 columns'>
         <%= f.input :category_id, collection: @categories, label: 'Select issue category', include_blank: false %>

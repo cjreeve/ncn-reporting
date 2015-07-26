@@ -25,8 +25,20 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+        <%= 
+          # binding.pry
+          if current_user
+            link_to 'logout', destroy_user_session_path, method: :delete, style: 'float:right'
+          end
+        %>
+      </div>
+    </div>
+
 
     <%= yield %>
     <br><br><br><br><br>

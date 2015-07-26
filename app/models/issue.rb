@@ -1,5 +1,4 @@
 class Issue < ActiveRecord::Base
-
   attr_accessor :coordinate
 
   belongs_to :route
@@ -7,6 +6,7 @@ class Issue < ActiveRecord::Base
   has_many :images
   belongs_to :category
   belongs_to :problem
+  belongs_to :user
 
   accepts_nested_attributes_for(:images, allow_destroy: true, reject_if: :all_blank)
 
