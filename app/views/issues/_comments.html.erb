@@ -1,0 +1,22 @@
+<h3>Comments</h3>
+<div class='row'>
+  <div class='medium-6 large-4 columns'>
+    <div id='comments'>
+      <% comments.each do |comment| %>
+        <div class='comment'>
+          <div class='comment-content'>
+            <%= comment.content %>
+          </div>
+          <div class='comment-footer'>
+            <div class='comment-label'>
+              <%= link_to comment.user.name, user_path(comment.user) %>
+              at
+              <%= comment.created_at.strftime("%H:%M %d %b %Y") %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <%= render 'issues/comment_form' %>
+    </div>
+  </div>
+</div>

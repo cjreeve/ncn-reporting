@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724175348) do
+ActiveRecord::Schema.define(version: 20150726131435) do
 
   create_table "areas", force: true do |t|
     t.string   "name",       default: "", null: false
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(version: 20150724175348) do
 
   add_index "category_problem_selections", ["category_id"], name: "index_category_problem_selections_on_category_id"
   add_index "category_problem_selections", ["problem_id"], name: "index_category_problem_selections_on_problem_id"
+
+  create_table "comments", force: true do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.integer  "issue_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["issue_id"], name: "index_comments_on_issue_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "images", force: true do |t|
     t.string   "url"

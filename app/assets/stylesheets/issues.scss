@@ -67,4 +67,25 @@ article.issue{
      }
    }
   }
+
+  #comments{
+    .comment{
+      .comment-content{
+        background-color: $light-grey;
+        padding: rem-calc(0 10);
+      }
+      .comment-footer{
+        background-color: $very-light-blue;
+        padding: rem-calc(0 10);
+        margin-bottom: rem-calc(5);
+        line-heiht: 0;
+        text-align: right;
+        .comment-label{
+          display: inline-block;
+          font-size: rem-calc(11);
+          line-height: 1;
+        }
+      }
+    }
+  }
 }

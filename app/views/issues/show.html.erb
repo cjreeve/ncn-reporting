@@ -183,6 +183,13 @@
       %>
 
     </p>
+
+    <%= render 'comments/comments', 
+      comments: @issue.comments, 
+      issue: @issue,
+      new_comment: @new_comment
+    %>
+
     
     <%= link_to 'Edit', edit_issue_path(@issue) %> |
     <%= link_to 'Index', issues_path %>

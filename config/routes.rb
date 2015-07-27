@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :comments
+
   namespace :admin do
     # get 'users/index'
     # get 'users/show'

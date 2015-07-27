@@ -83,6 +83,8 @@ class IssuesController < ApplicationController
     if (current_user && (current_user.role == "admin" || current_user.role == "staff" || current_user == @issue.user))
       authorize! :destroy, @issue
     end
+
+    @new_comment = Comment.new
   end
 
   # GET /issues/new
