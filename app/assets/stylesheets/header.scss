@@ -1,0 +1,9 @@
+header{
+  background-color: $light-grey;
+  padding-bottom: rem-calc(10);
+  margin-bottom: rem-calc(10);
+  .user-controls{
+    display: inlin-block;
+    float: right;
+  }
+}
