@@ -24,7 +24,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @new_comment = Comment.new
-    @comments = Comment.where(issue: @comment.issue, user: @comment.user)
+    @comments = Comment.where(issue: @comment.issue)
     @issue = @comment.issue
 
     respond_to do |format|
@@ -46,8 +46,20 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment.destroy
-    respond_with(@comment)
+    @new_comment = Comment.new
+    @comments = Comment.where(issue: @comment.issue)
+    @issue = @comment.issue
+    respond_to do |format|
+      if @comment.destroy
+        format.html { redirect_to :show, status: :created }
+        format.js { 
+          return (render :comment) 
+        }
+      else
+        format.html { return render :show }
+        # format.js { return an error message }
+      end
+    end
   end
 
   private

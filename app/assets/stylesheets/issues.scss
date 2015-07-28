@@ -70,6 +70,22 @@ article.issue{
 
   #comments{
     .comment{
+      .delete-comment{
+        float: right;
+        margin-right: rem-calc(5);
+        visibility: hidden;
+
+      }
+      &:hover{
+        .delete-comment{
+          visibility: visible;
+          color: grey;
+          &:hover{
+            font-weight: 700;
+            text-decoration: none;
+          }
+        }
+      }
       .comment-content{
         background-color: $light-grey;
         padding: rem-calc(0 10);
