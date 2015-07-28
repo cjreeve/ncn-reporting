@@ -15,7 +15,7 @@
       <div class='comment-label'>
         <%= link_to comment.user.name, user_path(comment.user) %>
         at
-        <%= comment.created_at.in_time_zone('London').strftime("%H:%M %d %b %Y") %>
+        <%= comment.created_at.in_time_zone('London').strftime("%H:%M on %d %b %Y") %>
       </div>
     </div>
   </div>
