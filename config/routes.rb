@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get '/pages/:slug' => 'pages#view', as: :view
+
+  resources :pages
+
+  get '/controls' => 'pages#controls', as: :controls
+
   resources :comments
 
   namespace :admin do
@@ -34,6 +40,7 @@ Rails.application.routes.draw do
     end
   end
   get '/issue/:issue_number' => 'issues#show', as: :issue_number
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

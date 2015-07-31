@@ -5,5 +5,13 @@ header{
   .user-controls{
     display: inlin-block;
     float: right;
+    positon: relative;
+    min-width: rem-calc(300);
+    text-align: right;
+    #controls-cog{
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
   }
 }

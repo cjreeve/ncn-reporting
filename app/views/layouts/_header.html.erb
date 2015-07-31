@@ -6,6 +6,13 @@
       <%= link_to 'NCN Reporting', '/' %>
       <% if user.present? %>
         <div class='user-controls'>
+          <%= 
+            unless params[:action] == "controls"
+              link_to controls_path, id: 'controls-cog' do 
+                image_tag 'settings-cog.png'
+              end
+            end
+          %>
           <%= link_to current_user.name, user_path(current_user) %>
           &nbsp;&bullet;&nbsp;&nbsp;  
           <%= 

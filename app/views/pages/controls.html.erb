@@ -1,0 +1,58 @@
+<article class='controls'>
+  <div class='row'>
+    <div class='small-12 columns'>
+
+      <h1>Controls</h1>
+      
+      <h2>Acounts</h2>
+
+      <ul>
+        <li>
+          <%= link_to 'My User Account Settings', edit_user_registration_path %>
+        </li>
+        <% if can? :manage, User %>
+          <li>
+            <%= link_to "Manage User Accounts", admin_users_path %>
+          </li>
+        <% end %>
+      </ul>
+
+      <% if can? :manage, Problem %>
+        <h2>Issue Filters</h2>
+        <ul>
+          <% if can? :manage, Area %>
+            <li>
+              <%= link_to 'Manage Areas', areas_path %>
+            </li>
+          <% end %>
+          <% if can? :manage, Category %>
+            <li>
+              <%= link_to 'Manage Categories', categories_path %>
+            </li>
+          <% end %>
+          <% if can? :manage, Problem %>
+            <li>
+              <%= link_to 'Manage Problems', problems_path %>
+            </li>
+          <% end %>
+          <% if can? :manage, Route %>
+            <li>
+              <%= link_to 'Manage Routes', routes_path %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <% if can? :manage, Page %>
+        <h2>Site Content</h2>
+        <ul>
+          <% if can? :manage, Page %>
+            <li>
+              <%= link_to 'Pages', pages_path %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</article>

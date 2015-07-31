@@ -1,0 +1,31 @@
+<article class='page'>
+  <div class='row'>
+    <div class='small columns'>
+      <p id="notice"><%= notice %></p>
+
+      <p>
+        <strong>Name:</strong>
+        <%= @page.name %>
+      </p>
+
+      <p>
+        <strong>Slug:</strong>
+        <%= @page.slug %>
+      </p>
+
+      <p>
+        <strong>Content:</strong>
+        <%= @page.content %>
+      </p>
+
+      <p>
+        <strong>Role:</strong>
+        <%= @page.role %>
+      </p>
+
+      <%= link_to 'Edit', edit_page_path(@page) %> |
+      <%= link_to 'Index', pages_path %> |
+      <%= link_to 'View page >', view_page_path(@page.slug) %>
+    </div>
+  </div>
+</article>

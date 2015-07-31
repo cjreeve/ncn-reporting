@@ -39,16 +39,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     protected
 
+    def allowed_user_paramn
+      if current_user.role = "admin"
+        return [:name, :role]
+      else
+        return [:name]
+      end
+    end
+
   # If you have extra params to permit, append them to the sanitizer.
     def configure_sign_up_params
-      # binding.pry
-      devise_parameter_sanitizer.for(:sign_up) << [:name, :role]
+      devise_parameter_sanitizer.for(:sign_up) << allowed_user_paramn
     end
 
   # If you have extra params to permit, append them to the sanitizer.
     def configure_account_update_params
-      # binding.pry
-      devise_parameter_sanitizer.for(:account_update) << [:name, :role]
+      devise_parameter_sanitizer.for(:account_update) << allowed_user_paramn
     end
 
   # The path used after sign up.

@@ -16,6 +16,7 @@ class Ability
       can :manage, Route
       can :read, User
       can :manage, Comment
+      can :manage, Page
     end
 
     if user.role == "ranger"
@@ -24,14 +25,18 @@ class Ability
       can :manage, Category
       can :manage, Problem
       can :read, User
+      can :manage, User, id: user.id
       can :manage, Comment, user_id: user.id
+      can :view, Page
     end
 
     if user.role == "volunteer"
       can [:read, :create, :edit, :update, :progress], Issue
       can [:destroy], Issue, user_id: user.id
       can :read, User
+      can :manage, User, id: user.id
       can :manage, Comment, user_id: user.id
+      can :view, Page
     end
 
 

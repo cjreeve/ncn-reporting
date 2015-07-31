@@ -9,8 +9,16 @@
           <tr>
             <td>Email:</td><td><%= @user.email %></td>
           </tr>
+          <tr>
+            <td>
+              <% if can? :manage, @user %>
+                <%= link_to 'edit my details', edit_user_registration_path %>
+              <% end %>
+            </td>
+          </tr>
         </tbody>
       </table>
+
 
       <h3>Recently created issues</h3>
       <table>

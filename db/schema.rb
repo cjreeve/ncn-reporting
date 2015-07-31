@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150726131435) do
+ActiveRecord::Schema.define(version: 20150729193049) do
 
   create_table "areas", force: true do |t|
     t.string   "name",       default: "", null: false
@@ -93,6 +93,15 @@ ActiveRecord::Schema.define(version: 20150726131435) do
   add_index "issues", ["route_id"], name: "index_issues_on_route_id"
   add_index "issues", ["state"], name: "index_issues_on_state"
   add_index "issues", ["user_id"], name: "index_issues_on_user_id"
+
+  create_table "pages", force: true do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.text     "content"
+    t.string   "role"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "problems", force: true do |t|
     t.string   "name",             default: "", null: false

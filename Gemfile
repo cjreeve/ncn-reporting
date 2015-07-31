@@ -30,6 +30,7 @@ gem 'state_machine'
 gem 'will_paginate'
 gem 'devise'
 gem 'cancan'
+gem 'redcarpet'
 
 # Gems used for precompilling assets
 group :assets do
