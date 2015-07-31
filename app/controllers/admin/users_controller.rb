@@ -2,6 +2,8 @@ class Admin::UsersController < ApplicationController
 
   load_and_authorize_resource
 
+  before_filter :check_authorisation
+
   def index
     @users = User.all
   end
@@ -50,4 +52,11 @@ class Admin::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :password, :role)
   end
+
+  def check_authorisation
+    unless current_user.role == "admin"
+      redirect_to '/', notice: 'You are not authorised to view that page'
+    end
+  end
+
 end

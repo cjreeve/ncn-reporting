@@ -15,6 +15,7 @@ class Ability
       can :manage, Problem
       can :manage, Route
       can :read, User
+      can :manage, User, id: user.id
       can :manage, Comment
       can :manage, Page
     end
