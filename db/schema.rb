@@ -14,15 +14,13 @@
 ActiveRecord::Schema.define(version: 20150729193049) do
 
   create_table "areas", force: true do |t|
-    t.string   "name",       default: "", null: false
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "areas", ["name"], name: "index_areas_on_name"
-
   create_table "categories", force: true do |t|
-    t.string   "name",       default: "", null: false
+    t.string   "name",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -61,18 +59,18 @@ ActiveRecord::Schema.define(version: 20150729193049) do
   add_index "images", ["issue_id"], name: "index_images_on_issue_id"
 
   create_table "issues", force: true do |t|
-    t.integer  "issue_number",                    null: false
-    t.string   "title",         default: "",      null: false
-    t.text     "description",   default: "",      null: false
+    t.integer  "issue_number"
+    t.string   "title"
+    t.text     "description"
     t.integer  "priority"
     t.datetime "reported_at"
     t.datetime "completed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "location_name", default: "",      null: false
     t.float    "lat"
     t.float    "lng"
     t.string   "state",         default: "draft", null: false
+    t.string   "location_name", default: "",      null: false
     t.integer  "route_id"
     t.string   "url"
     t.integer  "area_id"
@@ -104,7 +102,7 @@ ActiveRecord::Schema.define(version: 20150729193049) do
   end
 
   create_table "problems", force: true do |t|
-    t.string   "name",             default: "", null: false
+    t.string   "name",             null: false
     t.integer  "default_priority"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -23,13 +23,38 @@ end
 end
 
 [ ["Graffiti", 1], ["Turned", 2], ["Missing", 2], ["Wrong", 2], ["Obstruction", 2],["Obstruction!", 3], 
-  ["Overgrown", 1], ["Uneven", 1], ["Pothole(s)", 2], ["Damaged", 1], ["Dangerous", 3], ["Other", 1]
+  ["Overgrown", 1], ["Uneven", 1], ["Pothole(s)", 2], ["Damaged", 1], ["Dangerous", 3]
 ].each do |problem_data|
   Problem.find_or_create_by(name: problem_data[0], default_priority: problem_data[1])
 end
 
 %w{Signage Vegetation Surface Access Mile_Posts Portrait_Benches}.each do |category_name|
   category = Category.find_or_create_by(name: category_name.gsub('_',' '))
+end
+
+u = User.find_or_create_by(email: 'cjreeve@gmail.com')
+u.name = "Christopher Reeve"
+u.role = "admin"
+u.password = 'asdfasdf'
+u.save
+u = User.find_or_create_by(email: 'admin@sustrans.co.uk')
+u.name = "admin"
+u.role = "admin"
+u.password = 'password'
+u.save
+u = User.find_or_create_by(email: 'volunteer@sustrans.co.uk')
+u.name = 'volunteer'
+u.role = 'volunteer'
+u.password = 'password'
+u.save
+
+users = User.all
+
+Issue.all.each do |issue|
+  unless issue.user.present?
+    issue.user = users.shuffle.first
+    issue.save
+  end
 end
 
 
