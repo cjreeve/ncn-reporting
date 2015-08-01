@@ -96,7 +96,7 @@ class Issue < ActiveRecord::Base
   end
 
   def set_priority
-    if self.problem_id.present?
+    if self.problem_id.present? && self.priority.blank?
       self.priority = Problem.find(self.problem_id).default_priority
     end
   end

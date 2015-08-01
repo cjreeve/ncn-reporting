@@ -40,7 +40,6 @@
     </div>
     <div class='row'>
       <div class='medium-6 columns'>
-        <%#= f.input :priority, input_html: { min: 0, max: 3 } %>
         <%= f.input :coordinate, label: 'Coordinate (e.g. 51.52009, -0.10309)' %>
         <%= link_to 'Find your coordinate', '#', id: "openCoordModal", class: 'input-prompt' %>
       </div>
@@ -85,6 +84,16 @@
     <% end %>
     <%= f.input :url, label: 'other url (e.g. google street view)' %>
     <%= f.input :description %>
+
+    <% if @issue.id.present? %>
+      <div class="row">
+        <div class='medium-4 large-3 columns'>
+          <%#= f.input :priority, input_html: { min: 0, max: 3 } %>
+          <%= f.input :priority, collection: Issue::PRIORITY.collect{ |p| [p[1], p[0]] }, input_html: { selected: @issue.priority } %>
+        </div>
+      </div>
+    <% end %>
+    
     <%= f.button :submit %>
   <% end %>
 
