@@ -32,7 +32,10 @@ Rails.application.routes.draw do
 
   resources :routes
 
-  root to: 'issues#index'
+  authenticated :user do
+    root to: 'issues#index'
+  end
+  get '/' => 'pages#welcome'
 
   resources :issues do
     member do

@@ -35,7 +35,7 @@ class Ability
       can [:read, :create, :edit, :update, :progress], Issue
       can [:destroy], Issue, user_id: user.id
       can :read, User
-      can :manage, User, id: user.id
+      can :update, User, id: user.id
       can :manage, Comment, user_id: user.id
       can :view, Page
     end

@@ -43,6 +43,9 @@ class PagesController < ApplicationController
   def controls
   end
 
+  def welcome
+  end
+
   private
     def set_page
       @page = Page.find(params[:id])
