@@ -21,7 +21,7 @@ class Issue < ActiveRecord::Base
   before_validation :set_priority
   before_validation :set_title
 
-  validates :title, presence: true
+  validates :title, presence: { message: '- the problem is not defined'}
 
   after_validation :coordinate_to_latlng
 
