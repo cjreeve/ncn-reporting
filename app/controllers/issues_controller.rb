@@ -10,7 +10,7 @@ class IssuesController < ApplicationController
     if params[:format] == 'csv'
       per_page = Issue.count
     else
-      per_page = 6
+      per_page = 10
     end
 
     where_option = ""

@@ -28,6 +28,16 @@ html body{
     margin-bottom: rem-calc(16);
   }
 
+
+  label.checkbox{
+    vertical-align: top;
+    input[type="checkbox"] {
+      margin-top: 0.15em;
+      margin-right: rem-calc(5);
+      vertical-align: top;
+    }
+  }
+
   .required.error{
     input{
       border: rem-calc(1) solid red;

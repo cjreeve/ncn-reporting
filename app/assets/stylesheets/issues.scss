@@ -60,6 +60,11 @@ article.issue{
     table.issues{
      width: 100%;
      margin-bottom: 0;
+     tr{
+      td, a{
+        font-size: rem-calc(12);
+      }
+     }
    }
    .download-issues{
      margin-bottom: rem-calc(15);
