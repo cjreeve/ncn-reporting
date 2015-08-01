@@ -6354,6 +6354,12 @@ html body .button.select {
     background-color: #9fb9d1; }
 html body textarea, html body select {
   margin-bottom: 1rem; }
+html body label.checkbox {
+  vertical-align: top; }
+  html body label.checkbox input[type="checkbox"] {
+    margin-top: 0.15em;
+    margin-right: 0.3125rem;
+    vertical-align: top; }
 html body .required.error input {
   border: 0.0625rem solid red; }
 html body .required.error .error {
@@ -6427,18 +6433,20 @@ article.welcome {
       article.welcome .sign-in-container {
         margin-top: 15.625rem;
         background-color: rgba(200, 200, 200, 0.3); } }
-    article.welcome .sign-in-container .sign-in {
-      min-width: 12.5rem;
-      height: 3.125rem;
-      background-color: rgba(200, 200, 200, 0.6);
-      padding: 0.3125rem 0.625rem;
-      border-radius: 0.3125rem;
-      color: #023c60;
-      font-size: 1.5625rem; }
-      article.welcome .sign-in-container .sign-in:hover {
-        text-decoration: none;
-        background-color: rgba(200, 200, 250, 0.8);
-        color: #024b79; }
+    article.welcome .sign-in-container .button-container {
+      text-align: right; }
+      article.welcome .sign-in-container .button-container .sign-in {
+        min-width: 12.5rem;
+        height: 3.125rem;
+        background-color: rgba(200, 200, 200, 0.6);
+        padding: 0.3125rem 0.625rem;
+        border-radius: 0.3125rem;
+        color: #023c60;
+        font-size: 1.5625rem; }
+        article.welcome .sign-in-container .button-container .sign-in:hover {
+          text-decoration: none;
+          background-color: rgba(200, 200, 250, 0.8);
+          color: #024b79; }
 
 article.issue h1 {
   display: inline-block; }
@@ -6479,6 +6487,8 @@ article.issue .issues-table-container {
   article.issue .issues-table-container table.issues {
     width: 100%;
     margin-bottom: 0; }
+    article.issue .issues-table-container table.issues tr td, article.issue .issues-table-container table.issues tr a {
+      font-size: 0.75rem; }
   article.issue .issues-table-container .download-issues {
     margin-bottom: 0.9375rem;
     text-align: right; }
