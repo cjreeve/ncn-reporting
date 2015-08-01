@@ -100,7 +100,7 @@
           </tr>
         <% end %>
           <tr>
-            <td>Coordiante:</td>
+            <td>Coordinate:</td>
             <td>
               <%= 
                 if @issue.coordinate.present?
@@ -144,7 +144,11 @@
 
     <% if @issue.images.present? %>
       <div class='issue-images'>
-        <%= image_tag @issue.images.first.url, alt: "image can't be found" %>
+        <% if @issue.images.first.url.present? %>
+          <%= image_tag @issue.images.first.url, alt: "image can't be found" %>
+        <% else %>
+          <br>
+        <% end %>
         <div class='caption'>
           <%= @issue.images.first.caption %>
         </div>
