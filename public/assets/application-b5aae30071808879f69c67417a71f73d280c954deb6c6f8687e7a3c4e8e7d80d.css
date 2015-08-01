@@ -6337,15 +6337,21 @@ th.hide-for-touch {
 @media not print {
   .show-for-print {
     display: none !important; } }
+html body > article {
+  padding-top: 1.25rem; }
+html body h1 {
+  font-size: 2.1875rem; }
+html body h2 {
+  font-size: 1.5625rem; }
 html body a:hover {
   text-decoration: underline; }
 html body .button.select {
-  background-color: #BBD;
+  background-color: #b4c8db;
   width: 100%;
   height: 3.125rem;
   padding: 0.9375rem 0.1875rem; }
   html body .button.select:hover {
-    background-color: #a7a7d3; }
+    background-color: #9fb9d1; }
 html body textarea, html body select {
   margin-bottom: 1rem; }
 html body .required.error input {
@@ -6363,6 +6369,76 @@ html body a.button.select {
   text-decoration: none; }
 html body select {
   padding: 0.3125rem 0.5rem; }
+
+article.admin h1 {
+  display: inline-block; }
+
+header {
+  background-color: #33aefb;
+  padding-bottom: 0.625rem;
+  border-bottom: 0.0625rem solid #aaa; }
+  header .user-controls {
+    color: white;
+    display: inlin-block;
+    float: right;
+    positon: relative;
+    min-width: 18.75rem;
+    text-align: right; }
+    header .user-controls #controls-cog {
+      position: absolute;
+      top: 0;
+      right: 0; }
+  header a {
+    color: white; }
+    header a:hover {
+      color: white; }
+
+article.welcome {
+  position: relative;
+  /*margin-top: rem-calc(-10);*/
+  /*background-image: url("backdrop-136.jpg");*/
+  /*background-size: 100% auto;*/
+  /*background-repeat: no-repeat;*/
+  /*min-height: rem-calc(720);*/ }
+  article.welcome img.backdrop {
+    position: absolute;
+    top: 0;
+    width: 100%; }
+  article.welcome h1, article.welcome h2 {
+    color: #024b79; }
+  article.welcome h1 {
+    margin-bottom: 0; }
+  article.welcome h2 {
+    margin-bottom: 1.875rem;
+    font-size: 0.9375rem; }
+    @media only screen and (min-width: 40.0625em) {
+      article.welcome h2 {
+        font-size: 1.5625rem; } }
+  article.welcome .sign-in-container {
+    margin-top: 3.125rem;
+    background-color: rgba(200, 200, 200, 0.5);
+    border-radius: 1.25rem;
+    padding: 1.875rem; }
+    @media only screen and (min-width: 40.0625em) {
+      article.welcome .sign-in-container {
+        margin-top: 6.25rem;
+        background-color: rgba(200, 200, 200, 0.4); } }
+    @media only screen and (min-width: 64.0625em) {
+      article.welcome .sign-in-container {
+        margin-top: 15.625rem;
+        background-color: rgba(200, 200, 200, 0.3); } }
+    article.welcome .sign-in-container .sign-in {
+      min-width: 12.5rem;
+      height: 3.125rem;
+      background-color: rgba(200, 200, 200, 0.6);
+      padding: 0.3125rem 0.625rem;
+      border-radius: 0.3125rem;
+      color: #023c60;
+      font-size: 1.5625rem; }
+      article.welcome .sign-in-container .sign-in:hover {
+        text-decoration: none;
+        background-color: rgba(200, 200, 250, 0.8);
+        color: #024b79; }
 
 article.issue h1 {
   display: inline-block; }
@@ -6382,6 +6458,8 @@ article.issue .issue-images {
     background-color: rgba(250, 250, 250, 0.5);
     width: 100%;
     padding: 0 0.625rem; }
+article.issue #issue_title {
+  margin-bottom: 0; }
 article.issue #issue_coordinate {
   margin-bottom: 0; }
 article.issue #issue_images_attributes_0_url {
@@ -6406,6 +6484,29 @@ article.issue .issues-table-container {
     text-align: right; }
     article.issue .issues-table-container .download-issues a {
       font-size: 0.625rem; }
+article.issue #comments .comment .delete-comment {
+  float: right;
+  margin-right: 0.3125rem;
+  visibility: hidden; }
+article.issue #comments .comment:hover .delete-comment {
+  visibility: visible;
+  color: grey; }
+  article.issue #comments .comment:hover .delete-comment:hover {
+    font-weight: 700;
+    text-decoration: none; }
+article.issue #comments .comment .comment-content {
+  background-color: #f5f5f5;
+  padding: 0 0.625rem; }
+article.issue #comments .comment .comment-footer {
+  background-color: #EEF;
+  padding: 0 0.625rem;
+  margin-bottom: 0.3125rem;
+  line-heiht: 0;
+  text-align: right; }
+  article.issue #comments .comment .comment-footer .comment-label {
+    display: inline-block;
+    font-size: 0.6875rem;
+    line-height: 1; }
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Set default font family to sans-serif.

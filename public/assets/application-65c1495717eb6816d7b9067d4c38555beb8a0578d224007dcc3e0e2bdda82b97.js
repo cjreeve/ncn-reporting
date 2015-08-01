@@ -17228,9 +17228,30 @@ $(document).ready(function() {
         categoryOptions = $('#category-' + $(this).find('option:selected').attr('value') + '-problems');
         categoryOptions.show();
         categoryOptions.find('select').removeClass('disabled');
-        return categoryOptions.find('select').removeAttr('disabled');
+        categoryOptions.find('select').removeAttr('disabled');
+        if (categoryOptions.find('select option:selected').text() === "Other") {
+          return categoryOptions.find('select').val('');
+        } else {
+          return $('.other-problem-field').hide();
+        }
       });
-      return $('#issue_category_id').trigger('change');
+      $('#issue_category_id').trigger('change');
+      $('.category-problems-list select').on('change', function(e) {
+        if ($(this).find('option:selected').text() === "Other") {
+          $('.category-problems').hide();
+          $('.other-problem-field').show();
+        }
+        if ($(this).find('option:selected').text() === '-' && $('#issue_title').val().length > 0) {
+          $('.category-problems').hide();
+          return $('.other-problem-field').show();
+        }
+      });
+      $('#issue_problem_id').trigger('change');
+      return $('#select-problem').on('click', function(e) {
+        e.preventDefault();
+        $('#issue_category_id').trigger('change');
+        return $('.other-problem-field').hide();
+      });
     });
   });
 
