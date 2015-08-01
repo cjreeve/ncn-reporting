@@ -1,8 +1,12 @@
 header{
-  background-color: $light-grey;
+  background-color: lighten($road-sign-blue,20);
   padding-bottom: rem-calc(10);
-  margin-bottom: rem-calc(10);
+  border-bottom: rem-calc(1) solid #aaa;
+  // margin-bottom: rem-calc(5);
+  // @include box-shadow(#333 rem-calc(4) rem-calc(2) rem-calc(5) rem-calc(-2));
+  // box-shadow: 0 4px 2px -2px gray;
   .user-controls{
+    color: white;
     display: inlin-block;
     float: right;
     positon: relative;
@@ -12,6 +16,12 @@ header{
       position: absolute;
       top: 0;
       right: 0;
+    }
+  }
+  a{
+    color: white;
+    &:hover{
+      color: white;
     }
   }
 }

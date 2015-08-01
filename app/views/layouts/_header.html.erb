@@ -3,7 +3,10 @@
     <div class="small-12 columns">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
-      <%= link_to 'NCN Reporting', '/' %>
+      <%#= link_to 'NCN Reporting', '/' %>
+      <%= link_to '/' do %>
+        <%= image_tag 'logo.png' %>
+      <% end %>
       <% if user.present? %>
         <div class='user-controls'>
           <%= 

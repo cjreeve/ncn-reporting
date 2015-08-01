@@ -14,11 +14,12 @@
  *#= require normalize
  */
 
-// @import "compass";
 @import "palette";
 @import "foundation_and_overrides";
+// @import "compass";
 @import "style";
 @import "admin/style";
 
 @import "header";
+@import "pages";
 @import "issues";

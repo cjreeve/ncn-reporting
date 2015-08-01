@@ -32,9 +32,13 @@ gem 'devise'
 gem 'cancan'
 gem 'redcarpet'
 
+
+
+
 # Gems used for precompilling assets
 group :assets do
   gem 'sass-rails'
+  # gem 'compass-rails'
   gem 'coffee-rails'
   gem 'uglifier', '>= 1.0.3'
   # Add Foundation Here

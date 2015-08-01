@@ -1,8 +1,13 @@
 <article class='welcome'>
+  <%= image_tag 'backdrop-136-small.jpg', class: 'backdrop show-for-small-only' %>
+  <%= image_tag 'backdrop-136.jpg', class: 'backdrop show-for-medium-up' %>
   <div class='row'>
-    <div class='small-12 columns'>
-      <h1>Welcome</h1>
-
-      <p>Please log in here:</p>
-
-      <p><%= link_to 'Sign in', new_user_session_path %></p>
+    <div class='small-12 medium-offset-2 medium-8 columns'>
+      <div class='sign-in-container'>
+        <h1>Welcome</h1>
+        <h2>to the new Sustrans reporting tool</h2>
+        <%= link_to 'Sign in', new_user_session_path, class: 'sign-in' %>
+      </div>
+    </div>
+  </div>
+</article>
