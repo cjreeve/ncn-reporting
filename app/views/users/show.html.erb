@@ -11,7 +11,7 @@
           </tr>
           <tr>
             <td>
-              <% if can? :manage, @user %>
+              <% if current_user == @user %>
                 <%= link_to 'edit my details', edit_user_registration_path %>
               <% end %>
             </td>
