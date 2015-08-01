@@ -38,18 +38,21 @@ article.welcome{
       margin-top: rem-calc(250);
       background-color: rgba(200, 200, 200, 0.3);
     }
-    .sign-in{
-      min-width: rem-calc(200);
-      height: rem-calc(50);
-      background-color: rgba(200, 200, 200, 0.6);
-      padding: rem-calc(5 10);
-      border-radius: rem-calc(5);
-      color: darken($road-sign-blue,20);
-      font-size: rem-calc(25);
-      &:hover{
-        text-decoration: none;
-        background-color: rgba(200, 200, 250, 0.8);
-        color: darken($road-sign-blue,15);
+    .button-container{
+      text-align: right;
+      .sign-in{
+        min-width: rem-calc(200);
+        height: rem-calc(50);
+        background-color: rgba(200, 200, 200, 0.6);
+        padding: rem-calc(5 10);
+        border-radius: rem-calc(5);
+        color: darken($road-sign-blue,20);
+        font-size: rem-calc(25);
+        &:hover{
+          text-decoration: none;
+          background-color: rgba(200, 200, 250, 0.8);
+          color: darken($road-sign-blue,15);
+        }
       }
     }
   }
