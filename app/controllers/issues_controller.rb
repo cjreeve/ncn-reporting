@@ -47,7 +47,7 @@ class IssuesController < ApplicationController
     options[:route] = params[:route].to_i if params[:route].present? && params[:route] != "all"
     options[:area] = params[:area].to_i if params[:area].present? && params[:area] != "all"
     if params[:state].present? && @states.include?(params[:state].to_sym)
-      if params[:state] = 'open'
+      if params[:state] == 'open'
         options[:state] = ['open', 'reopened']
       else
         options[:state] = params[:state]
@@ -55,6 +55,8 @@ class IssuesController < ApplicationController
     else
       exclusions[:state] = ['draft', 'closed'] unless params[:state] == "all"
     end
+
+    options[:user_id] = current_user.id if options[:state] == 'draft'
 
     if table_name.present?
       @issues = Issue.joins(table_name).where(options).where.not(exclusions).order(order).paginate(page: params[:page], per_page: per_page)
