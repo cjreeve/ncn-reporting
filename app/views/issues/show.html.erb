@@ -145,7 +145,7 @@
     <% if @issue.images.present? %>
       <div class='issue-images'>
         <% if @issue.images.first.url.present? %>
-          <%= image_tag @issue.images.first.url, alt: "image can't be found" %>
+          <%= image_tag @issue.images.first.url, alt: "" %>
         <% else %>
           <br>
         <% end %>
