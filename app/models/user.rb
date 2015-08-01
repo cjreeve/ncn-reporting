@@ -8,4 +8,9 @@ class User < ActiveRecord::Base
 
   has_many :issues
   has_many :comments
+
+  def removable?
+    self.issues.limit(1).blank? && self.comments.limit(1).blank?
+  end
+
 end

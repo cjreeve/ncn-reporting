@@ -32,7 +32,7 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to admin_users_url, notice: 'User account was succesfully created'
+      redirect_to admin_users_url, notice: 'User account was successfully created'
     else
       render :new
     end
@@ -50,7 +50,8 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :role)
+    permitted_params = params.require(:user).permit(:name, :email, :password, :role)
+    permitted_params.except(:password) if permitted_params[:password] == ""
   end
 
   def check_authorisation

@@ -37,12 +37,12 @@ u.name = "Christopher Reeve"
 u.role = "admin"
 u.password = 'asdfasdf'
 u.save
-u = User.find_or_create_by(email: 'admin@sustrans.co.uk')
+u = User.find_or_create_by(email: 'admin@sustrans.org.uk')
 u.name = "admin"
 u.role = "admin"
 u.password = 'password'
 u.save
-u = User.find_or_create_by(email: 'volunteer@sustrans.co.uk')
+u = User.find_or_create_by(email: 'volunteer@sustrans.org.uk')
 u.name = 'volunteer'
 u.role = 'volunteer'
 u.password = 'password'

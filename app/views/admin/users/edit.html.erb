@@ -7,7 +7,7 @@
       <h2>Admin: Edit user <%= @user.name %></h2>
 
       <%= simple_form_for(@user, url: admin_user_path(@user), html: { method: :put }) do |f| %>
-        <%= render 'admin/users/form' %>
+        <%= render 'admin/users/form', f: f %>
         <div class="form-actions">
           <%= f.button :submit, "Update" %>
         </div>

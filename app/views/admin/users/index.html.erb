@@ -20,7 +20,11 @@
               <td><%= link_to user.name, admin_user_path(user) %></td>
               <td><%= user.role %></td>
               <td><%= user.email %></td>
-              <td><%= link_to "&times;".html_safe, admin_user_path(user), method: :delete, data: { confirm: "Are you sure? This can't be undone."} %></td>
+              <td>
+                <% if user.removable? %>
+                  <%= link_to "&times;".html_safe, admin_user_path(user), method: :delete, data: { confirm: "Are you sure? This can't be undone."} %>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </tbody>
