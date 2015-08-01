@@ -135,6 +135,13 @@ class IssuesController < ApplicationController
         format.html { redirect_to @issue, notice: 'Issue was successfully updated.' }
         format.json { render :show, status: :ok, location: @issue }
       else
+        @routes = Route.all.order(:name)
+        @routes = Route.all.order(:name)
+        @areas = Area.all.order(:name)
+        @categories = Category.all
+        @problems = {}
+        @categories.each { |c| @problems[c.id] = c.problems }
+        @issue.images << Image.new unless @issue.images.present?
         format.html { render :edit }
         format.json { render json: @issue.errors, status: :unprocessable_entity }
       end

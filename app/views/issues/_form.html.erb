@@ -20,18 +20,22 @@
     <div class='row'>
       <div class='medium-6 columns'>
         <%= f.input :category_id, collection: @categories, label: 'Select issue category', include_blank: false %>
-        <%#= f.input :title, required: true, label: 'Title (e.g. sign turned)' %>
       </div>
       <div class='medium-6 columns'>
         
         <ul class='list-style category-problems-list'>
           <% @categories.each do |category| %>
             <li id="category-<%= category.id %>-problems" class='category-problems' style='display: none'>
-              <%= f.input :problem_id, collection: @problems[category.id], label: 'The problem', disabled: true %>
+              <% problem_options = [["-",nil]] + @problems[category.id].collect{|p| [p.name, p.id]} + [["Other", nil]] 
+              %>
+              <%= f.input :problem_id, collection: problem_options, label: 'The problem', disabled: true, include_blank: false, input_html: {selected: @issue.problem_id } %>
             </li>
           <% end %>
         </ul>
-        <%#= f.input :problem_id, collection: @problems, label: 'The problem' %>
+        <div id='other-problem-field' style='display:none'>
+          <%= f.input :title, label: 'The problem' %>
+          <%= link_to '< back to problem list', '#', id: "select-problem", class: 'input-prompt' %>
+        </div>
       </div>
     </div>
     <div class='row'>

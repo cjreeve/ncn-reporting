@@ -22,7 +22,6 @@ class Issue < ActiveRecord::Base
   before_validation :set_title
 
   validates :title, presence: true
-  validates :problem, presence: true
 
   after_validation :coordinate_to_latlng
 
@@ -104,7 +103,7 @@ class Issue < ActiveRecord::Base
 
   def set_title
     problem = Problem.find(self.problem_id) if self.problem_id
-    self.title = problem.name unless problem.name == 'other'
+    self.title = problem.name unless (problem.nil? || problem.name == 'other')
   end
 
   def self.to_csv
