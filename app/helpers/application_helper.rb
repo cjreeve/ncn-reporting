@@ -90,7 +90,7 @@ module ApplicationHelper
     the_params[:order] = this_order.to_sym
     the_params[:dir] = tab_sort_dir(this_order, current_order, direction)
     link_to issues_path(the_params) do
-      "#{name} #{ tab_arrow(this_order, current_order, direction) }".html_safe
+      "#{name}#{ tab_arrow(this_order, current_order, direction) }".html_safe
     end
   end
 
