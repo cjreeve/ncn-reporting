@@ -6506,7 +6506,8 @@ article.issue #comments .comment:hover .delete-comment {
     text-decoration: none; }
 article.issue #comments .comment .comment-content {
   background-color: #f5f5f5;
-  padding: 0 0.625rem; }
+  padding: 0 0.625rem;
+  font-size: 0.8125rem; }
 article.issue #comments .comment .comment-footer {
   background-color: #EEF;
   padding: 0 0.625rem;
