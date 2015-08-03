@@ -117,6 +117,18 @@
       <%= @issue.description %>
     </p>
 
+    <div class='row'>
+      <div class='medium-5 medium-11 large-9 columns'>
+        <div id='comments'>
+          <%= render 'comments/comments', 
+            comments: @issue.comments, 
+            issue: @issue,
+            new_comment: @new_comment
+          %>
+        </div>
+      </div>
+    </div>
+
   </div>
   <div class='medium-6 columns'>
 
@@ -188,18 +200,6 @@
 
     </p>
 
-    <h3>Comments</h3>
-    <div class='row'>
-      <div class='medium-5 medium-3 large-4 columns'>
-        <div id='comments'>
-          <%= render 'comments/comments', 
-            comments: @issue.comments, 
-            issue: @issue,
-            new_comment: @new_comment
-          %>
-        </div>
-      </div>
-    </div>
     
     <%= link_to 'Edit', edit_issue_path(@issue) %> |
     <%= link_to 'Index', issues_path %>
