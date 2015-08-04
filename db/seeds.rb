@@ -32,30 +32,44 @@ end
   category = Category.find_or_create_by(name: category_name.gsub('_',' '))
 end
 
-u = User.find_or_create_by(email: 'cjreeve@gmail.com')
-u.name = "Christopher Reeve"
-u.role = "admin"
-u.password = 'asdfasdf'
-u.save
-u = User.find_or_create_by(email: 'admin@sustrans.org.uk')
-u.name = "admin"
-u.role = "admin"
-u.password = 'password'
-u.save
-u = User.find_or_create_by(email: 'volunteer@sustrans.org.uk')
-u.name = 'volunteer'
-u.role = 'volunteer'
-u.password = 'password'
-u.save
 
-users = User.all
-
-Issue.all.each do |issue|
-  unless issue.user.present?
-    issue.user = users.shuffle.first
+Issue.all.each do | issue |
+  comment_time = issue.comments.last.try(:created_at)
+  if comment_time && comment_time > issue.updated_at
+    issue.updated_at = comment_time
     issue.save
   end
 end
+
+
+
+# u = User.find_or_create_by(email: 'cjreeve@gmail.com')
+# u.name = "Christopher Reeve"
+# u.role = "admin"
+# u.password = 'asdfasdf'
+# u.save
+# u = User.find_or_create_by(email: 'admin@sustrans.org.uk')
+# u.name = "admin"
+# u.role = "admin"
+# u.password = 'password'
+# u.save
+# u = User.find_or_create_by(email: 'volunteer@sustrans.org.uk')
+# u.name = 'volunteer'
+# u.role = 'volunteer'
+# u.password = 'password'
+# u.save
+
+
+
+
+# users = User.all
+
+# Issue.all.each do |issue|
+#   unless issue.user.present?
+#     issue.user = users.shuffle.first
+#     issue.save
+#   end
+# end
 
 
 # area = Area.find_by_name('South-West')

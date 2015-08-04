@@ -29,6 +29,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
+        @issue.touch
         format.html { redirect_to :show, status: :created }
         format.js { 
           return (render :comment) 
@@ -42,6 +43,7 @@ class CommentsController < ApplicationController
 
   def update
     @comment.update(comment_params)
+    @comment.issue.update
     respond_with(@comment)
   end
 

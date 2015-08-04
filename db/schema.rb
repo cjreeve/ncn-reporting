@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729193049) do
+ActiveRecord::Schema.define(version: 20150804211201) do
 
   create_table "areas", force: true do |t|
     t.string   "name"
@@ -69,14 +69,15 @@ ActiveRecord::Schema.define(version: 20150729193049) do
     t.datetime "updated_at"
     t.float    "lat"
     t.float    "lng"
-    t.string   "state",         default: "draft", null: false
-    t.string   "location_name", default: "",      null: false
+    t.string   "state",         default: "draft",               null: false
+    t.string   "location_name", default: "",                    null: false
     t.integer  "route_id"
     t.string   "url"
     t.integer  "area_id"
     t.integer  "category_id"
     t.integer  "problem_id"
     t.integer  "user_id"
+    t.datetime "edited_at",     default: '2015-08-04 21:18:32', null: false
   end
 
   add_index "issues", ["area_id"], name: "index_issues_on_area_id"

@@ -14,7 +14,7 @@ class IssuesController < ApplicationController
     end
 
     where_option = ""
-    order = :issue_number
+    order = :updated_at
     order = :issue_number if params[:order] == 'number'
     order = :title if params[:order] == 'title'
     order = :problem if params[:order] == 'problem'

@@ -33,7 +33,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @user.issues[0..6].each do |issue| %>
+          <% @user.issues[0..9].each do |issue| %>
             <tr>
               <td><%= link_to issue.issue_number, issue_number_path(issue.issue_number) %></td>
               <td><%= issue.category.name if issue.category %></td>
