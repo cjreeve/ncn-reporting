@@ -14,7 +14,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/edit
     def edit
-      # binding.pry
       super
     end
 

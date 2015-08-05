@@ -153,7 +153,6 @@ class IssuesController < ApplicationController
   # DELETE /issues/1
   # DELETE /issues/1.json
   def destroy
-    #   binding.pry
 
     if (current_user && (current_user.role == "admin" || current_user.role == "staff" || current_user == @issue.user))
       authorize! :destroy, @issue
