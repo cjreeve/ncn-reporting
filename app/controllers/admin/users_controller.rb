@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
 
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:create]
 
   before_filter :check_authorisation
 
@@ -52,6 +52,7 @@ class Admin::UsersController < ApplicationController
   def user_params
     permitted_params = params.require(:user).permit(:name, :email, :password, :role)
     permitted_params.except(:password) if permitted_params[:password] == ""
+    permitted_params
   end
 
   def check_authorisation
