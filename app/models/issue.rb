@@ -26,19 +26,14 @@ class Issue < ActiveRecord::Base
   after_validation :coordinate_to_latlng
 
   reverse_geocoded_by :latitude, :longitude do |issue, results|
-    # binding.pry
     if results.present?
       unless issue.location_name.present?
         issue.location_name = issue.get_location_name(results)
       end
+      unless issue.administrative_area.present?
+        issue.administrative_area = issue.get_admin_area(results)
+      end
     end
-    # issue.location_name = results[0].route if results.present?
-    # issue.location_name = 
-    # results.each do |r|
-    #   if r.address_components[0]["short_name"].include?("Borough")
-    #     issue.location_name = r.address_components[0]["short_name"]
-    #   end
-    # end
   end
 
   after_validation :reverse_geocode

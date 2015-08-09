@@ -99,6 +99,12 @@
             <td><%= @issue.location_name %></td>
           </tr>
         <% end %>
+        <% if @issue.administrative_area.present? %>
+          <tr>
+            <td>Administrative area:</td>
+            <td><%= @issue.administrative_area %></td>
+          </tr>
+        <% end %>
           <tr>
             <td>Coordinate:</td>
             <td>
