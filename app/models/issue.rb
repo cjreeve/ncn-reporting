@@ -30,9 +30,9 @@ class Issue < ActiveRecord::Base
       unless issue.location_name.present?
         issue.location_name = issue.get_location_name(results)
       end
-      unless issue.administrative_area.present?
+      # unless issue.administrative_area.present?
         issue.administrative_area = issue.get_admin_area(results)
-      end
+      # end
     end
   end
 
