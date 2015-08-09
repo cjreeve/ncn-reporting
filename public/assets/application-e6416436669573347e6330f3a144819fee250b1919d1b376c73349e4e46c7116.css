@@ -6375,6 +6375,9 @@ html body a.button.select {
   text-decoration: none; }
 html body select {
   padding: 0.3125rem 0.5rem; }
+@media only screen and (max-width: 40em) {
+  html body .hide-for-small-when.new {
+    display: none; } }
 
 article.admin h1 {
   display: inline-block; }
