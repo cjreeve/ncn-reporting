@@ -25,6 +25,24 @@ class Issue < ActiveRecord::Base
 
   after_validation :coordinate_to_latlng
 
+  reverse_geocoded_by :latitude, :longitude do |issue, results|
+    # binding.pry
+    if results.present?
+      unless issue.location_name.present?
+        issue.location_name = issue.get_location_name(results)
+      end
+    end
+    # issue.location_name = results[0].route if results.present?
+    # issue.location_name = 
+    # results.each do |r|
+    #   if r.address_components[0]["short_name"].include?("Borough")
+    #     issue.location_name = r.address_components[0]["short_name"]
+    #   end
+    # end
+  end
+
+  after_validation :reverse_geocode
+
   state_machine :state, initial: :draft do
     event :publish do
       transition draft: :open
@@ -80,6 +98,42 @@ class Issue < ActiveRecord::Base
     else
       self.title
     end
+  end
+
+  def latitude
+    self.lat
+  end
+
+  def longitude
+    self.lng
+  end
+
+  def get_address_component(results, types)
+    address_component = results.collect{ |r|
+      r.address_components.find{ |c|
+        types.all?{ |t| c["types"].include?(t) }
+      }.try(:[], "short_name")
+    }.compact.first
+    address_component ||= ""
+  end
+
+  def get_location_name(results)
+    location_name = get_address_component(results, ["neighborhood"])
+    if location_name.blank?
+      location_name = get_address_component(results, ["locality"])
+      if location_name.blank? || location_name == "London"
+        location_name = get_address_component(results, ["route"])
+      end
+    end
+    location_name
+  end
+
+  def get_admin_area(results)
+    admin_area = get_address_component(results, ["administrative_area_level_3"])
+    if admin_area.blank?
+      admin_area = get_address_component(results, ["administrative_area_level_2"])
+    end
+    admin_area
   end
   
   private

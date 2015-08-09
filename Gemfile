@@ -31,6 +31,7 @@ gem 'will_paginate'
 gem 'devise'
 gem 'cancan'
 gem 'redcarpet'
+gem 'geocoder'
 
 
 
