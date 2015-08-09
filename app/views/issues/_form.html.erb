@@ -43,8 +43,8 @@
         <%= f.input :coordinate, label: 'Coordinate (e.g. 51.52009, -0.10309)' %>
         <%= link_to 'Find your coordinate', '#', id: "openCoordModal", class: 'input-prompt' %>
       </div>
-      <div class='medium-6 columns'>
-        <%= f.input :location_name, label: 'Location (e.g. street name)' %>
+      <div class='medium-6 columns hide-for-small-when <%= @issue.id.present? ? "update" : "new" %>'>
+        <%= f.input :location_name, label: 'Location (auto-completes when blank)' %>
       </div>
     </div>
     <div class='row'>
@@ -82,7 +82,9 @@
         </div>
       </div>
     <% end %>
-    <%= f.input :url, label: 'other url (e.g. google street view)' %>
+    <div class='hide-for-small-when <%= @issue.id.present? ? "update" : "new" %>'>
+      <%= f.input :url, label: 'other url (e.g. google street view)' %>
+    </div>
     <%= f.input :description %>
 
     <% if @issue.id.present? %>
