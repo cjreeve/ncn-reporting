@@ -25,6 +25,11 @@
               <%= link_to 'Manage Areas', areas_path %>
             </li>
           <% end %>
+          <% if can? :manage, AdministrativeArea %>
+            <li>
+              <%= link_to 'Manage Administrative Areas', administrative_areas_path %>
+            </li>
+          <% end %>
           <% if can? :manage, Category %>
             <li>
               <%= link_to 'Manage Categories', categories_path %>

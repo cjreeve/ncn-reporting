@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :administrative_areas
+
   get '/pages/:slug' => 'pages#view', as: :view
 
   resources :pages

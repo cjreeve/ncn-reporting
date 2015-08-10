@@ -3,6 +3,7 @@ class Issue < ActiveRecord::Base
 
   belongs_to :route
   belongs_to :area
+  belongs_to :administrative_area
   has_many :images
   has_many :comments
   belongs_to :category
@@ -30,9 +31,10 @@ class Issue < ActiveRecord::Base
       unless issue.location_name.present?
         issue.location_name = issue.get_location_name(results)
       end
-      # unless issue.administrative_area.present?
-        issue.administrative_area = issue.get_admin_area(results)
-      # end
+
+      administrative_area_name = issue.get_admin_area(results).strip
+      administrative_area_name = "unknown" if administrative_area_name.length == 0
+      issue.administrative_area = AdministrativeArea.find_or_create_by(name: administrative_area_name)
     end
   end
 

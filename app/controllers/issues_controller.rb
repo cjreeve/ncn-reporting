@@ -206,7 +206,7 @@ class IssuesController < ApplicationController
     def issue_params
       params.require(:issue).permit(:issue_number, :title, :description, :priority, :reported_at,
         :completed_at, :location_name, :coordinate, :route_id, :area_id, :url, :category_id, 
-        :problem_id, :user_id, :administrative_area,
+        :problem_id, :user_id, :administrative_area_id,
         images_attributes: [:id, :url, :caption, :_destroy])
     end
 end

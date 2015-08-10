@@ -1,0 +1,35 @@
+<article class='administrative-area'>
+  <div class='row'>
+    <div class='small-12 columns'>
+
+      <h1>Administrative areas</h1>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Short name</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @administrative_areas.each do |administrative_area| %>
+            <tr>
+              <td><%= administrative_area.name %></td>
+              <td><%= administrative_area.short_name %></td>
+              <td><%= link_to 'Show', administrative_area %></td>
+              <td><%= link_to 'Edit', edit_administrative_area_path(administrative_area) %></td>
+              <td><%= link_to 'Destroy', administrative_area, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <%= link_to 'New Administrative area', new_administrative_area_path %>
+      <br>
+      <br>
+      <%= link_to '< back to control panel', controls_path %>
+    </div>
+  </div>
+</article>

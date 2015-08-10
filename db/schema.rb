@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809212829) do
+ActiveRecord::Schema.define(version: 20150810204749) do
+
+  create_table "administrative_areas", force: true do |t|
+    t.string   "name",       null: false
+    t.string   "short_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "administrative_areas", ["name"], name: "index_administrative_areas_on_name", unique: true
+  add_index "administrative_areas", ["short_name"], name: "index_administrative_areas_on_short_name", unique: true
 
   create_table "areas", force: true do |t|
     t.string   "name"
@@ -69,18 +79,19 @@ ActiveRecord::Schema.define(version: 20150809212829) do
     t.datetime "updated_at"
     t.float    "lat"
     t.float    "lng"
-    t.string   "state",               default: "draft",               null: false
-    t.string   "location_name",       default: "",                    null: false
+    t.string   "state",                  default: "draft",               null: false
+    t.string   "location_name",          default: "",                    null: false
     t.integer  "route_id"
     t.string   "url"
     t.integer  "area_id"
     t.integer  "category_id"
     t.integer  "problem_id"
     t.integer  "user_id"
-    t.datetime "edited_at",           default: '2015-08-04 21:18:32', null: false
-    t.string   "administrative_area"
+    t.datetime "edited_at",              default: '2015-08-04 21:18:32', null: false
+    t.integer  "administrative_area_id"
   end
 
+  add_index "issues", ["administrative_area_id"], name: "index_issues_on_administrative_area_id"
   add_index "issues", ["area_id"], name: "index_issues_on_area_id"
   add_index "issues", ["category_id"], name: "index_issues_on_category_id"
   add_index "issues", ["completed_at"], name: "index_issues_on_completed_at"
