@@ -50,7 +50,7 @@
                 <%= link_to "all boroughs", issues_path(the_params(params, {region: nil})) %>
               </li>
             <% end %>
-            <% @administrative_areas.each do |area| %>
+            <% @administrative_areas.sort_by{ |a| a.short_name }.each do |area| %>
               <% unless (@current_administrative_area && @current_administrative_area == area) %>
                 <li>
                   <%= link_to area.short_name, issues_path(the_params(params, {region: area.id})) %>
