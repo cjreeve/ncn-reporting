@@ -46,6 +46,7 @@ class IssuesController < ApplicationController
 
     options[:route] = params[:route].to_i if params[:route].present? && params[:route] != "all"
     options[:area] = params[:area].to_i if params[:area].present? && params[:area] != "all"
+    options[:administrative_area] = params[:region].to_i if params[:region].present? && params[:region] != "all"
     if params[:state].present? && @states.include?(params[:state].to_sym)
       if params[:state] == 'open'
         options[:state] = ['open', 'reopened']
@@ -58,6 +59,11 @@ class IssuesController < ApplicationController
 
     options[:user_id] = current_user.id if options[:state] == 'draft'
 
+    @administrative_areas = AdministrativeArea.joins(issues: [:route, :area]).where(
+      ((params[:route] && params[:route] != 'all') ? 'routes.id = ?' : '' ), params[:route]).where(
+      ((params[:area] && params[:area] != 'all') ? 'areas.id = ?' : '' ), params[:area])
+      #.where(((params[:state] && params[:state] != 'all') ? ' issues.state = ?' : '' ), params[:state])
+
     if table_name.present?
       @issues = Issue.joins(table_name).where(options).where.not(exclusions).order(order).paginate(page: params[:page], per_page: per_page)
     else
@@ -69,6 +75,7 @@ class IssuesController < ApplicationController
     @current_area = (params[:area].present? && @areas.collect(&:id).include?(params[:area].to_i)) ? Area.find(params[:area].to_i) : nil
     @current_state = (params[:state].present? && @states.include?(params[:state].to_sym)) ? params[:state] : nil
     @current_state = "all" if params[:state] == "all"
+    @current_administrative_area = (params[:region].present? && @administrative_areas.collect(&:id).include?(params[:region].to_i)) ? AdministrativeArea.find(params[:region].to_i) : nil
 
 
     respond_to do |format|
@@ -117,6 +124,12 @@ class IssuesController < ApplicationController
   # POST /issues.json
   def create
     @issue = Issue.new(issue_params)
+    @routes = Route.all.order(:name)
+    @routes = Route.all.order(:name)
+    @areas = Area.all.order(:name)
+    @categories = Category.all
+    @problems = {}
+    @categories.each { |c| @problems[c.id] = c.problems }
 
     respond_to do |format|
       if @issue.save

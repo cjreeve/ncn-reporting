@@ -16,6 +16,14 @@ article.issue{
     }
   }
   .issue-filters{
+    >li{
+      @media #{$small-only} {
+        padding-bottom: rem-calc(10);
+        >a{
+          margin-bottom: rem-calc(10);
+        }
+      }
+    }
     .f-dropdown{
       max-width: 178px;
     }

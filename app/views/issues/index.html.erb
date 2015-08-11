@@ -26,17 +26,34 @@
           </ul>
         </li>
         <li>
-          <a href="#" class="button select" data-dropdown="areaSelection" aria-controls="areaSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_area ? @current_area.name + " ▼" : "all areas ▼" %></a>
+          <a href="#" class="button select" data-dropdown="areaSelection" aria-controls="areaSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_area ? @current_area.name + " ▼" : "all groups ▼" %></a>
           <ul id="areaSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
             <% unless @current_area.nil? %>
               <li>
-                <%= link_to "all areas", issues_path(the_params(params, {area: nil})) %>
+                <%= link_to "all groups", issues_path(the_params(params, {area: nil})) %>
               </li>
             <% end %>
             <% @areas.each do |area| %>
               <% unless @current_area == area %>
                 <li>
                   <%= link_to area.name, issues_path(the_params(params, {area: area.id})) %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        </li>
+        <li>
+          <a href="#" class="button select" data-dropdown="administrativeAreaSelection" aria-controls="administrativeAreaSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_administrative_area ? @current_administrative_area.short_name + " ▼" : "Boroughs (all) ▼" %></a>
+          <ul id="administrativeAreaSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
+            <% unless @current_administrative_area.nil? %>
+              <li>
+                <%= link_to "all boroughs", issues_path(the_params(params, {region: nil})) %>
+              </li>
+            <% end %>
+            <% @administrative_areas.each do |area| %>
+              <% unless (@current_administrative_area && @current_administrative_area == area) %>
+                <li>
+                  <%= link_to area.short_name, issues_path(the_params(params, {region: area.id})) %>
                 </li>
               <% end %>
             <% end %>
@@ -52,7 +69,7 @@
             <% end %>
             <% unless @current_state && @current_state == "all" %>
               <li>
-                <%= link_to "all", issues_path(the_params(params, {state: "all"})) %>
+                <%= link_to "all states", issues_path(the_params(params, {state: "all"})) %>
               </li>
             <% end %>
             <% @states.each do |state| %>
@@ -63,8 +80,6 @@
               <% end %>
             <% end %>
           </ul>
-        </li>
-        <li style='color: grey'>
         </li>
       </ul>
 

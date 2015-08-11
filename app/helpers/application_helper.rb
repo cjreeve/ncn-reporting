@@ -112,6 +112,7 @@ module ApplicationHelper
     the_params[:route] = params[:route] if params[:route].present?
     the_params[:area] = params[:area] if params[:area].present?
     the_params[:state] = params[:state] if params[:state].present?
+    the_params[:region] = params[:region] if params[:region].present?
     the_params.merge!(new_params)
   end
 
