@@ -61,7 +61,7 @@ class IssuesController < ApplicationController
 
     @administrative_areas = AdministrativeArea.joins(issues: [:route, :area]).where(
       ((params[:route] && params[:route] != 'all') ? 'routes.id = ?' : '' ), params[:route]).where(
-      ((params[:area] && params[:area] != 'all') ? 'areas.id = ?' : '' ), params[:area])
+      ((params[:area] && params[:area] != 'all') ? 'areas.id = ?' : '' ), params[:area]).uniq
       #.where(((params[:state] && params[:state] != 'all') ? ' issues.state = ?' : '' ), params[:state])
 
     if table_name.present?
