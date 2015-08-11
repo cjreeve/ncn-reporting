@@ -6459,6 +6459,11 @@ article.issue .tab:hover {
   background-color: #e6e6e6; }
   article.issue .tab:hover a {
     text-decoration: none; }
+@media only screen and (max-width: 40em) {
+  article.issue .issue-filters > li {
+    padding-bottom: 0.625rem; }
+    article.issue .issue-filters > li > a {
+      margin-bottom: 0.625rem; } }
 article.issue .issue-filters .f-dropdown {
   max-width: 178px; }
 article.issue .issue-images {
