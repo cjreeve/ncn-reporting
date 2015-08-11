@@ -28,9 +28,9 @@ class Issue < ActiveRecord::Base
 
   reverse_geocoded_by :latitude, :longitude do |issue, results|
     if results.present?
-      # unless issue.location_name.present?
+      unless issue.location_name.present?
         issue.location_name = issue.get_location_name(results)
-      # end
+      end
 
       administrative_area_name = issue.get_admin_area(results).strip
       administrative_area_name = "unknown" if administrative_area_name.length == 0
