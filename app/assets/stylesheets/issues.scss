@@ -16,6 +16,11 @@ article.issue{
     }
   }
   .issue-filters{
+    a{
+      &:hover{
+        text-decoration: none;
+      }
+    }
     >li{
       @media #{$small-only} {
         padding-bottom: rem-calc(10);

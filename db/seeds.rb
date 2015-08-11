@@ -34,11 +34,9 @@ end
 
 
 Issue.all.each do | issue |
-  comment_time = issue.comments.last.try(:created_at)
-  if comment_time && comment_time > issue.updated_at
-    issue.updated_at = comment_time
-    issue.save
-  end
+  Issue.record_timestamps = false
+  issue.save
+  Issue.record_timestamps = true
 end
 
 
