@@ -21,6 +21,7 @@ class Issue < ActiveRecord::Base
   before_validation :set_issue_number
   before_validation :set_priority
   before_validation :set_title
+  before_validation :set_edited_at
 
   validates :title, length: { in: 2..30, message: '- the problem is not defined'}
 
@@ -134,6 +135,10 @@ class Issue < ActiveRecord::Base
   end
   
   private
+
+  def set_edited_at
+    self.edited_at = Time.zone.now
+  end
   
   def set_issue_number
     self.issue_number = Issue.last.try(:issue_number).to_i + 1 unless self.issue_number.present?
