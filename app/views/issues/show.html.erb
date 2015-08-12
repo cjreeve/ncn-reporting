@@ -6,9 +6,18 @@
     <div class='small-12 columns'>
     
 
-    <h1>Issue <%= @issue.issue_number %></h1>
+    
 
     <%= link_to '◄ back to index', issues_path(the_params(params)), style: 'float:right' %>
+
+    <div class='row'>
+      <div class='medium-6 columns'>
+        <h1>Issue <%= @issue.issue_number %></h1>
+      </div>
+      <div class='medium-6 columns'>
+        <h4><%= @issue.state %></h4>
+      </div>
+    </div>
 
     <div class='row'>
       <div class='medium-6 columns'>
@@ -40,7 +49,33 @@
 
       </div>
       <div class='medium-6 columns'>
-        <h4><%= @issue.state %></h4>
+        
+
+          <%= 
+            if @issue.draft? 
+              button_to 'Publish', [:progress, @issue], method: :put, params: [:publish], class: 'button tiny'
+            end
+          %>
+          <%= 
+            if @issue.resolved?
+              button_to 'Close', [:progress, @issue], method: :put, params: [:close], class: 'button tiny success'
+            end
+            %>
+          <% if @issue.open? || @issue.reopened? %>
+            <%= button_to 'Resolve', [:progress, @issue], method: :put, params: [:resolve], class: 'button tiny success' %>
+            <%= button_to "Can't resolve", [:progress, @issue], method: :put, params: [:reject], class: 'button tiny secondary' %>
+          <% end %>
+          <%=
+            if @issue.reopenable?
+              button_to 'Reopen', [:progress, @issue], method: :put, params: [:reopen], class: 'button tiny secondary'
+            end
+          %>
+          <%= 
+            if @issue.open?
+              button_to 'Archive', [:progress, @issue], method: :put, params: [:archive], class: 'button tiny secondary'
+            end
+          %>
+          <%= button_to 'Edit', edit_issue_path(@issue), method: :get, class: 'button tiny secondary' %>
 
         <table>
           <body>
@@ -178,47 +213,22 @@
 <div class='row'>
   <div class='small-12 columns'>
 
-    <p>
-      <%= 
-        if @issue.draft? 
-          button_to 'Publish', [:progress, @issue], method: :put, params: [:publish], class: 'button tiny'
-        end
-      %>
-      <%= 
-        if @issue.resolved?
-          button_to 'Close', [:progress, @issue], method: :put, params: [:close], class: 'button tiny success'
-        end
-        %>
-      <% if @issue.open? || @issue.reopened? %>
-        <%= button_to 'Resolve', [:progress, @issue], method: :put, params: [:resolve], class: 'button tiny success' %>
-        <%= button_to "Can't resolve", [:progress, @issue], method: :put, params: [:reject], class: 'button tiny secondary' %>
-      <% end %>
-      <%=
-        if @issue.reopenable?
-          button_to 'Reopen', [:progress, @issue], method: :put, params: [:reopen], class: 'button tiny secondary'
-        end
-      %>
-      <%= 
-        if @issue.open?
-          button_to 'Archive', [:progress, @issue], method: :put, params: [:archive], class: 'button tiny secondary'
-        end
-      %>
-
-    </p>
-
-    
-    <%= link_to 'Edit', edit_issue_path(@issue) %> |
-    <%= link_to 'Index', issues_path %>
-    <% if can? :destroy, @issue %>
-      <%= link_to 'delete', @issue, method: :delete, data: { confirm: 'Are you sure?' }, style: "float: right" %>
-    <% end %>
     <br><br>
 
       
 
     
-    <div id="map-canvas" style="width: 100%; height: 400px;"></div>
+      <div id="map-canvas" style="width: 100%; height: 400px;"></div>
 
+      <br><br>
+
+      <p>
+        <% if can? :destroy, @issue %>
+          <%= link_to 'delete', @issue, method: :delete, data: { confirm: 'Are you sure?' }, style: "float: right" %>
+        <% end %>
+        <%= link_to 'Edit', edit_issue_path(@issue) %> |
+        <%= link_to 'Index', issues_path %>
+      </p>
     </div>
   </div>
 </article>
