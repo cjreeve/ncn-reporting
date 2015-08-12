@@ -48,14 +48,14 @@ module ApplicationHelper
     end
   end
 
-  def formatted_description(title, text)
-    title ||= ''
-    text ||= ''
+  def formatted_description(issue)
+    category = (issue.category ? issue.category.name : '')
     '<div id="content">' +
       '<div id="siteNotice">'+'</div>'+
-      '<h3 id="firstHeading" class="firstHeading">' + title + '</h3>'+
+      '<h3 id="firstHeading" class="firstHeading">' + category + ' - ' + issue.the_problem + '</h3>'+
       '<div id="bodyContent">'+
-        '<p>' + text + '</p>' +
+        '<p>' + issue.description + '</p>' +
+        '<p> <a href="/issue/' + issue.issue_number.to_s + '">' + 'Go to issue >' + '</a> </p>' +
       '</div>' +
     '</div>'
   end
