@@ -77,13 +77,18 @@ article.issue{
       td, a{
         font-size: rem-calc(12);
       }
+      td:last-of-type{
+        border-bottom: rem-calc(1) solid #eee;
+      }
      }
    }
    .download-issues{
      margin-bottom: rem-calc(15);
      text-align: right;
+     font-size: rem-calc(10);
+     color: grey;
      a{
-       font-size: rem-calc(10);
+       // font-size: rem-calc(10);
      }
    }
   }

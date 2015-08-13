@@ -123,9 +123,9 @@
         </tbody>
       </table>
       <div class='download-issues'>
-        <%= link_to "Download CSV", 
-          issues_path(the_params(params, {format: "csv"})) 
-        %>
+        download
+        <%= link_to "CSV", issues_path(the_params(params, {format: "csv"})) %>,
+        <%= link_to "GPX", issues_path(the_params(params, {format: "gpx"})) %>
       </div>
       </div>
 

@@ -7,7 +7,7 @@ class IssuesController < ApplicationController
   # GET /issues.json
   def index
 
-    if params[:format] == 'csv'
+    if params[:format] == 'csv' || params[:format] == 'gpx'
       per_page = Issue.count
     else
       per_page = 10
@@ -81,6 +81,7 @@ class IssuesController < ApplicationController
     respond_to do |format|
       format.html
       format.csv { send_data @issues.to_csv }
+      format.gpx { send_data @issues.to_gpx, filename: 'ncn-issue-waypoints.gpx' }
     end
   end
 

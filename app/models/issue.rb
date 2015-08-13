@@ -98,6 +98,10 @@ class Issue < ActiveRecord::Base
     end
   end
 
+  def the_summary
+    self.category.name + ' - ' + the_problem
+  end
+
   def latitude
     self.lat
   end
@@ -200,5 +204,14 @@ class Issue < ActiveRecord::Base
         csv << issue_values
       end
     end
+  end
+
+
+  def self.to_gpx
+    gpx = GPX::GPXFile.new
+    all.each do |stop|
+      gpx.waypoints << GPX::Waypoint.new({name: stop.the_summary , lat: stop.lat, lon: stop.lng, time: stop.created_at})
+    end 
+    gpx.to_s
   end
 end
