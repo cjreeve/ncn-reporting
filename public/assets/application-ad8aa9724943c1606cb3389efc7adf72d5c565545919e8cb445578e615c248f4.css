@@ -6499,11 +6499,13 @@ article.issue .issues-table-container {
     margin-bottom: 0; }
     article.issue .issues-table-container table.issues tr td, article.issue .issues-table-container table.issues tr a {
       font-size: 0.75rem; }
+    article.issue .issues-table-container table.issues tr td:last-of-type {
+      border-bottom: 0.0625rem solid #eee; }
   article.issue .issues-table-container .download-issues {
     margin-bottom: 0.9375rem;
-    text-align: right; }
-    article.issue .issues-table-container .download-issues a {
-      font-size: 0.625rem; }
+    text-align: right;
+    font-size: 0.625rem;
+    color: grey; }
 article.issue #comments .comment .delete-comment {
   float: right;
   margin-right: 0.3125rem;
