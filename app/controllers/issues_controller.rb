@@ -193,7 +193,7 @@ class IssuesController < ApplicationController
       @issue.close!
     elsif params[:reopen] && @issue.reopenable?
       @issue.reopen!
-    elsif params[:archive] && @issue.archivebale?
+    elsif params[:archive] && @issue.archiveable?
       @issue.archive!
     elsif params[:reject] && @issue.rejectable?
       @issue.reject!
