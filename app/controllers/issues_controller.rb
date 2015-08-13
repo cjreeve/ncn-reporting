@@ -54,7 +54,7 @@ class IssuesController < ApplicationController
         options[:state] = params[:state]
       end
     else
-      exclusions[:state] = ['draft', 'closed'] unless params[:state] == "all"
+      exclusions[:state] = ['draft', 'closed', 'archived'] unless params[:state] == "all"
     end
 
     options[:user_id] = current_user.id if options[:state] == 'draft'
