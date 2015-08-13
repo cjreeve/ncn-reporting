@@ -57,7 +57,7 @@
             end
           %>
           <%= 
-            if @issue.resolved?
+            if @issue.closeable?
               button_to 'Close', [:progress, @issue], method: :put, params: [:close], class: 'button tiny success'
             end
             %>
