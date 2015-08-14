@@ -7,121 +7,52 @@
       <%#= simple_form_for(:routes, url: issues_path, method: :get) do |f| %>
         <%#= f.input :id, collection: @routes, label: false, input_html: { name: :routes } %>
       <%# end %>
-      <ul class='small-block-grid-1 medium-block-grid-4 large-block-grid-5 issue-filters'>
-        <li>
-          <a href="#" class="button select" data-dropdown="routeSelection" aria-controls="routeSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_route ? @current_route.name + " ▼" : "all routes ▼" %></a>
-          <ul id="routeSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
-            <% unless @current_route.nil? %>
-              <li>
-                <%= link_to "all routes", issues_path(the_params(params, {route: nil})) %>
-              </li>
-            <% end %>
-            <% @routes.each do |route| %>
-              <% unless @current_route == route %>
-                <li>
-                  <%= link_to route.name, issues_path(the_params(params, {route: route.id})) %>
-                </li>
-              <% end %>
-            <% end %>
-          </ul>
-        </li>
-        <li>
-          <a href="#" class="button select" data-dropdown="areaSelection" aria-controls="areaSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_area ? @current_area.name + " ▼" : "all groups ▼" %></a>
-          <ul id="areaSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
-            <% unless @current_area.nil? %>
-              <li>
-                <%= link_to "all groups", issues_path(the_params(params, {area: nil})) %>
-              </li>
-            <% end %>
-            <% @areas.each do |area| %>
-              <% unless @current_area == area %>
-                <li>
-                  <%= link_to area.name, issues_path(the_params(params, {area: area.id})) %>
-                </li>
-              <% end %>
-            <% end %>
-          </ul>
-        </li>
-        <li>
-          <a href="#" class="button select" data-dropdown="administrativeAreaSelection" aria-controls="administrativeAreaSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_administrative_area ? @current_administrative_area.short_name + " ▼" : "Boroughs (all) ▼" %></a>
-          <ul id="administrativeAreaSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
-            <% unless @current_administrative_area.nil? %>
-              <li>
-                <%= link_to "all boroughs", issues_path(the_params(params, {region: nil})) %>
-              </li>
-            <% end %>
-            <% @administrative_areas.sort_by{ |a| a.short_name }.each do |area| %>
-              <% unless (@current_administrative_area && @current_administrative_area == area) %>
-                <li>
-                  <%= link_to area.short_name, issues_path(the_params(params, {region: area.id})) %>
-                </li>
-              <% end %>
-            <% end %>
-          </ul>
-        </li>
-        <li>
-          <a href="#" class="button select" data-dropdown="stateSelection" aria-controls="stateSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_state ? @current_state + " ▼" : "status (default) ▼" %></a>
-          <ul id="stateSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
-            <% unless @current_state.nil? %>
-              <li>
-                <%= link_to "default", issues_path(the_params(params, {state: nil})) %>
-              </li>
-            <% end %>
-            <% unless @current_state && @current_state == "all" %>
-              <li>
-                <%= link_to "all states", issues_path(the_params(params, {state: "all"})) %>
-              </li>
-            <% end %>
-            <% @states.each do |state| %>
-              <% unless ((@current_state && @current_state == state) || state == :reopened) %>
-                <li>
-                  <%= link_to state, issues_path(the_params(params, {state: state})) %>
-                </li>
-              <% end %>
-            <% end %>
-          </ul>
-        </li>
-      </ul>
+
 
       <h1>Issues</h1>
-      &nbsp;-&nbsp;<%= link_to 'create new', new_issue_path, class: 'create-new-issue' %>
-      <div class='issues-table-container'>
-        <%= will_paginate @issues %>
-      <table class='issues'>
-        <thead>
-          <tr>
-            <%= table_header('No.', 'issue number', 'number', params) %>
-            <%#= table_header('Issue', 'summary of problem', 'title', params) %>
-            <%= table_header('Category', 'issue category', 'category', params) %>
-            <%= table_header('Issue', 'summary of problem', 'title', params) %>
-            <%= table_header('Location', 'location summary', 'location', params) %>
-            <%= table_header('Lat', 'latitude', 'lat', params) %>
-            <%= table_header('Lng', 'longitude', 'lng', params) %>
-            <%= table_header('Last&nbsp;updated', 'date of last modification or comment', 'modified', params) %>
-            <%= table_header('Status', 'issue status', 'state', params) %>
-            <th colspan="2"> </th>
-            <%= table_header('p', 'priority', 'priority', params) %>
-          </tr>
-        </thead>
 
-        <tbody>
-          <% @issues.each do |issue| %>
+      &nbsp;-&nbsp;<%= link_to 'create new', new_issue_path, class: 'create-new-issue' %>
+
+
+      
+      <div class='issues-table-container'>
+        <%= render 'issue_filters' %>
+        
+        <table class='issues'>
+          <thead>
             <tr>
-              <td><%= link_to issue.issue_number, issue_number_path(issue.issue_number) %></td>
-              <td><%= issue.category.name if issue.category %></td>
-              <td><%= issue.the_problem %></td>
-              <td><%= issue.location_name[0..50] %></td>
-              <td><%= sprintf("%1.4f", issue.lat) if issue.lat %></td>
-              <td><%= sprintf("%1.4f", issue.lng) if issue.lng %></td>
-              <td><%= issue.updated_at.strftime("%d-%b-%Y") if issue.updated_at %></td>
-              <td><%= issue.state %></td>
-              <td><%= link_to 'Show', issue_path(the_params(params, {id: issue.id})) %></td>
-              <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
-              <td style="background-color: <%= priority_colour(issue.priority) %>"> </td>
+              <%= table_header('No.', 'issue number', 'number', params) %>
+              <%#= table_header('Issue', 'summary of problem', 'title', params) %>
+              <%= table_header('Category', 'issue category', 'category', params) %>
+              <%= table_header('Issue', 'summary of problem', 'title', params) %>
+              <%= table_header('Location', 'location summary', 'location', params) %>
+              <%= table_header('Lat', 'latitude', 'lat', params) %>
+              <%= table_header('Lng', 'longitude', 'lng', params) %>
+              <%= table_header('Last&nbsp;updated', 'date of last modification or comment', 'modified', params) %>
+              <%= table_header('Status', 'issue status', 'state', params) %>
+              <th colspan="2"> </th>
+              <%= table_header('p', 'priority', 'priority', params) %>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            <% @issues.each do |issue| %>
+              <tr>
+                <td><%= link_to issue.issue_number, issue_number_path(issue.issue_number) %></td>
+                <td><%= issue.category.name if issue.category %></td>
+                <td><%= issue.the_problem %></td>
+                <td><%= issue.location_name[0..50] %></td>
+                <td><%= sprintf("%1.4f", issue.lat) if issue.lat %></td>
+                <td><%= sprintf("%1.4f", issue.lng) if issue.lng %></td>
+                <td><%= issue.updated_at.strftime("%d-%b-%Y") if issue.updated_at %></td>
+                <td><%= issue.state %></td>
+                <td><%= link_to 'Show', issue_path(the_params(params, {id: issue.id})) %></td>
+                <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
+                <td style="background-color: <%= priority_colour(issue.priority) %>"> </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       <div class='download-issues'>
         download
         <%= link_to "CSV", issues_path(the_params(params, {format: "csv"})) %>,

@@ -74,7 +74,7 @@ class IssuesController < ApplicationController
     @current_route = (params[:route].present? && @routes.collect(&:id).include?(params[:route].to_i)) ? Route.find(params[:route].to_i) : nil
     @current_area = (params[:area].present? && @areas.collect(&:id).include?(params[:area].to_i)) ? Area.find(params[:area].to_i) : nil
     @current_state = (params[:state].present? && @states.include?(params[:state].to_sym)) ? params[:state] : nil
-    @current_state = "all" if params[:state] == "all"
+    @current_state = "all states" if params[:state] == "all"
     @current_administrative_area = (params[:region].present? && @administrative_areas.collect(&:id).include?(params[:region].to_i)) ? AdministrativeArea.find(params[:region].to_i) : nil
 
 

@@ -22,6 +22,15 @@ article.issue{
       }
     }
     >li{
+      padding-bottom: rem-calc(10);
+      a.button{
+        padding: rem-calc(10 0 0 0);
+        margin-bottom: 0;
+        height: rem-calc(40);
+        @media #{$medium-only} {
+          font-size: rem-calc(12);
+        }
+      }
       @media #{$small-only} {
         padding-bottom: rem-calc(10);
         >a{
@@ -30,7 +39,18 @@ article.issue{
       }
     }
     .f-dropdown{
-      max-width: 178px;
+      max-width: rem-calc(145);
+      a{
+        @media #{$medium-only} {
+          font-size: rem-calc(12);
+        }
+      }
+    }
+    .pagination{
+      height: rem-calc(40);
+      min-width: rem-calc(138);
+      padding-top: rem-calc(25);
+      font-size: rem-calc(13);
     }
   }
   .issue-images{
