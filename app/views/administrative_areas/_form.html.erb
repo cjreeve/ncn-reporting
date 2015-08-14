@@ -1,9 +1,12 @@
 <%= simple_form_for(@administrative_area) do |f| %>
   <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :name, disabled: true %>
-    <%= f.input :short_name %>
+  <div class="row form-inputs">
+    <div class='medium-6 columns'>
+      <%= f.input :name, disabled: true %>
+    </div>
+    <div class='medium-6 columns'>
+      <%= f.input :short_name %>
+    </div>
   </div>
 
   <div class="form-actions">
