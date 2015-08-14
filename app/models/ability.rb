@@ -14,8 +14,9 @@ class Ability
       can :manage, Image
       can :manage, Problem
       can :manage, Route
+      can :manage, AdministrativeArea
       can :read, User
-      can :manage, User, id: user.id
+      can :update, User, id: user.id
       can :manage, Comment
       can :manage, Page
     end
@@ -25,6 +26,7 @@ class Ability
       can [:destroy], Issue, user_id: user.id
       can :manage, Category
       can :manage, Problem
+      can :manage, AdministrativeArea
       can :read, User
       can :manage, User, id: user.id
       can :manage, Comment, user_id: user.id
