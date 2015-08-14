@@ -30,7 +30,7 @@
               <%= table_header('Lng', 'longitude', 'lng', params) %>
               <%= table_header('Last&nbsp;updated', 'date of last modification or comment', 'modified', params) %>
               <%= table_header('Status', 'issue status', 'state', params) %>
-              <th colspan="2"> </th>
+              <th> </th>
               <%= table_header('p', 'priority', 'priority', params) %>
             </tr>
           </thead>
@@ -47,7 +47,6 @@
                 <td><%= issue.updated_at.strftime("%d-%b-%Y") if issue.updated_at %></td>
                 <td><%= issue.state %></td>
                 <td><%= link_to 'Show', issue_path(the_params(params, {id: issue.id})) %></td>
-                <td><%= link_to 'Edit', edit_issue_path(issue) %></td>
                 <td style="background-color: <%= priority_colour(issue.priority) %>"> </td>
               </tr>
             <% end %>
