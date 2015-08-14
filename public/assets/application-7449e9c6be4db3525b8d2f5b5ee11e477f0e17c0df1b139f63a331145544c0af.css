@@ -6459,15 +6459,37 @@ article.issue .tab:hover {
   background-color: #e6e6e6; }
   article.issue .tab:hover a {
     text-decoration: none; }
+article.issue .filter-options-label {
+  font-size: 0.75rem;
+  color: #aaa; }
 article.issue .issue-filters a:hover {
   text-decoration: none; }
-@media only screen and (max-width: 40em) {
-  article.issue .issue-filters > li {
-    padding-bottom: 0.625rem; }
-    article.issue .issue-filters > li > a {
-      margin-bottom: 0.625rem; } }
+article.issue .issue-filters > li {
+  padding-bottom: 0.625rem; }
+  article.issue .issue-filters > li a.button {
+    padding: 0.625rem 0 0 0;
+    margin-bottom: 0;
+    height: 2.5rem; }
+    @media only screen and (min-width: 40.0625em) and (max-width: 64em) {
+      article.issue .issue-filters > li a.button {
+        font-size: 0.75rem; } }
+  @media only screen and (max-width: 40em) {
+    article.issue .issue-filters > li {
+      padding-bottom: 0.625rem; }
+      article.issue .issue-filters > li > a {
+        margin-bottom: 0.625rem; } }
 article.issue .issue-filters .f-dropdown {
-  max-width: 178px; }
+  max-width: 9.0625rem; }
+  @media only screen and (min-width: 40.0625em) and (max-width: 64em) {
+    article.issue .issue-filters .f-dropdown a {
+      font-size: 0.75rem; } }
+article.issue .issue-filters .pagination {
+  height: 2.5rem;
+  min-width: 8.625rem;
+  padding-top: 1.5625rem;
+  font-size: 0.8125rem; }
+  article.issue .issue-filters .pagination .disabled {
+    color: #aaa; }
 article.issue .issue-images {
   position: relative; }
   article.issue .issue-images .caption {
