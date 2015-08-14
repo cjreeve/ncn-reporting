@@ -11,6 +11,7 @@
             <td>Name</td>
             <td>Role</td>
             <td>Email</td>
+            <td>Active</td>
             <td> </td>
           </tr>
         </thead>
@@ -20,6 +21,17 @@
               <td><%= link_to user.name, admin_user_path(user) %></td>
               <td><%= user.role %></td>
               <td><%= user.email %></td>
+              <td>
+                <% if user.current_sign_in_at %>
+                  <%=
+                    if user.updated_at.today?
+                      user.updated_at.strftime("%H:%M")
+                    else
+                      user.updated_at.strftime("%d-%m-%Y")
+                    end
+                  %>
+                <% end %>
+              </td>
               <td>
                 <% if user.removable? %>
                   <%= link_to "&times;".html_safe, admin_user_path(user), method: :delete, data: { confirm: "Are you sure? This can't be undone."} %>
