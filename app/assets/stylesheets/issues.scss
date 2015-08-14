@@ -15,6 +15,10 @@ article.issue{
       }
     }
   }
+  .filter-options-label{
+    font-size: rem-calc(12);
+    color: $medium-grey;
+  }
   .issue-filters{
     a{
       &:hover{
@@ -51,6 +55,9 @@ article.issue{
       min-width: rem-calc(138);
       padding-top: rem-calc(25);
       font-size: rem-calc(13);
+      .disabled{
+        color: $medium-grey;
+      }
     }
   }
   .issue-images{
