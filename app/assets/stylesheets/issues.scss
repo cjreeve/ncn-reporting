@@ -45,6 +45,7 @@ article.issue{
     .f-dropdown{
       max-width: rem-calc(145);
       a{
+        padding: rem-calc(5 8);
         @media #{$medium-only} {
           font-size: rem-calc(12);
         }
