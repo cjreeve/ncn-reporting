@@ -7,8 +7,9 @@
     <title><%= content_for?(:title) ? yield(:title) : "NCN Issue Reporting app" %></title>
 
     <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "vendor/modernizr", async: Rails.env.production? %>
-    <%= javascript_include_tag "application", async: Rails.env.production? %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= javascript_include_tag "application" %>
+    <%  # removed to check if causing probs: , async: Rails.env.production? %>
     <%= csrf_meta_tags %>
     <style>
       html, body, #map-canvas {
