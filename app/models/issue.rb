@@ -150,8 +150,19 @@ class Issue < ActiveRecord::Base
 
   def coordinate_to_latlng
     if self.coordinate.present?
-      self.lat = self.coordinate.split(/[\s,]+/)[0].to_f.round(5)
-      self.lng = self.coordinate.split(/[\s,]+/)[1].to_f.round(5)
+      if self.coordinate.include?('openstreetmap.org/')
+        query = URI(self.coordinate).query
+        query_params = CGI::parse(query)
+        self.lat = query_params["mlat"].first.to_f
+        self.lng = query_params["mlon"].first.to_f
+      else
+        coordinate = self.coordinate.split('geo:').last.split('?').first
+        self.lat = coordinate.split(/[\s,]+/)[0].to_f.round(5)
+        self.lng = coordinate.split(/[\s,]+/)[1].to_f.round(5)
+      end
+    else
+      self.lat = nil
+      self.lng = nil
     end
   end
 
