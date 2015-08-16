@@ -23,7 +23,7 @@ class PagesController < ApplicationController
   def create
     @page = Page.new(page_params)
     @page.save
-    respond_with(@page.slug)
+    respond_with(@page)
   end
 
   def update
