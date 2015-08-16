@@ -213,7 +213,7 @@ class IssuesController < ApplicationController
       else
         @issue = Issue.find(params[:id])
       end
-      @issue.coordinate = "#{@issue.lat}, #{@issue.lng}" if @issue.lat && @issue.lng
+      @issue.coordinate = "#{@issue.lat.round(5)}, #{@issue.lng.round(5)}" if @issue.lat && @issue.lng
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -150,8 +150,8 @@ class Issue < ActiveRecord::Base
 
   def coordinate_to_latlng
     if self.coordinate.present?
-      self.lat = self.coordinate.split(/[\s,]+/)[0]
-      self.lng = self.coordinate.split(/[\s,]+/)[1]
+      self.lat = self.coordinate.split(/[\s,]+/)[0].to_f.round(5)
+      self.lng = self.coordinate.split(/[\s,]+/)[1].to_f.round(5)
     end
   end
 

@@ -140,16 +140,22 @@
             <td><%= @issue.administrative_area.name %></td>
           </tr>
         <% end %>
-          <tr>
-            <td>Coordinate:</td>
-            <td>
-              <%= 
-                if @issue.coordinate.present?
-                  link_to @issue.coordinate, "http://maps.google.com/?q=#{@issue.lat},#{@issue.lng}", tarket: :_blank 
-                end 
-              %>
-            </td>
-          </tr>
+        <tr>
+          <td>Coordinate:</td>
+          <td> 
+            <%= @issue.coordinate %>
+            <% if @issue.lat && @issue.lng %>
+              <div>
+                <%= 
+                    link_to 'openstreetmap', "http://www.openstreetmap.org/?mlat=#{@issue.lat}&mlon=#{@issue.lng}&layers=C", tarket: :_blank 
+                %>,
+                <%=
+                    link_to 'googlemaps', "http://maps.google.com/?q=#{@issue.lat},#{@issue.lng}", tarket: :_blank
+                %>
+              </div>
+            <% end %>
+          </td>
+        </tr>
       </body>
     </table>
 
