@@ -3,29 +3,84 @@
     <div class="small-12 columns">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
-      <%#= link_to 'NCN Reporting', '/' %>
-      <%= link_to '/' do %>
-        <%= image_tag 'logo.png' %>
-      <% end %>
-      <% if user.present? %>
-        <div class='user-controls'>
-          <%= 
-            unless params[:action] == "controls"
-              link_to controls_path, id: 'controls-cog' do 
-                image_tag 'settings-cog.png'
-              end
-            end
-          %>
-          <%= link_to current_user.name, user_path(current_user) %>
-          &nbsp;&bullet;&nbsp;&nbsp;  
-          <%= 
-              link_to 'sign out', 
-                destroy_user_session_path, 
-                method: :delete, 
-                style: 'float:right'
-          %>
+      <!-- <div> -->
+
+      <!-- </div> -->
+      <div class='header-controls'>
+        <div class='logo-area'>
+          <%= link_to '/' do %>
+            <%= image_tag 'logo.png' %>
+          <% end %>
         </div>
+
+        <div class='user-controls-area'>
+          <% if user.present? %>
+            <%#= 
+              unless params[:action] == "controls"
+                link_to controls_path, id: 'controls-cog', style: 'float: right' do 
+                  image_tag 'settings-cog.png'
+                end
+              end
+            %>
+            <div class='user-controls show-for-medium-up'>
+              <%= link_to current_user.name, user_path(current_user) %>
+              &nbsp;&bullet;&nbsp;&nbsp;
+              <%= 
+                  link_to 'sign out', 
+                    destroy_user_session_path, 
+                    method: :delete, 
+                    style: 'float:right'
+              %>
+            </div>
+            <div class='user-controls show-for-small-only'>
+              <nav class="top-bar" data-topbar role="navigation">
+                <section class="top-bar-section">
+                  <ul class="right">
+                    <li class="has-dropdown">
+                      <a href="#">Me</a>
+                      <ul class="dropdown">
+                        <li>
+                          <%= link_to 'Profile', user_path(current_user) %>
+                        </li>
+                        <li>
+                          <%= 
+                              link_to 'sign out', 
+                                destroy_user_session_path, 
+                                method: :delete, 
+                                style: 'float:right'
+                          %>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </section>
+              </nav>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <% if user.present? %>
+        <nav class="top-bar main-nav" data-topbar role="navigation">
+          <section class="top-bar-section">
+            <ul class="left">
+              <li class="<%= params["controller"] == "issues" ? 'current' : '' %>">
+                <%= link_to "Issues", issues_path %>
+              </li>
+              <li class="<%= params["controller"] == "updates" ? 'current' : '' %>">
+                <%= link_to "Updates", '#' %>
+              </li>
+              <li  class="<%= params["controller"] == "users" ? 'current' : '' %>">
+                <%= link_to "Users", '#' %>
+              </li>
+              <li class="<%= params["controller"] == "pages" ? 'current' : '' %>">
+                <%= link_to "Pages", pages_path %>
+              </li>
+            </ul>
+          </section>
+        </nav>
       <% end %>
+
     </div>
   </div>
 </header>

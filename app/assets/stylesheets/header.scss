@@ -1,17 +1,17 @@
 header{
   background-color: lighten($road-sign-blue,20);
-  padding-bottom: rem-calc(10);
+  // padding-bottom: rem-calc(10);
   border-bottom: rem-calc(1) solid #aaa;
   // margin-bottom: rem-calc(5);
   // @include box-shadow(#333 rem-calc(4) rem-calc(2) rem-calc(5) rem-calc(-2));
   // box-shadow: 0 4px 2px -2px gray;
   .user-controls{
     color: white;
-    display: inlin-block;
-    float: right;
-    positon: relative;
-    min-width: rem-calc(300);
-    text-align: right;
+    // display: inlin-block;
+    // float: right;
+    // positon: relative;
+    // min-width: rem-calc(300);
+    // text-align: right;
     #controls-cog{
       position: absolute;
       top: 0;
@@ -22,6 +22,103 @@ header{
     color: white;
     &:hover{
       color: white;
+    }
+  }
+  // shared nav styling
+  nav.top-bar{
+    background: none;
+    li{
+      background: none;
+    }
+    .top-bar-section{
+      ul{
+        li:not(.has-form){
+          a:not(.button){
+            background: none;
+            // background-color: lighten($road-sign-blue,25);
+            text-decoration: none;
+            &:hover{
+              background-color: lighten($road-sign-blue,15);
+            }
+          }
+          &.current{
+            a:not(.buttom){
+              background-color: lighten($road-sign-blue,15);
+            }
+          }
+        }
+      }
+    }
+    .top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button){
+      background-color: lighten($road-sign-blue,25);
+      &:hover{
+        background-color: lighten($road-sign-blue,15);
+      }
+    }
+  }
+  .header-controls{
+    display: table;
+    width: 100%;
+    position: relative;
+    .logo-area, .user-controls-area{
+      display: table-cell;
+      vertical-align: top;
+      color: white;
+    }
+    .logo-area{
+      a{
+        display: inline-block;
+        width: 100%;
+        img{
+          width: 100%;
+          max-width: rem-calc(436);
+        }
+      }
+    }
+    .user-controls-area{
+      .user-controls{
+        @media #{$medium-up} {
+          min-width: rem-calc(107);
+          font-size: rem-calc(13);
+        }
+        float: right;
+        z-index: 5000;
+        nav{
+          z-index: 5000;
+          .parent-link{
+            display: none;
+          }
+          .has-drop-down{
+            z-index: 5000;
+          }
+        }
+        .top-bar-section li:not(.has-form) a:not(.button){
+          background: none;
+          text-decoration: none;
+          &:hover{
+            background-color: lighten($road-sign-blue,15);
+          }
+        }
+        .top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button){
+          background-color: lighten($road-sign-blue,25);
+          &:hover{
+            background-color: lighten($road-sign-blue,15);
+          }
+        }
+      }
+    }
+    #controls-cog{
+      margin-left: rem-calc(10);
+      position: relative;
+      top: rem-calc(-15);
+    }
+  }
+  nav.top-bar.main-nav{
+    z-index: 10;
+    margin-top: rem-calc(10);
+    height: rem-calc(35);
+    .top-bar-section li:not(.has-form) a:not(.button){
+      line-height: rem-calc(35);
     }
   }
 }
