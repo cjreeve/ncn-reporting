@@ -4,6 +4,10 @@ class UsersController < ApplicationController
   def show
   end
 
+  def index
+    @users.where.not(role: 'locked')
+  end
+
   private
 
   def set_user

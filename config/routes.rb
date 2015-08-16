@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   get '/controls' => 'pages#controls', as: :controls
 
+  get 'users' => 'users#index', as: 'users_index'
+
   resources :comments
 
   namespace :admin do
