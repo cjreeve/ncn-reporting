@@ -23,7 +23,7 @@ class PagesController < ApplicationController
   def create
     @page = Page.new(page_params)
     @page.save
-    respond_with(@page)
+    respond_with(@page.slug)
   end
 
   def update
@@ -44,6 +44,15 @@ class PagesController < ApplicationController
   end
 
   def welcome
+  end
+
+  def main
+    @page = Page.find_or_create_by(slug: 'welcome')
+    if @page.content.blank? || @page.name.blank?
+      @page.name ||= 'Welcome'
+      @page.content ||= '# Welcome'
+      @page.save
+    end
   end
 
   private

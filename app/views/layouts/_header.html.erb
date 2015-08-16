@@ -3,9 +3,17 @@
     <div class="small-12 columns">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
-      <!-- <div> -->
-
-      <!-- </div> -->
+      <% if user.present? %>
+        <div class='controls-row'>
+          <%= 
+            unless params[:action] == "controls"
+              link_to controls_path, id: 'controls-cog', class: 'controls-icon' do 
+                image_tag 'settings-cog.png'
+              end
+            end
+          %>
+        </div>
+      <% end %>
       <div class='header-controls'>
         <div class='logo-area'>
           <%= link_to '/' do %>
@@ -15,13 +23,7 @@
 
         <div class='user-controls-area'>
           <% if user.present? %>
-            <%#= 
-              unless params[:action] == "controls"
-                link_to controls_path, id: 'controls-cog', style: 'float: right' do 
-                  image_tag 'settings-cog.png'
-                end
-              end
-            %>
+
             <div class='user-controls show-for-medium-up'>
               <%= link_to current_user.name, user_path(current_user) %>
               &nbsp;&bullet;&nbsp;&nbsp;
@@ -74,7 +76,7 @@
                 <%= link_to "Users", '#' %>
               </li>
               <li class="<%= params["controller"] == "pages" ? 'current' : '' %>">
-                <%= link_to "Pages", pages_path %>
+                <%= link_to "Pages", main_page_path %>
               </li>
             </ul>
           </section>

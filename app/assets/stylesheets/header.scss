@@ -107,11 +107,6 @@ header{
         }
       }
     }
-    #controls-cog{
-      margin-left: rem-calc(10);
-      position: relative;
-      top: rem-calc(-15);
-    }
   }
   nav.top-bar.main-nav{
     z-index: 10;
@@ -119,6 +114,14 @@ header{
     height: rem-calc(35);
     .top-bar-section li:not(.has-form) a:not(.button){
       line-height: rem-calc(35);
+    }
+  }
+  .controls-row{
+    position: relative;
+    .controls-icon{
+      position: absolute;
+      right: 0;
+      top: rem-calc(-20);
     }
   }
 }
