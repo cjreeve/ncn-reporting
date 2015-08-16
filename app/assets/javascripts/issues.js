@@ -3,18 +3,21 @@ $(document).ready(function() {
   var myCoord;
   var myCoordMarker;
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      myCoord = position.coords;
-    });
-  } 
-
   $('#openCoordModal').click(function() {
+    get_current_location_from_browser();
     $('#myCoordModal').foundation('reveal', 'open');
     $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
       google.maps.event.addDomListener(window, 'load', initializeCoordFinder());
     });
   });
+
+  function get_current_location_from_browser() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        myCoord = position.coords;
+      });
+    }
+  }
 
   function initializeCoordFinder() {
 
@@ -27,7 +30,7 @@ $(document).ready(function() {
       lng = myCoord.longitude;
       zoom = 17;
       document.getElementById('issue_coordinate').value = lat.toFixed(5) + ", " + lng.toFixed(5);
-    } 
+    }
 
     var mapOptions = {
       zoom: zoom,
