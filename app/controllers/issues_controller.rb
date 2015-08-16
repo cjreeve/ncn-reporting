@@ -183,9 +183,13 @@ class IssuesController < ApplicationController
     @issue = Issue.find(params[:id])
     @issues = Issue.all.order('lng DESC')
     if params[:publish] && @issue.publishable?
-      @issue.publish!
-      @issue.reported_at = Time.zone.now
-      @issue.save
+      if @issue.lng.present? && @issue.lat.present?
+        @issue.publish!
+        @issue.reported_at = Time.zone.now
+        @issue.save
+      else
+        return redirect_to issue_path, alert: "Please provide a coordinate before publishing"
+      end
     elsif params[:resolve] && @issue.resolveable?
       @issue.resolve!
       @issue.completed_at = Time.zone.now
