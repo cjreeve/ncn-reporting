@@ -1,9 +1,11 @@
 article.issue{
 
+  h1{
+    display: inline-block;
+  }
   .issue-title-and-nav{
     margin: rem-calc(10 0);
     h1{
-      display: inline-block;
       margin: rem-calc(0 15);
       line-height: 1;
     }

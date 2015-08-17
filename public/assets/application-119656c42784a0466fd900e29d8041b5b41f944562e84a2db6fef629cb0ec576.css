@@ -4560,8 +4560,8 @@ table {
     right: auto;
     top: 50%; } }
 meta.foundation-mq-topbar {
-  font-family: "/only screen and (min-width:40.0625em)/";
-  width: 40.0625em; }
+  font-family: "/only screen and (min-width:10px)/";
+  width: 10px; }
 
 /* Wrapped around .top-bar to contain to grid width */
 .contain-to-grid {
@@ -4905,7 +4905,7 @@ meta.foundation-mq-topbar {
 .js-generated {
   display: block; }
 
-@media only screen and (min-width: 40.0625em) {
+@media only screen and (min-width: 10px) {
   .top-bar {
     background: #333333;
     overflow: visible; }
@@ -6384,15 +6384,9 @@ article.admin h1 {
 
 header {
   background-color: #33aefb;
-  padding-bottom: 0.625rem;
   border-bottom: 0.0625rem solid #aaa; }
   header .user-controls {
-    color: white;
-    display: inlin-block;
-    float: right;
-    positon: relative;
-    min-width: 18.75rem;
-    text-align: right; }
+    color: white; }
     header .user-controls #controls-cog {
       position: absolute;
       top: 0;
@@ -6401,6 +6395,69 @@ header {
     color: white; }
     header a:hover {
       color: white; }
+  header nav.top-bar {
+    background: none; }
+    header nav.top-bar li {
+      background: none; }
+    header nav.top-bar .top-bar-section ul li:not(.has-form) a:not(.button) {
+      background: none;
+      text-decoration: none; }
+      header nav.top-bar .top-bar-section ul li:not(.has-form) a:not(.button):hover {
+        background-color: #1aa4fa; }
+    header nav.top-bar .top-bar-section ul li:not(.has-form).current a:not(.buttom) {
+      background-color: #1aa4fa; }
+    header nav.top-bar .top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button) {
+      background-color: #4cb8fb; }
+      header nav.top-bar .top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button):hover {
+        background-color: #1aa4fa; }
+  header .header-controls {
+    display: table;
+    width: 100%;
+    position: relative; }
+    header .header-controls .logo-area, header .header-controls .user-controls-area {
+      display: table-cell;
+      vertical-align: top;
+      color: white; }
+    header .header-controls .logo-area a {
+      display: inline-block;
+      width: 100%; }
+      header .header-controls .logo-area a img {
+        width: 100%;
+        max-width: 27.25rem; }
+    header .header-controls .user-controls-area .user-controls {
+      float: right;
+      z-index: 5000; }
+      @media only screen and (min-width: 40.0625em) {
+        header .header-controls .user-controls-area .user-controls {
+          min-width: 6.6875rem;
+          font-size: 0.8125rem; } }
+      header .header-controls .user-controls-area .user-controls nav {
+        z-index: 5000; }
+        header .header-controls .user-controls-area .user-controls nav .parent-link {
+          display: none; }
+        header .header-controls .user-controls-area .user-controls nav .has-drop-down {
+          z-index: 5000; }
+      header .header-controls .user-controls-area .user-controls .top-bar-section li:not(.has-form) a:not(.button) {
+        background: none;
+        text-decoration: none; }
+        header .header-controls .user-controls-area .user-controls .top-bar-section li:not(.has-form) a:not(.button):hover {
+          background-color: #1aa4fa; }
+      header .header-controls .user-controls-area .user-controls .top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button) {
+        background-color: #4cb8fb; }
+        header .header-controls .user-controls-area .user-controls .top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button):hover {
+          background-color: #1aa4fa; }
+  header nav.top-bar.main-nav {
+    z-index: 10;
+    margin-top: 0.625rem;
+    height: 2.1875rem; }
+    header nav.top-bar.main-nav .top-bar-section li:not(.has-form) a:not(.button) {
+      line-height: 2.1875rem; }
+  header .controls-row {
+    position: relative; }
+    header .controls-row .controls-icon {
+      position: absolute;
+      right: 0;
+      top: -1.25rem; }
 
 article.welcome {
   position: relative;
@@ -6453,6 +6510,13 @@ article.welcome {
 
 article.issue h1 {
   display: inline-block; }
+article.issue .issue-title-and-nav {
+  margin: 0.625rem 0; }
+  article.issue .issue-title-and-nav h1 {
+    margin: 0 0.9375rem;
+    line-height: 1; }
+  article.issue .issue-title-and-nav img {
+    margin-bottom: 0.9375rem; }
 article.issue .tab.selected {
   background-color: #ebebeb; }
 article.issue .tab:hover {
@@ -6480,9 +6544,11 @@ article.issue .issue-filters > li {
         margin-bottom: 0.625rem; } }
 article.issue .issue-filters .f-dropdown {
   max-width: 9.0625rem; }
-  @media only screen and (min-width: 40.0625em) and (max-width: 64em) {
-    article.issue .issue-filters .f-dropdown a {
-      font-size: 0.75rem; } }
+  article.issue .issue-filters .f-dropdown a {
+    padding: 0.3125rem 0.5rem; }
+    @media only screen and (min-width: 40.0625em) and (max-width: 64em) {
+      article.issue .issue-filters .f-dropdown a {
+        font-size: 0.75rem; } }
 article.issue .issue-filters .pagination {
   height: 2.5rem;
   min-width: 8.625rem;
