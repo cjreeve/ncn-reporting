@@ -17,7 +17,7 @@
       <div class='header-controls'>
         <div class='logo-area'>
           <%= link_to '/' do %>
-            <%= image_tag 'logo.png' %>
+            <%= image_tag 'logo.png', alt: '' %>
           <% end %>
         </div>
 
@@ -67,7 +67,7 @@
           <section class="top-bar-section">
             <ul class="left">
               <li class="<%= params["controller"] == "issues" ? 'current' : '' %>">
-                <%= link_to "Issues", issues_path %>
+                <%= link_to "Issues", issues_path(the_params(params)) %>
               </li>
               <li class="<%= params["controller"] == "updates" ? 'current' : '' %>">
                 <%= link_to "Updates", '#' %>

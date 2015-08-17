@@ -1,6 +1,5 @@
 <%= render 'google_maps/markers.js', issues: @issues.where.not(lat: nil, lng: nil), this_issue: @issue %>
 
-
 <article class='issue'>
   <div class='row'>
     <div class='small-12 columns'>
@@ -12,7 +11,27 @@
 
     <div class='row'>
       <div class='medium-6 columns'>
-        <h1>Issue <%= @issue.issue_number %></h1>
+        <div class='issue-title-and-nav'>
+          <%= 
+            if @prev_issue_id
+              link_to issue_path(the_params(params, {id: @prev_issue_id})) do
+                image_tag 'icons/arrow-large-left-blue.svg', title: 'previous issue', alt: '<'
+              end
+            else
+              image_tag 'icons/arrow-large-left-grey.svg', title: 'no more', alt: ''
+            end
+          %>
+          <h1>Issue <%= @issue.issue_number %></h1>
+          <%= 
+            if @next_issue_id
+              link_to issue_path(the_params(params, {id: @next_issue_id})) do
+                image_tag 'icons/arrow-large-right-blue.svg', title: 'next issue', alt: '>'
+              end
+            else
+              image_tag 'icons/arrow-large-right-grey.svg', title: 'no more', alt: ''
+            end
+          %>
+        </div>
       </div>
       <div class='medium-6 columns'>
         <h4><%= @issue.state %></h4>

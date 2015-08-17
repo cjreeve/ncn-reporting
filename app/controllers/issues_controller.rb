@@ -1,5 +1,6 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
+  before_action :load_issues, only: [:index, :show]
   load_and_authorize_resource except: [:create]
   # authorize_resource except: [:create, :destroy]
 
@@ -7,68 +8,12 @@ class IssuesController < ApplicationController
   # GET /issues.json
   def index
 
-    if params[:format] == 'csv' || params[:format] == 'gpx'
-      per_page = Issue.count
-    else
-      per_page = 10
-    end
-
-    where_option = ""
-    order = :updated_at
-    order = :issue_number if params[:order] == 'number'
-    order = :title if params[:order] == 'title'
-    order = :problem if params[:order] == 'problem'
-    order = :location_name if params[:order] == 'location'
-    order = :lat if params[:order] == 'lat'
-    order = :lng if params[:order] == 'lng'
-    order = :updated_at if params[:order] == 'modified'
-    order = :state if params[:order] == 'state'
-    order = :priority if params[:order] == 'priority'
-
-
-    if params[:dir] == 'asc'
-      direction = :asc
-    else
-      direction = :desc
-    end
-
-    table_name = ''
-    if params[:order] == 'category'
-      table_name = :category
-      order = "categories.name #{ direction.to_s }"
-    end
-
-    @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub(/[^0-9 ]/i, '').to_i }
-    @areas = Area.all.order(:name)
-    options = {}
-    exclusions = {}
-    @states = Issue.state_machine.states.collect(&:name)
-
-    options[:route] = params[:route].to_i if params[:route].present? && params[:route] != "all"
-    options[:area] = params[:area].to_i if params[:area].present? && params[:area] != "all"
-    options[:administrative_area] = params[:region].to_i if params[:region].present? && params[:region] != "all"
-    if params[:state].present? && @states.include?(params[:state].to_sym)
-      if params[:state] == 'open'
-        options[:state] = ['open', 'reopened']
-      else
-        options[:state] = params[:state]
-      end
-    else
-      exclusions[:state] = ['draft', 'closed', 'archived'] unless params[:state] == "all"
-    end
-
-    options[:user_id] = current_user.id if options[:state] == 'draft'
-
     @administrative_areas = AdministrativeArea.joins(issues: [:route, :area]).where(
       ((params[:route] && params[:route] != 'all') ? 'routes.id = ?' : '' ), params[:route]).where(
       ((params[:area] && params[:area] != 'all') ? 'areas.id = ?' : '' ), params[:area]).uniq
       #.where(((params[:state] && params[:state] != 'all') ? ' issues.state = ?' : '' ), params[:state])
 
-    if table_name.present?
-      @issues = Issue.joins(table_name).where(options).where.not(exclusions).order(order).paginate(page: params[:page], per_page: per_page)
-    else
-      @issues = Issue.where(options).where.not(exclusions).order(order => direction).paginate(page: params[:page], per_page: per_page)
-    end
+
     @issues_with_coords = @issues.where.not(lat: nil, lng: nil)
 
     @current_route = (params[:route].present? && @routes.collect(&:id).include?(params[:route].to_i)) ? Route.find(params[:route].to_i) : nil
@@ -210,21 +155,93 @@ class IssuesController < ApplicationController
 
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_issue
-      if params[:issue_number]
-        @issue = Issue.find_by(issue_number: params[:issue_number])
-      else
-        @issue = Issue.find(params[:id])
-      end
-      @issue.coordinate = "#{@issue.lat.round(5)}, #{@issue.lng.round(5)}" if @issue.lat && @issue.lng
+  # Use callbacks to share common setup or constraints between actions.
+  def set_issue
+    if params[:issue_number]
+      @issue = Issue.find_by(issue_number: params[:issue_number])
+    else
+      @issue = Issue.find(params[:id])
+    end
+    @issue.coordinate = "#{@issue.lat.round(5)}, #{@issue.lng.round(5)}" if @issue.lat && @issue.lng
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def issue_params
+    params.require(:issue).permit(:issue_number, :title, :description, :priority, :reported_at,
+      :completed_at, :location_name, :coordinate, :route_id, :area_id, :url, :category_id, 
+      :problem_id, :user_id, :administrative_area_id,
+      images_attributes: [:id, :url, :caption, :_destroy])
+  end
+
+  def load_issues
+
+    if params[:format] == 'csv' || params[:format] == 'gpx'
+      per_page = Issue.count
+    else
+      per_page = 10
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def issue_params
-      params.require(:issue).permit(:issue_number, :title, :description, :priority, :reported_at,
-        :completed_at, :location_name, :coordinate, :route_id, :area_id, :url, :category_id, 
-        :problem_id, :user_id, :administrative_area_id,
-        images_attributes: [:id, :url, :caption, :_destroy])
+    where_option = ""
+    order = :updated_at
+    order = :issue_number if params[:order] == 'number'
+    order = :title if params[:order] == 'title'
+    order = :problem if params[:order] == 'problem'
+    order = :location_name if params[:order] == 'location'
+    order = :lat if params[:order] == 'lat'
+    order = :lng if params[:order] == 'lng'
+    order = :updated_at if params[:order] == 'modified'
+    order = :state if params[:order] == 'state'
+    order = :priority if params[:order] == 'priority'
+
+
+    if params[:dir] == 'asc'
+      direction = :asc
+    else
+      direction = :desc
     end
+
+    table_name = ''
+    if params[:order] == 'category'
+      table_name = :category
+      order = "categories.name #{ direction.to_s }"
+    end
+
+    @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub(/[^0-9 ]/i, '').to_i }
+    @areas = Area.all.order(:name)
+    options = {}
+    exclusions = {}
+    @states = Issue.state_machine.states.collect(&:name)
+
+    options[:route] = params[:route].to_i if params[:route].present? && params[:route] != "all"
+    options[:area] = params[:area].to_i if params[:area].present? && params[:area] != "all"
+    options[:administrative_area] = params[:region].to_i if params[:region].present? && params[:region] != "all"
+    if params[:state].present? && @states.include?(params[:state].to_sym)
+      if params[:state] == 'open'
+        options[:state] = ['open', 'reopened']
+      else
+        options[:state] = params[:state]
+      end
+    else
+      exclusions[:state] = ['draft', 'closed', 'archived'] unless params[:state] == "all"
+    end
+
+    options[:user_id] = current_user.id if options[:state] == 'draft'
+
+    case params["action"]
+    when "index"
+      if table_name.present?
+        @issues = Issue.joins(table_name).where(options).where.not(exclusions).order(order).paginate(page: params[:page], per_page: per_page)
+      else
+        @issues = Issue.where(options).where.not(exclusions).order(order => direction).paginate(page: params[:page], per_page: per_page)
+      end
+    when "show"
+      if table_name.present?
+        @next_issue_id = Issue.joins(table_name).where(options).where.not(exclusions).order('issues.id ASC').where('issues.id > ?', params["id"]).limit(1).first.try(:id)
+        @prev_issue_id = Issue.joins(table_name).where(options).where.not(exclusions).order('issues.id DESC').where('issues.id < ?', params["id"]).limit(1).first.try(:id)
+      else
+        @next_issue_id = Issue.where(options).where.not(exclusions).order('issues.id ASC').where('issues.id > ?', params["id"]).limit(1).first.try(:id)
+        @prev_issue_id = Issue.where(options).where.not(exclusions).order('issues.id DESC').where('issues.id < ?', params["id"]).limit(1).first.try(:id)
+      end
+    end
+  end
 end
