@@ -120,8 +120,12 @@ header{
     position: relative;
     .controls-icon{
       position: absolute;
-      right: 0;
+      right: rem-calc(-5);
       top: rem-calc(-20);
+      @media #{$medium-up}{
+        top: rem-calc(-22);
+        right: rem-calc(-10);
+      }
     }
   }
 }
