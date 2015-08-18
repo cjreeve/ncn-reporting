@@ -5,39 +5,50 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-[["NCN1", "NCN 1"], ["NCN4", "NCN 4"], ["NCN13", "NCN 13"], ["NCN20", "NCN 20"], ["NCN21", "NCN 21"]].each do |route_names|
-  route = Route.find_by(name: route_names[0])
-  if route
-    route.name = route_names[1]
-    route.save
-  end
+
+# [["NCN1", "NCN 1"], ["NCN4", "NCN 4"], ["NCN13", "NCN 13"], ["NCN20", "NCN 20"], ["NCN21", "NCN 21"]].each do |route_names|
+#   route = Route.find_by(name: route_names[0])
+#   if route
+#     route.name = route_names[1]
+#     route.save
+#   end
+# end
+
+
+# ["NCN 1", "NCN 4", "NCN 6", "NCN 12", "NCN 13", "NCN 20", "NCN 61", "NCN 125", "NCN 136", "NCN 208", "NCN 425"].each do |route_name|
+#   Route.find_or_create_by(name: route_name)
+# end
+
+# %w{South-West South-East South-Central Central North North-East North-West}.each do |area_name|
+#   Area.find_or_create_by(name: area_name)
+# end
+
+# [ ["Graffiti", 1], ["Turned", 2], ["Missing", 2], ["Wrong", 2], ["Obstruction", 2],["Obstruction!", 3], 
+#   ["Overgrown", 1], ["Uneven", 1], ["Pothole(s)", 2], ["Damaged", 1], ["Dangerous", 3]
+# ].each do |problem_data|
+#   Problem.find_or_create_by(name: problem_data[0], default_priority: problem_data[1])
+# end
+
+# %w{Signage Vegetation Surface Access Mile_Posts Portrait_Benches}.each do |category_name|
+#   category = Category.find_or_create_by(name: category_name.gsub('_',' '))
+# end
+
+
+
+Route.all.each do |route|
+  route.slug = route.name.parameterize
+  route.save
 end
 
 
-["NCN 1", "NCN 4", "NCN 6", "NCN 12", "NCN 13", "NCN 20", "NCN 61", "NCN 125", "NCN 136", "NCN 208", "NCN 425"].each do |route_name|
-  Route.find_or_create_by(name: route_name)
-end
-
-%w{South-West South-East South-Central Central North North-East North-West}.each do |area_name|
-  Area.find_or_create_by(name: area_name)
-end
-
-[ ["Graffiti", 1], ["Turned", 2], ["Missing", 2], ["Wrong", 2], ["Obstruction", 2],["Obstruction!", 3], 
-  ["Overgrown", 1], ["Uneven", 1], ["Pothole(s)", 2], ["Damaged", 1], ["Dangerous", 3]
-].each do |problem_data|
-  Problem.find_or_create_by(name: problem_data[0], default_priority: problem_data[1])
-end
-
-%w{Signage Vegetation Surface Access Mile_Posts Portrait_Benches}.each do |category_name|
-  category = Category.find_or_create_by(name: category_name.gsub('_',' '))
-end
 
 
-Issue.all.each do | issue |
-  Issue.record_timestamps = false
-  issue.save
-  Issue.record_timestamps = true
-end
+
+# Issue.all.each do | issue |
+#   Issue.record_timestamps = false
+#   issue.save
+#   Issue.record_timestamps = true
+# end
 
 
 

@@ -11,12 +11,14 @@ class IssuesController < ApplicationController
     @administrative_areas = AdministrativeArea.joins(issues: [:route, :area]).where(
       ((params[:route] && params[:route] != 'all') ? 'routes.id = ?' : '' ), params[:route]).where(
       ((params[:area] && params[:area] != 'all') ? 'areas.id = ?' : '' ), params[:area]).uniq
-      #.where(((params[:state] && params[:state] != 'all') ? ' issues.state = ?' : '' ), params[:state])
 
+    @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub(/[^0-9 ]/i, '').to_i }
+    @areas = Area.all.order(:name)
+    @states = Issue.state_machine.states.collect(&:name)
 
     @issues_with_coords = @issues.where.not(lat: nil, lng: nil)
 
-    @current_route = (params[:route].present? && @routes.collect(&:id).include?(params[:route].to_i)) ? Route.find(params[:route].to_i) : nil
+    @current_route = Route.find_by_slug(params[:route])
     @current_area = (params[:area].present? && @areas.collect(&:id).include?(params[:area].to_i)) ? Area.find(params[:area].to_i) : nil
     @current_state = (params[:state].present? && @states.include?(params[:state].to_sym)) ? params[:state] : nil
     @current_state = "all states" if params[:state] == "all"
@@ -206,13 +208,13 @@ class IssuesController < ApplicationController
       order = "categories.name #{ direction.to_s }"
     end
 
-    @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub(/[^0-9 ]/i, '').to_i }
-    @areas = Area.all.order(:name)
     options = {}
     exclusions = {}
-    @states = Issue.state_machine.states.collect(&:name)
+    
 
-    options[:route] = params[:route].to_i if params[:route].present? && params[:route] != "all"
+    route = Route.find_by_slug(params[:route])
+
+    options[:route] = route.id if route && params[:route] != "all"
     options[:area] = params[:area].to_i if params[:area].present? && params[:area] != "all"
     options[:administrative_area] = params[:region].to_i if params[:region].present? && params[:region] != "all"
     if params[:state].present? && @states.include?(params[:state].to_sym)

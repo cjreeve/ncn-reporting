@@ -1,8 +1,13 @@
 <%= simple_form_for(@route) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :name %>
+  <div class='row'>
+    <div class="medium-6 columns form-inputs">
+      <%= f.input :name %>
+    </div>
+    <div class="medium-6 columns form-inputs">
+      <%= f.input :slug, disabled: true %>
+    </div>
   </div>
 
   <div class="form-actions">

@@ -9,10 +9,14 @@
         <%= @route.name %>
       </p>
 
+      <p>
+        <strong>Slug:</strong>
+        <%= @route.slug %>
+      </p>
+
       <%= link_to 'Edit', edit_route_path(@route) %> |
       <%= link_to 'Back', routes_path %>
 
-      <%= link_to 'Back', routes_path %>
     </div>
   </div>
 </div>

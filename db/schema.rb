@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810204749) do
+ActiveRecord::Schema.define(version: 20150818215615) do
 
   create_table "administrative_areas", force: true do |t|
     t.string   "name",       null: false
@@ -127,9 +127,11 @@ ActiveRecord::Schema.define(version: 20150810204749) do
     t.string   "name",       default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug",       default: "", null: false
   end
 
   add_index "routes", ["name"], name: "index_routes_on_name", unique: true
+  add_index "routes", ["slug"], name: "index_routes_on_slug", unique: true
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
