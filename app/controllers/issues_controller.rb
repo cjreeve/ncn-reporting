@@ -9,7 +9,7 @@ class IssuesController < ApplicationController
   def index
 
     @administrative_areas = AdministrativeArea.joins(issues: [:route, :area]).where(
-      ((params[:route] && params[:route] != 'all') ? 'routes.id = ?' : '' ), params[:route]).where(
+      ((params[:route] && params[:route] != 'all') ? 'routes.slug = ?' : '' ), params[:route]).where(
       ((params[:area] && params[:area] != 'all') ? 'areas.id = ?' : '' ), params[:area]).uniq
 
     @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub(/[^0-9 ]/i, '').to_i }
@@ -211,7 +211,7 @@ class IssuesController < ApplicationController
     options = {}
     exclusions = {}
     
-
+    @states = Issue.state_machine.states.collect(&:name)
     route = Route.find_by_slug(params[:route])
 
     options[:route] = route.id if route && params[:route] != "all"
