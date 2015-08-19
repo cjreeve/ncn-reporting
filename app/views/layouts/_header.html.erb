@@ -70,7 +70,7 @@
                 <%= link_to "Issues", issues_path(the_params(params)) %>
               </li>
               <li class="<%= params["controller"] == "updates" ? 'current' : '' %>">
-                <%= link_to "Updates", '#' %>
+                <%= link_to "Updates", updates_path %>
               </li>
               <li  class="<%= params["controller"] == "users" ? 'current' : '' %>">
                 <%= link_to "Users", users_index_path %>

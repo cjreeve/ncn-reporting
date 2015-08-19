@@ -1,0 +1,47 @@
+<article class='updates'>
+  <div class='row'>
+    <div class='small-12'>
+      <h1>Latest changes</h1>
+      Changes from the last 7 days
+      <br>
+      <br>
+      <ul>
+        <% @issues.each do |issue| %>
+          <% if  (issue.updated_at - issue.edited_at).abs < 0.5 %>
+            <li>
+              User edited <%= link_to "issue #{issue.issue_number}", issue_path(issue) %>
+              at <%= issue.updated_at.strftime("%M:%H %d-%b-%Y") %>
+            </li>
+          <% elsif issue.reported_at && (issue.updated_at - issue.reported_at).abs < 0.5 %>
+            <li>
+              User published issue <%= link_to "issue #{issue.issue_number}", issue_path(issue) %>
+              at <%= issue.updated_at.strftime("%M:%H %d-%b-%Y") %>
+            </li>
+          <% elsif issue.completed_at && (issue.updated_at - issue.completed_at).abs < 0.5 %>
+            <li>
+              User marked issue <%= link_to "issue #{issue.issue_number}", issue_path(issue) %> as
+              <%= issue.state %> 
+              at <%= issue.updated_at.strftime("%M:%H %d-%b-%Y") %>
+            </li>
+          <% elsif issue.comments.present? && (issue.updated_at - issue.comments.last.updated_at).abs < 1 %>
+            <li>
+                <%= link_to "Issue #{issue.issue_number}", issue_path(issue) %><br>
+                <%= issue.description %><br>
+              <ul>
+                <% if issue.comments.count > 3 %>
+                &helip;
+                <% end %>
+                <% issue.comments.order('comments.updated_at ASC').last(3).each do |comment| %>
+                    - <%= comment.content %> -
+                    <%= comment.user.name %> at
+                    <%= issue.updated_at.strftime("%M:%H %d-%b-%Y") %>
+                    <br>
+                <% end %>
+              </ul>
+            </li>
+          <% end %>
+       <% end %>
+      </ul>
+    </div>
+  </div>
+</article>

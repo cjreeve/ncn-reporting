@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'updates' => 'updates#show', as: :updates
+
   resources :administrative_areas
 
   get '/page/:slug' => 'pages#view', as: :view_page
