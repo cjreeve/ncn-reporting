@@ -180,7 +180,11 @@
 
     <p>
       <strong>Description:</strong>
-      <%= @issue.description %>
+      <% if @issue.description.present? %>
+        <%= @issue.description %>
+      <% else %>
+        <span style='color:grey'>none</span>
+      <% end %>
     </p>
 
     <div class='row'>
