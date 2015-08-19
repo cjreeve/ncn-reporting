@@ -126,6 +126,10 @@ header{
         top: rem-calc(-22);
         right: rem-calc(-10);
       }
+      @media #{$large-up}{
+        top: rem-calc(-22);
+        right: rem-calc(-20);
+      }
     }
   }
 }
