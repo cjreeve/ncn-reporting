@@ -6423,7 +6423,7 @@ header {
       width: 100%; }
       header .header-controls .logo-area a img {
         width: 100%;
-        max-width: 27.25rem; }
+        max-width: 26.625rem; }
     header .header-controls .user-controls-area .user-controls {
       float: right;
       z-index: 5000; }
@@ -6462,6 +6462,10 @@ header {
         header .controls-row .controls-icon {
           top: -1.375rem;
           right: -0.625rem; } }
+      @media only screen and (min-width: 64.0625em) {
+        header .controls-row .controls-icon {
+          top: -1.375rem;
+          right: -1.25rem; } }
 
 article.welcome {
   position: relative;
@@ -6555,7 +6559,7 @@ article.issue .issue-filters .f-dropdown {
         font-size: 0.75rem; } }
 article.issue .issue-filters .pagination {
   height: 2.5rem;
-  min-width: 8.625rem;
+  min-width: 9.375rem;
   padding-top: 1.5625rem;
   font-size: 0.8125rem; }
   article.issue .issue-filters .pagination .disabled {
