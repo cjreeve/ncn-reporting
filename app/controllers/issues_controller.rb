@@ -211,13 +211,13 @@ class IssuesController < ApplicationController
     options = {}
     exclusions = {}
     
-    @states = Issue.state_machine.states.collect(&:name)
+    states = Issue.state_machine.states.collect(&:name)
     route = Route.find_by_slug(params[:route])
 
     options[:route] = route.id if route && params[:route] != "all"
     options[:area] = params[:area].to_i if params[:area].present? && params[:area] != "all"
     options[:administrative_area] = params[:region].to_i if params[:region].present? && params[:region] != "all"
-    if params[:state].present? && @states.include?(params[:state].to_sym)
+    if params[:state].present? && states.include?(params[:state].to_sym)
       if params[:state] == 'open'
         options[:state] = ['open', 'reopened']
       else
