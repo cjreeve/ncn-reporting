@@ -12,7 +12,7 @@ class IssuesController < ApplicationController
       ((params[:route] && params[:route] != 'all') ? 'routes.slug = ?' : '' ), params[:route]).where(
       ((params[:area] && params[:area] != 'all') ? 'areas.id = ?' : '' ), params[:area]).uniq
 
-    @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub(/[^0-9 ]/i, '').to_i }
+    @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
     @areas = Area.all.order(:name)
     @states = Issue.state_machine.states.collect(&:name)
 
@@ -60,7 +60,7 @@ class IssuesController < ApplicationController
   # GET /issues/1/edit
   def edit
     @routes = Route.all.order(:name)
-    @routes = Route.all.order(:name)
+    @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
     @areas = Area.all.order(:name)
     @categories = Category.all
     @problems = {}
@@ -72,8 +72,7 @@ class IssuesController < ApplicationController
   # POST /issues.json
   def create
     @issue = Issue.new(issue_params)
-    @routes = Route.all.order(:name)
-    @routes = Route.all.order(:name)
+    @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
     @areas = Area.all.order(:name)
     @categories = Category.all
     @problems = {}
@@ -128,15 +127,12 @@ class IssuesController < ApplicationController
 
   def progress
     @issue = Issue.find(params[:id])
+    @issue.load_coordinate_string
     @issues = Issue.all.order('lng DESC')
     if params[:publish] && @issue.publishable?
-      if @issue.lng.present? && @issue.lat.present?
-        @issue.publish!
-        @issue.reported_at = Time.zone.now
-        @issue.save
-      else
-        return redirect_to issue_path, alert: "Please provide a coordinate before publishing"
-      end
+      @issue.publish!
+      @issue.reported_at = Time.zone.now
+      @issue.save
     elsif params[:resolve] && @issue.resolveable?
       @issue.resolve!
       @issue.completed_at = Time.zone.now
@@ -150,7 +146,15 @@ class IssuesController < ApplicationController
     elsif params[:reject] && @issue.rejectable?
       @issue.reject!
     else
-      redirect_to :show, alert: "Invalid progress request"
+      if params[:publish] && !@issue.publishable?
+        text = "Please provide the following before publishing this issue:  "
+        text += " a valid coordinate -" unless @issue.valid_coordinate?
+        text += " a route -" unless @issue.route.present?
+        text += " a group -" unless @issue.area.present?
+        return redirect_to issue_path, alert: text[0..-3]
+      else
+        return redirect_to issue_path, alert: "Invalid progress request"
+      end
     end
     redirect_to issue_path
   end
@@ -164,7 +168,7 @@ class IssuesController < ApplicationController
     else
       @issue = Issue.find(params[:id])
     end
-    @issue.coordinate = "#{@issue.lat.round(5)}, #{@issue.lng.round(5)}" if @issue.lat && @issue.lng
+    @issue.load_coordinate_string
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

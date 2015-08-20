@@ -63,7 +63,8 @@ class Issue < ActiveRecord::Base
   end
 
   def publishable?
-    self.state_events.include?(:publish)
+    self.valid_coordinate? &&
+    self.route.present? && self.area.present?
   end
 
   def openable?
@@ -88,6 +89,15 @@ class Issue < ActiveRecord::Base
 
   def archiveable?
     self.state_events.include?(:archive)
+  end
+
+  def load_coordinate_string
+    self.coordinate = "#{self.lat.round(5)}, #{self.lng.round(5)}" if self.lat && self.lng
+  end
+
+  def valid_coordinate?
+    self.lng.present? && (self.lng > -11.0 && self.lng < 2.0) &&
+    self.lat.present? && (self.lat > 49.0 &&  self.lat < 61.0)
   end
 
   def the_problem
