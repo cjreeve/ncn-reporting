@@ -1,0 +1,56 @@
+<%=
+  if @issue.draft?
+    button_to 'Publish',
+    [:progress, @issue],
+    method: :put,
+    params: the_params(params, { publish: '' }),
+    class: 'button tiny'
+  end
+%>
+<%=
+  if @issue.closeable?
+    button_to 'Close',
+    [:progress, @issue],
+    method: :put,
+    params: the_params(params, { close: '' }),
+    class: 'button tiny success'
+  end
+%>
+<% if @issue.open? || @issue.reopened? %>
+  <%= button_to 'Resolve',
+    [:progress, @issue],
+    method: :put,
+    params: the_params(params, { resolve: ''}),
+    class: 'button tiny success'
+  %>
+  <%= button_to "Can't resolve",
+    [:progress, @issue],
+    method: :put,
+    params: the_params(params, { reject: '' }),
+    class: 'button tiny secondary'
+  %>
+<% end %>
+<%=
+  if @issue.reopenable?
+    button_to 'Reopen',
+    [:progress, @issue],
+    method: :put,
+    params: the_params(params, { reopen: '' }),
+    class: 'button tiny secondary'
+  end
+%>
+<%=
+  if @issue.open?
+    button_to 'Archive',
+    [:progress, @issue],
+    method: :put,
+    params: the_params(params, {  archive: '' }),
+    class: 'button tiny secondary'
+  end
+%>
+<%=
+  button_to 'Edit',
+  edit_issue_path(the_params(params, { id: @issue.id })),
+  method: :get,
+  class: 'button tiny secondary'
+%>

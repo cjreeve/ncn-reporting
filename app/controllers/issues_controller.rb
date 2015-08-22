@@ -66,7 +66,11 @@ class IssuesController < ApplicationController
     @problems = {}
     @categories.each { |c| @problems[c.id] = c.problems }
     @issue.images << Image.new unless @issue.images.present?
-  end
+    # binding.pry
+    # the_edit_params = the_params(params, action: 'edit')
+    # the_edit_params[:controller] = 'issues'
+    # redirect_to the_edit_params
+  end #, controller: 'issues', id: @issue.id
 
   # POST /issues
   # POST /issues.json
@@ -156,11 +160,24 @@ class IssuesController < ApplicationController
         return redirect_to issue_path, alert: "Invalid progress request"
       end
     end
-    redirect_to issue_path
+    redirect_to issue_path(the_params(params))
   end
 
 
   private
+
+
+  def the_params(params, new_params = {})
+    the_params = {}
+    the_params[:dir] = params[:dir] if params[:dir].present?
+    the_params[:order] = params[:order] if params[:order].present?
+    the_params[:route] = params[:route] if params[:route].present?
+    the_params[:area] = params[:area] if params[:area].present?
+    the_params[:state] = params[:state] if params[:state].present?
+    the_params[:region] = params[:region] if params[:region].present?
+    the_params.merge!(new_params)
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_issue
     if params[:issue_number]
