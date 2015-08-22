@@ -2,9 +2,11 @@ $(document).ready(function() {
   var coordFinderMap;
   var myCoord;
   var myCoordMarker;
+  var crosshairPosition;
+  // var crossHairtTmer;
 
   $('#openCoordModal').click(function() {
-    get_current_location_from_browser();
+    // get_current_location_from_browser();
     $('#myCoordModal').foundation('reveal', 'open');
     $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
       google.maps.event.addDomListener(window, 'load', initializeCoordFinder());
@@ -39,24 +41,18 @@ $(document).ready(function() {
     coordFinderMap = new google.maps.Map(document.getElementById('coord-map-canvas'),
         mapOptions);
 
-    if (myCoord) {
-      // show crosshair
-      var crosshairPosition = new google.maps.LatLng(lat, lng);
-      crosshairMarker = new google.maps.Marker({
-        position: crosshairPosition,
-        map: coordFinderMap,
-        icon: '/images/crosshair.svg'
-      });
-    }
-
-    // var bikeLayer = new google.maps.BicyclingLayer();
-    // bikeLayer.setMap(coordFinderMap);
 
     google.maps.event.addListener(coordFinderMap, 'click', function(e) {
       placeMarker(e.latLng, coordFinderMap);
       var theCoord = e.latLng.lat().toFixed(5) + ", " + e.latLng.lng().toFixed(5)
       document.getElementById('issue_coordinate').value = theCoord;
     });
+
+    if (!myCoord) {
+      findMyCoord();
+    }
+    showMyCoord();
+
   };
 
   function placeMarker(position, map) {
@@ -68,6 +64,38 @@ $(document).ready(function() {
       map: map
     });
     map.panTo(position);
+  }
+
+  function findMyCoord() {
+    var crossHairtTmer = setInterval(function(){ myTimer() }, 500);
+
+    function myTimer() {
+      get_current_location_from_browser();
+      
+      if(coordFinderMap && (myCoord !== undefined)) {
+        showMyCoord();
+        clearInterval(crossHairtTmer);
+      }
+    };
+  }
+
+  function showMyCoord() {
+    // show cross hair
+    if(coordFinderMap && myCoord) {
+      lat = myCoord.latitude;
+      lng = myCoord.longitude;
+      crosshairPosition = new google.maps.LatLng(lat, lng);
+      crosshairMarker = new google.maps.Marker({
+        position: crosshairPosition,
+        map: coordFinderMap,
+        icon: '/images/crosshair.svg'
+      });
+      coordFinderMap.setZoom(17);
+      coordFinderMap.panTo(crosshairPosition);
+      if(!myCoordMarker) {
+        document.getElementById('issue_coordinate').value = lat.toFixed(5) + ", " + lng.toFixed(5);
+      }
+    }
   }
 
 });
