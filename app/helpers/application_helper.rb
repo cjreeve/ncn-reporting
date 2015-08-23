@@ -52,7 +52,7 @@ module ApplicationHelper
     category = (issue.category ? issue.category.name : '')
     '<div id="content">' +
       '<div id="siteNotice">'+'</div>'+
-      '<h3 id="firstHeading" class="firstHeading">' + category + ' - ' + issue.the_problem + '</h3>'+
+      '<h3 id="firstHeading" class="firstHeading">' + issue.issue_number.to_s + ': ' + category + ' - ' + issue.the_problem + '</h3>'+
       '<div id="bodyContent">'+
         '<p>' + issue.description + '</p>' +
         '<p> <a href="/issue/' + issue.issue_number.to_s + '">' + 'Go to issue >' + '</a> </p>' +
