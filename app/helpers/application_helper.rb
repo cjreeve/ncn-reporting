@@ -120,7 +120,7 @@ module ApplicationHelper
     title = (issue.category.present? ? issue.category.name : '') +
             (issue.problem.present? ? (' - ' + issue.problem.name) : '')
     title = issue.title unless title.present?
-    title
+    issue.issue_number.to_s + ': ' + title
   end
 
 end
