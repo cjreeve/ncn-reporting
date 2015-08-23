@@ -50,7 +50,8 @@
 %>
 <%=
   button_to 'Edit',
-  edit_issue_path(the_params(params, { id: @issue.id })),
+  [:edit, @issue],
   method: :get,
+  params: the_params(params, { id: @issue.id }),
   class: 'button tiny secondary'
 %>

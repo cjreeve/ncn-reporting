@@ -1,5 +1,5 @@
 
-  <%= simple_form_for @issue do |f| %>
+  <%= simple_form_for @issue, url: issue_path(the_params(params, { id: @issue.id })) do |f| %>
     <% if @issue.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@issue.errors.count, "error") %> prohibited this issue from being saved:</h2>

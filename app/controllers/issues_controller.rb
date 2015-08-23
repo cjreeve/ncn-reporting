@@ -66,11 +66,8 @@ class IssuesController < ApplicationController
     @problems = {}
     @categories.each { |c| @problems[c.id] = c.problems }
     @issue.images << Image.new unless @issue.images.present?
-    # binding.pry
-    # the_edit_params = the_params(params, action: 'edit')
-    # the_edit_params[:controller] = 'issues'
-    # redirect_to the_edit_params
-  end #, controller: 'issues', id: @issue.id
+    return render the_params(params, action: 'edit')
+  end
 
   # POST /issues
   # POST /issues.json
@@ -98,7 +95,7 @@ class IssuesController < ApplicationController
   def update
     respond_to do |format|
       if @issue.update(issue_params)
-        format.html { redirect_to @issue, notice: 'Issue was successfully updated.' }
+        format.html { redirect_to issue_path(the_params(params)), notice: 'Issue was successfully updated.' }
         format.json { render :show, status: :ok, location: @issue }
       else
         @routes = Route.all.order(:name)
@@ -108,7 +105,7 @@ class IssuesController < ApplicationController
         @problems = {}
         @categories.each { |c| @problems[c.id] = c.problems }
         @issue.images << Image.new unless @issue.images.present?
-        format.html { render :edit }
+        format.html { return render the_params(params, action: 'edit') }
         format.json { render json: @issue.errors, status: :unprocessable_entity }
       end
     end
