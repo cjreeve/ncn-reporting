@@ -7,7 +7,7 @@
 
     
 
-    <%= link_to '◄ back to index', issues_path(the_params(params)), style: 'float:right' %>
+    <%#= link_to '◄ back to index', issues_path(the_params(params)), class: 'back-to-index' %>
 
     <div class='row'>
       <div class='medium-6 columns'>
@@ -31,6 +31,9 @@
               image_tag 'icons/arrow-large-right-grey.svg', title: 'no more', alt: ''
             end
           %>
+          <span class='create-new-issue-container'>
+            -&nbsp;<%= link_to 'new', new_issue_path, class: 'create-new-issue' %>
+          </span> 
         </div>
       </div>
       <div class='medium-6 columns'>

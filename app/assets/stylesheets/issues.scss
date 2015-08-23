@@ -3,6 +3,10 @@ article.issue{
   h1{
     display: inline-block;
   }
+  // .back-to-index{
+  //   float: right;
+  //   margin-bottom: rem-calc(10);
+  // }
   .issue-title-and-nav{
     margin: rem-calc(10 0);
     h1{
@@ -11,6 +15,12 @@ article.issue{
     }
     img{
       margin-bottom: rem-calc(15);
+    }
+    .create-new-issue-container{
+      vertical-align: top;
+      display: inline-block;
+      margin-top: rem-calc(9);
+      margin-left: rem-calc(25);
     }
   }
   .tab{
