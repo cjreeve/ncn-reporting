@@ -4,7 +4,9 @@
 
         <h1>Editing issue</h1>
 
-        <%= render 'form' %>
+        <%= simple_form_for @issue, url: issue_path(the_params(params, { id: @issue.id })) do |f| %>
+          <%= render 'form', f: f %>
+        <% end %>
 
         <%= link_to 'Show', @issue %> |
         <%= link_to 'Back', issues_path %>
