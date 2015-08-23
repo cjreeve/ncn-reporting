@@ -7,6 +7,12 @@ article.issue{
   //   float: right;
   //   margin-bottom: rem-calc(10);
   // }
+
+  table.issues{
+    th:first-of-type{
+      // max-width: rem-calc(30);
+    }
+  }
   .issue-title-and-nav{
     margin: rem-calc(10 0);
     h1{

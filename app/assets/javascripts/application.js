@@ -17,6 +17,7 @@
 //# require turbolinks
 //= require issues
 //= require problems
+//= require vendor/responsive_tables
 //# require_tree .
 
 $(function(){ $(document).foundation(); });
