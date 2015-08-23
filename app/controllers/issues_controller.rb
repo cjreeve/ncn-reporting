@@ -92,6 +92,7 @@ class IssuesController < ApplicationController
   # PATCH/PUT /issues/1
   # PATCH/PUT /issues/1.json
   def update
+    @issue.editor = current_user if current_user
     respond_to do |format|
       if @issue.update(issue_params)
         format.html { redirect_to issue_path(the_params(params)), notice: 'Issue was successfully updated.' }

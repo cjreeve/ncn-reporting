@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150819192139) do
+ActiveRecord::Schema.define(version: 20150823210635) do
 
   create_table "administrative_areas", force: true do |t|
     t.string   "name",       null: false
@@ -89,12 +89,14 @@ ActiveRecord::Schema.define(version: 20150819192139) do
     t.integer  "user_id"
     t.datetime "edited_at",              default: '2015-08-04 21:18:32', null: false
     t.integer  "administrative_area_id"
+    t.integer  "editor_id"
   end
 
   add_index "issues", ["administrative_area_id"], name: "index_issues_on_administrative_area_id"
   add_index "issues", ["area_id"], name: "index_issues_on_area_id"
   add_index "issues", ["category_id"], name: "index_issues_on_category_id"
   add_index "issues", ["completed_at"], name: "index_issues_on_completed_at"
+  add_index "issues", ["editor_id"], name: "index_issues_on_editor_id"
   add_index "issues", ["issue_number"], name: "index_issues_on_issue_number", unique: true
   add_index "issues", ["lat"], name: "index_issues_on_lat"
   add_index "issues", ["lng"], name: "index_issues_on_lng"

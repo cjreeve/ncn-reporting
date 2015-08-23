@@ -1,0 +1,40 @@
+article.updates{
+  h3{
+    margin-top: rem-calc(10);
+    margin-bottom: 0;
+    font-size: rem-calc(18);
+    // display: inline-block;
+    a{
+      color: #555;
+    }
+  }
+  ul{
+    list-style-type: none;
+  }
+  ul.updates-list{
+    list-style-type: none;
+    >li{
+      background-color: #eee;
+      margin-bottom: rem-calc(10);
+      padding: rem-calc(5);
+      ul.editor{
+        li{
+          margin: 0;
+          font-size: rem-calc(12);
+        }
+      }
+      p{
+        margin-bottom: 0;
+        padding-left: rem-calc(15);
+
+      }
+      label.description{
+        color: grey;
+        display: inline-block;
+      }
+      .commentor{
+        font-size: rem-calc(12);
+      }
+    }
+  }
+}

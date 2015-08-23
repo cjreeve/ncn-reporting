@@ -1,0 +1,23 @@
+<% if issue.comments.present? && (issue.comments.last.updated_at + 7.days) > Time.zone.now %>
+  <% if issue.description.present? %>
+    <p>
+      <label class='description'>Description:</label> <%= issue.description[0..100] %>
+      <% if issue.description.length > 100 %>
+        &hellip;
+      <% end %>
+    </p>
+  <% end %>
+  <ul>
+    <% if issue.comments.count > 3 %>
+    &helip;
+    <% end %>
+    <% issue.comments.order('comments.updated_at ASC').last(3).each do |comment| %>
+        - <%= comment.content %> 
+        <span class='commentor'> -
+          <%= link_to comment.user.name, user_path(issue.user) %> at
+          <%= issue.updated_at.strftime("%H:%M %d-%b-%Y") %>
+        </span>
+        <br>
+    <% end %>
+  </ul>
+<% end %>

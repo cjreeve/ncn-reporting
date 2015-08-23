@@ -1,0 +1,5 @@
+<h3>
+  <%= link_to issue_path(issue) do %>
+    (<%= issue.issue_number %>) <%= issue.category.name %> - <%= issue.the_problem %>
+  <% end %>
+</h3>

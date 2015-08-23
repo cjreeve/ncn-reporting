@@ -9,6 +9,7 @@ class Issue < ActiveRecord::Base
   belongs_to :category
   belongs_to :problem
   belongs_to :user
+  belongs_to :editor, class_name: "User"
 
   accepts_nested_attributes_for(:images, allow_destroy: true, reject_if: :all_blank)
   
@@ -105,6 +106,14 @@ class Issue < ActiveRecord::Base
       self.problem.name
     else
       self.title
+    end
+  end
+
+  def the_editor
+    if self.editor
+      self.editor
+    else
+      self.user
     end
   end
 
