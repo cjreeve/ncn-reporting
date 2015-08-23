@@ -17191,12 +17191,18 @@ $(document).ready(function() {
     coordFinderMap = new google.maps.Map(document.getElementById('coord-map-canvas'),
         mapOptions);
 
+    var bikeLayer = new google.maps.BicyclingLayer();
+    bikeLayer.setMap(coordFinderMap);
+
+
 
     google.maps.event.addListener(coordFinderMap, 'click', function(e) {
       placeMarker(e.latLng, coordFinderMap);
       var theCoord = e.latLng.lat().toFixed(5) + ", " + e.latLng.lng().toFixed(5)
       document.getElementById('issue_coordinate').value = theCoord;
     });
+
+
 
     if (!myCoord) {
       findMyCoord();
@@ -17289,6 +17295,73 @@ $(document).ready(function() {
   });
 
 }).call(this);
+$(document).ready(function() {
+  var switched = false;
+  var updateTables = function() {
+    if (($(window).width() < 767) && !switched ){
+      switched = true;
+      $("table.responsive").each(function(i, element) {
+        splitTable($(element));
+      });
+      return true;
+    }
+    else if (switched && ($(window).width() > 767)) {
+      switched = false;
+      $("table.responsive").each(function(i, element) {
+        unsplitTable($(element));
+      });
+    }
+  };
+   
+  $(window).load(updateTables);
+  $(window).on("redraw",function(){switched=false;updateTables();}); // An event to listen for
+  $(window).on("resize", updateTables);
+   
+	
+	function splitTable(original)
+	{
+		original.wrap("<div class='table-wrapper' />");
+		
+		var copy = original.clone();
+		copy.find("td:not(:first-child), th:not(:first-child)").css("display", "none");
+		copy.removeClass("responsive");
+		
+		original.closest(".table-wrapper").append(copy);
+		copy.wrap("<div class='pinned' />");
+		original.wrap("<div class='scrollable' />");
+
+    setCellHeights(original, copy);
+	}
+	
+	function unsplitTable(original) {
+    original.closest(".table-wrapper").find(".pinned").remove();
+    original.unwrap();
+    original.unwrap();
+	}
+
+  function setCellHeights(original, copy) {
+    var tr = original.find('tr'),
+        tr_copy = copy.find('tr'),
+        heights = [];
+
+    tr.each(function (index) {
+      var self = $(this),
+          tx = self.find('th, td');
+
+      tx.each(function () {
+        var height = $(this).outerHeight(true);
+        heights[index] = heights[index] || 0;
+        if (height > heights[index]) heights[index] = height;
+      });
+
+    });
+
+    tr_copy.each(function (index) {
+      $(this).height(heights[index]);
+    });
+  }
+
+});
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -17306,6 +17379,7 @@ $(document).ready(function() {
 
 
 //# require turbolinks
+
 
 
 //# require_tree .
