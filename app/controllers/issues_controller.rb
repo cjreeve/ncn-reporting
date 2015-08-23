@@ -48,7 +48,7 @@ class IssuesController < ApplicationController
   def new
     @issue = Issue.new
     @issue.images.build
-    @routes = Route.all.order(:name)
+    @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
     @areas = Area.all.order(:name)
     @image = Image.new
     @categories = Category.all
@@ -59,7 +59,6 @@ class IssuesController < ApplicationController
 
   # GET /issues/1/edit
   def edit
-    @routes = Route.all.order(:name)
     @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
     @areas = Area.all.order(:name)
     @categories = Category.all
@@ -207,6 +206,7 @@ class IssuesController < ApplicationController
     order = :title if params[:order] == 'title'
     order = :problem if params[:order] == 'problem'
     order = :location_name if params[:order] == 'location'
+    order = :route if params[:order] == 'route'
     order = :lat if params[:order] == 'lat'
     order = :lng if params[:order] == 'lng'
     order = :updated_at if params[:order] == 'modified'
@@ -224,7 +224,12 @@ class IssuesController < ApplicationController
     if params[:order] == 'category'
       table_name = :category
       order = "categories.name #{ direction.to_s }"
+    elsif params[:order] == 'route'
+      table_name = :route
+      order = "routes.name #{ direction.to_s }"
     end
+
+      
 
     options = {}
     exclusions = {}

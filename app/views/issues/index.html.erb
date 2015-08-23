@@ -22,11 +22,10 @@
           <thead>
             <tr>
               <%= table_header('No.', 'issue number', 'number', params) %>
-              <%#= table_header('Issue', 'summary of problem', 'title', params) %>
               <%= table_header('Category', 'issue category', 'category', params) %>
               <%= table_header('Issue', 'summary of problem', 'title', params) %>
               <%= table_header('Location', 'location summary', 'location', params) %>
-              <th><%= link_to 'Route', '#' %></th>
+              <%= table_header('Route', 'cycle route', 'route', params) %>
               <%= table_header('Lat', 'latitude', 'lat', params) %>
               <%= table_header('Lng', 'longitude', 'lng', params) %>
               <%= table_header('Last&nbsp;updated', 'date of last modification or comment', 'modified', params) %>
