@@ -42,12 +42,18 @@ $(document).ready(function() {
     coordFinderMap = new google.maps.Map(document.getElementById('coord-map-canvas'),
         mapOptions);
 
+    var bikeLayer = new google.maps.BicyclingLayer();
+    bikeLayer.setMap(coordFinderMap);
+
+
 
     google.maps.event.addListener(coordFinderMap, 'click', function(e) {
       placeMarker(e.latLng, coordFinderMap);
       var theCoord = e.latLng.lat().toFixed(5) + ", " + e.latLng.lng().toFixed(5)
       document.getElementById('issue_coordinate').value = theCoord;
     });
+
+
 
     if (!myCoord) {
       findMyCoord();
