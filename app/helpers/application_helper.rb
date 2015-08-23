@@ -52,7 +52,7 @@ module ApplicationHelper
     category = (issue.category ? issue.category.name : '')
     '<div id="content">' +
       '<div id="siteNotice">'+'</div>'+
-      '<h3 id="firstHeading" class="firstHeading">' + issue.issue_number.to_s + ': ' + category + ' - ' + issue.the_problem + '</h3>'+
+      '<h3 id="firstHeading" class="firstHeading">(' + issue.issue_number.to_s + ') ' + category + ' - ' + issue.the_problem + '</h3>'+
       '<div id="bodyContent">'+
         '<p>' + issue.description + '</p>' +
         '<p> <a href="/issue/' + issue.issue_number.to_s + '">' + 'Go to issue >' + '</a> </p>' +
@@ -120,7 +120,7 @@ module ApplicationHelper
     title = (issue.category.present? ? issue.category.name : '') +
             (issue.problem.present? ? (' - ' + issue.problem.name) : '')
     title = issue.title unless title.present?
-    issue.issue_number.to_s + ': ' + title
+    '(' + issue.issue_number.to_s + ') ' + title
   end
 
 end
