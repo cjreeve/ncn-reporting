@@ -6337,47 +6337,49 @@ th.hide-for-touch {
 @media not print {
   .show-for-print {
     display: none !important; } }
-html body > article {
-  padding-top: 1.25rem; }
-html body h1 {
-  font-size: 2.1875rem; }
-html body h2 {
-  font-size: 1.5625rem; }
-html body a:hover {
-  text-decoration: underline; }
-html body .button.select {
-  background-color: #b4c8db;
-  width: 100%;
-  height: 3.125rem;
-  padding: 0.9375rem 0.1875rem; }
-  html body .button.select:hover {
-    background-color: #9fb9d1; }
-html body textarea, html body select {
-  margin-bottom: 1rem; }
-html body label.checkbox {
-  vertical-align: top; }
-  html body label.checkbox input[type="checkbox"] {
-    margin-top: 0.15em;
-    margin-right: 0.3125rem;
+html body {
+  font-family: 'PT Sans', sans-serif; }
+  html body > article {
+    padding-top: 1.25rem; }
+  html body h1 {
+    font-size: 2.1875rem; }
+  html body h2 {
+    font-size: 1.5625rem; }
+  html body a:hover {
+    text-decoration: underline; }
+  html body .button.select {
+    background-color: #b4c8db;
+    width: 100%;
+    height: 3.125rem;
+    padding: 0.9375rem 0.1875rem; }
+    html body .button.select:hover {
+      background-color: #9fb9d1; }
+  html body textarea, html body select {
+    margin-bottom: 1rem; }
+  html body label.checkbox {
     vertical-align: top; }
-html body .required.error input {
-  border: 0.0625rem solid red; }
-html body .required.error .error {
-  background: none;
-  color: red; }
-html body .input-prompt {
-  display: inline-block;
-  margin-bottom: 0.625rem;
-  font-size: 0.75rem; }
-html body .f-dropdown {
-  outline: none; }
-html body a.button.select {
-  text-decoration: none; }
-html body select {
-  padding: 0.3125rem 0.5rem; }
-@media only screen and (max-width: 40em) {
-  html body .hide-for-small-when.new {
-    display: none; } }
+    html body label.checkbox input[type="checkbox"] {
+      margin-top: 0.15em;
+      margin-right: 0.3125rem;
+      vertical-align: top; }
+  html body .required.error input {
+    border: 0.0625rem solid red; }
+  html body .required.error .error {
+    background: none;
+    color: red; }
+  html body .input-prompt {
+    display: inline-block;
+    margin-bottom: 0.625rem;
+    font-size: 0.75rem; }
+  html body .f-dropdown {
+    outline: none; }
+  html body a.button.select {
+    text-decoration: none; }
+  html body select {
+    padding: 0.3125rem 0.5rem; }
+  @media only screen and (max-width: 40em) {
+    html body .hide-for-small-when.new {
+      display: none; } }
 
 article.admin h1 {
   display: inline-block; }
@@ -6525,6 +6527,11 @@ article.issue .issue-title-and-nav {
     line-height: 1; }
   article.issue .issue-title-and-nav img {
     margin-bottom: 0.9375rem; }
+  article.issue .issue-title-and-nav .create-new-issue-container {
+    vertical-align: top;
+    display: inline-block;
+    margin-top: 0.5625rem;
+    margin-left: 1.5625rem; }
 article.issue .tab.selected {
   background-color: #ebebeb; }
 article.issue .tab:hover {
@@ -6626,6 +6633,14 @@ article.issue #comments .comment .comment-footer {
     display: inline-block;
     font-size: 0.6875rem;
     line-height: 1; }
+
+.searching-location {
+  display: inline-block;
+  margin-left: 1.875rem;
+  font-size: 0.8125rem;
+  color: grey; }
+  .searching-location img {
+    width: 0.9375rem; }
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Set default font family to sans-serif.
