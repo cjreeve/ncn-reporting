@@ -6713,6 +6713,32 @@ article.issue #comments .comment .comment-footer {
   color: grey; }
   .searching-location img {
     width: 0.9375rem; }
+
+article.updates h3 {
+  margin-top: 0.625rem;
+  margin-bottom: 0;
+  font-size: 1.125rem; }
+  article.updates h3 a {
+    color: #555; }
+article.updates ul {
+  list-style-type: none; }
+article.updates ul.updates-list {
+  list-style-type: none; }
+  article.updates ul.updates-list > li {
+    background-color: #eee;
+    margin-bottom: 0.625rem;
+    padding: 0.3125rem; }
+    article.updates ul.updates-list > li ul.editor li {
+      margin: 0;
+      font-size: 0.75rem; }
+    article.updates ul.updates-list > li p {
+      margin-bottom: 0;
+      padding-left: 0.9375rem; }
+    article.updates ul.updates-list > li label.description {
+      color: grey;
+      display: inline-block; }
+    article.updates ul.updates-list > li .commentor {
+      font-size: 0.75rem; }
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Set default font family to sans-serif.
