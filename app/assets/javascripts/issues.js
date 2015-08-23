@@ -31,7 +31,8 @@ $(document).ready(function() {
       lat = myCoord.latitude;
       lng = myCoord.longitude;
       zoom = 17;
-      document.getElementById('issue_coordinate').value = lat.toFixed(5) + ", " + lng.toFixed(5);
+      // document.getElementById('issue_coordinate').value = lat.toFixed(5) + ", " + lng.toFixed(5);
+      $('.searching-location').hide();
     }
 
     var mapOptions = {
@@ -90,11 +91,12 @@ $(document).ready(function() {
         map: coordFinderMap,
         icon: '/images/crosshair.svg'
       });
+      $('.searching-location').hide();
       coordFinderMap.setZoom(17);
       coordFinderMap.panTo(crosshairPosition);
-      if(!myCoordMarker) {
-        document.getElementById('issue_coordinate').value = lat.toFixed(5) + ", " + lng.toFixed(5);
-      }
+      // if(!myCoordMarker) {
+      //   document.getElementById('issue_coordinate').value = lat.toFixed(5) + ", " + lng.toFixed(5);
+      // }
     }
   }
 

@@ -168,3 +168,14 @@ article.issue{
     }
   }
 }
+
+
+.searching-location{
+  display: inline-block;
+  margin-left: rem-calc(30);
+  font-size: rem-calc(13);
+  color: grey;
+  img{
+    width: rem-calc(15);
+  }
+}

@@ -62,9 +62,17 @@
     <div id="myCoordModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <p class='show-for-small-only'>
         Tap the location and close
+        <span class='searching-location'>
+          searching
+          <%= image_tag 'icons/ajax-loader-fb.gif' %>
+        </span>
       </p>
       <p class='show-for-medium-up'>
         Click the location and close
+        <span class='searching-location'>
+          searching
+          <%= image_tag 'icons/ajax-loader-fb.gif' %>
+        </span>
       </p>
 
       <div id="coord-map-canvas" style="height: 400px;"></div>
