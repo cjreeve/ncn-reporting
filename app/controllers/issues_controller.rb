@@ -13,7 +13,7 @@ class IssuesController < ApplicationController
       ((params[:area] && params[:area] != 'all') ? 'areas.id = ?' : '' ), params[:area]).uniq
 
     @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
-    @areas = Area.all.order(:name)
+    @areas = Area.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
     @states = Issue.state_machine.states.collect(&:name)
 
     @issues_with_coords = @issues.where.not(lat: nil, lng: nil)
@@ -49,7 +49,7 @@ class IssuesController < ApplicationController
     @issue = Issue.new
     @issue.images.build
     @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
-    @areas = Area.all.order(:name)
+    @areas = Area.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
     @image = Image.new
     @categories = Category.all
     # @problems = @categories.first.problems
@@ -60,7 +60,7 @@ class IssuesController < ApplicationController
   # GET /issues/1/edit
   def edit
     @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
-    @areas = Area.all.order(:name)
+    @areas = Area.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
     @categories = Category.all
     @problems = {}
     @categories.each { |c| @problems[c.id] = c.problems }
@@ -73,7 +73,7 @@ class IssuesController < ApplicationController
   def create
     @issue = Issue.new(issue_params)
     @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
-    @areas = Area.all.order(:name)
+    @areas = Area.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
     @categories = Category.all
     @problems = {}
     @categories.each { |c| @problems[c.id] = c.problems }
@@ -100,7 +100,7 @@ class IssuesController < ApplicationController
       else
         @routes = Route.all.order(:name)
         @routes = Route.all.order(:name)
-        @areas = Area.all.order(:name)
+        @areas = Area.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
         @categories = Category.all
         @problems = {}
         @categories.each { |c| @problems[c.id] = c.problems }
