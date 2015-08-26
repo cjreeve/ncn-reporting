@@ -1,6 +1,4 @@
 
-<%= render('google_maps/markers.js', issues: @issues_with_coords) if @issues_with_coords.present? %>
-
 <article class='issue'>
   <div class='row'>
     <div class='small-12 columns'>
@@ -67,3 +65,5 @@
     </div>
   </div>
 </div>
+
+<%= render('google_maps/markers.js', issues: @issues_with_coords) if @issues_with_coords.present? %>

@@ -1,4 +1,3 @@
-<%= render 'google_maps/markers.js', issues: @issues.where.not(lat: nil, lng: nil), this_issue: @issue %>
 
 <article class='issue'>
   <div class='row'>
@@ -241,4 +240,5 @@
   </div>
 </article>
 
+<%= render 'google_maps/markers.js', issues: @issues.where.not(lat: nil, lng: nil), this_issue: @issue %>
  
