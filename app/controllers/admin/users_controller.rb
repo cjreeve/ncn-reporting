@@ -5,7 +5,7 @@ class Admin::UsersController < ApplicationController
   before_filter :check_authorisation
 
   def index
-    @users = User.all.order(:name)
+    @users = User.all.order("lower(name) ASC")
   end
 
   def show
