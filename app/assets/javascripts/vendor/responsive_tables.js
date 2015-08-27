@@ -1,6 +1,8 @@
+var updateTables;
+
 $(document).ready(function() {
   var switched = false;
-  var updateTables = function() {
+  updateTables = function() {
     if (($(window).width() < 767) && !switched ){
       switched = true;
       $("table.responsive").each(function(i, element) {

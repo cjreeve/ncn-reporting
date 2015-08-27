@@ -2,6 +2,10 @@
 $(window).bind('page:change', function() {
   if (typeof(initialize) == "function" && $('#map-canvas').length) {
     initialize();
+    // $(window).load(updateTables);
+    // $(window).on("redraw",function(){switched=false;updateTables();}); // An event to listen for
+    // $(window).on("resize", updateTables);
+    // updateTables;
   }
 });
 
@@ -87,7 +91,7 @@ function findMyCoord() {
 
   function myTimer() {
     get_current_location_from_browser();
-    
+
     if(coordFinderMap && (myCoord !== undefined)) {
       showMyCoord();
       clearInterval(crossHairtTmer);
