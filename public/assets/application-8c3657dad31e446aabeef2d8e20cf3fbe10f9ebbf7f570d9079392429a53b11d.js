@@ -17981,6 +17981,10 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
 $(window).bind('page:change', function() {
   if (typeof(initialize) == "function" && $('#map-canvas').length) {
     initialize();
+    // $(window).load(updateTables);
+    // $(window).on("redraw",function(){switched=false;updateTables();}); // An event to listen for
+    // $(window).on("resize", updateTables);
+    // updateTables;
   }
 });
 
@@ -18066,7 +18070,7 @@ function findMyCoord() {
 
   function myTimer() {
     get_current_location_from_browser();
-    
+
     if(coordFinderMap && (myCoord !== undefined)) {
       showMyCoord();
       clearInterval(crossHairtTmer);
@@ -18133,9 +18137,11 @@ function showMyCoord() {
   });
 
 }).call(this);
+var updateTables;
+
 $(document).ready(function() {
   var switched = false;
-  var updateTables = function() {
+  updateTables = function() {
     if (($(window).width() < 767) && !switched ){
       switched = true;
       $("table.responsive").each(function(i, element) {
