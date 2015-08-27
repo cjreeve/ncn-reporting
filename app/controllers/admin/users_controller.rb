@@ -18,7 +18,11 @@ class Admin::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    the_user_params = user_params.except(:password) if user_params[:password].blank?
+    if user_params[:password].blank?
+      the_user_params = user_params.except(:password)
+    else
+      the_user_params = user_params
+    end
     if @user.update(the_user_params)
       redirect_to admin_user_url(@user), notice: 'User was successfully updated.'
     else
