@@ -42,9 +42,7 @@
     <%= f.input :coordinate, label: 'Coordinate (e.g. 51.52009, -0.10309)' %>
     <%= link_to 'Find your coordinate', '#', id: "openCoordModal", class: 'input-prompt' %>
     &nbsp;
-    <span data-tooltip aria-haspopup="true" class="has-tip input-prompt" title="Close the pop-up and repen it if your location was not found.
-
-    If you can't find your precise location on google maps: save a rough coordinate and then open it using the openstreetmap link. If you can locate the coordinate on openstreetmap: click on their share button and copy and paste their Geo URI or Link to the issue coordinate field. Please don't publish an issue unless you know its precise location.">(?)</span>
+    <span data-tooltip aria-haspopup="true" class="has-tip input-prompt" title="If you can't find your precise location on google maps: save a rough coordinate and then open it using the openstreetmap link. If you can locate the coordinate on openstreetmap: click on their share button and copy and paste their Geo URI or Link to the issue coordinate field. Please don't publish an issue unless you know its precise location.">(?)</span>
   </div>
   <div class='medium-6 columns hide-for-small-when <%= @issue.id.present? ? "update" : "new" %>'>
     <%= f.input :location_name, label: 'Location (auto-completes when blank)' %>
