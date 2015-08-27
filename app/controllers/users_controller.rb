@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users.where.not(role: 'locked')
+    @users.where.not(role: 'locked').order(:name)
   end
 
   private

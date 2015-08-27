@@ -5,7 +5,7 @@ class Admin::UsersController < ApplicationController
   before_filter :check_authorisation
 
   def index
-    @users = User.all
+    @users = User.all.order(:name)
   end
 
   def show
@@ -18,7 +18,8 @@ class Admin::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(user_params)
+    the_params = user_params(params).except(:password) if user_params(params)[:password] == ""
+    if @user.update(the_params)
       redirect_to admin_user_url(@user), notice: 'User was successfully updated.'
     else
       render :edit
@@ -30,7 +31,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(user_params(params))
     if @user.save
       redirect_to admin_users_url, notice: 'User account was successfully created'
     else
@@ -49,9 +50,9 @@ class Admin::UsersController < ApplicationController
 
   private
 
-  def user_params
+  def user_params(params)
     permitted_params = params.require(:user).permit(:name, :email, :password, :role)
-    permitted_params.except(:password) if permitted_params[:password] == ""
+    # permitted_params.except(:password) if permitted_params[:password] == ""
     permitted_params
   end
 
