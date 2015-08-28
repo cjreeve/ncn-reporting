@@ -66,7 +66,7 @@
         <nav class="top-bar main-nav" data-topbar role="navigation">
           <section class="top-bar-section">
             <ul class="left">
-              <li class="<%= params["controller"] == "issues" ? 'current' : '' %>" data-no-turbolink>
+              <li class="<%= params["controller"] == "issues" ? 'current' : '' %>">
                 <%= link_to "Issues", issues_path(the_params(params)) %>
               </li>
               <li class="<%= params["controller"] == "updates" ? 'current' : '' %>">
