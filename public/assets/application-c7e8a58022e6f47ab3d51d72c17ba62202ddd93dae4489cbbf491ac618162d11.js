@@ -17978,14 +17978,13 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
 
 }).call(this);
 (function() {
-  jQuery(function() {
-    return $(document).ready(function() {
-      return $('a').on('click', function(e) {
-        if (($(this).attr('href') !== '#') && ($(this).attr('href') !== '/') && ($(this).attr('aria-label') !== 'Close')) {
-          return $('#tubolinks-loader').show();
-        }
-      });
-    });
+  $(document).on("page:fetch", function(e) {
+    $('#tubolinks-loader').css('top', $('header').height() + 5 + 'px');
+    return $('#tubolinks-loader').show();
+  });
+
+  $(document).on('page:receive', function(e) {
+    return $('#tubolinks-loader').hide();
   });
 
 }).call(this);
@@ -18183,7 +18182,6 @@ $(window).bind('page:change', function() {
       tableSwitched = true;
       $("table.responsive").each(function(i, element) {
         splitTable($(element));
-        console.log('here');
       });
       return true;
     }
