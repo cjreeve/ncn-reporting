@@ -141,6 +141,9 @@ header{
   text-align: center;
   z-index: 1000;
   top: rem-calc(150);
+  img{
+    width: rem-calc(30);
+  }
   @media #{$small-only} {
     top: rem-calc(130);
     img{
