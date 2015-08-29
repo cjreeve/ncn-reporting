@@ -17981,7 +17981,7 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
   jQuery(function() {
     return $(document).ready(function() {
       return $('a').on('click', function(e) {
-        if (($(this).attr('href') !== '#') && ($(this).attr('href') !== '/')) {
+        if (($(this).attr('href') !== '#') && ($(this).attr('href') !== '/') && ($(this).attr('aria-label') !== 'Close')) {
           return $('#tubolinks-loader').show();
         }
       });
