@@ -1,4 +1,5 @@
 header{
+  position: relative;
   background-color: lighten($road-sign-blue,20);
   // padding-bottom: rem-calc(10);
   border-bottom: rem-calc(1) solid #aaa;
@@ -130,6 +131,20 @@ header{
         top: rem-calc(-22);
         right: rem-calc(-20);
       }
+    }
+  }
+}
+
+#tubolinks-loader{
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  z-index: 1000;
+  top: rem-calc(150);
+  @media #{$small-only} {
+    top: rem-calc(130);
+    img{
+      width: rem-calc(20);
     }
   }
 }

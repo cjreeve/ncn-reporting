@@ -15,6 +15,7 @@
 //= require foundation
 //= require turbolinks
 //= require jquery.turbolinks
+//= require turbolinks_loader
 //= require issues
 //= require problems
 //= require vendor/responsive_tables
