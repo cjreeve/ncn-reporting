@@ -6548,6 +6548,8 @@ header {
   text-align: center;
   z-index: 1000;
   top: 9.375rem; }
+  #tubolinks-loader img {
+    width: 1.875rem; }
   @media only screen and (max-width: 40em) {
     #tubolinks-loader {
       top: 8.125rem; }
