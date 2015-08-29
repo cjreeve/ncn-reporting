@@ -3,4 +3,5 @@ jQuery ->
   $(document).ready ->
 
     $('a').on 'click', (e) ->
-      $('#tubolinks-loader').show()
+      if(($(this).attr('href') != '#') && ($(this).attr('href') != '/'))
+        $('#tubolinks-loader').show()
