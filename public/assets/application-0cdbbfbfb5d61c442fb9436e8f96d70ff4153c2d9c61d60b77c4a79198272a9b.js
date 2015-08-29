@@ -17977,6 +17977,16 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
   $.turbo.use('page:load', 'page:fetch');
 
 }).call(this);
+(function() {
+  jQuery(function() {
+    return $(document).ready(function() {
+      return $('a').on('click', function(e) {
+        return $('#tubolinks-loader').show();
+      });
+    });
+  });
+
+}).call(this);
 
 $(window).bind('page:change', function() {
   if (typeof(initialize) == "function" && $('#map-canvas').length) {
@@ -18245,6 +18255,7 @@ function setCellHeights(original, copy) {
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 
 
 
