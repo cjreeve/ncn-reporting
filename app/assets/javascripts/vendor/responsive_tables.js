@@ -32,7 +32,6 @@ $(window).bind('page:change', function() {
       tableSwitched = true;
       $("table.responsive").each(function(i, element) {
         splitTable($(element));
-        console.log('here');
       });
       return true;
     }
