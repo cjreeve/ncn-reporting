@@ -190,7 +190,10 @@
       %>
       <% if @issue.url.present? %>
         <p>
-          <% if @issue.url.include?('google') && @issue.url.include?('maps') && @issue.url.include?('3Dmaps') %>
+          <% if @issue.url.include?('google') &&
+                @issue.url.include?('maps') &&
+                (@issue.url.include?('3Dmaps') || @issue.url.include?('t/data=!'))
+          %>
             street view:
           <% else %>
             url:
