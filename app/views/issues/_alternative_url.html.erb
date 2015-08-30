@@ -1,0 +1,23 @@
+<% if @issue.url.present? %>
+  <% 
+    if @issue.url.length > 30
+      general_url = "#{@issue.url[0..20]}&hellip; &hellip;#{@issue.url[-10..-1]}".html_safe
+    else
+      general_url = @issues_url
+    end
+  %>
+  <% if @issue.url.present? %>
+    <p>
+      <% if @issue.url.include?('google') &&
+            @issue.url.include?('maps') &&
+            (@issue.url.include?('3Dmaps') || @issue.url.include?('t/data=!'))
+      %>
+        street view:
+      <% else %>
+        url:
+      <% end %>
+
+      <%= link_to general_url, @issue.url, target: '_blank' %>
+    </p>
+  <% end %>
+<% end %>
