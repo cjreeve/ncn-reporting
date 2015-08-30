@@ -175,6 +175,13 @@ article.issue{
       }
     }
   }
+  .issue-images.thumb{
+    img{
+      &:hover{
+        cursor: pointer;
+      }
+    }
+  }
 }
 
 
@@ -186,4 +193,16 @@ article.issue{
   img{
     width: rem-calc(15);
   }
+}
+
+#imageZommModal.reveal-modal{
+  background-color: #ddd;
+  text-align: center;
+  a.close-reveal-modal{
+    top: rem-calc(0);
+    right: rem-calc(10);
+  }
+  // width: auto;
+  // left:auto;
+  // right: auto;
 }

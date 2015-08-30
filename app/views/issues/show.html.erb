@@ -184,9 +184,9 @@
 
 
     <% if @issue.images.present? %>
-      <div class='issue-images'>
+      <div class='issue-images thumb'>
         <% if @issue.images.first.url.present? %>
-          <%= image_tag @issue.images.first.url, alt: "" %>
+          <%= image_tag @issue.images.first.url, alt: "", :'data-reveal-id' => 'imageZommModal'  %>
         <% else %>
           <br>
         <% end %>
@@ -196,6 +196,22 @@
       </div>
     <% end %>
   </div>
+</div>
+
+
+
+<div id="imageZommModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <div class='issue-images'>
+    <% if @issue.images.first.url.present? %>
+      <%= image_tag @issue.images.first.url, alt: "", :'data-reveal-id' => 'imageZommModal'  %>
+    <% else %>
+      <br>
+    <% end %>
+    <div class='caption'>
+      <%= @issue.images.first.caption %>
+    </div>
+  </div>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>
 
 <div class='row'>
