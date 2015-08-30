@@ -6718,6 +6718,8 @@ article.issue #comments .comment .comment-footer {
     display: inline-block;
     font-size: 0.6875rem;
     line-height: 1; }
+article.issue .issue-images.thumb img:hover {
+  cursor: pointer; }
 
 .searching-location {
   display: inline-block;
@@ -6726,6 +6728,20 @@ article.issue #comments .comment .comment-footer {
   color: grey; }
   .searching-location img {
     width: 0.9375rem; }
+
+#imageZommModal.reveal-modal {
+  background-color: #ddd;
+  text-align: center;
+  padding: 0; }
+  @media only screen and (min-width: 40.0625em) {
+    #imageZommModal.reveal-modal {
+      padding: 0.3125rem 0; } }
+  #imageZommModal.reveal-modal img {
+    border: 0.0625rem solid #444; }
+  #imageZommModal.reveal-modal a.close-reveal-modal {
+    top: 0;
+    right: 0.625rem;
+    color: #444; }
 
 article.updates h3 {
   margin-top: 0.625rem;
