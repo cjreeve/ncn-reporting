@@ -4,14 +4,14 @@ class Issue < ActiveRecord::Base
   belongs_to :route
   belongs_to :area
   belongs_to :administrative_area
-  has_many :images
+  has_many :images, dependent: :destroy
   has_many :comments
   belongs_to :category
   belongs_to :problem
   belongs_to :user
   belongs_to :editor, class_name: "User"
 
-  accepts_nested_attributes_for(:images, allow_destroy: true, reject_if: :all_blank)
+  accepts_nested_attributes_for(:images, allow_destroy: true, reject_if:  proc { |a| a[:url].blank? && a[:caption].blank? })
   
   PRIORITY = {
     1 => 'low',

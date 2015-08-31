@@ -1,0 +1,11 @@
+
+<div class='row image-fields'>
+  <div class='medium-6 columns'>
+    <%= f.input :url, label: "-#{ f.index + 1 }- Photo url" %>
+    <%= f.input :_destroy, as: :hidden %>
+    <%= link_to 'remove', '#', class: 'remove-photo-fields', style: 'float:right', :'data-image-form-id' => f.index %>
+  </div>
+  <div class='medium-6 columns'>
+    <%= f.input :caption, label: 'Caption' %>
+  </div>
+</div>

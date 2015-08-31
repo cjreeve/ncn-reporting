@@ -79,23 +79,23 @@
 
   </div>
 </div>
-<%= f.simple_fields_for :images do |g|  %>
-  <div class='row'>
-    <div class='medium-6 columns'>
-      <%= g.input :url, label: 'Photo url' %>
-      <%= link_to 'photos.google.com', 'https://photos.google.com/', class: 'input-prompt', target: '_blank' %>
-      &nbsp;
-      <span data-tooltip aria-haspopup="true" class="has-tip input-prompt" title="You can upload photos to the volunteers google acoount. Once uploaded, open and then right click on the image (mobiles: long touch) and copy the image url. Then paste the image url here.">(?)</span>
-    </div>
-    <div class='medium-6 columns'>
-      <%= g.input :caption, label: 'Photo caption' %>
-    </div>
-  </div>
-<% end %>
+
+<%= f.input :description, input_html: { rows: 3 } %>
+
+<div class='edit-issue-image-fields'>
+  <h2>Photos</h2>
+  <%= f.simple_fields_for :images do |g|  %>
+    <%= render 'image_fields', f: g %>
+  <% end %>
+
+  <%= link_to 'photos.google.com', 'https://photos.google.com/', class: 'input-prompt', target: '_blank' %>
+  &nbsp;
+  <span data-tooltip aria-haspopup="true" class="has-tip input-prompt" title="You can upload photos to the volunteers google acoount. Once uploaded, open and then right click on the image (mobiles: long touch) and copy the image url. Then paste the image url here.">(?)</span>
+</div>
+
 <div class='hide-for-small-when <%= @issue.id.present? ? "update" : "new" %>'>
   <%= f.input :url, label: 'other url (e.g. google street view)' %>
 </div>
-<%= f.input :description, input_html: { rows: 3 } %>
 
 <% if @issue.id.present? %>
   <div class="row">

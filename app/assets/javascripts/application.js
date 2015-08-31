@@ -16,7 +16,9 @@
 //= require turbolinks
 //= require jquery.turbolinks
 //= require turbolinks_loader
+//= require images
 //= require issues
+//= require owl
 //= require problems
 //= require vendor/responsive_tables
 //# require_tree .

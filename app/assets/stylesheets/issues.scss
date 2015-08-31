@@ -165,6 +165,25 @@ article.issue{
       }
     }
   }
+  .edit-issue-image-fields{
+    border: rem-calc(1) solid #aaa;
+    padding: rem-calc(10);
+    margin-bottom: rem-calc(15);
+    background-color: $light-grey;
+    h2{
+      font-size: rem-calc(20);
+    }
+    .image-fields{
+      input{
+        margin: 0;
+      }
+      .remove-photo-fields{
+        // margin-top: rem-calc(-5);
+        font-size: rem-calc(13);
+        color: $grey;
+      }
+    }
+  }
 }
 
 

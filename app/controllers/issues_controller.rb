@@ -50,7 +50,7 @@ class IssuesController < ApplicationController
     @issue.images.build
     @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
     @areas = Area.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
-    @image = Image.new
+    # @image = Image.new
     @categories = Category.all
     # @problems = @categories.first.problems
     @problems = {}
@@ -64,7 +64,7 @@ class IssuesController < ApplicationController
     @categories = Category.all
     @problems = {}
     @categories.each { |c| @problems[c.id] = c.problems }
-    @issue.images << Image.new unless @issue.images.present?
+    @issue.images.build # << Image.new #unless @issue.images.present?
     return render the_params(params, action: 'edit')
   end
 
@@ -104,7 +104,7 @@ class IssuesController < ApplicationController
         @categories = Category.all
         @problems = {}
         @categories.each { |c| @problems[c.id] = c.problems }
-        @issue.images << Image.new unless @issue.images.present?
+        @issue.images << Image.new unless @issue.images.present? && @issue.images.last.url.present? && @issue.images.last.caption.present?
         format.html { return render the_params(params, action: 'edit') }
         format.json { render json: @issue.errors, status: :unprocessable_entity }
       end
