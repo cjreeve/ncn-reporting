@@ -272,11 +272,11 @@ article.issue{
     .owl-prev{
       left: 0;
       background: none;
-      background: url(icons/arrow-large-left-dark-grey.svg) no-repeat;
+      background: url(image-path('icons/arrow-large-left-dark-grey.svg')) no-repeat;
     }
     .owl-next{
       right: 0;
-      background: url(icons/arrow-large-right-dark-grey.svg) no-repeat;
+      background: url(image-path('icons/arrow-large-right-dark-grey.svg')) no-repeat;
     }
   }
 }
