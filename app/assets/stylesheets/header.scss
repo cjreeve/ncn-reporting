@@ -83,14 +83,14 @@ header{
           font-size: rem-calc(13);
         }
         float: right;
-        z-index: 5000;
+        z-index: 110;
         nav{
-          z-index: 5000;
+          z-index: 120;
           .parent-link{
             display: none;
           }
           .has-drop-down{
-            z-index: 5000;
+            z-index: 130;
           }
         }
         .top-bar-section li:not(.has-form) a:not(.button){
