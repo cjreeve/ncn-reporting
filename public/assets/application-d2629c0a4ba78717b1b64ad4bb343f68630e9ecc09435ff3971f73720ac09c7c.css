@@ -7130,10 +7130,10 @@ article.issue .edit-issue-image-fields {
     .owl-controls.clickable .owl-buttons .owl-prev {
       left: 0;
       background: none;
-      background: url(icons/arrow-large-left-dark-grey.svg) no-repeat; }
+      background: url("/assets/icons/arrow-large-left-dark-grey.svg") no-repeat; }
     .owl-controls.clickable .owl-buttons .owl-next {
       right: 0;
-      background: url(icons/arrow-large-right-dark-grey.svg) no-repeat; }
+      background: url("/assets/icons/arrow-large-right-dark-grey.svg") no-repeat; }
 
 .owl-theme .owl-controls .owl-buttons div {
   border-bottom-left-radius: 0;
