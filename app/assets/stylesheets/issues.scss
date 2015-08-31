@@ -197,7 +197,7 @@ article.issue{
   }
 }
 
-.issue-page-images{
+#issue-page-images{
   .issue-image-container{
     img{
       &:hover{
@@ -246,4 +246,48 @@ article.issue{
 
 .reveal-modal-bg{
   background-color: rgba(140,140,140,0.95);
+}
+
+
+.owl-controls.clickable{
+  position: absolute;
+  top: rem-calc(-40);
+  width: 100%;
+  text-align: center;
+  .owl-pagination{
+    position: relative;
+    top: rem-calc(40);
+    display: inline-block;
+  }
+  .owl-buttons{
+    position: absolute;
+    top: rem-calc(150);
+    width: 100%;
+    .owl-prev, .owl-next{
+      position: absolute;
+      height: rem-calc(80);
+      width: rem-calc(26);
+      opacity: 0.8;
+    }
+    .owl-prev{
+      left: 0;
+      background: none;
+      background: url(icons/arrow-large-left-dark-grey.svg) no-repeat;
+    }
+    .owl-next{
+      right: 0;
+      background: url(icons/arrow-large-right-dark-grey.svg) no-repeat;
+    }
+  }
+}
+
+.owl-theme .owl-controls .owl-buttons div{
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.close-reveal-modal{
+  z-index: 999999;
 }

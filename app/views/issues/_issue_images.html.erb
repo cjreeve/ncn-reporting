@@ -1,0 +1,16 @@
+<% @issue.images.each do |image| %>
+  <div class='issue-image-container'>
+    <% if image.url.present? %>
+      <%= image_tag image.url, alt: "", :'data-reveal-id' => 'imageZoomModal'  %>
+    <% else %>
+      <br>
+    <% end %>
+    <div class='caption'>
+      <%= image.caption %>
+    </div>
+    
+    <% if defined?(is_modal) %>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    <% end %>
+  </div>
+<% end %>

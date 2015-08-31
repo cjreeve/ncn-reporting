@@ -11,16 +11,17 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require foundation
-//= require turbolinks
-//= require jquery.turbolinks
 //= require turbolinks_loader
+//= require vendor/owl.carousel
+//= require vendor/responsive_tables
 //= require images
 //= require issues
 //= require owl
 //= require problems
-//= require vendor/responsive_tables
+//= require turbolinks
 //# require_tree .
 
 $(function(){ $(document).foundation(); });

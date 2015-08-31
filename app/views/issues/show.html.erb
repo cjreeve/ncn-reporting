@@ -182,19 +182,9 @@
 
     <%= render 'alternative_url' %>
 
-
     <% if @issue.images.present? %>
-      <div class='issue-page-images'>
-        <div class='issue-image-container'>
-          <% if @issue.images.first.url.present? %>
-            <%= image_tag @issue.images.first.url, alt: "", :'data-reveal-id' => 'imageZoomModal'  %>
-          <% else %>
-            <br>
-          <% end %>
-          <div class='caption'>
-            <%= @issue.images.first.caption %>
-          </div>
-        </div>
+      <div id='issue-page-images' class='owl-carousel'>
+        <%= render 'issue_images' %>
       </div>
     <% end %>
   </div>
@@ -203,16 +193,8 @@
 
 
 <div id="imageZoomModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-  <div class='issue-image-container'>
-    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-    <% if @issue.images.first.url.present? %>
-      <%= image_tag @issue.images.first.url, alt: "", :'data-reveal-id' => 'imageZommModal'  %>
-    <% else %>
-      <br>
-    <% end %>
-    <div class='caption'>
-      <%= @issue.images.first.caption %>
-    </div>
+  <div id='issue-modal-images' class='owl-carousel'>
+     <%= render 'issue_images', is_modal: true %>
   </div>
 </div>
 
