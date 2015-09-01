@@ -249,7 +249,7 @@ article.issue{
 }
 
 
-.owl-controls{
+.owl-theme .owl-controls{
   position: absolute;
   top: rem-calc(-40);
   width: 100%;
@@ -269,13 +269,14 @@ article.issue{
       width: rem-calc(26);
       opacity: 0.8;
     }
-    .owl-prev{
+    div.owl-prev{
       left: 0;
       background: none;
       background: url(image-path('icons/arrow-large-left-dark-grey.svg')) no-repeat;
     }
     .owl-next{
       right: 0;
+      background: none;
       background: url(image-path('icons/arrow-large-right-dark-grey.svg')) no-repeat;
     }
   }
