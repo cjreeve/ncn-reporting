@@ -201,7 +201,6 @@ class IssuesController < ApplicationController
       per_page = 10
     end
 
-    where_option = ""
     order = :updated_at
     order = :issue_number if params[:order] == 'number'
     order = :title if params[:order] == 'title'

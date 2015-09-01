@@ -75,6 +75,6 @@
   </li>
   <li> </li>
   <li>
-    <%= will_paginate @issues %>
+    <%= will_paginate @issues, inner_window: 0, outter_window: 0, previous_label: '❮ prev', next_label: 'next ❯' %>
   </li>
 </ul>
