@@ -7109,29 +7109,29 @@ article.issue .edit-issue-image-fields {
 .reveal-modal-bg {
   background-color: rgba(140, 140, 140, 0.95); }
 
-.owl-controls.clickable {
+.owl-controls {
   position: absolute;
   top: -2.5rem;
   width: 100%;
   text-align: center; }
-  .owl-controls.clickable .owl-pagination {
+  .owl-controls .owl-pagination {
     position: relative;
     top: 2.5rem;
     display: inline-block; }
-  .owl-controls.clickable .owl-buttons {
+  .owl-controls .owl-buttons {
     position: absolute;
     top: 9.375rem;
     width: 100%; }
-    .owl-controls.clickable .owl-buttons .owl-prev, .owl-controls.clickable .owl-buttons .owl-next {
+    .owl-controls .owl-buttons .owl-prev, .owl-controls .owl-buttons .owl-next {
       position: absolute;
       height: 5rem;
       width: 1.625rem;
       opacity: 0.8; }
-    .owl-controls.clickable .owl-buttons .owl-prev {
+    .owl-controls .owl-buttons .owl-prev {
       left: 0;
       background: none;
       background: url("/assets/icons/arrow-large-left-dark-grey.svg") no-repeat; }
-    .owl-controls.clickable .owl-buttons .owl-next {
+    .owl-controls .owl-buttons .owl-next {
       right: 0;
       background: url("/assets/icons/arrow-large-right-dark-grey.svg") no-repeat; }
 
