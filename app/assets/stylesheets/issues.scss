@@ -59,28 +59,12 @@ article.issue{
       }
     }
     .f-dropdown{
-      max-width: rem-calc(145);
+      max-width: rem-calc(128);
       a{
         padding: rem-calc(5 8);
         @media #{$medium-only} {
           font-size: rem-calc(12);
         }
-      }
-    }
-    .pagination{
-      height: rem-calc(40);
-      min-width: rem-calc(190);
-      padding-top: rem-calc(25);
-      font-size: rem-calc(13);
-      text-align: right;
-      a{
-        font-size: rem-calc(13);
-        &.next_page, &.previous_page{
-          // font-size: rem-calc(16);
-        }
-      }
-      .disabled{
-        color: $medium-grey;
       }
     }
   }
@@ -99,10 +83,6 @@ article.issue{
   }
   .issues-table-container{
     display: inline-block;
-  }
-  .pagination{
-    display: inline-block;
-    float: right;
   }
 
   form.button_to{
@@ -132,6 +112,28 @@ article.issue{
        // font-size: rem-calc(10);
      }
    }
+  }
+
+  .issue-count-row{
+    text-align: right;
+    font-size: rem-calc(12);
+    color: grey;
+  }
+  .pagination{
+    height: rem-calc(40);
+    // min-width: rem-calc(190);
+    padding-top: rem-calc(5);
+    font-size: rem-calc(12);
+    text-align: right;
+    a{
+      font-size: rem-calc(12);
+      &.next_page, &.previous_page{
+        // font-size: rem-calc(16);
+      }
+    }
+    .disabled{
+      color: $medium-grey;
+    }
   }
 
   #comments{

@@ -87,10 +87,15 @@ html body{
   .ncn-style-count{
     display: inline-block;
     background-color: $red;
-    padding: rem-calc(1 3);
+    padding: rem-calc(0 3);
     border: rem-calc(1) solid white;
     border-radius: rem-calc(3);
-    line-height: 1;
+    line-height: 1.1;
     font-size: rem-calc(12);
+  }
+  a:hover{
+    .ncn-style-count{
+      text-decoration: underline;
+    }
   }
 }

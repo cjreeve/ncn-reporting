@@ -25,8 +25,6 @@ class IssuesController < ApplicationController
     @current_administrative_area = (params[:region].present? && @administrative_areas.collect(&:id).include?(params[:region].to_i)) ? AdministrativeArea.find(params[:region].to_i) : nil
 
 
-    @user_draft_issue_count = Issue.where(user: current_user, state: 'draft').count
-
     respond_to do |format|
       format.html
       format.csv { send_data @issues.to_csv }

@@ -1,80 +1,94 @@
 <span class='filter-options-label'>Issue filter options</span>
-<ul class='small-block-grid-1 medium-block-grid-6 issue-filters'>
-  <li>
-    <a href="#" class="button select" data-dropdown="routeSelection" aria-controls="routeSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_route ? @current_route.name + " ▼" : "all routes ▼" %></a>
-    <ul id="routeSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
-      <% unless @current_route.nil? %>
-        <li>
-          <%= link_to "all routes", issues_path(the_params(params, {route: nil})) %>
-        </li>
-      <% end %>
-      <% @routes.each do |route| %>
-        <% unless @current_route == route %>
-          <li>
-            <%= link_to route.name, issues_path(the_params(params, {route: route.slug})) %>
-          </li>
-        <% end %>
-      <% end %>
+
+<div class='row'>
+  <div class='medium-8 large-9 columns'>
+    <ul class='small-block-grid-1 medium-block-grid-4 large-block-grid-5 issue-filters'>
+      <li>
+        <a href="#" class="button select" data-dropdown="routeSelection" aria-controls="routeSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_route ? @current_route.name + " ▼" : "all routes ▼" %></a>
+        <ul id="routeSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
+          <% unless @current_route.nil? %>
+            <li>
+              <%= link_to "all routes", issues_path(the_params(params, {route: nil})) %>
+            </li>
+          <% end %>
+          <% @routes.each do |route| %>
+            <% unless @current_route == route %>
+              <li>
+                <%= link_to route.name, issues_path(the_params(params, {route: route.slug})) %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </li>
+      <li>
+        <a href="#" class="button select" data-dropdown="areaSelection" aria-controls="areaSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_area ? @current_area.name + " ▼" : "all groups ▼" %></a>
+        <ul id="areaSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
+          <% unless @current_area.nil? %>
+            <li>
+              <%= link_to "all groups", issues_path(the_params(params, {area: nil})) %>
+            </li>
+          <% end %>
+          <% @areas.each do |area| %>
+            <% unless @current_area == area %>
+              <li>
+                <%= link_to area.name, issues_path(the_params(params, {area: area.id})) %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </li>
+      <li>
+        <a href="#" class="button select" data-dropdown="administrativeAreaSelection" aria-controls="administrativeAreaSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_administrative_area ? @current_administrative_area.short_name + " ▼" : "all boroughs ▼" %></a>
+        <ul id="administrativeAreaSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
+          <% unless @current_administrative_area.nil? %>
+            <li>
+              <%= link_to "all boroughs", issues_path(the_params(params, {region: nil})) %>
+            </li>
+          <% end %>
+          <% @administrative_areas.sort_by{ |a| a.short_name }.each do |area| %>
+            <% unless (@current_administrative_area && @current_administrative_area == area) %>
+              <li>
+                <%= link_to area.short_name, issues_path(the_params(params, {region: area.id})) %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </li>
+      <li>
+        <a href="#" class="button select" data-dropdown="stateSelection" aria-controls="stateSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_state ? @current_state + " ▼" : "status (default) ▼" %></a>
+        <ul id="stateSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
+          <% unless @current_state.nil? %>
+            <li>
+              <%= link_to "default", issues_path(the_params(params, {state: nil})) %>
+            </li>
+          <% end %>
+          <% unless @current_state && @current_state == "all states" %>
+            <li>
+              <%= link_to "all states", issues_path(the_params(params, {state: "all"})) %>
+            </li>
+          <% end %>
+          <% @states.each do |state| %>
+            <% unless ((@current_state && @current_state == state) || state == :reopened) %>
+              <li>
+                <%= link_to state, issues_path(the_params(params, {state: state})) %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </li>
     </ul>
-  </li>
-  <li>
-    <a href="#" class="button select" data-dropdown="areaSelection" aria-controls="areaSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_area ? @current_area.name + " ▼" : "all groups ▼" %></a>
-    <ul id="areaSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
-      <% unless @current_area.nil? %>
-        <li>
-          <%= link_to "all groups", issues_path(the_params(params, {area: nil})) %>
-        </li>
-      <% end %>
-      <% @areas.each do |area| %>
-        <% unless @current_area == area %>
-          <li>
-            <%= link_to area.name, issues_path(the_params(params, {area: area.id})) %>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
-  </li>
-  <li>
-    <a href="#" class="button select" data-dropdown="administrativeAreaSelection" aria-controls="administrativeAreaSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_administrative_area ? @current_administrative_area.short_name + " ▼" : "all boroughs ▼" %></a>
-    <ul id="administrativeAreaSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
-      <% unless @current_administrative_area.nil? %>
-        <li>
-          <%= link_to "all boroughs", issues_path(the_params(params, {region: nil})) %>
-        </li>
-      <% end %>
-      <% @administrative_areas.sort_by{ |a| a.short_name }.each do |area| %>
-        <% unless (@current_administrative_area && @current_administrative_area == area) %>
-          <li>
-            <%= link_to area.short_name, issues_path(the_params(params, {region: area.id})) %>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
-  </li>
-  <li>
-    <a href="#" class="button select" data-dropdown="stateSelection" aria-controls="stateSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_state ? @current_state + " ▼" : "status (default) ▼" %></a>
-    <ul id="stateSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
-      <% unless @current_state.nil? %>
-        <li>
-          <%= link_to "default", issues_path(the_params(params, {state: nil})) %>
-        </li>
-      <% end %>
-      <% unless @current_state && @current_state == "all states" %>
-        <li>
-          <%= link_to "all states", issues_path(the_params(params, {state: "all"})) %>
-        </li>
-      <% end %>
-      <% @states.each do |state| %>
-        <% unless ((@current_state && @current_state == state) || state == :reopened) %>
-          <li>
-            <%= link_to state, issues_path(the_params(params, {state: state})) %>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
-  </li>
-  <li> </li>
-  <li>
+  </div>
+  <div class='medium-4 large-3 columns'>
     <%= will_paginate @issues, inner_window: 0, outter_window: 0, previous_label: '❮ prev', next_label: 'next ❯' %>
-  </li>
-</ul>
+    <div class='issue-count-row'>
+      <span title="<%= @issues.total_entries %> issues in selection">
+        <% if @issues.total_entries > 10 %>
+          <%= @issues.offset + 1 %> to <%= @issues.offset + @issues.per_page %> of <b><%= @issues.total_entries %></b>
+        <% else %>
+          <br><br>
+          <%= @issues.total_entries %> issues
+        <% end %>
+      </span>
+    </div>
+  </div>
+</div>

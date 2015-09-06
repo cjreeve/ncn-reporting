@@ -26,9 +26,10 @@
 
             <div class='user-controls show-for-medium-up'>
 
-              <% if @user_draft_issue_count > 0 %>
+              <% user_draft_issue_count = Issue.where(user: current_user, state: 'draft').count %>
+              <% if user_draft_issue_count > 0 %>
                 <%= link_to issues_path(state: 'draft') do %>
-                  <span class='ncn-style-count'><%= @user_draft_issue_count %></span> draft
+                  <span class='ncn-style-count'><%= user_draft_issue_count %></span> draft
                 <% end %>
                 &nbsp;&bullet;&nbsp;
               <% end %>
