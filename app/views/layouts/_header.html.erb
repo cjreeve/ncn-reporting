@@ -25,6 +25,14 @@
           <% if user.present? %>
 
             <div class='user-controls show-for-medium-up'>
+
+              <% if @user_draft_issue_count > 0 %>
+                <%= link_to issues_path(state: 'draft') do %>
+                  <span class='ncn-style-count'><%= @user_draft_issue_count %></span> draft
+                <% end %>
+                &nbsp;&bullet;&nbsp;
+              <% end %>
+
               <%= link_to current_user.name, user_path(current_user) %>
               &nbsp;&bullet;&nbsp;&nbsp;
               <%= 
