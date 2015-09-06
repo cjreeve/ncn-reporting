@@ -130,7 +130,9 @@ class IssuesController < ApplicationController
     @issue = Issue.find(params[:id])
     @issue.load_coordinate_string
     @issues = Issue.all.order('lng DESC')
-    if params[:publish] && @issue.publishable?
+    if params[:submit] && @issue.submittable?
+      @issue.submit!
+    elsif params[:publish] && @issue.publishable?
       @issue.publish!
       @issue.reported_at = Time.zone.now
       @issue.save
@@ -147,7 +149,7 @@ class IssuesController < ApplicationController
     elsif params[:reject] && @issue.rejectable?
       @issue.reject!
     else
-      if params[:publish] && !@issue.publishable?
+      if (params[:submit] || params[:publish]) && !@issue.submittable? && !@issue.publishable?
         text = "Please provide the following before publishing this issue:  "
         text += " a valid coordinate -" unless @issue.valid_coordinate?
         text += " a route -" unless @issue.route.present?

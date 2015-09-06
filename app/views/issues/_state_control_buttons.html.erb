@@ -1,5 +1,14 @@
 <%=
   if @issue.draft?
+    button_to 'Submit',
+    [:progress, @issue],
+    method: :put,
+    params: the_params(params, { submit: '' }),
+    class: 'button tiny'
+  end
+%>
+<%=
+  if @issue.submitted?
     button_to 'Publish',
     [:progress, @issue],
     method: :put,

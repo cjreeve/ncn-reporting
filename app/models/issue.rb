@@ -43,8 +43,11 @@ class Issue < ActiveRecord::Base
   after_validation :reverse_geocode
 
   state_machine :state, initial: :draft do
+    event :submit do
+      transition draft: :submitted
+    end
     event :publish do
-      transition draft: :open
+      transition submitted: :open
     end
     event :archive do
       transition open: :archived
@@ -61,6 +64,13 @@ class Issue < ActiveRecord::Base
     event :reopen do
       transition [:unsolveable, :resolved, :closed] => :reopened, archived: :open
     end
+  end
+
+  def submittable?
+    self.valid_coordinate? &&
+    self.route.present? &&
+    self.area.present? &&
+    self.state_events.include?(:submit)
   end
 
   def publishable?
