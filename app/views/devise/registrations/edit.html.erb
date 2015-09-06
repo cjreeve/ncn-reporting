@@ -13,6 +13,9 @@
           <%# if current_user.role = "admin" %>
             <%#= f.collection_select :role, User::ROLES, :to_s, :humanize %>
           <%# end %>
+          <%= f.association :routes %>
+          <%= f.association :areas %>
+
 
           <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
             <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>

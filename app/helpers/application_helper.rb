@@ -1,5 +1,16 @@
 module ApplicationHelper
 
+  def can_publish_issue?(issue)
+    current_user.role == "admin" || current_user.role == "staff" ||
+    (current_user.role == "ranger" && current_user.routes.include?(issue.route) && current_user.areas.include?(issue.area))
+  end
+
+  def can_close_issue?(issue)
+    current_user.role == "admin" || current_user.role == "staff" ||
+    (current_user.role == "ranger" && current_user.routes.include?(issue.route) && current_user.areas.include?(issue.area)) ||
+    current_user == @issue.user
+  end
+
   def marker_style(priority, state = nil)
     if priority.present? && priority > 0
       marker_colour = "green" if priority == 1

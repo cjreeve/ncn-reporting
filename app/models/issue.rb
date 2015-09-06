@@ -75,7 +75,8 @@ class Issue < ActiveRecord::Base
 
   def publishable?
     self.valid_coordinate? &&
-    self.route.present? && self.area.present?
+    self.route.present? &&
+    self.area.present?
   end
 
   def openable?

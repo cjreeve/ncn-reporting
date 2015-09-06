@@ -1,6 +1,6 @@
 article.issue{
 
-  h1{
+  h1, h4{
     display: inline-block;
   }
 
@@ -50,6 +50,7 @@ article.issue{
         padding: rem-calc(10 0 0 0);
         margin-bottom: 0;
         height: rem-calc(40);
+        font-size: rem-calc(15);
         @media #{$medium-only} {
           font-size: rem-calc(12);
         }
@@ -70,6 +71,12 @@ article.issue{
         }
       }
     }
+  }
+  .pending-review{
+    display: inline-block;
+    margin-left: rem-calc(10);
+    font-size: rem-calc(12);
+    color: $grey;
   }
   #issue_title{
     margin-bottom: 0;

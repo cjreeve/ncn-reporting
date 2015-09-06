@@ -55,7 +55,7 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    permitted_params = params.require(:user).permit(:name, :email, :password, :role)
+    permitted_params = params.require(:user).permit(:name, :email, :password, :role, route_ids: [], area_ids: [])
   end
 
   def check_authorisation

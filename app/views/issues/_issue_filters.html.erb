@@ -73,7 +73,7 @@
             </li>
           <% end %>
           <% @states.each do |state| %>
-            <% unless ((@current_state && @current_state == state) || state == :reopened) %>
+            <% unless ((@current_state && @current_state == state) || state == :reopened || state == :draft) %>
               <li>
                 <%= link_to state, issues_path(the_params(params, {state: state})) %>
               </li>

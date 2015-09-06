@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
 
   has_many :issues
   has_many :comments
+  has_many :user_managed_route_selections
+  has_many :routes, through: :user_managed_route_selections
+  has_many :user_managed_area_selections
+  has_many :areas, through: :user_managed_area_selections
 
   def removable?
     self.issues.limit(1).blank? && self.comments.limit(1).blank?
