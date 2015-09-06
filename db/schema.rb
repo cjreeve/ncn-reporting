@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150823210635) do
+ActiveRecord::Schema.define(version: 20150906165905) do
 
   create_table "administrative_areas", force: true do |t|
     t.string   "name",       null: false
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20150823210635) do
   add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "images", force: true do |t|
-    t.string   "url"
+    t.text     "url",        limit: 255
     t.string   "caption"
     t.integer  "issue_id"
     t.datetime "created_at"
