@@ -69,9 +69,16 @@ article.issue{
     }
     .pagination{
       height: rem-calc(40);
-      min-width: rem-calc(150);
+      min-width: rem-calc(190);
       padding-top: rem-calc(25);
       font-size: rem-calc(13);
+      text-align: right;
+      a{
+        font-size: rem-calc(13);
+        &.next_page, &.previous_page{
+          // font-size: rem-calc(16);
+        }
+      }
       .disabled{
         color: $medium-grey;
       }
