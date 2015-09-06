@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150906165905) do
+ActiveRecord::Schema.define(version: 20150906215234) do
 
   create_table "administrative_areas", force: true do |t|
     t.string   "name",       null: false
@@ -133,6 +133,26 @@ ActiveRecord::Schema.define(version: 20150906165905) do
   end
 
   add_index "routes", ["slug"], name: "index_routes_on_slug", unique: true
+
+  create_table "user_managed_area_selections", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "area_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_managed_area_selections", ["area_id"], name: "index_user_managed_area_selections_on_area_id"
+  add_index "user_managed_area_selections", ["user_id"], name: "index_user_managed_area_selections_on_user_id"
+
+  create_table "user_managed_route_selections", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "route_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_managed_route_selections", ["route_id"], name: "index_user_managed_route_selections_on_route_id"
+  add_index "user_managed_route_selections", ["user_id"], name: "index_user_managed_route_selections_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
