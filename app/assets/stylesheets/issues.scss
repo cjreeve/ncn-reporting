@@ -34,6 +34,9 @@ article.issue{
   .filter-options-label{
     font-size: rem-calc(12);
     color: $medium-grey;
+    a{
+      color: $medium-grey;
+    }
   }
   .issue-filters{
     a{
