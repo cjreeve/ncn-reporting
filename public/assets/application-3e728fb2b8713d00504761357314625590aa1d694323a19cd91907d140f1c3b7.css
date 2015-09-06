@@ -6798,6 +6798,16 @@ html body {
   @media only screen and (max-width: 40em) {
     html body .hide-for-small-when.new {
       display: none; } }
+  html body .ncn-style-count {
+    display: inline-block;
+    background-color: #E41634;
+    padding: 0 0.1875rem;
+    border: 0.0625rem solid white;
+    border-radius: 0.1875rem;
+    line-height: 1.1;
+    font-size: 0.75rem; }
+  html body a:hover .ncn-style-count {
+    text-decoration: underline; }
 
 article.admin h1 {
   display: inline-block; }
@@ -6988,19 +6998,12 @@ article.issue .issue-filters > li {
       article.issue .issue-filters > li > a {
         margin-bottom: 0.625rem; } }
 article.issue .issue-filters .f-dropdown {
-  max-width: 9.0625rem; }
+  max-width: 8rem; }
   article.issue .issue-filters .f-dropdown a {
     padding: 0.3125rem 0.5rem; }
     @media only screen and (min-width: 40.0625em) and (max-width: 64em) {
       article.issue .issue-filters .f-dropdown a {
         font-size: 0.75rem; } }
-article.issue .issue-filters .pagination {
-  height: 2.5rem;
-  min-width: 9.375rem;
-  padding-top: 1.5625rem;
-  font-size: 0.8125rem; }
-  article.issue .issue-filters .pagination .disabled {
-    color: #aaa; }
 article.issue #issue_title {
   margin-bottom: 0; }
 article.issue #issue_coordinate {
@@ -7012,9 +7015,6 @@ article.issue .category-problems-list {
   margin: 0; }
 article.issue .issues-table-container {
   display: inline-block; }
-article.issue .pagination {
-  display: inline-block;
-  float: right; }
 article.issue form.button_to {
   display: inline-block; }
 article.issue .issues-table-container {
@@ -7031,6 +7031,19 @@ article.issue .issues-table-container {
     text-align: right;
     font-size: 0.625rem;
     color: grey; }
+article.issue .issue-count-row {
+  text-align: right;
+  font-size: 0.75rem;
+  color: grey; }
+article.issue .pagination {
+  height: 2.5rem;
+  padding-top: 0.3125rem;
+  font-size: 0.75rem;
+  text-align: right; }
+  article.issue .pagination a {
+    font-size: 0.75rem; }
+  article.issue .pagination .disabled {
+    color: #aaa; }
 article.issue #comments .comment .delete-comment {
   float: right;
   margin-right: 0.3125rem;
