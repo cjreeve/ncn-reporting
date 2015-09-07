@@ -1,0 +1,6 @@
+<% if @user_draft_issue_count > 0 %>
+  <%= link_to issues_path(state: 'draft') do %>
+    <span class='ncn-style-count'><%= @user_draft_issue_count %></span> draft
+  <% end %>
+  &nbsp;&bullet;&nbsp;
+<% end %>

@@ -19,6 +19,7 @@
 //= require vendor/responsive_tables
 //= require images
 //= require issues
+//= require notifications
 //= require owl
 //= require problems
 //= require turbolinks

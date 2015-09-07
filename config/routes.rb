@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'site/notifications'
+
   get 'updates' => 'updates#show', as: :updates
 
   resources :administrative_areas

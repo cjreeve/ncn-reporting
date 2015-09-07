@@ -26,13 +26,7 @@
 
             <div class='user-controls show-for-medium-up'>
 
-              <% user_draft_issue_count = Issue.where(user: current_user, state: 'draft').count %>
-              <% if user_draft_issue_count > 0 %>
-                <%= link_to issues_path(state: 'draft') do %>
-                  <span class='ncn-style-count'><%= user_draft_issue_count %></span> draft
-                <% end %>
-                &nbsp;&bullet;&nbsp;
-              <% end %>
+              <span id='notifications'> </span>
 
               <%= link_to current_user.name, user_path(current_user) %>
               &nbsp;&bullet;&nbsp;&nbsp;
