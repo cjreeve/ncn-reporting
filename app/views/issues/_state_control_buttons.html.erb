@@ -17,6 +17,15 @@
   end
 %>
 <%=
+  if @issue.startable?
+    button_to 'Start',
+    [:progress, @issue],
+    method: :put,
+    params: the_params(params, { start: '' }),
+    class: 'button tiny'
+  end
+%>
+<%=
   if @issue.closeable? && can_close_issue?(@issue)
     button_to 'Close',
     [:progress, @issue],
@@ -25,7 +34,7 @@
     class: 'button tiny success'
   end
 %>
-<% if @issue.open? || @issue.reopened? %>
+<% if @issue.resolveable? %>
   <%= button_to 'Resolve',
     [:progress, @issue],
     method: :put,

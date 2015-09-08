@@ -49,14 +49,17 @@ class Issue < ActiveRecord::Base
     event :publish do
       transition submitted: :open
     end
+    event :start do
+      transition open: :in_progress
+    end
     event :archive do
       transition open: :archived
     end
     event :resolve do
-      transition [:open, :reopened] => :resolved
+      transition [:open, :reopened, :in_progress] => :resolved
     end
     event :reject do
-      transition [:open, :reopened] => :unsolveable
+      transition [:open, :reopened, :in_progress] => :unsolveable
     end
     event :close do
       transition [:resolved, :unsolveable] => :closed
@@ -77,6 +80,10 @@ class Issue < ActiveRecord::Base
     self.valid_coordinate? &&
     self.route.present? &&
     self.area.present?
+  end
+
+  def startable?
+    self.state_events.include?(:start)
   end
 
   def openable?

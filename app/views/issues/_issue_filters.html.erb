@@ -60,7 +60,7 @@
         </ul>
       </li>
       <li>
-        <a href="#" class="button select" data-dropdown="stateSelection" aria-controls="stateSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_state ? @current_state + " ▼" : "status (default) ▼" %></a>
+        <a href="#" class="button select" data-dropdown="stateSelection" aria-controls="stateSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_state ? @current_state.gsub('_',' ') + " ▼" : "status (default) ▼" %></a>
         <ul id="stateSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
           <% unless @current_state.nil? %>
             <li>
@@ -75,7 +75,7 @@
           <% @states.each do |state| %>
             <% unless ((@current_state && @current_state == state) || state == :reopened || state == :draft) %>
               <li>
-                <%= link_to state, issues_path(the_params(params, {state: state})) %>
+                <%= link_to state.to_s.gsub('_',' '), issues_path(the_params(params, {state: state})) %>
               </li>
             <% end %>
           <% end %>

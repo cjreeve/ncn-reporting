@@ -136,6 +136,8 @@ class IssuesController < ApplicationController
       @issue.publish!
       @issue.reported_at = Time.zone.now
       @issue.save
+    elsif params[:start] && @issue.startable?
+      @issue.start!
     elsif params[:resolve] && @issue.resolveable?
       @issue.resolve!
       @issue.completed_at = Time.zone.now

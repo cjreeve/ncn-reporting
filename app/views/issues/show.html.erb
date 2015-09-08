@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class='medium-6 columns'>
-        <h4><%= @issue.state %></h4>
+        <h4><%= @issue.state.gsub('_', ' ') %></h4>
         <% if @issue.submitted? && !can_publish_issue?(@issue) %>
             <span class='pending-review'>awaiting review<span>
         <%  end %>
