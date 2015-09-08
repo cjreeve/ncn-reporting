@@ -18950,6 +18950,24 @@ function showMyCoord() {
   }
 }
 ;
+(function() {
+  $(document).on('ready page:load', function() {
+    return $.ajax({
+      url: "/site/notifications",
+      dataType: "html",
+      error: function(jqXHR, textStatus, errorThrown) {
+        return $(this).find('#notifications').append("AJAX Error: " + textStatus);
+      },
+      success: (function(_this) {
+        return function(data, textStatus, jqXHR) {
+          $('#notifications').html(data);
+          return $('#notifications').foundation('dropdown', 'reflow');
+        };
+      })(this)
+    });
+  });
+
+}).call(this);
     $(document).ready(function() {
 
       $("#issue-page-images").owlCarousel({
@@ -19804,6 +19822,7 @@ function showMyCoord() {
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 
 
 
