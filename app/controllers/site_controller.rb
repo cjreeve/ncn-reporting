@@ -2,7 +2,7 @@ class SiteController < ApplicationController
   def notifications
     @user_draft_issue_count = Issue.where(user: current_user, state: 'draft').count
 
-    @user_submitted_issue_count = [] #Issue.where(state: 'submitted', route: current_user.routes, area: current_user.areas).count
+    @user_submitted_issue_count = 0 #Issue.where(state: 'submitted', route: current_user.routes, area: current_user.areas).count
 
     @number_of_possitive_counters = [@user_draft_issue_count > 0, @user_submitted_issue_count > 0].count(true)
 
