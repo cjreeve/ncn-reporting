@@ -149,3 +149,17 @@ header{
     }
   }
 }
+
+#notifications{
+  ul#nofications-dropdown{
+    width: rem-calc(140);
+    background-color: $very-light-blue;
+    li{
+      a{
+        &:hover{
+          color: $black;
+        }
+      }
+    }
+  }
+}

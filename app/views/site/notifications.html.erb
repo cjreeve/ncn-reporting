@@ -1,6 +1,51 @@
-<% if @user_draft_issue_count > 0 %>
-  <%= link_to issues_path(state: 'draft') do %>
-    <span class='ncn-style-count'><%= @user_draft_issue_count %></span> draft
+<% if @number_of_possitive_counters == 1 %>
+
+  <% if @user_draft_issue_count > 0 %>
+    <%= link_to issues_path(state: 'draft') do %>
+      <span class='ncn-style-count'><%= @user_draft_issue_count %></span> draft
+    <% end %>
+    &nbsp;&bullet;&nbsp;
   <% end %>
+
+  <% if @user_submitted_issue_count > 0 %>
+    <%= link_to issues_path(state: 'submitted') do %>
+      <span class='ncn-style-count'><%= @user_submitted_issue_count %></span> submitted
+    <% end %>
+    &nbsp;&bullet;&nbsp;
+  <% end %>
+
+<% elsif  @number_of_possitive_counters > 1 %>
+  <a data-dropdown="nofications-dropdown" data-options="is_hover:true; hover_timeout:30000">
+    <span class='ncn-style-count'><%= @total_pending_count %></span> notifications
+    &nbsp;&bullet;&nbsp;
+  </a>
+
+  <ul id="nofications-dropdown" class="f-dropdown" data-dropdown-content>
+    <% if @user_draft_issue_count > 0 %>
+      <li>
+        <%= link_to issues_path(state: 'draft') do %>
+          <b><%= @user_draft_issue_count %></b> draft <%= 'issue'.pluralize(@user_draft_issue_count) %>
+        <% end %>
+      </li>
+    <% end %>
+
+    <% if @user_submitted_issue_count > 0 %>
+      <li>
+        <%= link_to issues_path(state: 'pending') do %>
+          <b><%= @user_submitted_issue_count %></b> submitted <%= 'issue'.pluralize(@user_submitted_issue_count) %>
+        <% end %>
+      </li>
+    <% end %>
+
+  </ul>
+<!--   <a href="#" data-dropdown:"drop1111" aria-controls="drop1111" aria-expanded="false">
+    <span class='ncn-style-count'><%= @total_pending_count %></span>
+    <%#= 'notification'.pluralize(@total_pending_count) %>
+  </a>
   &nbsp;&bullet;&nbsp;
+  <ul id="drop1111" class="f-dropdown" data-dropdown-content aria-hidden="true">
+    <li><a href="#">This is a link</a></li>
+    <li><a href="#">This is another</a></li>
+    <li><a href="#">Yet another</a></li>
+  </ul> -->
 <% end %>
