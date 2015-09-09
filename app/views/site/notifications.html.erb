@@ -1,5 +1,8 @@
 <% if @number_of_possitive_counters == 1 %>
 
+
+
+
   <% if @user_draft_issue_count > 0 %>
     <%= link_to issues_path(state: 'draft') do %>
       <span class='ncn-style-count'><%= @user_draft_issue_count %></span> draft
@@ -8,11 +11,29 @@
   <% end %>
 
   <% if @user_submitted_issue_count > 0 %>
-    <%= link_to issues_path(state: 'submitted') do %>
+    <%= link_to issues_path(state: 'submitted', route: @user_routes, area: @user_areas) do %>
       <span class='ncn-style-count'><%= @user_submitted_issue_count %></span> submitted
     <% end %>
     &nbsp;&bullet;&nbsp;
   <% end %>
+
+  <% if @user_resolved_issue_count > 0 %>
+    <%= link_to issues_path(state: 'resolved', route: @user_routes, area: @user_areas) do %>
+      <span class='ncn-style-count'><%= @user_resolved_issue_count %></span> resolved
+    <% end %>
+    &nbsp;&bullet;&nbsp;
+  <% end %>
+
+  <% if @own_issue_resolved_count > 0 %>
+    <%= link_to issues_path(state: 'resolved', user: current_user) do %>
+      <span class='ncn-style-count'><%= @user_resolved_issue_count %></span> own resolved
+    <% end %>
+    &nbsp;&bullet;&nbsp;
+  <% end %>
+
+
+
+
 
 <% elsif  @number_of_possitive_counters > 1 %>
   <a data-dropdown="nofications-dropdown" data-options="is_hover:true; hover_timeout:30000">
@@ -21,6 +42,8 @@
   </a>
 
   <ul id="nofications-dropdown" class="f-dropdown" data-dropdown-content>
+
+    <%#   DRAFT    %>
     <% if @user_draft_issue_count > 0 %>
       <li>
         <%= link_to issues_path(state: 'draft') do %>
@@ -29,6 +52,7 @@
       </li>
     <% end %>
 
+    <%#   SUBMITTED    %>
     <% if @user_submitted_issue_count > 0 %>
       <li>
         <%= link_to issues_path(state: 'pending') do %>
@@ -37,15 +61,24 @@
       </li>
     <% end %>
 
+    <%#   RESOLVED    %>
+    <% if @user_resolved_issue_count > 0 %>
+      <li>
+        <%= link_to issues_path(state: 'pending') do %>
+          <b><%= @user_resolved_issue_count %></b> resolved <%= 'issue'.pluralize(@user_resolved_issue_count) %>
+        <% end %>
+      </li>
+    <% end %>
+
+    <%#   OWN RESOLVED    %>
+    <% if @own_issue_resolved_count > 0 %>
+      <li>
+        <%= link_to issues_path(state: 'pending') do %>
+          <b><%= @own_issue_resolved_count %></b> own resolved <%= 'issue'.pluralize(@own_issue_resolved_count) %>
+        <% end %>
+      </li>
+    <% end %>
+
   </ul>
-<!--   <a href="#" data-dropdown:"drop1111" aria-controls="drop1111" aria-expanded="false">
-    <span class='ncn-style-count'><%= @total_pending_count %></span>
-    <%#= 'notification'.pluralize(@total_pending_count) %>
-  </a>
-  &nbsp;&bullet;&nbsp;
-  <ul id="drop1111" class="f-dropdown" data-dropdown-content aria-hidden="true">
-    <li><a href="#">This is a link</a></li>
-    <li><a href="#">This is another</a></li>
-    <li><a href="#">Yet another</a></li>
-  </ul> -->
+
 <% end %>
