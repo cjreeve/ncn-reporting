@@ -3,7 +3,7 @@ class SiteController < ApplicationController
     @user_draft_issue_count = Issue.where(user: current_user, state: 'draft').count
 
     @user_submitted_issue_count = 0
-    if %w{ranger}.include?(current_user.role)
+    if %w{ranger admin}.include?(current_user.role)
       user_routes = current_user.routes.to_a
       user_areas = current_user.areas.to_a
       if user_routes.present? && user_areas.present?
