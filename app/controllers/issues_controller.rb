@@ -170,12 +170,13 @@ class IssuesController < ApplicationController
 
   def the_params(params, new_params = {})
     the_params = {}
-    the_params[:dir] = params[:dir] if params[:dir].present?
-    the_params[:order] = params[:order] if params[:order].present?
-    the_params[:route] = params[:route] if params[:route].present?
-    the_params[:area] = params[:area] if params[:area].present?
-    the_params[:state] = params[:state] if params[:state].present?
-    the_params[:region] = params[:region] if params[:region].present?
+    the_params[:dir] = params[:dir] if params[:dir]
+    the_params[:order] = params[:order] if params[:order]
+    the_params[:route] = params[:route] if params[:route]
+    the_params[:area] = params[:area] if params[:area]
+    the_params[:state] = params[:state] if params[:state]
+    the_params[:region] = params[:region] if params[:region]
+    the_params[:user] = params[:user] if params[:user]
     the_params.merge!(new_params)
   end
 
@@ -242,10 +243,12 @@ class IssuesController < ApplicationController
     route_ids = params[:route].split('.').collect{ |r| Route.find_by_slug(r).try(:id) } if params[:route]
     area_ids = params[:area].split('.').collect{ |id| id.to_i } if params[:area]
     administrative_area_ids = params[:region].split('.').collect{ |id| id.to_i } if params[:region]
+    user_ids = params[:user].split('.').collect{ |id| id.to_i } if params[:user]
 
     options[:route] = route_ids if params[:route] && params[:route] != "all"
     options[:area] = area_ids if params[:area] && params[:area] != "all"
     options[:administrative_area] = administrative_area_ids if params[:region] && params[:region] != "all"
+    options[:user] = user_ids if params[:user]
     if params[:state].present? && states.include?(params[:state].to_sym)
       if params[:state] == 'open'
         options[:state] = ['open', 'reopened']

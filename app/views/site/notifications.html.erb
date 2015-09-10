@@ -26,7 +26,7 @@
 
   <% if @own_issue_resolved_count > 0 %>
     <%= link_to issues_path(state: 'resolved', user: current_user.id) do %>
-      <span class='ncn-style-count'><%= @user_resolved_issue_count %></span> own resolved
+      <span class='ncn-style-count'><%= @own_issue_resolved_count %></span> own resolved
     <% end %>
     &nbsp;&bullet;&nbsp;
   <% end %>
@@ -73,7 +73,7 @@
     <%#   OWN RESOLVED    %>
     <% if @own_issue_resolved_count > 0 %>
       <li>
-        <%= link_to issues_path(state: 'resloved', user: current_user.id) do %>
+        <%= link_to issues_path(state: 'resolved', user: current_user.id) do %>
           <b><%= @own_issue_resolved_count %></b> own resolved <%= 'issue'.pluralize(@own_issue_resolved_count) %>
         <% end %>
       </li>

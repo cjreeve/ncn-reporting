@@ -118,12 +118,13 @@ module ApplicationHelper
 
   def the_params(params, new_params = {})
     the_params = {}
-    the_params[:dir] = params[:dir] if params[:dir].present?
-    the_params[:order] = params[:order] if params[:order].present?
-    the_params[:route] = params[:route] if params[:route].present?
-    the_params[:area] = params[:area] if params[:area].present?
-    the_params[:state] = params[:state] if params[:state].present?
-    the_params[:region] = params[:region] if params[:region].present?
+    the_params[:dir] = params[:dir] if params[:dir]
+    the_params[:order] = params[:order] if params[:order]
+    the_params[:route] = params[:route] if params[:route]
+    the_params[:area] = params[:area] if params[:area]
+    the_params[:state] = params[:state] if params[:state]
+    the_params[:region] = params[:region] if params[:region]
+    the_params[:user] = params[:user] if params[:user]
     the_params.merge!(new_params)
   end
 
