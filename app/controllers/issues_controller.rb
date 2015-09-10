@@ -237,13 +237,15 @@ class IssuesController < ApplicationController
 
     options = {}
     exclusions = {}
-    
-    states = Issue.state_machine.states.collect(&:name)
-    route = Route.find_by_slug(params[:route])
 
-    options[:route] = route.id if route && params[:route] != "all"
-    options[:area] = params[:area].to_i if params[:area].present? && params[:area] != "all"
-    options[:administrative_area] = params[:region].to_i if params[:region].present? && params[:region] != "all"
+    states = Issue.state_machine.states.collect(&:name)
+    route_ids = params[:route].split('.').collect{ |r| Route.find_by_slug(r).try(:id) } if params[:route]
+    area_ids = params[:area].split('.').collect{ |id| id.to_i } if params[:area]
+    administrative_area_ids = params[:region].split('.').collect{ |id| id.to_i } if params[:region]
+
+    options[:route] = route_ids if params[:route] && params[:route] != "all"
+    options[:area] = area_ids if params[:area] && params[:area] != "all"
+    options[:administrative_area] = administrative_area_ids if params[:region] && params[:region] != "all"
     if params[:state].present? && states.include?(params[:state].to_sym)
       if params[:state] == 'open'
         options[:state] = ['open', 'reopened']

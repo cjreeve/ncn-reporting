@@ -11,21 +11,21 @@
   <% end %>
 
   <% if @user_submitted_issue_count > 0 %>
-    <%= link_to issues_path(state: 'submitted', route: @user_routes, area: @user_areas) do %>
+    <%= link_to issues_path(state: 'submitted', route: @user_route_slugs, area: @user_area_ids) do %>
       <span class='ncn-style-count'><%= @user_submitted_issue_count %></span> submitted
     <% end %>
     &nbsp;&bullet;&nbsp;
   <% end %>
 
   <% if @user_resolved_issue_count > 0 %>
-    <%= link_to issues_path(state: 'resolved', route: @user_routes, area: @user_areas) do %>
+    <%= link_to issues_path(state: 'resolved', route: @user_route_slugs, area: @user_area_ids) do %>
       <span class='ncn-style-count'><%= @user_resolved_issue_count %></span> resolved
     <% end %>
     &nbsp;&bullet;&nbsp;
   <% end %>
 
   <% if @own_issue_resolved_count > 0 %>
-    <%= link_to issues_path(state: 'resolved', user: current_user) do %>
+    <%= link_to issues_path(state: 'resolved', user: current_user.id) do %>
       <span class='ncn-style-count'><%= @user_resolved_issue_count %></span> own resolved
     <% end %>
     &nbsp;&bullet;&nbsp;
@@ -55,7 +55,7 @@
     <%#   SUBMITTED    %>
     <% if @user_submitted_issue_count > 0 %>
       <li>
-        <%= link_to issues_path(state: 'pending') do %>
+        <%= link_to issues_path(state: 'submitted', route: @user_route_slugs, area: @user_area_ids) do %>
           <b><%= @user_submitted_issue_count %></b> submitted <%= 'issue'.pluralize(@user_submitted_issue_count) %>
         <% end %>
       </li>
@@ -64,7 +64,7 @@
     <%#   RESOLVED    %>
     <% if @user_resolved_issue_count > 0 %>
       <li>
-        <%= link_to issues_path(state: 'pending') do %>
+        <%= link_to issues_path(state: 'resolved', route: @user_route_slugs, area: @user_area_ids) do %>
           <b><%= @user_resolved_issue_count %></b> resolved <%= 'issue'.pluralize(@user_resolved_issue_count) %>
         <% end %>
       </li>
@@ -73,7 +73,7 @@
     <%#   OWN RESOLVED    %>
     <% if @own_issue_resolved_count > 0 %>
       <li>
-        <%= link_to issues_path(state: 'pending') do %>
+        <%= link_to issues_path(state: 'resloved', user: current_user.id) do %>
           <b><%= @own_issue_resolved_count %></b> own resolved <%= 'issue'.pluralize(@own_issue_resolved_count) %>
         <% end %>
       </li>
