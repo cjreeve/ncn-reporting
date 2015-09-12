@@ -100,8 +100,14 @@
 <% if @issue.id.present? %>
   <div class="row">
     <div class='medium-4 large-3 columns'>
-      <%#= f.input :priority, input_html: { min: 0, max: 3 } %>
-      <%= f.input :priority, collection: Issue::PRIORITY.collect{ |p| [p[1], p[0]] }, input_html: { selected: @issue.priority } %>
+      <% if can? :read, Label %>
+        <%= f.input :priority, collection: Issue::PRIORITY.collect{ |p| [p[1], p[0]] }, input_html: { selected: @issue.priority } %>
+      <% end %>
+    </div>
+    <div class='medium-4 large-3 columns'>
+      <% if can? :read, Label %>
+        <%= f.association :labels %>
+      <% end %>
     </div>
   </div>
 <% end %>

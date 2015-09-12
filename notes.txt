@@ -7,6 +7,12 @@ Issue:  Title, description, priority, reported_at, completed_at, issue_number
 
 Title: name
 
+Label: name
+        > rails g scaffold Label name:string
+        t.string :name, null: false, default: '', unique: true, index: true
+IssueLabelSelection
+        > rails g model IssueLabelSelection issue:references label:references
+
 Category: name has_many:category_problem_selections has_many:issues
         > rails g scaffold category name:string:uniq
         > rails g migration AddCategoryToIssues category:references

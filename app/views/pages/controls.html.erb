@@ -45,6 +45,11 @@
               <%= link_to 'Manage Routes', routes_path %>
             </li>
           <% end %>
+          <% if can? :manage, Label %>
+            <li>
+              <%= link_to 'Manage Labels', labels_path %>
+            </li>
+          <% end %>
         </ul>
       <% end %>
 

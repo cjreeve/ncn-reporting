@@ -6,6 +6,8 @@ class Issue < ActiveRecord::Base
   belongs_to :administrative_area
   has_many :images, dependent: :destroy
   has_many :comments
+  has_many :issue_label_selections
+  has_many :labels, through: :issue_label_selections
   belongs_to :category
   belongs_to :problem
   belongs_to :user

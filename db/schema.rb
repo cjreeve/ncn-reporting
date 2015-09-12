@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150906215234) do
+ActiveRecord::Schema.define(version: 20150912102630) do
 
   create_table "administrative_areas", force: true do |t|
     t.string   "name",       null: false
@@ -68,6 +68,16 @@ ActiveRecord::Schema.define(version: 20150906215234) do
 
   add_index "images", ["issue_id"], name: "index_images_on_issue_id"
 
+  create_table "issue_label_selections", force: true do |t|
+    t.integer  "issue_id"
+    t.integer  "label_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "issue_label_selections", ["issue_id"], name: "index_issue_label_selections_on_issue_id"
+  add_index "issue_label_selections", ["label_id"], name: "index_issue_label_selections_on_label_id"
+
   create_table "issues", force: true do |t|
     t.integer  "issue_number"
     t.string   "title"
@@ -106,6 +116,12 @@ ActiveRecord::Schema.define(version: 20150906215234) do
   add_index "issues", ["route_id"], name: "index_issues_on_route_id"
   add_index "issues", ["state"], name: "index_issues_on_state"
   add_index "issues", ["user_id"], name: "index_issues_on_user_id"
+
+  create_table "labels", force: true do |t|
+    t.string   "name",       default: "", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "pages", force: true do |t|
     t.string   "name"

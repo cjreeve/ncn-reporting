@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :labels
+
   get 'site/notifications'
 
   get 'updates' => 'updates#show', as: :updates

@@ -55,6 +55,7 @@ class IssuesController < ApplicationController
     # @problems = @categories.first.problems
     @problems = {}
     @categories.each { |c| @problems[c.id] = c.problems }
+    # @labels = Label.all.order(:name)
   end
 
   # GET /issues/1/edit
@@ -65,6 +66,7 @@ class IssuesController < ApplicationController
     @problems = {}
     @categories.each { |c| @problems[c.id] = c.problems }
     @issue.images.build # << Image.new #unless @issue.images.present?
+    @labels = Label.all.order(:name)
     return render the_params(params, action: 'edit')
   end
 
@@ -101,6 +103,7 @@ class IssuesController < ApplicationController
         @routes = Route.all.order(:name)
         @routes = Route.all.order(:name)
         @areas = Area.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
+        @labels = Label.all.order(:name)
         @categories = Category.all
         @problems = {}
         @categories.each { |c| @problems[c.id] = c.problems }
@@ -195,7 +198,8 @@ class IssuesController < ApplicationController
     params.require(:issue).permit(:issue_number, :title, :description, :priority, :reported_at,
       :completed_at, :location_name, :coordinate, :route_id, :area_id, :url, :category_id, 
       :problem_id, :user_id, :administrative_area_id,
-      images_attributes: [:id, :url, :caption, :_destroy])
+      images_attributes: [:id, :url, :caption, :_destroy],
+      label_ids: [])
   end
 
   def load_issues
