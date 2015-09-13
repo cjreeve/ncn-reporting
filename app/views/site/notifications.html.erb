@@ -38,6 +38,19 @@
     &nbsp;&bullet;&nbsp;
   <% end %>
 
+  <% if @open_for_sustrans_count > 0 %>
+    <%= link_to issues_path(state: 'open', label: @sustrans_label_id) do %>
+      <span class='ncn-style-count'><%= @open_for_sustrans_count %></span> open - sustrans
+    <% end %>
+    &nbsp;&bullet;&nbsp;
+  <% end %>
+
+  <% if @open_for_council_count > 0 %>
+    <%= link_to issues_path(state: 'open', label: @council_label_id) do %>
+      <span class='ncn-style-count'><%= @open_for_sustrans_count %></span> open - council
+    <% end %>
+    &nbsp;&bullet;&nbsp;
+  <% end %>
 
 
 
@@ -86,10 +99,29 @@
       </li>
     <% end %>
 
+    <%#   OWN UNSOLVEABLE    %>
     <% if @own_issue_unsolvable_count > 0 %>
       <li>
         <%= link_to issues_path(state: 'unsolveable', user: current_user.id) do %>
           <b><%= @own_issue_unsolvable_count %></b> own unsolveable <%= 'issue'.pluralize(@own_issue_unsolvable_count) %>
+        <% end %>
+      </li>
+    <% end %>
+
+    <%# OPEN FOR SUSTRANS %>
+    <% if @open_for_sustrans_count > 0 %>
+      <li>
+        <%= link_to issues_path(state: 'open', label: @sustrans_label_id) do %>
+          <b><%= @open_for_sustrans_count %></b> open sustrans <%= 'issue'.pluralize(@open_for_sustrans_count) %>
+        <% end %>
+      </li>
+    <% end %>
+
+    <%# OPEN FOR SUSTRANS %>
+    <% if @open_for_council_count > 0 %>
+      <li>
+        <%= link_to issues_path(state: 'open', label: @council_label_id) do %>
+          <b><%= @open_for_council_count %></b> open council <%= 'issue'.pluralize(@open_for_council_count) %>
         <% end %>
       </li>
     <% end %>
