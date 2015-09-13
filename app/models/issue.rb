@@ -52,7 +52,7 @@ class Issue < ActiveRecord::Base
       transition submitted: :open
     end
     event :start do
-      transition open: :in_progress
+      transition [:open, :reopened] => :in_progress
     end
     event :archive do
       transition open: :archived
