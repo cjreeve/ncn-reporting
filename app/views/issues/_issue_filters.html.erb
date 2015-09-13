@@ -81,6 +81,25 @@
           <% end %>
         </ul>
       </li>
+      <% if %w{ ranger staff admin }.include? current_user.role %>
+        <li class='hide-for-medium-only'>
+          <a href="#" class="button select" data-dropdown="labelSelection" aria-controls="labelSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_label ? @current_label.name + " ▼" : "labels ▼" %></a>
+          <ul id="labelSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
+            <% unless @current_label.nil? %>
+              <li>
+                <%= link_to "any label", issues_path(the_params(params, {label: nil})) %>
+              </li>
+            <% end %>
+            <% @labels.each do |label| %>
+              <% unless ((@current_label && @current_label == label)) %>
+                <li>
+                  <%= link_to label.name, issues_path(the_params(params, {label: label})) %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
     </ul>
   </div>
   <div class='medium-4 large-3 columns'>

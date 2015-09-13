@@ -125,6 +125,7 @@ module ApplicationHelper
     the_params[:state] = params[:state] if params[:state]
     the_params[:region] = params[:region] if params[:region]
     the_params[:user] = params[:user] if params[:user]
+    the_params[:label] = params[:label] if params[:label]
     the_params.merge!(new_params)
   end
 
