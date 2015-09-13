@@ -7,7 +7,16 @@
       <br>
       <ul class='updates-list'>
         <% @issues.each do |issue| %>
-          <% if  (issue.updated_at - issue.edited_at).abs < 0.5 %>
+          <% if issue.comments.present? && (issue.updated_at - issue.comments.last.updated_at).abs < 1 %>
+            <li>
+                <%= render 'issue_title', issue: issue %>
+
+                <%= render 'issue_comments', issue: issue %>
+            </li>
+          <% elsif (issue.updated_at - issue.edited_at).abs < 0.5 &&
+                (issue.reported_at.blank? || (issue.edited_at - issue.reported_at).abs > 3600) &&
+                (issue.completed_at.blank? || (issue.edited_at - issue.completed_at).abs > 3600)
+            %>
             <li>
               <%= render 'issue_title', issue: issue %>
               <ul class='editor'>
@@ -17,19 +26,23 @@
               </ul>
               <%= render 'issue_comments', issue: issue %>
             </li>
-          <% elsif issue.reported_at && (issue.updated_at - issue.reported_at).abs < 0.5 %>
+          <% elsif issue.reported_at && (issue.updated_at - issue.reported_at).abs < 3601 %>
             <li>
-               &mdash; published by <%= render 'issue_editor', issue: issue %>
+              <%= render 'issue_title', issue: issue %>
+              <ul class='editor'>
+                <li>
+                   &mdash; published by <%= render 'issue_editor', issue: issue %>
+                </li>
+              </ul>
             </li>
-          <% elsif issue.completed_at && (issue.updated_at - issue.completed_at).abs < 0.5 %>
+          <% elsif issue.completed_at && (issue.updated_at - issue.completed_at).abs < 3601 %>
             <li>
-               &mdash; marked as <%= issue.state %> by <%= render 'issue_editor', issue: issue %>
-            </li>
-          <% elsif issue.comments.present? && (issue.updated_at - issue.comments.last.updated_at).abs < 1 %>
-            <li>
-                <%= render 'issue_title', issue: issue %>
-
-                <%= render 'issue_comments', issue: issue %>
+              <%= render 'issue_title', issue: issue %>
+              <ul class='editor'>
+                <li>
+                   &mdash; marked as <%= issue.state %> by <%= render 'issue_editor', issue: issue %>
+                </li>
+              </ul>
             </li>
           <% end %>
        <% end %>

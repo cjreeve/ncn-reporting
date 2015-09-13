@@ -47,7 +47,7 @@
 
   <% if @open_for_council_count > 0 %>
     <%= link_to issues_path(state: 'open', label: @council_label_id) do %>
-      <span class='ncn-style-count'><%= @open_for_sustrans_count %></span> open - council
+      <span class='ncn-style-count'><%= @open_for_council_count %></span> open - council
     <% end %>
     &nbsp;&bullet;&nbsp;
   <% end %>
