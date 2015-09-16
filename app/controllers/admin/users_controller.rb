@@ -5,7 +5,7 @@ class Admin::UsersController < ApplicationController
   before_filter :check_authorisation
 
   def index
-    @users = User.all.order("lower(name) ASC")
+    @users = User.where('updated_at is not null').order("updated_at DESC") + User.where('updated_at is null')
   end
 
   def show
