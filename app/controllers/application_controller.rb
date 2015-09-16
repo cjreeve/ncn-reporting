@@ -6,12 +6,18 @@ class ApplicationController < ActionController::Base
   before_filter :log_user_activity
 
   rescue_from CanCan::AccessDenied do |exception|
+    account_locked = nil
+
     if user_session
+      if current_user.role == 'locked'
+        reset_session
+        account_locked = "this account has been locked"
+      end
       redirect_url_ = '/'
     else
       redirect_url_ = user_session_url
     end
-    redirect_to redirect_url_, :alert => exception.message
+    redirect_to redirect_url_, alert: (account_locked ? account_locked : exception.message)
   end
 
   private
