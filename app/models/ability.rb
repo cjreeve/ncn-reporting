@@ -31,7 +31,7 @@ class Ability
       can :read, User
       can :manage, User, id: user.id
       can :manage, Comment, user_id: user.id
-      can :view, Page
+      can :manage, Page
       can :read, Label
     end
 
@@ -41,7 +41,7 @@ class Ability
       can :read, User
       can :update, User, id: user.id
       can :manage, Comment, user_id: user.id
-      can :view, Page
+      can :manage, Page
     end
 
 
