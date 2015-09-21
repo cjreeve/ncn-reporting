@@ -2,7 +2,7 @@
 
       $("#issue-page-images").owlCarousel({
         singleItem: true,
-        // autoPlay: 4000,
+        autoPlay: 3500,
         // transitionStyle : "fade",
         navigation: true,
         navigationText: false,
