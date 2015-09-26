@@ -6812,6 +6812,40 @@ html body {
 article.admin h1 {
   display: inline-block; }
 
+* {
+  margin: 0; }
+
+html, body {
+  height: 100%; }
+
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  /* This line and the next line are not necessary unless you need IE6 support */
+  height: 100%;
+  margin: 0 auto -50px;
+  /* the bottom margin is the negative value of the footer's height */
+  padding-top: 1.25rem; }
+
+footer, .push {
+  height: 50px;
+  /* .push must be the same height as .footer */ }
+
+footer {
+  background-color: #33aefb;
+  margin-top: 0.625rem; }
+  footer span {
+    float: right;
+    margin-top: 0.625rem;
+    font-size: 0.625rem;
+    color: white; }
+
+/*
+
+Sticky Footer by Ryan Fait
+http://ryanfait.com/
+
+*/
 header {
   position: relative;
   background-color: #33aefb;
@@ -6914,6 +6948,14 @@ header {
   #notifications ul#nofications-dropdown li a:hover {
     color: #333; }
 
+article.page h2 {
+  font-size: 1.875rem; }
+article.page h2 {
+  font-size: 1.5rem; }
+article.page h3 {
+  font-size: 1.25rem;
+  font-style: italic; }
+
 article.welcome {
   position: relative;
   /*margin-top: rem-calc(-10);*/
@@ -6965,6 +7007,8 @@ article.welcome {
 
 article.issue h1, article.issue h4 {
   display: inline-block; }
+article.issue #map-canvas {
+  margin-bottom: 1.25rem; }
 article.issue .issue-title-and-nav {
   margin: 0.625rem 0; }
   article.issue .issue-title-and-nav h1 {
