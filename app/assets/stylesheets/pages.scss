@@ -1,4 +1,15 @@
-
+article.page{
+  h2{
+    font-size: rem-calc(30);
+  }
+  h2{
+    font-size: rem-calc(24);
+  }
+  h3{
+    font-size: rem-calc(20);
+    font-style: italic;
+  }
+}
 
 article.welcome{
   position: relative;

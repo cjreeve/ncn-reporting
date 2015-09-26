@@ -4,6 +4,10 @@ article.issue{
     display: inline-block;
   }
 
+  #map-canvas{
+    margin-bottom: rem-calc(20);
+  }
+
   .issue-title-and-nav{
     margin: rem-calc(10 0);
     h1{
