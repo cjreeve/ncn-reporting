@@ -12,7 +12,7 @@ class SiteController < ApplicationController
 
     @user_draft_issue_count = Issue.where(user: current_user, state: 'draft').count
     @own_issue_resolved_count = Issue.where(state: 'resolved', user: current_user).count
-    @own_issue_unsolvable_count = Issue.where(state: 'unsolveable', user: current_user).count
+    @own_issue_unsolvable_count = Issue.where(state: 'unsolvable', user: current_user).count
     counter_array << @user_draft_issue_count
     counter_array << @own_issue_resolved_count
     counter_array << @own_issue_unsolvable_count

@@ -32,8 +32,8 @@
   <% end %>
 
   <% if @own_issue_unsolvable_count > 0 %>
-    <%= link_to issues_path(state: 'unsolveable', user: current_user.id) do %>
-      <span class='ncn-style-count'><%= @own_issue_unsolvable_count %></span> own unsolveable
+    <%= link_to issues_path(state: 'unsolvable', user: current_user.id) do %>
+      <span class='ncn-style-count'><%= @own_issue_unsolvable_count %></span> own unsolvable
     <% end %>
     &nbsp;&bullet;&nbsp;
   <% end %>
@@ -99,11 +99,11 @@
       </li>
     <% end %>
 
-    <%#   OWN UNSOLVEABLE    %>
+    <%#   OWN UNSOLVABLE    %>
     <% if @own_issue_unsolvable_count > 0 %>
       <li>
-        <%= link_to issues_path(state: 'unsolveable', user: current_user.id) do %>
-          <b><%= @own_issue_unsolvable_count %></b> own unsolveable <%= 'issue'.pluralize(@own_issue_unsolvable_count) %>
+        <%= link_to issues_path(state: 'unsolvable', user: current_user.id) do %>
+          <b><%= @own_issue_unsolvable_count %></b> own unsolvable <%= 'issue'.pluralize(@own_issue_unsolvable_count) %>
         <% end %>
       </li>
     <% end %>
