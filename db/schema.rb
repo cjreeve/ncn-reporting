@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150912102630) do
+ActiveRecord::Schema.define(version: 20150926155028) do
 
   create_table "administrative_areas", force: true do |t|
     t.string   "name",       null: false
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 20150912102630) do
     t.datetime "edited_at",              default: '2015-08-04 21:18:32', null: false
     t.integer  "administrative_area_id"
     t.integer  "editor_id"
+    t.string   "resolution"
   end
 
   add_index "issues", ["administrative_area_id"], name: "index_issues_on_administrative_area_id"

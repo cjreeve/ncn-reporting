@@ -148,6 +148,7 @@ class IssuesController < ApplicationController
       @issue.start!
     elsif params[:resolve] && @issue.resolveable?
       @issue.resolve!
+      @issue.resolution = "resolved"
       @issue.completed_at = Time.zone.now
       @issue.save
     elsif params[:close] && @issue.closeable?
@@ -158,6 +159,8 @@ class IssuesController < ApplicationController
       @issue.archive!
     elsif params[:reject] && @issue.rejectable?
       @issue.reject!
+      @issue.resolution = "unsolvable"
+      @issue.save
     else
       if (params[:submit] || params[:publish]) && !@issue.submittable? && !@issue.publishable?
         text = "Please provide the following before publishing this issue:  "
@@ -203,7 +206,7 @@ class IssuesController < ApplicationController
   def issue_params
     params.require(:issue).permit(:issue_number, :title, :description, :priority, :reported_at,
       :completed_at, :location_name, :coordinate, :route_id, :area_id, :url, :category_id, 
-      :problem_id, :user_id, :administrative_area_id,
+      :problem_id, :user_id, :administrative_area_id, :resolution,
       images_attributes: [:id, :url, :caption, :_destroy],
       label_ids: [])
   end

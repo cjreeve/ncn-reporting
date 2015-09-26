@@ -38,8 +38,11 @@
       <div class='medium-6 columns'>
         <h4><%= @issue.state.gsub('_', ' ') %></h4>
         <% if @issue.submitted? && !can_publish_issue?(@issue) %>
-            <span class='pending-review'>awaiting review<span>
+            <span class='post-title-text'>awaiting review<span>
         <%  end %>
+        <% if @issue.closed? %>
+          <span class='post-title-text'><%= @issue.resolution.present? ? '('+@issue.resolution+')' : '' %></span>
+        <% end %>
       </div>
     </div>
 
