@@ -7056,7 +7056,7 @@ article.issue .issue-filters .f-dropdown {
     @media only screen and (min-width: 40.0625em) and (max-width: 64em) {
       article.issue .issue-filters .f-dropdown a {
         font-size: 0.75rem; } }
-article.issue .pending-review {
+article.issue .post-title-text {
   display: inline-block;
   margin-left: 0.625rem;
   font-size: 0.75rem;
