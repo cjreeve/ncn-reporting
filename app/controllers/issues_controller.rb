@@ -138,8 +138,10 @@ class IssuesController < ApplicationController
     @issue = Issue.find(params[:id])
     @issue.load_coordinate_string
     @issues = Issue.all.order('lng DESC')
+    @issue.editor = current_user
     if params[:submit] && @issue.submittable?
       @issue.submit!
+      @issue.save
     elsif params[:publish] && @issue.publishable?
       @issue.publish!
       @issue.reported_at = Time.zone.now
@@ -155,6 +157,7 @@ class IssuesController < ApplicationController
       @issue.close!
     elsif params[:reopen] && @issue.reopenable?
       @issue.reopen!
+      @issue.save
     elsif params[:archive] && @issue.archiveable?
       @issue.archive!
     elsif params[:reject] && @issue.rejectable?
