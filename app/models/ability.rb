@@ -25,7 +25,7 @@ class Ability
     if user.role == "ranger"
       can [:read, :create, :edit, :update, :progress], Issue
       can [:destroy], Issue, user_id: user.id
-      can :manage, Category
+      can :read, Category
       can :manage, Problem
       can :manage, AdministrativeArea
       can :read, User

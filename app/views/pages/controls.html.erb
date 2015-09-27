@@ -10,7 +10,7 @@
         <li>
           <%= link_to 'My User Account Settings', edit_user_registration_path %>
         </li>
-        <% if can? :manage, User %>
+        <% if current_user.role == "admin" %>
           <li>
             <%= link_to "Manage User Accounts", admin_users_path %>
           </li>
