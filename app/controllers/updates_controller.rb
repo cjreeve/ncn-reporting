@@ -3,7 +3,7 @@ class UpdatesController < ApplicationController
 
     # @updates = []
 
-    @issues = Issue.where('updated_at > ?', Time.zone.now - 7.days).order('updated_at DESC').includes(:comments)
+    @issues = Issue.where('updated_at > ?', Time.zone.now - 10.days).order('updated_at DESC').includes(:comments)
     # @issues.each do |issue|
     #   if issue.edited_at == issue.updated_at
     #     @updates << { issue_id: issue.id, action: :edited }
