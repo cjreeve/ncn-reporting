@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150926155028) do
+ActiveRecord::Schema.define(version: 20150928203748) do
 
   create_table "administrative_areas", force: true do |t|
     t.string   "name",       null: false
@@ -89,15 +89,15 @@ ActiveRecord::Schema.define(version: 20150926155028) do
     t.datetime "updated_at"
     t.float    "lat"
     t.float    "lng"
-    t.string   "state",                  default: "draft",               null: false
-    t.string   "location_name",          default: "",                    null: false
+    t.string   "state",                              default: "draft",               null: false
+    t.string   "location_name",                      default: "",                    null: false
     t.integer  "route_id"
-    t.string   "url"
+    t.text     "url",                    limit: 255
     t.integer  "area_id"
     t.integer  "category_id"
     t.integer  "problem_id"
     t.integer  "user_id"
-    t.datetime "edited_at",              default: '2015-08-04 21:18:32', null: false
+    t.datetime "edited_at",                          default: '2015-08-04 21:18:32', null: false
     t.integer  "administrative_area_id"
     t.integer  "editor_id"
     t.string   "resolution"

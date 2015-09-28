@@ -94,7 +94,7 @@
 </div>
 
 <div class='hide-for-small-when <%= @issue.id.present? ? "update" : "new" %>'>
-  <%= f.input :url, label: 'other url (e.g. google street view)' %>
+  <%= f.input :url, as: :string, label: 'other url (e.g. google street view)' %>
 </div>
 
 <% if @issue.id.present? %>
