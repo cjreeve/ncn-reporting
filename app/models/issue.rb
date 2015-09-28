@@ -27,6 +27,7 @@ class Issue < ActiveRecord::Base
   before_validation :set_edited_at
 
   validates :title, length: { in: 2..30, message: '- the problem must be between 2 and 30 characters'}
+  validates :url, length: { in: 0..1000, message: '- the url must be less than 1000 characters'}
 
   after_validation :coordinate_to_latlng
 
