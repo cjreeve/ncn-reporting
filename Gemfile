@@ -33,7 +33,7 @@ gem 'cancan'
 gem 'redcarpet'
 gem 'geocoder'
 gem 'gpx'
-
+gem 'sanitize'
 
 
 

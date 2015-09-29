@@ -4,8 +4,27 @@ article.issue{
     display: inline-block;
   }
 
+
   #map-canvas{
     margin-bottom: rem-calc(20);
+  }
+
+  table.route-specification{
+    width: 100%;
+  }
+
+  section.description{
+    background-color: $off-white;
+    border: rem-calc(1) solid $medium-grey;
+    border-radius: rem-calc(3);
+    padding: rem-calc(0 10);
+    margin-bottom: rem-calc(10);
+    h2{
+      font-size: rem-calc(20);
+      margin: rem-calc(0 -10);
+      padding: rem-calc(0 10);
+      background-color: darken($off-white, 4);
+    }
   }
 
   .issue-title-and-nav{
@@ -170,7 +189,7 @@ article.issue{
       }
       .comment-content{
         background-color: $light-grey;
-        padding: rem-calc(0 10);
+        padding: rem-calc(5 10);
         font-size: rem-calc(13);
         line-height: 1.3;
       }
