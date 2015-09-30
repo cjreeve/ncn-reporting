@@ -199,7 +199,7 @@ class IssuesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_issue
     if params[:issue_number]
-      @issue = Issue.find_by(issue_number: params[:issue_number]).include(:label)
+      @issue = Issue.find_by(issue_number: params[:issue_number])
     else
       @issue = Issue.find(params[:id])
     end
