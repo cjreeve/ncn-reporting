@@ -41,6 +41,7 @@ class IssuesController < ApplicationController
   # GET /issues/1.json
   def show
     @issues = Issue.where(route: @issue.route, area: @issue.area).order('lng DESC')
+    @issue_labels_count = @issue.labels.count
 
     if (current_user && (current_user.role == "admin" || current_user.role == "staff" || current_user == @issue.user))
       authorize! :destroy, @issue
@@ -198,7 +199,7 @@ class IssuesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_issue
     if params[:issue_number]
-      @issue = Issue.find_by(issue_number: params[:issue_number])
+      @issue = Issue.find_by(issue_number: params[:issue_number]).include(:label)
     else
       @issue = Issue.find(params[:id])
     end

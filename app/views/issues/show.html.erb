@@ -71,6 +71,22 @@
               <td>Priority:</td>
               <td><%= Issue::PRIORITY[@issue.priority] if @issue.priority %></td>
             </tr>
+            <tr>
+              <td><%= 'Label'.pluralize(@issue_labels_count) %>:</td>
+              <td>
+                <% if @issue.labels.present? %>
+                  <%  @issue.labels.each_with_index do |label, index| %>
+                      <%=
+                        link_to label.name, issues_path(label: label.id)
+                      %><%=
+                        ( (index+1) != @issue_labels_count ? ', ' : '')
+                      %>
+                  <% end %>
+                <% else %>
+                    'none'
+                <% end %>
+              </td>
+            </tr>
           </body>
         </table>
 
