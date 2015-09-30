@@ -33,7 +33,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @user.issues[0..9].each do |issue| %>
+          <% @user.issues.order(id: :desc).limit(10).each do |issue| %>
             <tr>
               <td><%= link_to issue.issue_number, issue_number_path(issue.issue_number) %></td>
               <td><%= issue.category.name if issue.category %></td>
@@ -43,7 +43,8 @@
             </tr>
           <% end %>
         </tbody>
-      </table
+      </table>
+      <%= link_to 'show all user issues', issues_path(user: @user.id) %>
 
 
     </div>
