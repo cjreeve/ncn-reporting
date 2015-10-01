@@ -2,10 +2,19 @@
   <div class='row'>
     <div class='small-12 medium-6 large-4 columns'>
       <h1>Users</h1>
-      <ul>
+      <ul class='user-list'>
         <% @users.each do |user| %>
           <li>
             <%= link_to user.name, user_path(user) %>
+            <% user_issue_count = user.issues.where(state: ['open', 'reopened']).count %>
+            <% if user_issue_count > 0 %>
+              <%=
+                link_to '(' + user_issue_count.to_s + ')',
+                issues_path(user: user.id, state: 'open'),
+                class: 'user-issue-count',
+                title: "#{ user_issue_count } open issues"
+              %>
+            <% end %>
           </li>
         <% end %>
       </ul>

@@ -1,0 +1,13 @@
+article.user{
+  ul.user-list{
+    li{
+      position: relative;
+      .user-issue-count{
+        position: relative;
+        top: rem-calc(-4);
+        font-size: rem-calc(10);
+        color: $red;
+      }
+    }
+  }
+}
