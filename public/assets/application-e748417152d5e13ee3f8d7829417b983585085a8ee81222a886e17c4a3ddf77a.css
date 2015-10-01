@@ -7019,7 +7019,7 @@ article.issue section.description {
   margin-bottom: 0.625rem; }
   article.issue section.description h2 {
     font-size: 1.25rem;
-    margin: 0 -0.625rem;
+    margin: 0 -0.625rem 0.625rem -0.625rem;
     padding: 0 0.625rem;
     background-color: #f0f0ed; }
 article.issue .issue-title-and-nav {
@@ -7253,6 +7253,14 @@ article.updates ul.updates-list {
       display: inline-block; }
     article.updates ul.updates-list > li .commentor {
       font-size: 0.75rem; }
+
+article.user ul.user-list li {
+  position: relative; }
+  article.user ul.user-list li .user-issue-count {
+    position: relative;
+    top: -0.25rem;
+    font-size: 0.625rem;
+    color: #E41634; }
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Set default font family to sans-serif.
