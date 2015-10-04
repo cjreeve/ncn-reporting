@@ -71,6 +71,7 @@ class IssuesController < ApplicationController
     @categories = Category.all
     @problems = {}
     @categories.each { |c| @problems[c.id] = c.problems }
+    @issue.images.each { |image| image.url = image.src_identifier if image.src.present? }
     @issue.images.build # << Image.new #unless @issue.images.present?
     @labels = Label.all.order(:name)
     return render the_params(params, action: 'edit')
@@ -211,7 +212,7 @@ class IssuesController < ApplicationController
     params.require(:issue).permit(:issue_number, :title, :description, :priority, :reported_at,
       :completed_at, :location_name, :coordinate, :route_id, :area_id, :url, :category_id, 
       :problem_id, :user_id, :administrative_area_id, :resolution,
-      images_attributes: [:id, :url, :caption, :_destroy],
+      images_attributes: [:id, :url, :src, :caption, :_destroy],
       label_ids: [])
   end
 

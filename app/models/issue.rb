@@ -13,7 +13,7 @@ class Issue < ActiveRecord::Base
   belongs_to :user
   belongs_to :editor, class_name: "User"
 
-  accepts_nested_attributes_for(:images, allow_destroy: true, reject_if:  proc { |a| a[:url].blank? && a[:caption].blank? })
+  accepts_nested_attributes_for(:images, allow_destroy: true, reject_if:  proc { |a| a[:url].blank? && a[:src].blank? && a[:caption].blank? })
   
   PRIORITY = {
     1 => 'low',

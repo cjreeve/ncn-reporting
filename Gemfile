@@ -35,6 +35,13 @@ gem 'geocoder'
 gem 'gpx'
 gem 'sanitize'
 
+# Image processing
+gem 'carrierwave'
+gem 'mini_magick'
+# gem 'rmagick'
+gem 'fog'
+
+
 
 
 # Gems used for precompilling assets

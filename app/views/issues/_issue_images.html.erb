@@ -1,6 +1,8 @@
 <% @issue.images.each do |image| %>
   <div class='issue-image-container'>
-    <% if image.url.present? %>
+    <% if image.src.present? %>
+      <%= image_tag image.src_url(defined?(is_modal) ? :zoom : :main), alt: "", :'data-reveal-id' => 'imageZoomModal'  %>
+    <% elsif image.url.present? %>
       <%= image_tag image.url, alt: "", :'data-reveal-id' => 'imageZoomModal'  %>
     <% else %>
       <br>
@@ -14,3 +16,5 @@
     <% end %>
   </div>
 <% end %>
+
+<%# _url(defined?(is_modal) ? :zoom : :main) %>
