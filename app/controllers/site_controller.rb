@@ -45,7 +45,6 @@ class SiteController < ApplicationController
         @open_for_council_count = Issue.joins(:labels).where(labels: {name: 'council'}, state: ["open", "reopened"]).uniq.count
       end
       @sustrans_label_id = Label.find_or_create_by(name: 'sustrans').id
-      
       @council_label_id = Label.find_or_create_by(name: 'council').id
     end
     counter_array << @open_for_sustrans_count

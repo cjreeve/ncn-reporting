@@ -123,17 +123,29 @@
     <%# OPEN FOR SUSTRANS %>
     <% if @open_for_sustrans_count > 0 %>
       <li>
-        <%= link_to issues_path(state: 'open', label: @sustrans_label_id) do %>
-          <b><%= @open_for_sustrans_count %></b> open sustrans <%= 'issue'.pluralize(@open_for_sustrans_count) %>
+        <% if @user_route_slugs.present? && @user_area_ids.present? %>
+          <%= link_to issues_path(state: 'open', label: @sustrans_label_id, route: @user_route_slugs, area: @user_area_ids) do %>
+            <b><%= @open_for_sustrans_count %></b> open sustrans <%= 'issue'.pluralize(@open_for_sustrans_count) %>
+          <% end %>
+        <% else %>
+          <%= link_to issues_path(state: 'open', label: @sustrans_label_id) do %>
+            <b><%= @open_for_sustrans_count %></b> open sustrans <%= 'issue'.pluralize(@open_for_sustrans_count) %>
+          <% end %>
         <% end %>
       </li>
     <% end %>
 
-    <%# OPEN FOR SUSTRANS %>
+    <%# OPEN FOR COUNCIL %>
     <% if @open_for_council_count > 0 %>
       <li>
-        <%= link_to issues_path(state: 'open', label: @council_label_id) do %>
-          <b><%= @open_for_council_count %></b> open council <%= 'issue'.pluralize(@open_for_council_count) %>
+        <% if @user_route_slugs.present? && @user_area_ids.present? %>
+          <%= link_to issues_path(state: 'open', label: @council_label_id, route: @user_route_slugs, area: @user_area_ids) do %>
+            <b><%= @open_for_council_count %></b> open council <%= 'issue'.pluralize(@open_for_council_count) %>
+          <% end %>
+        <% else %>
+          <%= link_to issues_path(state: 'open', label: @council_label_id) do %>
+            <b><%= @open_for_council_count %></b> open council <%= 'issue'.pluralize(@open_for_council_count) %>
+          <% end %>
         <% end %>
       </li>
     <% end %>
