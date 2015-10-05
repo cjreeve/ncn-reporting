@@ -37,10 +37,16 @@ class SiteController < ApplicationController
     @open_for_sustrans_count = 0
     @open_for_council_count = 0
     if %w{ staff admin }.include? current_user.role
+      if user_routes.present? && user_areas.present?
+        @open_for_sustrans_count = Issue.joins(:labels).where(labels: {name: 'sustrans'}, state: ["open", "reopened"], route: user_routes, area: user_areas).uniq.count
+        @open_for_council_count = Issue.joins(:labels).where(labels: {name: 'council'}, state: ["open", "reopened"], route: user_routes, area: user_areas).uniq.count
+      else
+        @open_for_sustrans_count = Issue.joins(:labels).where(labels: {name: 'sustrans'}, state: ["open", "reopened"]).uniq.count
+        @open_for_council_count = Issue.joins(:labels).where(labels: {name: 'council'}, state: ["open", "reopened"]).uniq.count
+      end
       @sustrans_label_id = Label.find_or_create_by(name: 'sustrans').id
-      @open_for_sustrans_count = Issue.joins(:labels).where(labels: {name: 'sustrans'}, state: ["open", "reopened"]).uniq.count
+      
       @council_label_id = Label.find_or_create_by(name: 'council').id
-      @open_for_council_count = Issue.joins(:labels).where(labels: {name: 'council'}, state: ["open", "reopened"]).uniq.count
     end
     counter_array << @open_for_sustrans_count
     counter_array << @open_for_council_count

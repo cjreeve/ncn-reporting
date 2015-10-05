@@ -39,15 +39,27 @@
   <% end %>
 
   <% if @open_for_sustrans_count > 0 %>
-    <%= link_to issues_path(state: 'open', label: @sustrans_label_id) do %>
-      <span class='ncn-style-count'><%= @open_for_sustrans_count %></span> open - sustrans
+    <% if @user_route_slugs.present? && @user_area_ids.present? %>
+      <%= link_to issues_path(state: 'open', label: @sustrans_label_id, route: @user_route_slugs, area: @user_area_ids) do %>
+        <span class='ncn-style-count'><%= @open_for_sustrans_count %></span> open - sustrans
+      <% end %>
+    <% else %>
+      <%= link_to issues_path(state: 'open', label: @sustrans_label_id) do %>
+        <span class='ncn-style-count'><%= @open_for_sustrans_count %></span> open - sustrans
+      <% end %>
     <% end %>
     &nbsp;&bullet;&nbsp;
   <% end %>
 
   <% if @open_for_council_count > 0 %>
-    <%= link_to issues_path(state: 'open', label: @council_label_id) do %>
-      <span class='ncn-style-count'><%= @open_for_council_count %></span> open - council
+    <% if @user_route_slugs.present? && @user_area_ids.present? %>
+      <%= link_to issues_path(state: 'open', label: @council_label_id, route: @user_route_slugs, area: @user_area_ids) do %>
+        <span class='ncn-style-count'><%= @open_for_council_count %></span> open - council
+      <% end %>
+    <% else %>
+      <%= link_to issues_path(state: 'open', label: @council_label_id) do %>
+        <span class='ncn-style-count'><%= @open_for_council_count %></span> open - council
+      <% end %>
     <% end %>
     &nbsp;&bullet;&nbsp;
   <% end %>
