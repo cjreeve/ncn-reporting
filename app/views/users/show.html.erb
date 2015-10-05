@@ -9,6 +9,24 @@
           <tr>
             <td>Email:</td><td><%= @user.email %></td>
           </tr>
+          <%
+            user_routes = @user.routes
+            user_routes = user_routes.collect(&:name) if user_routes.present?
+            user_areas = @user.areas
+            user_areas = user_areas.collect(&:name) if user_areas.present?
+          %>
+          <% if user_routes.present? %>
+            <tr>
+              <td><%= 'route'.pluralize(user_routes.count) %>:</td>
+              <td><%= user_routes.to_sentence %></td>
+            </tr>
+          <% end %>
+          <% if user_areas.present? %>
+            <tr>
+              <td><%= 'group'.pluralize(user_areas.count) %>:</td>
+              <td><%= user_areas.to_sentence %></td>
+            </tr>
+          <% end %>
           <tr>
             <td> </td>
             <td>
