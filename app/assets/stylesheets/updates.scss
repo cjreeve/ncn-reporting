@@ -17,6 +17,12 @@ article.updates{
       background-color: #eee;
       margin-bottom: rem-calc(10);
       padding: rem-calc(5);
+      &.today{
+        background-color: #e0cec8;
+      }
+      &.yesterday{
+        background-color: #e0dada;
+      }
       ul.editor{
         li{
           margin: 0;

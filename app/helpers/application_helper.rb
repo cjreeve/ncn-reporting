@@ -1,5 +1,13 @@
 module ApplicationHelper
 
+  def updated_day(object)
+    if object.updated_at.today?
+      'today'
+    elsif (object.updated_at+1.day).today?
+      'yesterday'
+    end
+  end
+
   def can_publish_issue?(issue)
     current_user.role == "admin" || current_user.role == "staff" ||
     (current_user.role == "ranger" && current_user.routes.include?(issue.route) && current_user.areas.include?(issue.area))
