@@ -7242,6 +7242,10 @@ article.updates ul.updates-list {
     background-color: #eee;
     margin-bottom: 0.625rem;
     padding: 0.3125rem; }
+    article.updates ul.updates-list > li.today {
+      background-color: #e0cec8; }
+    article.updates ul.updates-list > li.yesterday {
+      background-color: #e0dada; }
     article.updates ul.updates-list > li ul.editor li {
       margin: 0;
       font-size: 0.75rem; }
