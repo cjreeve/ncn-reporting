@@ -11,7 +11,8 @@
                 (issue.reported_at.blank? || (issue.edited_at - issue.reported_at).abs > 3600) &&
                 (issue.completed_at.blank? || (issue.edited_at - issue.completed_at).abs > 3600)
             %>
-            <li class="<%= updated_day(issue) %>">
+            <li class="<%= updated_summary(issue) %>">
+              <div class='update-header'><%= updated_at_human issue %></div>
               <%= render 'issue_title', issue: issue %>
               <ul class='editor'>
                 <li>
@@ -21,7 +22,8 @@
               <%= render 'issue_comments', issue: issue %>
             </li>
           <% elsif issue.reported_at && (issue.updated_at - issue.reported_at).abs < 3601 %>
-            <li class="<%= updated_day(issue) %>">
+            <li class="<%= updated_summary(issue) %>">
+              <div class='update-header'><%= updated_at_human issue %></div>
               <%= render 'issue_title', issue: issue %>
               <ul class='editor'>
                 <li>
@@ -31,7 +33,8 @@
               <%= render 'issue_comments', issue: issue %>
             </li>
           <% elsif issue.completed_at && (issue.updated_at - issue.completed_at).abs < 3601 %>
-            <li class="<%= updated_day(issue) %>">
+            <li class="<%= updated_summary(issue) %>">
+              <div class='update-header'><%= updated_at_human issue %></div>
               <%= render 'issue_title', issue: issue %>
               <ul class='editor'>
                 <li>
@@ -41,7 +44,8 @@
               <%= render 'issue_comments', issue: issue %>
             </li>
             <% elsif issue.comments.present? && (issue.updated_at - issue.comments.last.updated_at).abs < 1 %>
-              <li class="<%= updated_day(issue) %>">
+              <li class="<%= updated_summary(issue) %>">
+                <div class='update-header'><%= updated_at_human issue %></div>
                   <%= render 'issue_title', issue: issue %>
 
                   <%= render 'issue_comments', issue: issue %>

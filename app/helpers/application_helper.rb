@@ -1,7 +1,36 @@
 module ApplicationHelper
 
-  def updated_day(object)
-    if object.updated_at.today?
+  def updated_at_human(object)
+    if object.updated_at > Time.now - 1.minute
+      'just now'
+    elsif object.updated_at > Time.now - 5.minute
+      'less than 5 minutes ago'
+    elsif object.updated_at > Time.now - 10.minute
+      'less 10 minutes ago'
+    elsif object.updated_at > Time.now - 15.minute
+      'in the last 15 minutes'
+    elsif object.updated_at > Time.now - 30.minute
+      'in the last 30 minutes'
+    elsif object.updated_at > Time.now - 1.hour
+      'in the last hour'
+    elsif object.updated_at > Time.now - 4.hour
+      'in the last few hours'
+    elsif object.updated_at.today?
+      'today'
+    elsif (object.updated_at - 1.day).today?
+      'yesterday'
+    elsif object.updated_at > Time.now - 1.year
+      object.updated_at.strftime("%a %d %b")
+    else
+      object.updated_at.strftime("%a %d %b %Y")
+    end
+  end
+
+
+  def updated_summary(object)
+    if object.updated_at > (Time.now - 1.hour)
+      'recently'
+    elsif object.updated_at.today?
       'today'
     elsif (object.updated_at+1.day).today?
       'yesterday'

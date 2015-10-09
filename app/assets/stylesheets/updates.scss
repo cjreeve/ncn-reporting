@@ -14,14 +14,29 @@ article.updates{
   ul.updates-list{
     list-style-type: none;
     >li{
+      position: relative;
       background-color: #eee;
       margin-bottom: rem-calc(10);
       padding: rem-calc(5);
+      &.recently{
+        background-color: $light-green;
+      }
       &.today{
-        background-color: #e0cec8;
+        background-color: $light-pink;
       }
       &.yesterday{
-        background-color: #e0dada;
+        background-color: $light-green;
+      }
+      .update-header{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(150, 150, 150, 0.1);
+        padding-right: rem-calc(3);
+        text-align: right;
+        font-size: rem-calc(8);
+        color: $grey;
       }
       ul.editor{
         li{
