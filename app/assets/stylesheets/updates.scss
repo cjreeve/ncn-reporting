@@ -19,10 +19,10 @@ article.updates{
       margin-bottom: rem-calc(10);
       padding: rem-calc(5);
       &.recently{
-        background-color: $light-yellow;
+        background-color: $light-pink;
       }
       &.today{
-        background-color: $light-pink;
+        background-color: $light-yellow;
       }
       &.yesterday{
         background-color: $light-green;
