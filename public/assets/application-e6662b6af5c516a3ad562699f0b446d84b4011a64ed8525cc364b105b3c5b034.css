@@ -7239,13 +7239,26 @@ article.updates ul {
 article.updates ul.updates-list {
   list-style-type: none; }
   article.updates ul.updates-list > li {
+    position: relative;
     background-color: #eee;
     margin-bottom: 0.625rem;
     padding: 0.3125rem; }
+    article.updates ul.updates-list > li.recently {
+      background-color: #dffbdf; }
     article.updates ul.updates-list > li.today {
-      background-color: #e0cec8; }
+      background-color: #ffe0e0; }
     article.updates ul.updates-list > li.yesterday {
-      background-color: #e0dada; }
+      background-color: #dffbdf; }
+    article.updates ul.updates-list > li .update-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(150, 150, 150, 0.1);
+      padding-right: 0.1875rem;
+      text-align: right;
+      font-size: 0.5rem;
+      color: #888; }
     article.updates ul.updates-list > li ul.editor li {
       margin: 0;
       font-size: 0.75rem; }
