@@ -6,7 +6,7 @@ module ApplicationHelper
     elsif object.updated_at > Time.now - 5.minute
       'less than 5 minutes ago'
     elsif object.updated_at > Time.now - 10.minute
-      'less 10 minutes ago'
+      'less than 10 minutes ago'
     elsif object.updated_at > Time.now - 15.minute
       'in the last 15 minutes'
     elsif object.updated_at > Time.now - 30.minute
