@@ -7,6 +7,10 @@ article.updates{
     a{
       color: #555;
     }
+    .status{
+      font-size: rem-calc(14);
+      color: $medium-grey;
+    }
   }
   ul{
     list-style-type: none;
