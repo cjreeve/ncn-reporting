@@ -15,10 +15,12 @@ class AdministrativeAreasController < ApplicationController
 
   def new
     @administrative_area = AdministrativeArea.new
+    @areas = Area.all.order(:name)
     respond_with(@administrative_area)
   end
 
   def edit
+    @areas = Area.all.order(:name)
   end
 
   def create
@@ -43,6 +45,6 @@ class AdministrativeAreasController < ApplicationController
     end
 
     def administrative_area_params
-      params.require(:administrative_area).permit(:name, :short_name)
+      params.require(:administrative_area).permit(:name, :short_name, :area_id)
     end
 end

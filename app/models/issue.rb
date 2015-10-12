@@ -40,6 +40,7 @@ class Issue < ActiveRecord::Base
       administrative_area_name = issue.get_admin_area(results).strip
       administrative_area_name = "unknown" if administrative_area_name.length == 0
       issue.administrative_area = AdministrativeArea.find_or_create_by(name: administrative_area_name)
+      issue.find_group_from_coordinate
     end
   end
 
@@ -176,6 +177,12 @@ class Issue < ActiveRecord::Base
       admin_area = get_address_component(results, ["administrative_area_level_2"])
     end
     admin_area
+  end
+
+  def find_group_from_coordinate
+    if self.area.blank? && self.administrative_area.area.present?
+      self.area = self.administrative_area.area
+    end
   end
   
   private

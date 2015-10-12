@@ -11,15 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151003220604) do
+ActiveRecord::Schema.define(version: 20151012211734) do
 
   create_table "administrative_areas", force: true do |t|
     t.string   "name",       null: false
     t.string   "short_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "area_id"
   end
 
+  add_index "administrative_areas", ["area_id"], name: "index_administrative_areas_on_area_id"
   add_index "administrative_areas", ["name"], name: "index_administrative_areas_on_name", unique: true
   add_index "administrative_areas", ["short_name"], name: "index_administrative_areas_on_short_name", unique: true
 
