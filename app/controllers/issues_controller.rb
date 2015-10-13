@@ -12,9 +12,9 @@ class IssuesController < ApplicationController
     route_ids = area_ids = nil
     route_ids = params[:route].split('.').collect{ |r| Route.find_by_slug(r).try(:id) } if params[:route]
     area_ids = params[:area].split('.').collect{ |id| id.to_i } if params[:area]
-    options[:routes] = route_ids if params[:route] && params[:route] != "all"
-    options[:areas] = area_ids if params[:area] && params[:area] != "all"
-    @administrative_areas = AdministrativeArea.joins(issues: [:route, :area]).uniq
+    options[:routes] = {id: route_ids} if params[:route] && params[:route] != "all"
+    options[:areas] = {id: area_ids} if params[:area] && params[:area] != "all"
+    @administrative_areas = AdministrativeArea.joins(issues: [:route, :area]).where(options).uniq
 
     @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
     @areas = Area.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
