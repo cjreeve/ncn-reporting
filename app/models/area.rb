@@ -7,9 +7,4 @@ class Area < ActiveRecord::Base
 
   has_many :administrative_areas
 
-  before_validation :set_blank_short_name
-
-  def set_blank_short_name
-    self.short_name = self.name unless self.short_name.present?
-  end
 end
