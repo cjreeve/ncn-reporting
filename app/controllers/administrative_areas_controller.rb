@@ -1,5 +1,6 @@
 class AdministrativeAreasController < ApplicationController
   before_action :set_administrative_area, only: [:show, :edit, :update, :destroy]
+  before_action :set_areas, only: [:new, :edit, :update]
   load_and_authorize_resource except: [:create]
 
   respond_to :html
@@ -15,12 +16,10 @@ class AdministrativeAreasController < ApplicationController
 
   def new
     @administrative_area = AdministrativeArea.new
-    @areas = Area.all.order(:name)
     respond_with(@administrative_area)
   end
 
   def edit
-    @areas = Area.all.order(:name)
   end
 
   def create
@@ -42,6 +41,10 @@ class AdministrativeAreasController < ApplicationController
   private
     def set_administrative_area
       @administrative_area = AdministrativeArea.find(params[:id])
+    end
+
+    def set_areas
+      @areas = Area.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
     end
 
     def administrative_area_params
