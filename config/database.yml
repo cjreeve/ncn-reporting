@@ -11,6 +11,14 @@ default: &default
 
 development:
   <<: *default
+  # adapter: postgresql
+  # encoding: unicode
+  # database: ncn_reporting_development
+  # host: localhost
+  # pool: 5
+  # username: msdev
+  # password: password
+  #### pg_restore --verbose --clean --no-acl --no-owner -h localhost -U msdev -W -d ncn_reporting_development ~/cjreeve/Sustrans/ncn-reporting-backup-2015.10.17.dump
   database: db/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
