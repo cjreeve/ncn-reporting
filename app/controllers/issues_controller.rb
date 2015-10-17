@@ -40,7 +40,7 @@ class IssuesController < ApplicationController
   # GET /issues/1
   # GET /issues/1.json
   def show
-    @issues = Issue.where(route: @issue.route, area: @issue.area).order('lng DESC')
+    @issues = Issue.where(route: @issue.route, area: @issue.area).order('lng DESC').where.not(lat: nil, lng: nil)
     @issue_labels_count = @issue.labels.count
 
     if (current_user && (current_user.role == "admin" || current_user.role == "staff" || current_user == @issue.user))

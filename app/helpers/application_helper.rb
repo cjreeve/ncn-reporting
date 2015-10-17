@@ -1,5 +1,15 @@
 module ApplicationHelper
 
+  def render_markdown(text)
+    if text.present?
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+      Sanitize.fragment(
+        markdown.render( strip_tags text ),
+        Sanitize::Config::BASIC
+      ).html_safe
+    end
+  end
+
   def updated_at_human(object)
     if object.updated_at > Time.now - 1.minute
       'just now'
@@ -97,15 +107,17 @@ module ApplicationHelper
   end
 
   def formatted_description(issue)
-    category = (issue.category ? issue.category.name : '')
-    '<div id="content">' +
-      '<div id="siteNotice">'+'</div>'+
-      '<h3 id="firstHeading" class="firstHeading">(' + issue.issue_number.to_s + ') ' + category + ' - ' + issue.the_problem + '</h3>'+
-      '<div id="bodyContent">'+
-        '<p>' + issue.description + '</p>' +
-        '<p> <a href="/issue/' + issue.issue_number.to_s + '">' + 'Go to issue >' + '</a> </p>' +
-      '</div>' +
-    '</div>'
+    category = (issue.category.present? ? issue.category.name : '')
+    "<div id='content'
+      <div id='siteNotice'>
+      </div>
+      <h3 id='firstHeading' class='firstHeading'>(#{ issue.issue_number.to_s } )
+        category - #{ issue.the_problem } <span style='float:right'>(#{ issue.state })</span> </h3>
+      <div id='bodyContent'>
+        <p> #{ strip_tags(render_markdown(issue.description)) } </p>
+        <p> <a href='/issue/#{ issue.issue_number.to_s }'> Go to issue ► </a> </p>
+      </div>
+    </div>".squish.html_safe
   end
 
   def tab_selection_style(params)

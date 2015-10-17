@@ -185,13 +185,7 @@
         <section class="description">
           <h2>Description</h2>
           <% if @issue.description.present? %>
-            <%=
-              markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
-              Sanitize.fragment(
-                markdown.render( strip_tags @issue.description ),
-                Sanitize::Config::BASIC
-              ).html_safe
-            %>
+            <%= render_markdown @issue.description %>
           <% else %>
             <span style='color:grey'>none</span>
           <% end %>
@@ -252,5 +246,5 @@
   </div>
 </article>
 
-<%= render 'google_maps/markers.js', issues: @issues.where.not(lat: nil, lng: nil), this_issue: @issue %>
+<%= render 'google_maps/markers.js', issues: @issues, this_issue: @issue %>
  
