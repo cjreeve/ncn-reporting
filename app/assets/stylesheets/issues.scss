@@ -4,9 +4,15 @@ article.issue{
     display: inline-block;
   }
 
-
   #map-canvas{
     margin-bottom: rem-calc(20);
+  }
+  .show-closed-issues-link{
+    margin: rem-calc(-20 0 20 0);
+    text-align: right;
+    a{
+      font-size: rem-calc(12);
+    }
   }
 
   table.route-specification{

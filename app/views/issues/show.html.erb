@@ -233,6 +233,13 @@
     
       <div id="map-canvas" style="width: 100%; height: 400px;"></div>
 
+      <div class='show-closed-issues-link'>
+        <% if params['incl_closed'].present? %>
+          <%= link_to 'exclude closed issues', issue_path(the_params(params, {id: @issue})) %>
+        <% else %>
+          <%= link_to 'include closed issues', issue_path(the_params(params, {id: @issue, incl_closed: true})) %>
+        <% end %>
+      </div>
       <br><br>
 
       <p>
@@ -247,4 +254,3 @@
 </article>
 
 <%= render 'google_maps/markers.js', issues: @issues, this_issue: @issue %>
- 
