@@ -7009,6 +7009,11 @@ article.issue h1, article.issue h4 {
   display: inline-block; }
 article.issue #map-canvas {
   margin-bottom: 1.25rem; }
+article.issue .show-closed-issues-link {
+  margin: -1.25rem 0 1.25rem 0;
+  text-align: right; }
+  article.issue .show-closed-issues-link a {
+    font-size: 0.75rem; }
 article.issue table.route-specification {
   width: 100%; }
 article.issue section.description {
@@ -7234,6 +7239,9 @@ article.updates h3 {
   font-size: 1.125rem; }
   article.updates h3 a {
     color: #555; }
+  article.updates h3 .status {
+    font-size: 0.875rem;
+    color: #aaa; }
 article.updates ul {
   list-style-type: none; }
 article.updates ul.updates-list {
@@ -7244,9 +7252,9 @@ article.updates ul.updates-list {
     margin-bottom: 0.625rem;
     padding: 0.3125rem; }
     article.updates ul.updates-list > li.recently {
-      background-color: #fff6cc; }
-    article.updates ul.updates-list > li.today {
       background-color: #ffe0e0; }
+    article.updates ul.updates-list > li.today {
+      background-color: #fff6cc; }
     article.updates ul.updates-list > li.yesterday {
       background-color: #dffbdf; }
     article.updates ul.updates-list > li .update-header {
