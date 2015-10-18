@@ -6,7 +6,7 @@
 
     <%
       coord_stats = get_issue_coord_stats(issues)
-      if (defined? this_issue)
+      if this_issue.present?
         this_lat = this_issue.lat
         this_lng = this_issue.lng
       else
