@@ -114,7 +114,7 @@ module ApplicationHelper
       <h3 id='firstHeading' class='firstHeading'>(#{ issue.issue_number.to_s } )
         category - #{ issue.the_problem } <span style='float:right'>(#{ issue.state })</span> </h3>
       <div id='bodyContent'>
-        <p> #{ strip_tags(render_markdown(issue.description)) } </p>
+        <p> #{ strip_tags(render_markdown(issue.description.gsub(/"/,"'"))) } </p>
         <p> <a href='/issue/#{ issue.issue_number.to_s }'> Go to issue ► </a> </p>
       </div>
     </div>".squish.html_safe
