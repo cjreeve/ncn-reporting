@@ -1,3 +1,5 @@
+<% this_issue ||= nil %>
+
 <script>
 
   function initialize() {
@@ -40,7 +42,7 @@
       createMarker(map, locations[i]);
     }
 
-    <% if (defined? this_issue) %>
+    <% if this_issue.present? %>
       var myTitle = "<%= this_issue.title %>";
       var myLat = <%= this_issue.lat %>;
       var myLng = <%= this_issue.lng %>;
@@ -51,23 +53,28 @@
     <% end %>
 
 
-    // var sw = new google.maps.LatLng(<%= coord_stats[:min_lat] %>, <%= coord_stats[:min_lng] %>);
-    // var ne = new google.maps.LatLng(<%= coord_stats[:max_lat] %>, <%= coord_stats[:max_lng] %>);
     var GLOBE_WIDTH = 256; // a constant in Google's map projection
-    var lon_angle = <%= coord_stats[:max_lng] %> - <%= coord_stats[:min_lng] %>;
-    var lat_angle = <%= coord_stats[:max_lat] %> - <%= coord_stats[:min_lat] %>;
-    
-    var angle = lon_angle.abs > lat_angle.abs*2 ? lon_angle : lat_angle;
-    if (angle < 0) {
-      angle += 360;
-    }
-    pixelWidth = 600;
-    var zoom = Math.round(Math.log(pixelWidth * 360 / angle / GLOBE_WIDTH) / Math.LN2);
-    map.setZoom(zoom-2);
 
-    if(map.getZoom()> 15){
-      map.setZoom(15);
-    }
+    <% if this_issue.present? %>
+      map.setZoom(17);
+      var bikeLayer = new google.maps.BicyclingLayer();
+      bikeLayer.setMap(map);
+    <% else %>
+      var lon_angle = <%= coord_stats[:max_lng] %> - <%= coord_stats[:min_lng] %>;
+      var lat_angle = <%= coord_stats[:max_lat] %> - <%= coord_stats[:min_lat] %>;
+      
+      var angle = lon_angle.abs > lat_angle.abs*2 ? lon_angle : lat_angle;
+      if (angle < 0) {
+        angle += 360;
+      }
+      pixelWidth = 600;
+      var zoom = Math.round(Math.log(pixelWidth * 360 / angle / GLOBE_WIDTH) / Math.LN2);
+      map.setZoom(zoom-2);
+
+      if(map.getZoom()> 15){
+        map.setZoom(15);
+      }
+    <% end %>
 
   }
 
