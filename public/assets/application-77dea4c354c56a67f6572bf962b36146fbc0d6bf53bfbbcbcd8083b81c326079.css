@@ -7156,6 +7156,9 @@ article.issue .edit-issue-image-fields {
   article.issue .edit-issue-image-fields .image-fields .remove-photo-fields {
     font-size: 0.8125rem;
     color: #888; }
+article.issue .issue-contacts {
+  margin-bottom: 1.25rem;
+  font-size: 0.875rem; }
 
 .searching-location {
   display: inline-block;
@@ -7245,6 +7248,7 @@ article.updates h3 {
 article.updates ul {
   list-style-type: none; }
 article.updates ul.updates-list {
+  margin-left: 0;
   list-style-type: none; }
   article.updates ul.updates-list > li {
     position: relative;
