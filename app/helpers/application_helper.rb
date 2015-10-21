@@ -1,5 +1,13 @@
 module ApplicationHelper
 
+  def user_links(users)
+    if users.present?
+      users.collect { |u| link_to u.name.gsub('(sustrans)',''), user_path(u) }.to_sentence.html_safe
+    else
+      'none'
+    end
+  end
+
   def strip_markdown(text)
     strip_tags(render_markdown(text))
   end

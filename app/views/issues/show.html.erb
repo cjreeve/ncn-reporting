@@ -90,6 +90,12 @@
           </body>
         </table>
 
+        <section class="issue-contacts">
+          <h5>Route Contacts</h5>
+          <b>Staff:</b> <%= user_links @staff_route_managers %> </br>
+          <b><%= "Ranger".pluralize(@ranger_route_managers.count) %>:</b> <%= user_links @ranger_route_managers %>
+        </section>
+
       </div>
       <div class='medium-6 columns'>
         
