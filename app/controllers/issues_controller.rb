@@ -55,15 +55,19 @@ class IssuesController < ApplicationController
 
     # TODO: find a better way to do this search
 
-    all_route_section_managers = ((User.joins(:areas).where(areas: {id: @issue.area.id}) -
-                                  User.joins(:routes).where.not(routes: {id: @issue.route.id}) +
-                                  (User.joins(:routes).where(routes: {id: @issue.route.id}) -
-                                  User.joins(:areas).where.not(areas: {id: @issue.area.id}))) +
-                                  User.joins(:areas).joins(:routes).where(routes: {id: @issue.route.id},
-                                    areas: {id: @issue.area.id})).uniq
+    if @issue.area && @issue.route
+      all_route_section_managers = ((User.joins(:areas).where(areas: {id: @issue.area.id}) -
+                                    User.joins(:routes).where.not(routes: {id: @issue.route.id}) +
+                                    (User.joins(:routes).where(routes: {id: @issue.route.id}) -
+                                    User.joins(:areas).where.not(areas: {id: @issue.area.id}))) +
+                                    User.joins(:areas).joins(:routes).where(routes: {id: @issue.route.id},
+                                      areas: {id: @issue.area.id})).uniq
 
-    @staff_route_managers = all_route_section_managers.select { |u| u.role == "staff" }
-    @ranger_route_managers = all_route_section_managers.select { |u| u.role == "ranger" }
+      @staff_route_managers = all_route_section_managers.select { |u| u.role == "staff" }
+      @ranger_route_managers = all_route_section_managers.select { |u| u.role == "ranger" }
+    else
+      @staff_route_managers = @ranger_route_managers = []
+    end
 
   end
 
