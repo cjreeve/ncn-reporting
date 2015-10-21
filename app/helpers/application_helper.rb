@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def strip_markdown(text)
+    strip_tags(render_markdown(text))
+  end
+
   def render_markdown(text)
     if text.present?
       markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)

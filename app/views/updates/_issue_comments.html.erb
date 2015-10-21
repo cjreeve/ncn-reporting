@@ -1,7 +1,7 @@
 <% if issue.comments.present? && (issue.comments.last.updated_at + 7.days) > Time.zone.now %>
   <% if issue.description.present? %>
     <p>
-      <label class='description'>Description:</label> <%= issue.description[0..100] %>
+      <label class='description'>Description:</label> <%= strip_markdown(issue.description)[0..100] %>
       <% if issue.description.length > 100 %>
           …
       <% end %>
