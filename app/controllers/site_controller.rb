@@ -1,4 +1,6 @@
 class SiteController < ApplicationController
+  load_and_authorize_resource
+  
   def notifications
     counter_array = []
     user_routes = current_user.routes.to_a

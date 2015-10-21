@@ -20,6 +20,8 @@ class Ability
       can :manage, Comment
       can :manage, Page
       can :manage, Label
+      can :manage, Site
+      can :read, Update
     end
 
     if user.role == "ranger"
@@ -33,6 +35,8 @@ class Ability
       can :manage, Comment, user_id: user.id
       can :manage, Page
       can :read, Label
+      can :manage, Site
+      can :read, Update
     end
 
     if user.role == "volunteer"
@@ -42,6 +46,8 @@ class Ability
       can :update, User, id: user.id
       can :manage, Comment, user_id: user.id
       can :manage, Page
+      can :manage, Site
+      can :read, Update
     end
 
 
