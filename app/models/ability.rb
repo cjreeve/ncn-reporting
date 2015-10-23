@@ -18,7 +18,9 @@ class Ability
       can :read, User
       can :update, User, id: user.id
       can :manage, Comment
-      can :manage, Page
+      can :manage, Page, role: ["volunteer", "ranger", "staff"]
+      can :create, Page
+      can :read, Page
       can :manage, Label
       can :manage, Site
       can :read, Update
@@ -33,7 +35,8 @@ class Ability
       can :read, User
       can :manage, User, id: user.id
       can :manage, Comment, user_id: user.id
-      can :manage, Page
+      can :manage, Page, role: ["volunteer", "ranger"]
+      can :read, Page
       can :read, Label
       can :manage, Site
       can :read, Update
@@ -45,7 +48,8 @@ class Ability
       can :read, User
       can :update, User, id: user.id
       can :manage, Comment, user_id: user.id
-      can :manage, Page
+      can :manage, Page, role: "volunteer"
+      can :read, Page
       can :manage, Site
       can :read, Update
     end

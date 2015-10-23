@@ -5,8 +5,13 @@
     <%= f.input :name %>
     <%= f.input :slug %>
     <%= f.input :content, input_html: { rows: 10 } %>
-    <% if current_user.role == "admin" %>
-      <%= f.collection_select :role, User::ROLES - ["locked"], :to_s, :humanize %>
+    <% unless current_user.role == "volunteer" %>
+      <%
+        exclusions = ["locked"]
+        exclusions += ["admin"] if current_user.role == "staff"
+        exclusions += ["admin", "staff"] if current_user.role == "ranger"
+      %>
+      <%= f.collection_select :role, User::ROLES - exclusions, :to_s, :humanize %>
     <% end %>
   </div>
 

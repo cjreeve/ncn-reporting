@@ -23,6 +23,7 @@ class PagesController < ApplicationController
 
   def create
     @page = Page.new(page_params)
+    @page.role = current_user.role unless @page.role.present?
     @page.save
     respond_with(@page)
   end
