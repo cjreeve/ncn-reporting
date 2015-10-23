@@ -13,11 +13,18 @@
 
         <tbody>
           <% @problems.each do |problem| %>
+          <% has_issues = problem.issues.limit(1).present? %>
             <tr>
-              <td><%= problem.name %></td>
+              <td>
+                <% if has_issues %>
+                  <%= link_to problem.name, issues_path(problem: problem.id, state: :all) %>
+                <% else %>
+                  <%= problem.name %>
+                <% end %>
+              </td>
               <td><%= link_to 'Show', problem %></td>
               <td><%= link_to 'Edit', edit_problem_path(problem) %></td>
-              <td><%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><%= link_to '×', problem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             </tr>
           <% end %>
         </tbody>

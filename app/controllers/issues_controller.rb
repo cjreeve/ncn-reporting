@@ -215,6 +215,8 @@ class IssuesController < ApplicationController
     the_params[:region] = params[:region] if params[:region]
     the_params[:user] = params[:user] if params[:user]
     the_params[:label] = params[:label] if params[:label]
+    the_params[:category] = params[:category] if params[:category]
+    the_params[:problem] = params[:problem] if params[:problem]
     the_params.merge!(new_params)
   end
 
@@ -286,7 +288,11 @@ class IssuesController < ApplicationController
     administrative_area_ids = params[:region].split('.').collect{ |id| id.to_i } if params[:region]
     user_ids = params[:user].split('.').collect{ |id| id.to_i } if params[:user]
     label_ids = params[:label].split('.').collect{ |id| id.to_i } if params[:label]
+    category_ids = params[:category].split('.').collect{ |id| id.to_i } if params[:category]
+    problem_ids = params[:problem].split('.').collect{ |id| id.to_i } if params[:problem]
 
+    options[:category] = category_ids if params[:category]
+    options[:problem] = problem_ids if params[:problem]
     options[:route] = route_ids if params[:route] && params[:route] != "all"
     options[:area] = area_ids if params[:area] && params[:area] != "all"
     options[:administrative_area] = administrative_area_ids if params[:region] && params[:region] != "all"

@@ -187,6 +187,8 @@ module ApplicationHelper
     the_params[:region] = params[:region] if params[:region]
     the_params[:user] = params[:user] if params[:user]
     the_params[:label] = params[:label] if params[:label]
+    the_params[:category] = params[:category] if params[:category]
+    the_params[:problem] = params[:problem] if params[:problem]
     the_params.merge!(new_params)
   end
 
