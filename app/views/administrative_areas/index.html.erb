@@ -16,13 +16,24 @@
 
         <tbody>
           <% @administrative_areas.each do |administrative_area| %>
+          <% has_issues = administrative_area.issues.limit(1).present? %>
             <tr>
-              <td><%= administrative_area.name %></td>
+              <td>
+                <% if has_issues %>
+                  <%= link_to administrative_area.name, issues_path(region: administrative_area.id, state: :all) %>
+                <% else %>
+                  <%= administrative_area.name %>
+                <% end %>
+              </td>
               <td><%= administrative_area.short_name %></td>
               <td><%= administrative_area.area.name if administrative_area.area %></td>
               <td><%= link_to 'Show', administrative_area %></td>
               <td><%= link_to 'Edit', edit_administrative_area_path(administrative_area) %></td>
-              <td><%= link_to 'Destroy', administrative_area, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td>
+                <% unless has_issues %>
+                  <%= link_to '×', administrative_area, method: :delete, data: { confirm: 'Are you sure you want to delete this?' } %>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </tbody>
@@ -31,7 +42,7 @@
       <%= link_to 'New Administrative area', new_administrative_area_path %>
       <br>
       <br>
-      <%= link_to '< back to control panel', controls_path %>
+      <%= link_to '◂ back to control panel', controls_path %>
     </div>
   </div>
 </article>
