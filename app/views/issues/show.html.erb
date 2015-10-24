@@ -6,14 +6,14 @@
 
     
 
-    <%#= link_to '◄ back to index', issues_path(the_params(params)), class: 'back-to-index' %>
+    <%#= link_to '◄ back to index', issues_path(filter_params(params)), class: 'back-to-index' %>
 
     <div class='row'>
       <div class='medium-6 columns'>
         <div class='issue-title-and-nav'>
           <%= 
             if @prev_issue_id
-              link_to issue_path(the_params(params, {id: @prev_issue_id})) do
+              link_to issue_path(filter_params(params, {id: @prev_issue_id})) do
                 image_tag 'icons/arrow-large-left-blue.svg', title: 'previous issue', alt: '<'
               end
             else
@@ -23,7 +23,7 @@
           <h1>Issue <%= @issue.issue_number %></h1>
           <%= 
             if @next_issue_id
-              link_to issue_path(the_params(params, {id: @next_issue_id})) do
+              link_to issue_path(filter_params(params, {id: @next_issue_id})) do
                 image_tag 'icons/arrow-large-right-blue.svg', title: 'next issue', alt: '>'
               end
             else
@@ -241,9 +241,9 @@
 
       <div class='show-closed-issues-link'>
         <% if params['incl_closed'].present? %>
-          <%= link_to 'exclude closed issues', issue_path(the_params(params, {id: @issue})) %>
+          <%= link_to 'exclude closed issues', issue_path(filter_params(params, {id: @issue})) %>
         <% else %>
-          <%= link_to 'include closed issues', issue_path(the_params(params, {id: @issue, incl_closed: true})) %>
+          <%= link_to 'include closed issues', issue_path(filter_params(params, {id: @issue, incl_closed: true})) %>
         <% end %>
       </div>
       <br><br>

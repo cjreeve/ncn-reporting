@@ -4,7 +4,7 @@
 
         <h1>Editing issue</h1>
 
-        <%= simple_form_for @issue, url: issue_path(the_params(params, { id: @issue.id })) do |f| %>
+        <%= simple_form_for @issue, url: issue_path(filter_params(params, { id: @issue.id })) do |f| %>
           <%= render 'form', f: f %>
         <% end %>
 

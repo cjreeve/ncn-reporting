@@ -171,24 +171,14 @@ module ApplicationHelper
     direction = params[:dir]
     content_tag(
       :th,
-      tab_link(tab_name, order, current_order, direction, the_params(params)),
+      tab_link(tab_name, order, current_order, direction, filter_params(params)),
       class: 'tab ' + (params[:order] == order ? 'selected' : ''),
       title: 'Sort by ' + tab_title
     )
   end
 
-  def the_params(params, new_params = {})
-    the_params = {}
-    the_params[:dir] = params[:dir] if params[:dir]
-    the_params[:order] = params[:order] if params[:order]
-    the_params[:route] = params[:route] if params[:route]
-    the_params[:area] = params[:area] if params[:area]
-    the_params[:state] = params[:state] if params[:state]
-    the_params[:region] = params[:region] if params[:region]
-    the_params[:user] = params[:user] if params[:user]
-    the_params[:label] = params[:label] if params[:label]
-    the_params[:category] = params[:category] if params[:category]
-    the_params[:problem] = params[:problem] if params[:problem]
+  def filter_params(params, new_params = {})
+    the_params = params.permit(Rails.application.config.filter_params)
     the_params.merge!(new_params)
   end
 

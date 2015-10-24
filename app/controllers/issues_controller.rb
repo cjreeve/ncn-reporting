@@ -95,7 +95,7 @@ class IssuesController < ApplicationController
     @issue.images.each { |image| image.url = image.src_identifier if image.src.present? }
     @issue.images.build # << Image.new #unless @issue.images.present?
     @labels = Label.all.order(:name)
-    return render the_params(params, action: 'edit')
+    return render filter_params(params, action: 'edit')
   end
 
   # POST /issues
@@ -125,7 +125,7 @@ class IssuesController < ApplicationController
     @issue.editor = current_user if current_user
     respond_to do |format|
       if @issue.update(issue_params)
-        format.html { redirect_to issue_path(the_params(params)), notice: 'Issue was successfully updated.' }
+        format.html { redirect_to issue_path(filter_params(params)), notice: 'Issue was successfully updated.' }
         format.json { render :show, status: :ok, location: @issue }
       else
         @routes = Route.all.order(:name)
@@ -136,7 +136,7 @@ class IssuesController < ApplicationController
         @problems = {}
         @categories.each { |c| @problems[c.id] = c.problems }
         @issue.images << Image.new unless @issue.images.present? && @issue.images.last.url.present? && @issue.images.last.caption.present?
-        format.html { return render the_params(params, action: 'edit') }
+        format.html { return render filter_params(params, action: 'edit') }
         format.json { render json: @issue.errors, status: :unprocessable_entity }
       end
     end
@@ -198,27 +198,11 @@ class IssuesController < ApplicationController
         return redirect_to issue_path, alert: "Invalid progress request"
       end
     end
-    redirect_to issue_path(the_params(params))
+    redirect_to issue_path(filter_params(params))
   end
 
 
   private
-
-
-  def the_params(params, new_params = {})
-    the_params = {}
-    the_params[:dir] = params[:dir] if params[:dir]
-    the_params[:order] = params[:order] if params[:order]
-    the_params[:route] = params[:route] if params[:route]
-    the_params[:area] = params[:area] if params[:area]
-    the_params[:state] = params[:state] if params[:state]
-    the_params[:region] = params[:region] if params[:region]
-    the_params[:user] = params[:user] if params[:user]
-    the_params[:label] = params[:label] if params[:label]
-    the_params[:category] = params[:category] if params[:category]
-    the_params[:problem] = params[:problem] if params[:problem]
-    the_params.merge!(new_params)
-  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_issue
