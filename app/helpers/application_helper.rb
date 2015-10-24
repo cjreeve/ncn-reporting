@@ -1,5 +1,10 @@
 module ApplicationHelper
 
+  def can_do?(user, terms)
+     terms.include?(user.role) ||
+     (terms.include?("admin") && user.is_admin?)
+  end
+
   def user_links(users)
     if users.present?
       users.collect { |u| link_to u.name.gsub('(sustrans)',''), user_path(u) }.to_sentence.html_safe

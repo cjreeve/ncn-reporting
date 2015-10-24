@@ -81,7 +81,7 @@
           <% end %>
         </ul>
       </li>
-      <% if %w{ ranger staff admin }.include? current_user.role %>
+      <% if can_do? current_user, "ranger staff admin" %>
         <li class='hide-for-medium-only'>
           <a href="#" class="button select" data-dropdown="labelSelection" aria-controls="labelSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_label ? @current_label.name + " ▼" : "labels ▼" %></a>
           <ul id="labelSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
