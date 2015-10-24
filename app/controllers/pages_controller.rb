@@ -45,9 +45,6 @@ class PagesController < ApplicationController
   def controls
   end
 
-  def welcome
-  end
-
   def main
     @page = Page.find_or_create_by(slug: 'welcome')
     if @page.content.blank? || @page.name.blank?

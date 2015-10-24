@@ -13,6 +13,16 @@
           <tr>
             <td>Role:</td><td><%= @user.role %></td>
           </tr>
+          <% if @user.is_admin? %>
+            <tr>
+              <td></td><td>administrator</td>
+            </tr>
+          <% end %>
+          <% if @user.is_locked? %>
+            <tr>
+              <td></td><td><b>account is locked</b></td>
+            </tr>
+          <% end %>
           <tr>
             <td>Created:</td><td><%= @user.created_at.strftime("%d %b %Y - %H:%M") %></td>
           </tr>

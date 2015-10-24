@@ -34,14 +34,24 @@
 # end
 
 
+User.where(role: 'admin').each do |u|
+  u.is_admin = true
+  u.role = 'coordinator'
+  u.save
+end
 
-Route.all.each do |route|
-  route.slug = route.name.parameterize
-  route.save
+User.where(role: 'locked').each do |u|
+  u.is_locked = true
+  u.role = 'volunteer'
+  u.save
 end
 
 
 
+# Route.all.each do |route|
+#   route.slug = route.name.parameterize
+#   route.save
+# end
 
 
 # Issue.all.each do | issue |
@@ -54,7 +64,8 @@ end
 
 # u = User.find_or_create_by(email: 'cjreeve@gmail.com')
 # u.name = "Christopher Reeve"
-# u.role = "admin"
+# u.is_admin = true
+# u.role = "volunteer"
 # u.password = 'asdfasdf'
 # u.save
 # u = User.find_or_create_by(email: 'admin@sustrans.org.uk')

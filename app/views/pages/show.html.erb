@@ -23,7 +23,9 @@
         <%= @page.role %>
       </p>
 
-      <%= link_to 'Edit', edit_page_path(@page) %> |
+      <% if can? :edit, @page %>
+        <%= link_to 'Edit', edit_page_path(@page) %> |
+      <% end %>
       <%= link_to 'Index', pages_path %> |
       <%= link_to 'View page >', view_page_path(@page.slug) %>
     </div>

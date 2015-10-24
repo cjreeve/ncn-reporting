@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  ROLES = %w[admin staff ranger volunteer locked]
+  ROLES = %w[staff coordinator ranger volunteer]
 
   has_many :issues
   has_many :comments

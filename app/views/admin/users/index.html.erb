@@ -10,6 +10,8 @@
           <tr>
             <td>Name</td>
             <td>Role</td>
+            <td></td>
+            <td></td>
             <td>Email</td>
             <td>Active</td>
             <td> </td>
@@ -20,6 +22,8 @@
             <tr>
               <td><%= link_to user.name, admin_user_path(user) %></td>
               <td><%= user.role %></td>
+              <td><%= user.is_admin ? 'admin' : '' %>
+              <td><%= user.is_locked ? 'locked' : '' %>
               <td><%= user.email %></td>
               <td>
                 <% if user.current_sign_in_at %>

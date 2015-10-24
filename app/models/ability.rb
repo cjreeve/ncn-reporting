@@ -5,9 +5,9 @@ class Ability
 
     user ||= User.new
 
-    can :manage, :all if user.role == "admin"
+    can :manage, :all if user.is_admin? && !user.is_locked?
 
-    if user.role == "staff"
+    if (user.role == "staff") && !user.is_locked?
       can :manage, Issue
       can :manage, Area
       can :manage, Category
@@ -26,7 +26,7 @@ class Ability
       can :read, Update
     end
 
-    if user.role == "ranger"
+    if %w{coordinator ranger}.include?(user.role) && !user.is_locked?
       can [:read, :create, :edit, :update, :progress], Issue
       can [:destroy], Issue, user_id: user.id
       can :read, Category
@@ -42,7 +42,7 @@ class Ability
       can :read, Update
     end
 
-    if user.role == "volunteer"
+    if (user.role == "volunteer") && !user.is_locked?
       can [:read, :create, :edit, :update, :progress], Issue
       can [:destroy], Issue, user_id: user.id
       can :read, User
@@ -54,6 +54,7 @@ class Ability
       can :read, Update
     end
 
+    can :manage, Site
 
     # Define abilities for the passed in user here. For example:
     #

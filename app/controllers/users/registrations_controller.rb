@@ -40,8 +40,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     def allowed_user_paramn
       new_user_params = [:name, route_ids: [], area_ids: []]
-      if current_user.role == "admin"
-        return new_user_params + [:role]
+      if current_user.is_admin? && !current_user.is_locked?
+        return new_user_params + [:role, :is_admin, :is_locked]
       else
         return new_user_params
       end

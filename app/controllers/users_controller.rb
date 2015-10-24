@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.where.not(role: 'locked').order("lower(name) ASC")
+    @users = User.where(is_locked: false).order("lower(name) ASC")
   end
 
   private

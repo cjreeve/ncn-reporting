@@ -9,8 +9,8 @@ class ApplicationController < ActionController::Base
     account_locked = nil
 
     if user_session
-      if current_user.role == 'locked'
-        reset_session
+      if current_user.is_locked?
+        sign_out current_user
         account_locked = "this account has been locked"
       end
       redirect_url_ = '/'

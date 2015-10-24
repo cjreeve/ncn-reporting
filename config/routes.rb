@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   authenticated :user do
     root to: 'issues#index'
   end
-  get '/' => 'pages#welcome'
+  get '/' => 'site#welcome'
 
   resources :issues do
     member do

@@ -55,11 +55,13 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    permitted_params = params.require(:user).permit(:name, :email, :password, :role, route_ids: [], area_ids: [])
+    param_keys = [:name, :email, :password, route_ids: [], area_ids: []]
+    param_keys += [:role, :is_admin, :is_locked] if current_user.is_admin?
+    permitted_params = params.require(:user).permit(param_keys)
   end
 
   def check_authorisation
-    unless current_user.role == "admin"
+    unless current_user.is_admin?
       redirect_to '/', notice: 'You are not authorised to view that page'
     end
   end

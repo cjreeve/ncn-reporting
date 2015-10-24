@@ -47,7 +47,7 @@ class IssuesController < ApplicationController
     @issues = Issue.where(route: @issue.route, area: @issue.area).order('lng DESC').where.not(exclusion_options)
     @issue_labels_count = @issue.labels.count
 
-    if (current_user && (current_user.role == "admin" || current_user.role == "staff" || current_user == @issue.user))
+    if (current_user && (current_user.is_admin? || current_user.role == "staff" || current_user == @issue.user))
       authorize! :destroy, @issue
     end
 
@@ -146,7 +146,7 @@ class IssuesController < ApplicationController
   # DELETE /issues/1.json
   def destroy
 
-    if (current_user && (current_user.role == "admin" || current_user.role == "staff" || current_user == @issue.user))
+    if (current_user && (current_user.is_admin? || current_user.role == "staff" || current_user == @issue.user))
       authorize! :destroy, @issue
     end
 

@@ -1,6 +1,9 @@
 class SiteController < ApplicationController
-  load_and_authorize_resource
-  
+  # load_and_authorize_resource
+
+  def welcome
+  end
+
   def notifications
     counter_array = []
     user_routes = current_user.routes.to_a
@@ -22,7 +25,7 @@ class SiteController < ApplicationController
 
 
     @user_submitted_issue_count = 0
-    if %w{ranger admin}.include?(current_user.role) && has_routes
+    if (current_user.role == "ranger" || current_user.is_admin?) && has_routes
       @user_submitted_issue_count = Issue.where(state: 'submitted', route: user_routes, area: user_areas).count
     end
     counter_array << @user_submitted_issue_count
@@ -30,7 +33,7 @@ class SiteController < ApplicationController
 
 
     @user_resolved_issue_count = 0
-    if %w{ranger admin}.include?(current_user.role) && has_routes
+    if (current_user.role == "ranger" || current_user.is_admin?) && has_routes
       @user_resolved_issue_count = Issue.where(state: 'resolved', route: user_routes, area: user_areas).count
     end
     counter_array << @user_resolved_issue_count
@@ -38,7 +41,7 @@ class SiteController < ApplicationController
 
     @open_for_sustrans_count = 0
     @open_for_council_count = 0
-    if %w{ staff admin }.include? current_user.role
+    if (current_user.role == "staff" || current_user.is_admin?)
       if user_routes.present? && user_areas.present?
         @open_for_sustrans_count = Issue.joins(:labels).where(labels: {name: 'sustrans'}, state: ["open", "reopened"], route: user_routes, area: user_areas).uniq.count
         @open_for_council_count = Issue.joins(:labels).where(labels: {name: 'council'}, state: ["open", "reopened"], route: user_routes, area: user_areas).uniq.count
