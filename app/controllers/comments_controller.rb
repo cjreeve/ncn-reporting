@@ -24,7 +24,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @new_comment = Comment.new
-    @comments = Comment.where(issue: @comment.issue)
+    @comments = Comment.where(issue: @comment.issue).order(created_at: :asc)
     @issue = @comment.issue
 
     respond_to do |format|
