@@ -30,7 +30,11 @@ class IssuesController < ApplicationController
     @current_state = (params[:state].present? && @states.include?(params[:state].to_sym)) ? params[:state] : nil
     @current_state = "all states" if params[:state] == "all"
     @current_administrative_area = (params[:region].present? && @administrative_areas.collect(&:id).include?(params[:region].to_i)) ? AdministrativeArea.find(params[:region].to_i) : nil
-    @current_label = Label.find(params[:label]) if params[:label]
+    if params[:label] == "undefined"
+       @current_label = Label.new(name: "undefined")
+    elsif params[:label]
+      @current_label = Label.find(params[:label])
+    end
 
     respond_to do |format|
       format.html
@@ -225,6 +229,13 @@ class IssuesController < ApplicationController
 
   def load_issues
 
+    options = {}
+    exclusions = {}
+    joined_options = {}
+    include_tables = []
+    joined_tables = []
+    joined_order = nil
+
     if params[:format] == 'csv' || params[:format] == 'gpx'
       per_page = Issue.count
     else
@@ -250,8 +261,6 @@ class IssuesController < ApplicationController
       direction = :desc
     end
 
-    joined_tables = []
-    joined_order = nil
     if params[:order] == 'category'
       joined_tables << :category
       joined_order = "categories.name #{ direction.to_s }"
@@ -260,18 +269,18 @@ class IssuesController < ApplicationController
       joined_order = "routes.name #{ direction.to_s }"
     end
 
-      
-
-    options = {}
-    exclusions = {}
-    joined_options = {}
-
     states = Issue.state_machine.states.collect(&:name)
     route_ids = params[:route].split('.').collect{ |r| Route.find_by_slug(r).try(:id) } if params[:route]
     area_ids = params[:area].split('.').collect{ |id| id.to_i } if params[:area]
     administrative_area_ids = params[:region].split('.').collect{ |id| id.to_i } if params[:region]
     user_ids = params[:user].split('.').collect{ |id| id.to_i } if params[:user]
-    label_ids = params[:label].split('.').collect{ |id| id.to_i } if params[:label]
+
+    if params[:label] == "undefined"
+      label_ids = nil
+    elsif params[:label]
+      label_ids = params[:label].split('.').collect{ |id| id.to_i }
+    end
+
     category_ids = params[:category].split('.').collect{ |id| id.to_i } if params[:category]
     problem_ids = params[:problem].split('.').collect{ |id| id.to_i } if params[:problem]
 
@@ -293,17 +302,17 @@ class IssuesController < ApplicationController
 
     options[:user_id] = current_user.id if options[:state] == 'draft'
 
+    # Issue.includes(:labels).where(labels: {id: nil})
     joined_options[:labels] = {id: label_ids} if params[:label]
-    joined_tables << :labels if params[:label]
+    include_tables << :labels if params[:label]
 
     joined_tables = nil unless joined_tables.present?
-
 
     # binding.pry
 
     case params["action"]
     when "index"
-      @issues = Issue.joins(joined_tables).where(options).where(joined_options).where.not(exclusions).order(joined_order).order(order => direction).paginate(page: params[:page], per_page: per_page)
+      @issues = Issue.joins(joined_tables).includes(include_tables).where(options).where(joined_options).where.not(exclusions).order(joined_order).order(order => direction).paginate(page: params[:page], per_page: per_page)
     when "show"
       @next_issue_id = Issue.joins(joined_tables).where(options).where(joined_options).where.not(exclusions).order('issues.id ASC').where('issues.id > ?', params["id"]).limit(1).first.try(:id)
       @prev_issue_id = Issue.joins(joined_tables).where(options).where(joined_options).where.not(exclusions).order('issues.id DESC').where('issues.id < ?', params["id"]).limit(1).first.try(:id)

@@ -97,6 +97,11 @@
                 </li>
               <% end %>
             <% end %>
+            <% unless @current_label && @current_label.name == "undefined" %>
+              <li>
+                <%= link_to "undefined", issues_path(filter_params(params, {label: "undefined"})) %>
+              </li>
+            <% end %>
           </ul>
         </li>
       <% end %>
