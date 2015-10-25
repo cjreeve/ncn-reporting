@@ -1,0 +1,11 @@
+<a data-dropdown="beta" aria-controls="beta" aria-expanded="false" data-options="is_hover:true; hover_timeout:500">β</a>
+<div id="beta" data-dropdown-content class="f-dropdown content" aria-hidden="true" tabindex="-1">
+  <b>beta</b>
+  <p>This site is being developed by Sustrans volunteers to more easily maintain the Nation Cycle Network.</p>
+
+  <% if user.present? %>
+    <p>
+      Please contact Chris on <%= mail_to 'cjreeve@gmail.com' %> if you think you have found a bug or have any questions.
+    </p>
+  <% end %>
+</div>
