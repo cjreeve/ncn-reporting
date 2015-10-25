@@ -57,18 +57,18 @@ class IssuesController < ApplicationController
 
     @new_comment = Comment.new
 
-    # TODO: find a better way to do this search
-
     if @issue.area && @issue.route
-      all_route_section_managers = ((User.joins(:areas).where(areas: {id: @issue.area.id}) -
-                                    User.joins(:routes).where.not(routes: {id: @issue.route.id}) +
-                                    (User.joins(:routes).where(routes: {id: @issue.route.id}) -
-                                    User.joins(:areas).where.not(areas: {id: @issue.area.id}))) +
-                                    User.joins(:areas).joins(:routes).where(routes: {id: @issue.route.id},
-                                      areas: {id: @issue.area.id})).uniq
 
-      @staff_route_managers = all_route_section_managers.select { |u| u.role == "staff" }
-      @ranger_route_managers = all_route_section_managers.select { |u| u.role == "ranger" }
+      # two searches are added together to allow for any routes none are selected and the area is selected
+      # and visa versa
+      all_route_section_managers = User.includes(:areas, :routes).where(
+        areas: {id: [nil, @issue.area.try(:id)]}, routes: {id: @issue.route.try(:id)}
+      ) + User.includes(:areas, :routes).where(
+        areas: {id: @issue.area.try(:id)}, routes: {id: [nil, @issue.route.try(:id)]}
+      )
+
+      @staff_route_managers = all_route_section_managers.select{ |u| u.role == "staff" }.uniq
+      @ranger_route_managers = all_route_section_managers.select{ |u| u.role == "ranger" }.uniq
     else
       @staff_route_managers = @ranger_route_managers = []
     end
