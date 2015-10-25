@@ -6850,6 +6850,18 @@ header {
   position: relative;
   background-color: #33aefb;
   border-bottom: 0.0625rem solid #aaa; }
+  header a[data-dropdown="beta"] {
+    position: absolute;
+    top: 0;
+    left: 0.3125rem; }
+  header #beta {
+    background-color: rgba(240, 240, 255, 0.95);
+    color: #888; }
+    header #beta a {
+      color: #888; }
+    header #beta p {
+      line-height: 1.3;
+      font-size: 0.75rem; }
   header .user-controls {
     color: white; }
     header .user-controls #controls-cog {
