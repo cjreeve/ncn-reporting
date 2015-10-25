@@ -1,0 +1,7 @@
+<li class="<%= updated_summary(page[1]) %>">
+  <div class='update-header'><%= updated_at_human page[1] %></div>
+  Page <%= link_to page[2], view_page_path(slug: page[0]) %>
+  <span class="commentor">
+    &mdash; updated at <%= page[1].strftime("%H:%M %d-%b-%Y") %>
+  </span>
+</li>

@@ -7,6 +7,11 @@
       <br>
       <ul class='updates-list'>
         <% @issues.each do |issue| %>
+
+          <% if @page_ids_and_update_times.present? && @page_ids_and_update_times.last[1] > issue.updated_at %>
+            <%= render 'page_update', page:  @page_ids_and_update_times.pop %>
+          <% end %>
+
           <% if (issue.updated_at - issue.edited_at).abs < 0.5 &&
                 (issue.reported_at.blank? || (issue.edited_at - issue.reported_at).abs > 3600) &&
                 (issue.completed_at.blank? || (issue.edited_at - issue.completed_at).abs > 3600)

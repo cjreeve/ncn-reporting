@@ -28,38 +28,50 @@ module ApplicationHelper
   end
 
   def updated_at_human(object)
-    if object.updated_at > Time.now - 1.minute
-      'just now'
-    elsif object.updated_at > Time.now - 5.minute
-      'less than 5 minutes ago'
-    elsif object.updated_at > Time.now - 10.minute
-      'less than 10 minutes ago'
-    elsif object.updated_at > Time.now - 15.minute
-      'in the last 15 minutes'
-    elsif object.updated_at > Time.now - 30.minute
-      'in the last 30 minutes'
-    elsif object.updated_at > Time.now - 1.hour
-      'in the last hour'
-    elsif object.updated_at > Time.now - 4.hour
-      'in the last few hours'
-    elsif object.updated_at.today?
-      'today'
-    elsif (object.updated_at - 1.day).today?
-      'yesterday'
-    elsif object.updated_at > Time.now - 1.year
-      object.updated_at.strftime("%a %d %b")
+    if object && object.try(:updated_at)
+      the_time = object.updated_at
     else
-      object.updated_at.strftime("%a %d %b %Y")
+      the_time = object
+    end
+
+    if the_time > Time.now - 1.minute
+      'just now'
+    elsif the_time > Time.now - 5.minute
+      'less than 5 minutes ago'
+    elsif the_time > Time.now - 10.minute
+      'less than 10 minutes ago'
+    elsif the_time > Time.now - 15.minute
+      'in the last 15 minutes'
+    elsif the_time > Time.now - 30.minute
+      'in the last 30 minutes'
+    elsif the_time > Time.now - 1.hour
+      'in the last hour'
+    elsif the_time > Time.now - 4.hour
+      'in the last few hours'
+    elsif the_time.today?
+      'today'
+    elsif (the_time - 1.day).today?
+      'yesterday'
+    elsif the_time > Time.now - 1.year
+      the_time.strftime("%a %d %b")
+    else
+      the_time.strftime("%a %d %b %Y")
     end
   end
 
 
   def updated_summary(object)
-    if object.updated_at > (Time.now - 1.hour)
+    if object && object.try(:updated_at)
+      the_time = object.updated_at
+    else
+      the_time = object
+    end
+
+    if the_time > (Time.now - 1.hour)
       'recently'
-    elsif object.updated_at.today?
+    elsif the_time.today?
       'today'
-    elsif (object.updated_at+1.day).today?
+    elsif (the_time+1.day).today?
       'yesterday'
     end
   end

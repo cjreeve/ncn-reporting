@@ -2,8 +2,10 @@ class UpdatesController < ApplicationController
     load_and_authorize_resource
 
   def show
+    time_ago = Time.zone.now - 10.days
 
-    @issues = Issue.where('updated_at > ?', Time.zone.now - 10.days).order('updated_at DESC').includes(:comments)
+    @issues = Issue.where('updated_at > ?', time_ago).order('updated_at DESC').includes(:comments)
+    @page_ids_and_update_times = Page.where('updated_at > ?', time_ago).order('updated_at ASC').pluck(:slug, :updated_at, :name)
 
   end
 end
