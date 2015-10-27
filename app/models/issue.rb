@@ -133,9 +133,11 @@ class Issue < ActiveRecord::Base
 
   def the_editor
     if self.editor
-      self.editor
+      editor = self.editor
+    elsif self.user
+      editor = self.user
     else
-      self.user
+      User.new(name: '(unknown)')
     end
   end
 

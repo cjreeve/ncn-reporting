@@ -1,2 +1,3 @@
-<%= link_to issue.the_editor.name, user_path(issue.the_editor) %>
+<% path_to_user = issue.the_editor.id ? user_path(issue.the_editor) : nil %>
+<%= link_to_if issue.the_editor.id, issue.the_editor.name, path_to_user %>
 at&nbsp;<%= issue.updated_at.strftime("%H:%M") %>&nbsp;<%= issue.updated_at.strftime("%d-%b-%Y") %>
