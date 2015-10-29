@@ -6885,8 +6885,6 @@ header {
       background-color: #1aa4fa; }
     header nav.top-bar .top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button) {
       background-color: #4cb8fb; }
-      header nav.top-bar .top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button):hover {
-        background-color: #1aa4fa; }
   header .header-controls {
     display: table;
     width: 100%;
@@ -6929,6 +6927,15 @@ header {
     height: 2.1875rem; }
     header nav.top-bar.main-nav .top-bar-section li:not(.has-form) a:not(.button) {
       line-height: 2.1875rem; }
+    header nav.top-bar.main-nav #updates-tab {
+      position: relative; }
+      header nav.top-bar.main-nav #updates-tab span {
+        position: absolute;
+        top: 1.0625rem;
+        margin-left: 0.25rem;
+        line-height: 0;
+        font-size: 0.625rem;
+        color: white; }
   header .controls-row {
     position: relative; }
     header .controls-row .controls-icon {
@@ -6955,11 +6962,21 @@ header {
     #tubolinks-loader img {
       width: 1.25rem; } }
 
-#notifications ul#nofications-dropdown {
+.site-notifications-small ul.nofications-dropdown, .site-notifications-large ul.nofications-dropdown {
   background-color: #EEF; }
-  #notifications ul#nofications-dropdown li a:hover {
+  .site-notifications-small ul.nofications-dropdown li a:hover, .site-notifications-large ul.nofications-dropdown li a:hover {
     color: #333; }
 
+#site-notifications-small {
+  display: table-cell;
+  padding: 0.5rem 0 0 0.9375rem; }
+  @media only screen and (min-width: 40.0625em) {
+    #site-notifications-small {
+      display: none; } }
+
+@media only screen and (max-width: 40em) {
+  .notification-count-label {
+    display: none; } }
 article.page h2 {
   font-size: 1.875rem; }
 article.page h2 {
