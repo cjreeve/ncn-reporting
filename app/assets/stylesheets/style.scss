@@ -10,6 +10,11 @@ html body{
   h2{
     font-size: rem-calc(25);
   }
+  @media #{$small-only}{
+    h1{
+      font-size: rem-calc(30);
+    }
+  }
 
   a{
     &:hover{
