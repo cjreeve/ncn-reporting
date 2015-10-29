@@ -67,4 +67,13 @@ class SiteController < ApplicationController
     @total_pending_count =  counter_array.sum
     render layout: false
   end
+
+
+  def updates_count
+    last_visit = current_user.visited_updates_at
+    @updates_count = Issue.where('updated_at > ?', last_visit).count
+    @updates_count += Page.where('updated_at > ?', last_visit).count
+    render layout: false
+  end
+
 end

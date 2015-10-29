@@ -58,9 +58,6 @@ header{
     }
     .top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button){
       background-color: lighten($road-sign-blue,25);
-      &:hover{
-        background-color: lighten($road-sign-blue,15);
-      }
     }
   }
   .header-controls{
@@ -121,6 +118,21 @@ header{
     height: rem-calc(35);
     .top-bar-section li:not(.has-form) a:not(.button){
       line-height: rem-calc(35);
+    }
+    #updates-tab{
+      position: relative;
+      span{
+        position: absolute;
+        top: rem-calc(17);
+        // bottom: rem-calc(5);
+        // left: rem-calc(5);
+        // background: $red;
+        // border-radius: rem-calc(3);
+        margin-left: rem-calc(4);
+        line-height: 0;
+        font-size: rem-calc(10);
+        color: white;
+      }
     }
   }
   .controls-row{
