@@ -168,9 +168,8 @@ header{
   }
 }
 
-#notifications{
-  ul#nofications-dropdown{
-    // width: rem-calc(140);
+.site-notifications-small, .site-notifications-large{
+  ul.nofications-dropdown{
     background-color: $very-light-blue;
     li{
       a{
@@ -179,5 +178,22 @@ header{
         }
       }
     }
+  }
+}
+
+#site-notifications-small{
+  display: table-cell;
+  padding: rem-calc(8 0 0 15);
+  @media #{$medium-up}{
+    display: none;
+  }
+  .site-notifications-small{
+
+  }
+}
+
+@media #{$small-only}{
+  .notification-count-label{
+    display: none;
   }
 }

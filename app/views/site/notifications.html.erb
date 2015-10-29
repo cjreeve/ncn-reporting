@@ -83,12 +83,12 @@
 
 
 <% elsif  @number_of_possitive_counters > 1 %>
-  <a data-dropdown="nofications-dropdown" data-options="is_hover:true; hover_timeout:30000">
-    <span class='ncn-style-count'><%= @total_pending_count %></span> notifications
-    &nbsp;&bullet;&nbsp;
+  <a data-dropdown="nofications-dropdown-key" data-options="is_hover:true; hover_timeout:30000">
+    <span class='ncn-style-count'><%= @total_pending_count %></span>
+    <span class="notification-count-label">notifications &nbsp;&bullet;&nbsp; </span>
   </a>
 
-  <ul id="nofications-dropdown" class="f-dropdown" data-dropdown-content>
+  <ul id="nofications-dropdown-key" class="f-dropdown nofications-dropdown" data-dropdown-content>
 
     <%#   DRAFT    %>
     <% if @user_draft_issue_count > 0 %>

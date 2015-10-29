@@ -22,12 +22,16 @@
           <% end %>
         </div>
 
+        <div id="site-notifications-small">
+          <span class='site-notifications-small'> </span>
+        </div>
+
         <div class='user-controls-area'>
           <% if user.present? %>
 
             <div class='user-controls show-for-medium-up'>
 
-              <span id='notifications'> </span>
+              <span class='site-notifications-large'> </span>
 
               <%= link_to current_user.name, user_path(current_user) %>
               &nbsp;&bullet;&nbsp;&nbsp;
