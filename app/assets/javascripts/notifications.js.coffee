@@ -10,9 +10,9 @@ $(document).on 'ready page:load', ->
       success: (data, textStatus, jqXHR) =>
 
         dataSmall = data.replace(/nofications-dropdown-key/g, "nofications-dropdown-small")
-        # dataSmall = dataSmall.replace("<span>notifications</span>", "") # remove notification text
-        # $('.site-notifications-small').html(dataSmall)
-        # $('.site-notifications-small').foundation('dropdown', 'reflow')
+        $('.site-notifications-small').html(dataSmall)
+        $('.site-notifications-small').foundation('dropdown', 'reflow')
+
 
         dataLarge = data.replace(/nofications-dropdown-key/g, "nofications-dropdown-large")
         $('.site-notifications-large').html(dataLarge)
@@ -28,7 +28,8 @@ $(document).on 'ready page:load', ->
         $('#updates-tab span').html(data)
 
 
-    setTimeout(get_notifications, 60000)
+    setTimeout(get_notifications, 120000)
 
 
-  setTimeout(get_notifications, 1)
+  get_notifications()
+  $('.site-notifications-small').foundation('dropdown', 'reflow')

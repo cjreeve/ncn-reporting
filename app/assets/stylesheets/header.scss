@@ -184,7 +184,16 @@ header{
     display: none;
   }
   .site-notifications-small{
-
+    >a{
+      span.ncn-style-count{
+        background: none;
+      }
+      &:hover{
+        span{
+          text-decoration: none;
+        }
+      }
+    }
   }
 }
 
