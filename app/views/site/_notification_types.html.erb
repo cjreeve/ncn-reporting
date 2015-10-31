@@ -1,0 +1,69 @@
+<%#   DRAFT    %>
+<% if @user_draft_issue_count > 0 %>
+  <%= render 'notification_link', link_type: link_type,
+                                  options: {state: 'draft'},
+                                  name: 'draft',
+                                  count: @user_draft_issue_count
+  %>
+<% end %>
+
+<%#   SUBMITTED    %>
+<% if @user_submitted_issue_count > 0 %>
+  <%=
+    { state: 'submitted', route: @user_route_slugs, area: @user_area_ids }
+    render 'notification_link', link_type: link_type,
+                                options: options,
+                                name: 'submitted',
+                                count: @user_submitted_issue_count
+  %>
+<% end %>
+
+<%#   RESOLVED    %>
+<% if @user_resolved_issue_count > 0 %>
+  <%=
+    options = { state: 'resolved', route: @user_route_slugs, area: @user_area_ids }
+    render 'notification_link', link_type: link_type,
+                                options: options,
+                                name: 'resolved',
+                                count: @user_resolved_issue_count
+  %>
+<% end %>
+
+<%#   OWN RESOLVED    %>
+<% if @own_issue_resolved_count > 0 %>
+  <%=
+    options = { state: 'resolved', user: current_user.id }
+    render 'notification_link', link_type: link_type,
+                                options: options,
+                                name: 'own resolved',
+                                count: @own_issue_resolved_count
+  %>
+<% end %>
+
+<%#   OWN UNSOLVABLE    %>
+<% if @own_issue_unsolvable_count > 0 %>
+  <%=
+    options = { state: 'unsolvable', user: current_user.id }
+    render 'notification_link', link_type: link_type,
+                                options: options,
+                                name: 'own unsolvable',
+                                count: @own_issue_unsolvable_count
+  %>
+<% end %>
+
+<%#   OPEN LABEL ISSUES    %>
+<% current_user.labels.each do |label| %>
+  <% label_key = label.name.parameterize.to_sym %>
+  <% if @open_label_count[label_key] > 0 %>
+    <%=
+      options = {state: 'open', label: @label_ids[label_key]}
+      options[:route] = @user_route_slugs if @user_route_slugs.present?
+      options[:area] = @user_area_ids if @user_area_ids.present?
+      options[:label] = @label_ids[label_key]
+      render 'notification_link', link_type: link_type,
+                                  options: options,
+                                  name: label.name,
+                                  count: @open_label_count[label_key]
+    %>
+  <% end %>
+<% end %>

@@ -1,139 +1,15 @@
 <% if @number_of_possitive_counters == 1 %>
 
-
-
-
-  <% if @user_draft_issue_count > 0 %>
-    <%= link_to issues_path(state: 'draft') do %>
-      <span class='ncn-style-count'><%= @user_draft_issue_count %></span> draft
-    <% end %>
-    &nbsp;&bullet;&nbsp;
-  <% end %>
-
-  <% if @user_submitted_issue_count > 0 %>
-    <%= link_to issues_path(state: 'submitted', route: @user_route_slugs, area: @user_area_ids) do %>
-      <span class='ncn-style-count'><%= @user_submitted_issue_count %></span> submitted
-    <% end %>
-    &nbsp;&bullet;&nbsp;
-  <% end %>
-
-  <% if @user_resolved_issue_count > 0 %>
-    <%= link_to issues_path(state: 'resolved', route: @user_route_slugs, area: @user_area_ids) do %>
-      <span class='ncn-style-count'><%= @user_resolved_issue_count %></span> resolved
-    <% end %>
-    &nbsp;&bullet;&nbsp;
-  <% end %>
-
-  <% if @own_issue_resolved_count > 0 %>
-    <%= link_to issues_path(state: 'resolved', user: current_user.id) do %>
-      <span class='ncn-style-count'><%= @own_issue_resolved_count %></span> own resolved
-    <% end %>
-    &nbsp;&bullet;&nbsp;
-  <% end %>
-
-  <% if @own_issue_unsolvable_count > 0 %>
-    <%= link_to issues_path(state: 'unsolvable', user: current_user.id) do %>
-      <span class='ncn-style-count'><%= @own_issue_unsolvable_count %></span> own unsolvable
-    <% end %>
-    &nbsp;&bullet;&nbsp;
-  <% end %>
-
-  <%#   OPEN LABEL ISSUES    %>
-  <% current_user.labels.each do |label| %>
-    <% label_key = label.name.parameterize.to_sym %>
-    <% if @open_label_count[label_key] > 0 %>
-      <%
-        options = {state: 'open', label: @label_ids[label_key]}
-        options[:route] = @user_route_slugs if @user_route_slugs.present?
-        options[:area] = @user_area_ids if @user_area_ids.present?
-        options[:label] = @label_ids[label_key]
-      %>
-
-      <%= link_to issues_path(options) do %>
-        <span class='ncn-style-count'><%= @open_label_count[label_key] %></span> open - <%= label.name %>
-      <% end %>
-      &nbsp;&bullet;&nbsp;
-
-    <% end %>
-  <% end %>
-
-
-
-
+  <%= render 'notification_types', link_type: 'single' %>
 
 <% elsif  @number_of_possitive_counters > 1 %>
+
   <a href="#" data-dropdown="nofications-dropdown-key" aria-controls="nofications-dropdown-key" data-options="is_hover:true; hover_timeout:60000">
     <span class='ncn-style-count'><%= @total_pending_count %></span>
     <span class="notification-count-label">notifications &nbsp;&bullet;&nbsp; </span>
   </a>
-
   <ul id="nofications-dropdown-key" class="f-dropdown nofications-dropdown" data-dropdown-content>
-
-    <%#   DRAFT    %>
-    <% if @user_draft_issue_count > 0 %>
-      <li>
-        <%= link_to issues_path(state: 'draft') do %>
-          <b><%= @user_draft_issue_count %></b> draft <%= 'issue'.pluralize(@user_draft_issue_count) %>
-        <% end %>
-      </li>
-    <% end %>
-
-    <%#   SUBMITTED    %>
-    <% if @user_submitted_issue_count > 0 %>
-      <li>
-        <%= link_to issues_path(state: 'submitted', route: @user_route_slugs, area: @user_area_ids) do %>
-          <b><%= @user_submitted_issue_count %></b> submitted <%= 'issue'.pluralize(@user_submitted_issue_count) %>
-        <% end %>
-      </li>
-    <% end %>
-
-    <%#   RESOLVED    %>
-    <% if @user_resolved_issue_count > 0 %>
-      <li>
-        <%= link_to issues_path(state: 'resolved', route: @user_route_slugs, area: @user_area_ids) do %>
-          <b><%= @user_resolved_issue_count %></b> resolved <%= 'issue'.pluralize(@user_resolved_issue_count) %>
-        <% end %>
-      </li>
-    <% end %>
-
-    <%#   OWN RESOLVED    %>
-    <% if @own_issue_resolved_count > 0 %>
-      <li>
-        <%= link_to issues_path(state: 'resolved', user: current_user.id) do %>
-          <b><%= @own_issue_resolved_count %></b> own resolved <%= 'issue'.pluralize(@own_issue_resolved_count) %>
-        <% end %>
-      </li>
-    <% end %>
-
-    <%#   OWN UNSOLVABLE    %>
-    <% if @own_issue_unsolvable_count > 0 %>
-      <li>
-        <%= link_to issues_path(state: 'unsolvable', user: current_user.id) do %>
-          <b><%= @own_issue_unsolvable_count %></b> own unsolvable <%= 'issue'.pluralize(@own_issue_unsolvable_count) %>
-        <% end %>
-      </li>
-    <% end %>
-
-    <%#   OPEN LABEL ISSUES    %>
-    <% current_user.labels.each do |label| %>
-      <% label_key = label.name.parameterize.to_sym %>
-      <% if @open_label_count[label_key] > 0 %>
-        <%
-          options = {state: 'open', label: @label_ids[label_key]}
-          options[:route] = @user_route_slugs if @user_route_slugs.present?
-          options[:area] = @user_area_ids if @user_area_ids.present?
-          options[:label] = @label_ids[label_key]
-        %>
-
-        <li>
-          <%= link_to issues_path(options) do %>
-            <b><%= @open_label_count[label_key] %></b>
-            open <%= label.name %> <%= 'issue'.pluralize(@open_label_count[label_key]) %>
-          <% end %>
-        </li>
-      <% end %>
-    <% end %>
-
+    <%= render 'notification_types', link_type: 'dropdown' %>
   </ul>
 
 <% end %>

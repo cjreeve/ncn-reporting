@@ -33,7 +33,7 @@ class SiteController < ApplicationController
 
 
     @user_resolved_issue_count = 0
-    if (current_user.role == "ranger" || current_user.is_admin?) && has_routes
+    if (%w{ranger coordinator}.include?(current_user.role) || current_user.is_admin?) && has_routes
       @user_resolved_issue_count = Issue.where(state: 'resolved', route: user_routes, area: user_areas).count
     end
     counter_array << @user_resolved_issue_count

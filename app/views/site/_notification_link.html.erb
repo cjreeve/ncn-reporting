@@ -1,0 +1,12 @@
+<% if link_type == "single" %>
+  <%= link_to issues_path(options) do %>
+    <span class='ncn-style-count'><%= count %></span> <%= name %>
+  <% end %>
+  &nbsp;&bullet;&nbsp;
+<% else %>
+  <li>
+    <%= link_to issues_path(options) do %>
+      <b><%= count %></b> <%= name %> <%= 'issue'.pluralize(count) %>
+    <% end %>
+  </li>
+<% end %>
