@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029195349) do
+ActiveRecord::Schema.define(version: 20151030204803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,6 +158,16 @@ ActiveRecord::Schema.define(version: 20151029195349) do
   end
 
   add_index "routes", ["slug"], name: "index_routes_on_slug", unique: true, using: :btree
+
+  create_table "user_label_selections", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "label_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_label_selections", ["label_id"], name: "index_user_label_selections_on_label_id", using: :btree
+  add_index "user_label_selections", ["user_id"], name: "index_user_label_selections_on_user_id", using: :btree
 
   create_table "user_managed_area_selections", force: true do |t|
     t.integer  "user_id"

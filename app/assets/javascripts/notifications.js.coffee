@@ -28,7 +28,7 @@ $(document).on 'ready page:load', ->
         $('#updates-tab span').html(data)
 
 
-    setTimeout(get_notifications, 120000)
+    setTimeout(get_notifications, 60000)
 
 
   get_notifications()

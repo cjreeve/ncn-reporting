@@ -168,9 +168,14 @@ header{
   ul.nofications-dropdown{
     background-color: $very-light-blue;
     li{
+      &:hover{
+        background-color: darken($very-light-blue, 3);
+      }
       a{
+        font-size: rem-calc(11);
         &:hover{
           color: $black;
+          text-decoration: none;
         }
       }
     }

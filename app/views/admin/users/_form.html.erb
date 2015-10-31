@@ -8,6 +8,7 @@
   <%= f.input :is_locked, label: "locked" %>
   <%= f.association :routes %>
   <%= f.association :areas %>
+  <%= f.association :labels, label: "Label for notification" %>
 
 
   <%= f.input :password, autocomplete: "off", required: false %>

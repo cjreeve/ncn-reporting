@@ -38,46 +38,25 @@
     &nbsp;&bullet;&nbsp;
   <% end %>
 
-  <%#   SUSTRANS    %>
-  <% if @open_for_sustrans_count > 0 %>
-    <% if @user_route_slugs.present? && @user_area_ids.present? %>
-      <% path_to_issues = issues_path(state: 'open', label: @sustrans_label_id,
-                          route: @user_route_slugs, area: @user_area_ids) %>
-    <% elsif @user_area_ids.present? %>
-      <% path_to_issues = issues_path(state: 'open', label: @sustrans_label_id,
-                          area: @user_area_ids) %>
-    <% elsif @user_route_slugs.present? %>
-      <% path_to_issues = issues_path(state: 'open', label: @sustrans_label_id,
-                          route: @user_route_slugss) %>
-    <% else %>
-      <% path_to_issues = link_to issues_path(state: 'open', label: @sustrans_label_id) %>
-    <% end %>
+  <%#   OPEN LABEL ISSUES    %>
+  <% current_user.labels.each do |label| %>
+    <% label_key = label.name.parameterize.to_sym %>
+    <% if @open_label_count[label_key] > 0 %>
+      <%
+        options = {state: 'open', label: @label_ids[label_key]}
+        options[:route] = @user_route_slugs if @user_route_slugs.present?
+        options[:area] = @user_area_ids if @user_area_ids.present?
+        options[:label] = @label_ids[label_key]
+      %>
 
-    <%= link_to path_to_issues do %>
-      <span class='ncn-style-count'><%= @open_for_sustrans_count %></span> open - sustrans
+      <%= link_to issues_path(options) do %>
+        <span class='ncn-style-count'><%= @open_label_count[label_key] %></span> open - <%= label.name %>
+      <% end %>
+      &nbsp;&bullet;&nbsp;
+
     <% end %>
-    &nbsp;&bullet;&nbsp;
   <% end %>
 
-  <%#   COUNCIL    %>
-  <% if @open_for_council_count > 0 %>
-    <% if @user_route_slugs.present? && @user_area_ids.present? %>
-      <% path_to_issues = issues_path(state: 'open', label: @council_label_id,
-                          route: @user_route_slugs, area: @user_area_ids) %>
-    <% elsif @user_area_ids.present? %>
-      <% path_to_issues = issues_path(state: 'open', label: @council_label_id,
-                          area: @user_area_ids) %>
-    <% elsif @user_route_slugs.present? %>
-      <% path_to_issues = issues_path(state: 'open', label: @council_label_id,
-                          route: @user_route_slugs) %>
-    <% else %>
-      <% path_to_issues = issues_path(state: 'open', label: @council_label_id) %>
-    <% end %>
-    <%= link_to path_to_issues do %>
-      <span class='ncn-style-count'><%= @open_for_council_count %></span> open - council
-    <% end %>
-    &nbsp;&bullet;&nbsp;
-  <% end %>
 
 
 
@@ -135,47 +114,24 @@
       </li>
     <% end %>
 
-    <%# OPEN FOR SUSTRANS %>
-    <% if @open_for_sustrans_count > 0 %>
-      <li>
-        <% if @user_route_slugs.present? && @user_area_ids.present? %>
-          <% path_to_issues = issues_path(state: 'open', label: @sustrans_label_id,
-                              route: @user_route_slugs, area: @user_area_ids) %>
-        <% elsif @user_area_ids.present? %>
-          <% path_to_issues = issues_path(state: 'open', label: @sustrans_label_id,
-                              area: @user_area_ids) %>
-        <% elsif @user_route_slugs.present? %>
-          <% path_to_issues = issues_path(state: 'open', label: @sustrans_label_id,
-                              route: @user_route_slugs) %>
-        <% else %>
-          <% path_to_issues = issues_path(state: 'open', label: @sustrans_label_id) %>
-        <% end %>
-        <%= link_to path_to_issues do %>
-          <b><%= @open_for_sustrans_count %></b> open sustrans <%= 'issue'.pluralize(@open_for_sustrans_count) %>
-        <% end %>
-      </li>
-    <% end %>
+    <%#   OPEN LABEL ISSUES    %>
+    <% current_user.labels.each do |label| %>
+      <% label_key = label.name.parameterize.to_sym %>
+      <% if @open_label_count[label_key] > 0 %>
+        <%
+          options = {state: 'open', label: @label_ids[label_key]}
+          options[:route] = @user_route_slugs if @user_route_slugs.present?
+          options[:area] = @user_area_ids if @user_area_ids.present?
+          options[:label] = @label_ids[label_key]
+        %>
 
-    <%# OPEN FOR COUNCIL %>
-    <% if @open_for_council_count > 0 %>
-      <li>
-        <% if @user_route_slugs.present? && @user_area_ids.present? %>
-          <% path_to_issues = issues_path(state: 'open', label: @council_label_id,
-                              route: @user_route_slugs, area: @user_area_ids) %>
-        <% elsif @user_area_ids.present? %>
-          <% path_to_issues = issues_path(state: 'open', label: @council_label_id,
-                              area: @user_area_ids) %>
-        <% elsif @user_route_slugs.present? %>
-          <% path_to_issues = issues_path(state: 'open', label: @council_label_id,
-                              route: @user_route_slugs) %>
-        <% else %>
-          <% path_to_issues = issues_path(state: 'open', label: @council_label_id) %>
-        <% end %>
-        <%= link_to path_to_issues do %>
-          <b><%= @open_for_council_count %></b> open council 
-          <%= 'issue'.pluralize(@open_for_council_count) %>
-        <% end %>
-      </li>
+        <li>
+          <%= link_to issues_path(options) do %>
+            <b><%= @open_label_count[label_key] %></b>
+            open <%= label.name %> <%= 'issue'.pluralize(@open_label_count[label_key]) %>
+          <% end %>
+        </li>
+      <% end %>
     <% end %>
 
   </ul>

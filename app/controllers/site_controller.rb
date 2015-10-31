@@ -39,28 +39,50 @@ class SiteController < ApplicationController
     counter_array << @user_resolved_issue_count
 
 
-    @open_for_sustrans_count = 0
-    @open_for_council_count = 0
-    if (current_user.role == "staff" || current_user.is_admin?)
-      if user_routes.present? && user_areas.present?
-        @open_for_sustrans_count = Issue.joins(:labels).where(labels: {name: 'sustrans'}, state: ["open", "reopened"], route: user_routes, area: user_areas).uniq.count
-        @open_for_council_count = Issue.joins(:labels).where(labels: {name: 'council'}, state: ["open", "reopened"], route: user_routes, area: user_areas).uniq.count
-      elsif user_areas.present?
-        @open_for_sustrans_count = Issue.joins(:labels).where(labels: {name: 'sustrans'}, state: ["open", "reopened"], area: user_areas).uniq.count
-        @open_for_council_count = Issue.joins(:labels).where(labels: {name: 'council'}, state: ["open", "reopened"], area: user_areas).uniq.count
-      elsif user_routes.present?
-        @open_for_sustrans_count = Issue.joins(:labels).where(labels: {name: 'sustrans'}, state: ["open", "reopened"], route: user_routes).uniq.count
-        @open_for_council_count = Issue.joins(:labels).where(labels: {name: 'council'}, state: ["open", "reopened"], route: user_routes).uniq.count
-      else
-        @open_for_sustrans_count = Issue.joins(:labels).where(labels: {name: 'sustrans'}, state: ["open", "reopened"]).uniq.count
-        @open_for_council_count = Issue.joins(:labels).where(labels: {name: 'council'}, state: ["open", "reopened"]).uniq.count
-      end
-      @sustrans_label_id = Label.find_or_create_by(name: 'sustrans').id
-      @council_label_id = Label.find_or_create_by(name: 'council').id
-    end
-    counter_array << @open_for_sustrans_count
-    counter_array << @open_for_council_count
+    # OPEN LABEL ISSUES
 
+    @open_label_count = {}
+    @label_ids = {}
+
+    current_user.labels.each do |label|
+      options = {state: ["open", "reopened"]}
+      options[:labels] = {name: label.name}
+      options[:area] = user_areas if user_areas.present?
+      options[:route] =  user_routes if user_routes.present?
+      label_key = label.name.parameterize.to_sym
+      @open_label_count[label_key] = Issue.joins(:labels).where(options).uniq.count
+      @label_ids[label_key] = label.id
+    end
+
+    @open_label_count.values.each do |n|
+      counter_array << n
+    end
+
+    # @open_for_sustrans_count = 0
+    # @open_for_council_count = 0
+
+
+    # if (current_user.role == "staff" || current_user.is_admin?)
+
+
+    #   if user_routes.present? && user_areas.present?
+    #     @open_for_sustrans_count = Issue.joins(:labels).where(labels: {name: 'sustrans'}, state: ["open", "reopened"], route: user_routes, area: user_areas).uniq.count
+    #     @open_for_council_count = Issue.joins(:labels).where(labels: {name: 'council'}, state: ["open", "reopened"], route: user_routes, area: user_areas).uniq.count
+    #   elsif user_areas.present?
+    #     @open_for_sustrans_count = Issue.joins(:labels).where(labels: {name: 'sustrans'}, state: ["open", "reopened"], area: user_areas).uniq.count
+    #     @open_for_council_count = Issue.joins(:labels).where(labels: {name: 'council'}, state: ["open", "reopened"], area: user_areas).uniq.count
+    #   elsif user_routes.present?
+    #     @open_for_sustrans_count = Issue.joins(:labels).where(labels: {name: 'sustrans'}, state: ["open", "reopened"], route: user_routes).uniq.count
+    #     @open_for_council_count = Issue.joins(:labels).where(labels: {name: 'council'}, state: ["open", "reopened"], route: user_routes).uniq.count
+    #   else
+    #     @open_for_sustrans_count = Issue.joins(:labels).where(labels: {name: 'sustrans'}, state: ["open", "reopened"]).uniq.count
+    #     @open_for_council_count = Issue.joins(:labels).where(labels: {name: 'council'}, state: ["open", "reopened"]).uniq.count
+    #   end
+    #   @sustrans_label_id = Label.find_or_create_by(name: 'sustrans').id
+    #   @council_label_id = Label.find_or_create_by(name: 'council').id
+    # end
+    # counter_array << @open_for_sustrans_count
+    # counter_array << @open_for_council_count
 
 
     @number_of_possitive_counters = counter_array.collect{ |x| x > 0 }.count(true)
