@@ -13,7 +13,6 @@ $(document).on 'ready page:load', ->
         $('.site-notifications-small').html(dataSmall)
         $('.site-notifications-small').foundation('dropdown', 'reflow')
 
-
         dataLarge = data.replace(/nofications-dropdown-key/g, "nofications-dropdown-large")
         $('.site-notifications-large').html(dataLarge)
         $('.site-notifications-large').foundation('dropdown', 'reflow')
@@ -31,5 +30,7 @@ $(document).on 'ready page:load', ->
     setTimeout(get_notifications, 60000)
 
 
-  get_notifications()
-  $('.site-notifications-small').foundation('dropdown', 'reflow')
+  if $('#controls-cog').is(":visible")
+    get_notifications()
+    $('.site-notifications-small').foundation('dropdown', 'reflow')
+

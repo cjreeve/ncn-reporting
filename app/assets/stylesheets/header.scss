@@ -182,6 +182,20 @@ header{
   }
 }
 
+// .site-notifications-large{
+//   @media #{$medium-up}{
+//     span.notification-count-label{
+//       padding-right: rem-calc(3);
+//     }
+//     a.single{
+//       margin-right: rem-calc(3);
+//       &:after{
+//         content: " • "
+//       }
+//     }
+//   }
+// }
+
 #site-notifications-small{
   display: table-cell;
   padding: rem-calc(8 0 0 15);
