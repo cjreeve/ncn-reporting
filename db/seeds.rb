@@ -15,6 +15,24 @@
 # end
 
 
+# Set all staff accounts to show sustrans and 
+ActiveRecord::Base.record_timestamps = false
+begin
+  label_sustrans = Label.find_by_name('sustrans')
+  label_council = Label.find_by_name('council')
+  User.where(role: 'staff').each do |user|
+    user.labels << label_sustrans
+    user.labels << label_council
+    user.save
+  end
+ensure
+  ActiveRecord::Base.record_timestamps = true
+end
+
+
+
+
+
 # ["NCN 1", "NCN 4", "NCN 6", "NCN 12", "NCN 13", "NCN 20", "NCN 61", "NCN 125", "NCN 136", "NCN 208", "NCN 425"].each do |route_name|
 #   Route.find_or_create_by(name: route_name)
 # end
