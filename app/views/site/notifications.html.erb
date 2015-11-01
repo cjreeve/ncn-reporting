@@ -2,7 +2,7 @@
 
   <%#= render 'notification_types', link_type: 'single' %>
 
-<%# elsif  @number_of_possitive_counters > 1 %>
+<% if @total_pending_count > 1 %>
 
   <a href="#" data-dropdown="nofications-dropdown-key" aria-controls="nofications-dropdown-key" data-options="is_hover:true; hover_timeout:60000">
     <span class='ncn-style-count'><%= @total_pending_count %></span>
@@ -13,4 +13,4 @@
     <%= render 'notification_types', link_type: 'dropdown' %>
   </ul>
 
-<%# end %>
+<% end %>

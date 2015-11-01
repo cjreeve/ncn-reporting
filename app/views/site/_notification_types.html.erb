@@ -10,6 +10,7 @@
 <%#   SUBMITTED    %>
 <% if @user_submitted_issue_count > 0 %>
   <%=
+    options = { state: 'submitted', route: @user_route_slugs, area: @user_area_ids }
     { state: 'submitted', route: @user_route_slugs, area: @user_area_ids }
     render 'notification_link', link_type: link_type,
                                 options: options,
@@ -50,7 +51,7 @@
                                 count: @own_issue_unsolvable_count
   %>
 <% end %>
-
+<%# binding.pry %>
 <%#   OPEN LABEL ISSUES    %>
 <% current_user.labels.each do |label| %>
   <% label_key = label.name.parameterize.to_sym %>
