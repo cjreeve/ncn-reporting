@@ -6763,6 +6763,9 @@ html body {
     font-size: 2.1875rem; }
   html body h2 {
     font-size: 1.5625rem; }
+  @media only screen and (max-width: 40em) {
+    html body h1 {
+      font-size: 1.875rem; } }
   html body a:hover {
     text-decoration: underline; }
   html body .button.select {
@@ -6801,7 +6804,7 @@ html body {
   html body .ncn-style-count {
     display: inline-block;
     background-color: #E41634;
-    padding: 0 0.1875rem;
+    padding: 0 0.125rem;
     border: 0.0625rem solid white;
     border-radius: 0.1875rem;
     line-height: 1.1;
@@ -6839,6 +6842,9 @@ footer {
     margin-top: 0.625rem;
     font-size: 0.625rem;
     color: white; }
+
+p.notice {
+  padding-left: 0.625rem; }
 
 /*
 
@@ -6932,7 +6938,7 @@ header {
       header nav.top-bar.main-nav #updates-tab span {
         position: absolute;
         top: 1.0625rem;
-        margin-left: 0.25rem;
+        margin-left: 0.125rem;
         line-height: 0;
         font-size: 0.625rem;
         color: white; }
@@ -6964,8 +6970,13 @@ header {
 
 .site-notifications-small ul.nofications-dropdown, .site-notifications-large ul.nofications-dropdown {
   background-color: #EEF; }
-  .site-notifications-small ul.nofications-dropdown li a:hover, .site-notifications-large ul.nofications-dropdown li a:hover {
-    color: #333; }
+  .site-notifications-small ul.nofications-dropdown li:hover, .site-notifications-large ul.nofications-dropdown li:hover {
+    background-color: #dfdfff; }
+  .site-notifications-small ul.nofications-dropdown li a, .site-notifications-large ul.nofications-dropdown li a {
+    font-size: 0.6875rem; }
+    .site-notifications-small ul.nofications-dropdown li a:hover, .site-notifications-large ul.nofications-dropdown li a:hover {
+      color: #333;
+      text-decoration: none; }
 
 #site-notifications-small {
   display: table-cell;
@@ -6973,6 +6984,10 @@ header {
   @media only screen and (min-width: 40.0625em) {
     #site-notifications-small {
       display: none; } }
+  #site-notifications-small .site-notifications-small > a span.ncn-style-count {
+    background: none; }
+  #site-notifications-small .site-notifications-small > a:hover span {
+    text-decoration: none; }
 
 @media only screen and (max-width: 40em) {
   .notification-count-label {

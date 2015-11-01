@@ -18964,6 +18964,8 @@ function showMyCoord() {
           return function(data, textStatus, jqXHR) {
             var dataLarge, dataSmall;
             dataSmall = data.replace(/nofications-dropdown-key/g, "nofications-dropdown-small");
+            $('.site-notifications-small').html(dataSmall);
+            $('.site-notifications-small').foundation('dropdown', 'reflow');
             dataLarge = data.replace(/nofications-dropdown-key/g, "nofications-dropdown-large");
             $('.site-notifications-large').html(dataLarge);
             return $('.site-notifications-large').foundation('dropdown', 'reflow');
@@ -18984,7 +18986,10 @@ function showMyCoord() {
       });
       return setTimeout(get_notifications, 60000);
     };
-    return setTimeout(get_notifications, 1);
+    if ($('#controls-cog').is(":visible")) {
+      get_notifications();
+      return $('.site-notifications-small').foundation('dropdown', 'reflow');
+    }
   });
 
 }).call(this);
