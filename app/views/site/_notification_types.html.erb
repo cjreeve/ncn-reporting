@@ -62,7 +62,7 @@
       options[:label] = @label_ids[label_key]
       render 'notification_link', link_type: link_type,
                                   options: options,
-                                  name: label.name,
+                                  name: 'open ' + label.name,
                                   count: @open_label_count[label_key]
     %>
   <% end %>
