@@ -8,7 +8,7 @@
       <ul class='updates-list'>
         <% @issues.each do |issue| %>
 
-          <% if @page_ids_and_update_times.present? && @page_ids_and_update_times.last[1] > issue.updated_at %>
+          <% while @page_ids_and_update_times.present? && @page_ids_and_update_times.last[1] > issue.updated_at  do %>
             <%= render 'page_update', page:  @page_ids_and_update_times.pop %>
           <% end %>
 
