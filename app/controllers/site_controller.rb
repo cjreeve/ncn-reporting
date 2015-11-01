@@ -20,7 +20,7 @@ class SiteController < ApplicationController
     counter_array << @own_issue_unsolvable_count
 
 
-
+    # TODO - how to show other route or group 'submitted' notifications for volunteer coordinator?
     @user_submitted_issue_count = 0
     if %w{ranger coordinator}.include?(current_user.role) && user_areas.present?
       options = { state: 'submitted', area: user_areas }
@@ -30,7 +30,7 @@ class SiteController < ApplicationController
     counter_array << @user_submitted_issue_count
 
 
-
+    # TODO - how to show other route or group 'resolved' notifications for volunteer coordinator?
     @user_resolved_issue_count = 0
     if %w{ranger coordinator}.include?(current_user.role) && user_areas.present?
       options = { state: 'resolved', area: user_areas }
@@ -45,6 +45,7 @@ class SiteController < ApplicationController
     @open_label_count = {}
     @label_ids = {}
 
+    # TODO - how to show other route or group 'open' notifications for volunteer coordinator?
     current_user.labels.each do |label|
       options = {state: ["open", "reopened"]}
       options[:labels] = {name: label.name}
