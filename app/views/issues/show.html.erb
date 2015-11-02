@@ -30,9 +30,11 @@
               image_tag 'icons/arrow-large-right-grey.svg', title: 'no more', alt: ''
             end
           %>
-          <span class='create-new-issue-container'>
-            -&nbsp;<%= link_to 'new', new_issue_path, class: 'create-new-issue' %>
-          </span> 
+          <% if can? :create, Issue %>
+            <span class='create-new-issue-container'>
+              -&nbsp;<%= link_to 'new', new_issue_path, class: 'create-new-issue' %>
+            </span>
+          <% end %>
         </div>
       </div>
       <div class='medium-6 columns'>
@@ -67,26 +69,28 @@
                 %>
               </td>
             </tr>
-            <tr>
-              <td>Priority:</td>
-              <td><%= Issue::PRIORITY[@issue.priority] if @issue.priority %></td>
-            </tr>
-            <tr>
-              <td><%= 'Label'.pluralize(@issue_labels_count) %>:</td>
-              <td>
-                <% if @issue.labels.present? %>
-                  <%  @issue.labels.each_with_index do |label, index| %>
-                      <%=
-                        link_to label.name, issues_path(label: label.id)
-                      %><%=
-                        ( (index+1) != @issue_labels_count ? ', ' : '')
-                      %>
+            <% if can? :read, Update %>
+              <tr>
+                <td>Priority:</td>
+                <td><%= Issue::PRIORITY[@issue.priority] if @issue.priority %></td>
+              </tr>
+              <tr>
+                <td><%= 'Label'.pluralize(@issue_labels_count) %>:</td>
+                <td>
+                  <% if @issue.labels.present? %>
+                    <%  @issue.labels.each_with_index do |label, index| %>
+                        <%=
+                          link_to label.name, issues_path(label: label.id)
+                        %><%=
+                          ( (index+1) != @issue_labels_count ? ', ' : '')
+                        %>
+                    <% end %>
+                  <% else %>
+                    none
                   <% end %>
-                <% else %>
-                  none
-                <% end %>
-              </td>
-            </tr>
+                </td>
+              </tr>
+            <% end %>
           </body>
         </table>
 
@@ -94,7 +98,9 @@
           <h5>Route Contacts</h5>
           <% if @issue.area.present? && @issue.route.present? %>
             <b>Staff:</b> <%= user_links @staff_route_managers %> </br>
-            <b><%= "Ranger".pluralize(@ranger_route_managers.count) %>:</b> <%= user_links @ranger_route_managers %>
+            <% if can? :read, Update %>
+              <b><%= "Ranger".pluralize(@ranger_route_managers.count) %>:</b> <%= user_links @ranger_route_managers %>
+            <% end %>
           <% else %>
             Specify both a route and area to show contacts
           <% end %>
@@ -102,22 +108,23 @@
 
       </div>
       <div class='medium-6 columns'>
-        
 
-        <%= render 'state_control_buttons' %>
+        <%= render 'state_control_buttons' if can? :update, Issue  %>
 
         <table>
           <body>
-            <tr>
-              <td>Reporter:</td>
-              <td>
-                <%= 
-                  if @issue.user
-                    link_to @issue.user.name, user_path(@issue.user)
-                  end
-                %>
-              </td>
-            </tr>
+            <% if can? :read, Update %>
+              <tr>
+                <td>Reporter:</td>
+                <td>
+                  <%= 
+                    if @issue.user
+                      link_to @issue.user.name, user_path(@issue.user)
+                    end
+                  %>
+                </td>
+              </tr>
+            <% end %>
             <% if @issue.reported_at %>
               <tr>
                 <td>Reported:</td>
@@ -201,14 +208,15 @@
           <% end %>
         </section>
 
-
-        <div id='comments'>
-          <%= render 'comments/comments', 
-            comments: @issue.comments.order(created_at: :asc),
-            issue: @issue,
-            new_comment: @new_comment
-          %>
-        </div>
+        <% if can? :read, Comment %>
+          <div id='comments'>
+            <%= render 'comments/comments', 
+              comments: @issue.comments.order(created_at: :asc),
+              issue: @issue,
+              new_comment: @new_comment
+            %>
+          </div>
+        <% end %>
       </div>
     </div>
 
@@ -256,7 +264,9 @@
         <% if can? :destroy, @issue %>
           <%= link_to 'delete', @issue, method: :delete, data: { confirm: 'Are you sure you want to delete this issue?' }, style: "float: right" %>
         <% end %>
-        <%= link_to 'Edit', edit_issue_path(@issue) %> |
+        <% if can? :edit, Issue %>
+          <%= link_to 'Edit', edit_issue_path(@issue) %> |
+        <% end %>
         <%= link_to 'Index', issues_path %>
       </p>
     </div>

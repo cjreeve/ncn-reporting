@@ -54,6 +54,12 @@ class Ability
       can :read, Update
     end
 
+    if (user.role == "guest") && !user.is_locked?
+      can [:read], Issue
+      can :manage, Site
+      can :read, User, role: 'staff'
+    end
+
     can :manage, Site
 
     # Define abilities for the passed in user here. For example:
