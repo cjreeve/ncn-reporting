@@ -19,4 +19,8 @@ class User < ActiveRecord::Base
     self.issues.limit(1).blank? && self.comments.limit(1).blank?
   end
 
+  def can_view_email?(user)
+    self.role == "staff" || user.role == "staff" || self.is_admin? || user == self
+  end
+
 end

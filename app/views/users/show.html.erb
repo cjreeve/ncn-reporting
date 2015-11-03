@@ -6,9 +6,11 @@
 
       <table>
         <tbody>
-          <tr>
-            <td>Email:</td><td><%= @user.email %></td>
-          </tr>
+          <% if current_user.can_view_email?(@user) %>
+            <tr>
+              <td>Email:</td><td><%= @user.email %></td>
+            </tr>
+          <% end %>
           <%
             user_routes = @user.routes
             user_routes = user_routes.collect(&:name) if user_routes.present?
