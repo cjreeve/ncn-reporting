@@ -1,5 +1,6 @@
+<h3>Recently created issues</h3>
+
 <% if @user.issues.present? %>
-  <h3>Recently created issues</h3>
   <table>
     <thead>
       <tr>
@@ -25,4 +26,6 @@
   <% if @user.issues.count > 10 %>
     <%= link_to 'show all user issues', issues_path(user: @user.id) %>
   <% end %>
+<% else %>
+  <p style="color:grey">none</p>
 <% end %>
