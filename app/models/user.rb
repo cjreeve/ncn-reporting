@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   end
 
   def own_issue_resolved_count
-    Issue.where(state: 'unsolvable', user: self).count
+    Issue.where(state: 'resolved', user: self).count
   end
 
   def own_issue_unsolvable_count

@@ -15,19 +15,34 @@
 # end
 
 
-# Set all staff accounts to show sustrans and 
+# remove label options for staff that are not managing any routes
 ActiveRecord::Base.record_timestamps = false
 begin
   label_sustrans = Label.find_by_name('sustrans')
   label_council = Label.find_by_name('council')
-  User.where(role: 'staff').each do |user|
-    user.labels << label_sustrans
-    user.labels << label_council
+  User.includes(:areas, :routes).where(role: 'staff', is_admin: false, routes: {id: nil}, areas: {id: nil}).each do |user|
+    user.labels = []
     user.save
   end
 ensure
   ActiveRecord::Base.record_timestamps = true
 end
+
+
+
+# Set all staff accounts to show sustrans and 
+# ActiveRecord::Base.record_timestamps = false
+# begin
+#   label_sustrans = Label.find_by_name('sustrans')
+#   label_council = Label.find_by_name('council')
+#   User.where(role: 'staff').each do |user|
+#     user.labels << label_sustrans
+#     user.labels << label_council
+#     user.save
+#   end
+# ensure
+#   ActiveRecord::Base.record_timestamps = true
+# end
 
 
 

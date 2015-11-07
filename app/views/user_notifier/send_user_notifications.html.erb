@@ -5,7 +5,10 @@
   </head>
   <body>
     <p>Hi <%= @user.first_name %>!</p>
-    <p>Just to remind you of the following issues that are awaiting your attention.</p>
+    <p>
+      Just to remind you of the following <%= "issue".pluralize @total_pending_count %> 
+      that <%= @total_pending_count == 1 ? 'is' : 'are' %>  awaiting your attention.
+    </p>
 
     <ul>
       <%= render 'site/notification_types' %>

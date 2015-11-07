@@ -5,6 +5,10 @@
       <h1>Admin: Users</h1>
       &nbsp;-&nbsp;<%= link_to 'create new', new_admin_user_path, class: 'create-new-issue' %>
       
+      <%= form_tag site_notification_emails_path, method: :get do %>
+        <%= submit_tag 'Send Notifications', data: { confirm: "Send notification emails to all users?" } %>
+      <% end %>
+
       <table>
         <thead>
           <tr>

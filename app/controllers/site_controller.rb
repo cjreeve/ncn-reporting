@@ -33,6 +33,19 @@ class SiteController < ApplicationController
   end
 
 
+
+  def notification_emails
+    if current_user && current_user.is_admin?
+      User.where(is_locked: false).where.not(role: "guest").each do |user|
+        UserNotifier.send_user_notifications(user).deliver
+      end
+      redirect_to admin_users_path, notice: "Notification emails sent"
+    else
+      redirect_to root_path
+    end
+  end
+
+
   def updates_count
     last_visit = current_user.visited_updates_at
     @updates_count = Issue.where('updated_at > ?', last_visit).count

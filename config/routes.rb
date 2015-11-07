@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :labels
 
   get 'site/notifications'
+  get 'site/notification_emails'
   get 'site/updates_count'
 
   get 'updates' => 'updates#show', as: :updates

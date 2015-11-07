@@ -81,4 +81,16 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.action_mailer.smtp_settings = {
+    :domain => 'ncn-reporting.herokuapp.com',
+    :perform_deliveries => true,
+    :address => "smtp.sendgrid.net",
+    :port => 587,
+    :user_name => 'ncn-reporting',
+    :password => 'bhu&6tFDa',
+    :authentication => 'plain',
+    :enable_starttls_auto => true
+  }
+
 end
