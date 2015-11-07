@@ -36,5 +36,9 @@ module Workspace
       :state,
       :user]
 
+    config.site_url = "http://ncn-reporting.herokuapp.com"
+
+    config.dev_email = "cjreeve@gmail.com"
+
   end
 end

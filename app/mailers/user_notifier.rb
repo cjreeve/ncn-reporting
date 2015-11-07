@@ -1,13 +1,13 @@
-class SiteController < ApplicationController
-  # load_and_authorize_resource
+class UserNotifier < ActionMailer::Base
 
-  def welcome
-  end
+  default from: "ncn-reporting <noreply@ncn-reporting.herokuapp.com>"
 
-  def notifications
-    @user = current_user
+  def send_user_notifications(user)
+    @user = user
 
-    #################### shared with email notifier ###################
+    return if @user.is_locked? || @user.role == "guest" || %w{volunteer ranger administrator"}.include?(@user.name)
+
+    #################### shared with ajax notifier ###################
     counter_array = []
     user_routes = @user.routes.to_a
     @user_route_slugs = user_routes.collect(&:slug).join('.')
@@ -29,15 +29,19 @@ class SiteController < ApplicationController
     @total_pending_count += @open_label_counts.values.sum
     ####################################################################
 
-    render layout: false
+    if @own_draft_issue_count > 0
+      @old_issue = (Issue.where(user: User.first, state: 'draft').order(updated_at: :asc).first.updated_at < (DateTime.now - 2.weeks))
+    end
+
+    return if @total_pending_count == 0
+
+    if Rails.env.production?
+      recipient_email = @user.email
+    else
+      recipient_email = Rails.application.config.dev_email
+    end
+
+    mail( to: recipient_email,
+          subject: "ncn-reporting - #{ @total_pending_count.to_s + ' issue'.pluralize } for your attention" )
   end
-
-
-  def updates_count
-    last_visit = current_user.visited_updates_at
-    @updates_count = Issue.where('updated_at > ?', last_visit).count
-    @updates_count += Page.where('updated_at > ?', last_visit).count
-    render layout: false
-  end
-
 end

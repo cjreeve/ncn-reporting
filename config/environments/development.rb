@@ -37,4 +37,17 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+
+  config.action_mailer.default_url_options = { host: 'ncn-reporting.herokuapp.com' }
+  config.action_mailer.smtp_settings = {
+    :domain => 'ncn-reporting.herokuapp.com',
+    :perform_deliveries => true,
+    :address => "smtp.sendgrid.net",
+    :port => 587,
+    :user_name => 'ncn-reporting',
+    :password => 'bhu&6tFDa',
+    :authentication => 'plain',
+    :enable_starttls_auto => true
+  }
 end
