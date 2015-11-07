@@ -5,7 +5,10 @@ class UserNotifier < ActionMailer::Base
   def send_user_notifications(user)
     @user = user
 
-    return if @user.is_locked? || @user.role == "guest" || %w{volunteer ranger administrator"}.include?(@user.name)
+    if @user.is_locked? || @user.role == "guest" || %w{volunteer ranger administrator"}.include?(@user.name) ||
+       !@user.receive_email_notifications?
+      return
+    end
 
     #################### shared with ajax notifier ###################
     counter_array = []

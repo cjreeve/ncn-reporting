@@ -55,7 +55,7 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    param_keys = [:name, :email, :password, route_ids: [], area_ids: [], label_ids: []]
+    param_keys = [:name, :email, :password, :receive_email_notifications, route_ids: [], area_ids: [], label_ids: []]
     param_keys += [:role, :is_admin, :is_locked] if current_user.is_admin?
     permitted_params = params.require(:user).permit(param_keys)
   end

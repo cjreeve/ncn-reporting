@@ -12,7 +12,9 @@
           <%= f.input :email, required: true %>
           <%= f.association :routes %>
           <%= f.association :areas %>
+
           <%= f.association :labels, label: "Label for notification" %>
+          <%= f.input :receive_email_notifications %>
 
 
           <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
