@@ -33,7 +33,7 @@ class UserNotifier < ActionMailer::Base
     ####################################################################
 
     if @own_draft_issue_count > 0
-      @old_issue = (Issue.where(user: User.first, state: 'draft').order(updated_at: :asc).first.updated_at < (DateTime.now - 2.weeks))
+      @old_issue = (Issue.where(user: @user, state: 'draft').order(updated_at: :asc).first.updated_at < (DateTime.now - 2.weeks))
     end
 
     return if @total_pending_count == 0

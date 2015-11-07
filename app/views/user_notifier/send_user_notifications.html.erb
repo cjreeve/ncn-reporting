@@ -22,13 +22,20 @@
 
     <% if @open_label_counts.keys.include?(:sustrans) || @open_label_counts.keys.include?(:council) %>
       <p>
-        <% if @open_label_counts.keys.include?(:sustrans) %>
+        <% if @open_label_counts[:sustrans].present? && @open_label_counts[:sustrans] > 0  %>
           Open 'sustrans' issues are those that require Sustrans staff attention.
         <% end %>
-        <% if @open_label_counts.keys.include?(:council) %>
+        <% if @open_label_counts[:council].present? && @open_label_counts[:council] > 0 %>
           Open 'council' issues are those that require reporting to the council or landowner.
         <% end %>
-        If you no longer need to receive notification of these issues because you have responded to a comment or informed the relevant body, you can either change the label if it no longer applies or click the 'Start' button on the issue to mark it as 'in progress'.
+
+        If you no longer need to receive notification of these issues
+
+        <% if @open_label_counts[:sustrans].present? && @open_label_counts[:sustrans] > 0  %>
+          because you have responded to a comment or informed the relevant body,
+        <% end %>
+        
+        you can either change the label if it no longer applies or click the 'Start' button on the issue to mark it as 'in progress'.
       </p>
     <% end %>
 
