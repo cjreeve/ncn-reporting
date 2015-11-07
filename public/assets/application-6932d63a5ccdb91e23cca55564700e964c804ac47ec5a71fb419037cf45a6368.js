@@ -18954,36 +18954,40 @@ function showMyCoord() {
   $(document).on('ready page:load', function() {
     var get_notifications;
     get_notifications = function() {
-      $.ajax({
-        url: "/site/notifications",
-        dataType: "html",
-        error: function(jqXHR, textStatus, errorThrown) {
-          return $(this).find('p.notice').append("AJAX Error: " + textStatus);
-        },
-        success: (function(_this) {
-          return function(data, textStatus, jqXHR) {
-            var dataLarge, dataSmall;
-            dataSmall = data.replace(/nofications-dropdown-key/g, "nofications-dropdown-small");
-            $('.site-notifications-small').html(dataSmall);
-            $('.site-notifications-small').foundation('dropdown', 'reflow');
-            dataLarge = data.replace(/nofications-dropdown-key/g, "nofications-dropdown-large");
-            $('.site-notifications-large').html(dataLarge);
-            return $('.site-notifications-large').foundation('dropdown', 'reflow');
-          };
-        })(this)
-      });
-      $.ajax({
-        url: "/site/updates_count",
-        dataType: "html",
-        error: function(jqXHR, textStatus, errorThrown) {
-          return $(this).find('p.notice').append("AJAX Error: " + textStatus);
-        },
-        success: (function(_this) {
-          return function(data, textStatus, jqXHR) {
-            return $('#updates-tab span').html(data);
-          };
-        })(this)
-      });
+      var today;
+      today = new Date().getHours();
+      if (today <= 1 || today >= 7) {
+        $.ajax({
+          url: "/site/notifications",
+          dataType: "html",
+          error: function(jqXHR, textStatus, errorThrown) {
+            return $(this).find('p.notice').append("AJAX Error: " + textStatus);
+          },
+          success: (function(_this) {
+            return function(data, textStatus, jqXHR) {
+              var dataLarge, dataSmall;
+              dataSmall = data.replace(/nofications-dropdown-key/g, "nofications-dropdown-small");
+              $('.site-notifications-small').html(dataSmall);
+              $('.site-notifications-small').foundation('dropdown', 'reflow');
+              dataLarge = data.replace(/nofications-dropdown-key/g, "nofications-dropdown-large");
+              $('.site-notifications-large').html(dataLarge);
+              return $('.site-notifications-large').foundation('dropdown', 'reflow');
+            };
+          })(this)
+        });
+        $.ajax({
+          url: "/site/updates_count",
+          dataType: "html",
+          error: function(jqXHR, textStatus, errorThrown) {
+            return $(this).find('p.notice').append("AJAX Error: " + textStatus);
+          },
+          success: (function(_this) {
+            return function(data, textStatus, jqXHR) {
+              return $('#updates-tab span').html(data);
+            };
+          })(this)
+        });
+      }
       return setTimeout(get_notifications, 60000);
     };
     if ($('#controls-cog').is(":visible")) {
