@@ -17,12 +17,15 @@ module ApplicationHelper
     strip_tags(render_markdown(text))
   end
 
-  def render_markdown(text)
+  def render_markdown(text, sanitize = 'basic')
+    sanitize = Sanitize::Config::RESTRICTED if sanitize == "restricted"
+    sanitize = Sanitize::Config::BASIC if sanitize == "basic"
+    sanitize = Sanitize::Config::RELAXED if sanitize == "relaxed"
     if text.present?
-      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, strikethrough: true)
       Sanitize.fragment(
         markdown.render( strip_tags text ),
-        Sanitize::Config::BASIC
+        sanitize
       ).html_safe
     end
   end
