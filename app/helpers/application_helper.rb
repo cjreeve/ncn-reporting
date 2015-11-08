@@ -24,7 +24,7 @@ module ApplicationHelper
     if text.present?
       markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, strikethrough: true)
       Sanitize.fragment(
-        markdown.render( strip_tags text ),
+        markdown.render( text ),
         sanitize
       ).html_safe
     end
