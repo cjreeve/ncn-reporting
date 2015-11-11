@@ -15,18 +15,31 @@
 # end
 
 
-# remove label options for staff that are not managing any routes
-ActiveRecord::Base.record_timestamps = false
-begin
-  label_sustrans = Label.find_by_name('sustrans')
-  label_council = Label.find_by_name('council')
-  User.includes(:areas, :routes).where(role: 'staff', is_admin: false, routes: {id: nil}, areas: {id: nil}).each do |user|
-    user.labels = []
-    user.save
-  end
-ensure
-  ActiveRecord::Base.record_timestamps = true
-end
+
+region = Region.find_or_create_by(name: 'London')
+region_atributes = {
+  lat: 51.517106,
+  lng: -0.113615,
+  map_zoom: 11,
+  email: 'noreply@ncn-reporting.herokuapp.com',
+  email_name: 'ncn-reporting',
+  notifications_sent_at: "2015-08-07 16:00"
+}
+region.update_attributes!(region_atributes)
+
+
+# # remove label options for staff that are not managing any routes
+# ActiveRecord::Base.record_timestamps = false
+# begin
+#   label_sustrans = Label.find_by_name('sustrans')
+#   label_council = Label.find_by_name('council')
+#   User.includes(:areas, :routes).where(role: 'staff', is_admin: false, routes: {id: nil}, areas: {id: nil}).each do |user|
+#     user.labels = []
+#     user.save
+#   end
+# ensure
+#   ActiveRecord::Base.record_timestamps = true
+# end
 
 
 

@@ -8,6 +8,7 @@ class Ability
     can :manage, :all if user.is_admin? && !user.is_locked?
 
     if (user.role == "staff") && !user.is_locked?
+      can :read, Region
       can :manage, Issue
       can :manage, Area
       can :manage, Category
@@ -27,6 +28,7 @@ class Ability
     end
 
     if %w{coordinator ranger}.include?(user.role) && !user.is_locked?
+      can :read, Region
       can [:read, :create, :edit, :update, :progress], Issue
       can [:destroy], Issue, user_id: user.id
       can :read, Category
@@ -43,6 +45,7 @@ class Ability
     end
 
     if (user.role == "volunteer") && !user.is_locked?
+      can :read, Region
       can [:read, :create, :edit, :update, :progress], Issue
       can [:destroy], Issue, user_id: user.id
       can :read, User
@@ -55,6 +58,7 @@ class Ability
     end
 
     if (user.role == "guest") && !user.is_locked?
+      can :read, Region
       can [:read], Issue
       can :manage, Site
       can :read, User, role: 'staff'

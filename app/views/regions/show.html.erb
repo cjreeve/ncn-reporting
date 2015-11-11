@@ -1,0 +1,47 @@
+<article class='region'>
+  <div class='row'>
+    <div class='small-12 columns'>
+
+      <p id="notice"><%= notice %></p>
+
+      <p>
+        <strong>Name:</strong>
+        <%= @region.name %>
+      </p>
+
+      <p>
+        <strong>Email:</strong>
+        <%= @region.email %>
+      </p>
+
+      <p>
+        <strong>Email name:</strong>
+        <%= @region.email_name %>
+      </p>
+
+      <p>
+        <strong>Notifications sent at:</strong>
+        <%= @region.notifications_sent_at.strftime("%H:%M - %d %b %Y") %>
+      </p>
+
+      <p>
+        <strong>Lat:</strong>
+        <%= @region.lat %>
+      </p>
+
+      <p>
+        <strong>Lng:</strong>
+        <%= @region.lng %>
+      </p>
+
+      <p>
+        <strong>Map zoom:</strong>
+        <%= @region.map_zoom %>
+      </p>
+
+      <%= link_to 'Edit', edit_region_path(@region) %>
+      <%#= link_to 'Back', regions_path %>
+
+    </div>
+  </div>
+</article>

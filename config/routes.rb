@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :regions
+
   resources :labels
 
   get 'site/notifications'

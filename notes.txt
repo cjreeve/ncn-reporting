@@ -36,9 +36,10 @@ Area: Name
        > rails g scaffold Area name:string 
        > rails g migration AddAreaRefToIssues area:references
 
-Region: Name, comments
 Roll: name
 
+rails g scaffold Region name:string lat:float lng:float  email:string email_name:string notifications_sent_at:datetime
+maybe add 'key' instead of identifier or slug?
 
 FEATURES
 * Issue has many followers and User has many interests
