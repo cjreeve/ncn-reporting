@@ -11,6 +11,9 @@
             <td>email:</td><td><%= @user.email %></td>
           </tr>
           <tr>
+            <td>Region:</td><td><%= @user.region.try(:name) %></td>
+          </tr>
+          <tr>
             <td>Role:</td><td><%= @user.role %></td>
           </tr>
           <% if @user.is_admin? %>

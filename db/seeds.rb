@@ -27,6 +27,11 @@ region_atributes = {
 }
 region.update_attributes!(region_atributes)
 
+User.all.each do |user|
+  user.region = region
+  user.save
+end
+
 
 # # remove label options for staff that are not managing any routes
 # ActiveRecord::Base.record_timestamps = false

@@ -36,7 +36,7 @@ class SiteController < ApplicationController
 
   def notification_emails
     if current_user && current_user.is_admin?
-      User.where(is_locked: false).where.not(role: "guest").each do |user|
+      User.where(region: @current_region, is_locked: false).where.not(role: "guest").each do |user|
         UserNotifier.send_user_notifications(user).deliver
       end
       redirect_to admin_users_path, notice: "Notification emails sent"

@@ -21,7 +21,7 @@
 
       <p>
         <strong>Notifications sent at:</strong>
-        <%= @region.notifications_sent_at.strftime("%H:%M - %d %b %Y") %>
+        <%= @region.notifications_sent_at.strftime("%H:%M - %d %b %Y") if @region.notifications_sent_at %>
       </p>
 
       <p>

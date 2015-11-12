@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   before_filter :log_user_activity
+  before_filter :load_global_variables
 
   protect_from_forgery# with: :exception
 
@@ -50,5 +51,9 @@ class ApplicationController < ActionController::Base
 
   def log_user_activity
     current_user.touch if current_user
+  end
+
+  def load_global_variables
+    @current_region = current_user.try(:region)
   end
 end

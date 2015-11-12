@@ -14,6 +14,7 @@ class Admin::UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    @user.region = current_user.region unless @user.region
   end
 
   def update
@@ -32,6 +33,7 @@ class Admin::UsersController < ApplicationController
 
   def new
     @user = User.new
+    @user.region = current_user.region
   end
 
   def create
@@ -55,7 +57,7 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    param_keys = [:name, :email, :password, :receive_email_notifications, route_ids: [], area_ids: [], label_ids: []]
+    param_keys = [:name, :email, :region_id, :password, :receive_email_notifications, route_ids: [], area_ids: [], label_ids: []]
     param_keys += [:role, :is_admin, :is_locked] if current_user.is_admin?
     permitted_params = params.require(:user).permit(param_keys)
   end

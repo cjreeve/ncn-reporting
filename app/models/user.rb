@@ -15,6 +15,13 @@ class User < ActiveRecord::Base
   has_many :user_label_selections
   has_many :labels, through: :user_label_selections
 
+  belongs_to :region
+
+  validates :region, presence: true
+  validates :name, length: { in: 5..80 }, uniqueness: true
+  validates :email, presence: true
+  validates :role, presence: true
+
 
   ### public methods ###
 
