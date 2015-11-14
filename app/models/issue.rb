@@ -116,7 +116,7 @@ class Issue < ActiveRecord::Base
   end
 
   def load_coordinate_string
-    if self.lat && self.lng && self.coordinate.blank?
+    if self.lat && self.lng && !self.coordinate
       self.coordinate = "#{self.lat.round(5)}, #{self.lng.round(5)}"
     end
   end

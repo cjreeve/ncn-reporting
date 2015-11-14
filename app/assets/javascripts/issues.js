@@ -100,10 +100,20 @@ function findMyCoord() {
 }
 
 function showMyCoord() {
+
+  var issue_lat = document.getElementById('coord-data').getAttribute('data-lat');
+  var issue_lng = document.getElementById('coord-data').getAttribute('data-lng');
+
   // show cross hair
-  if(coordFinderMap && myCoord) {
-    lat = myCoord.latitude;
-    lng = myCoord.longitude;
+  if((issue_lat.length > 0) || (coordFinderMap && myCoord)) {
+    if (issue_lat) {
+      lat = issue_lat;
+      lng = issue_lng;
+    } else {
+      lat = myCoord.latitude;
+      lng = myCoord.longitude;
+    }
+
     crosshairPosition = new google.maps.LatLng(lat, lng);
     crosshairMarker = new google.maps.Marker({
       position: crosshairPosition,
