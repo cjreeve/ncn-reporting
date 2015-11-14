@@ -17,7 +17,7 @@
           <%= link_to comment.user.name, user_path(comment.user) %>:
         </span>
         <span class="comment">
-          <%= comment.content %>
+          <%= comment.formatted_content %>
         </span>
         <span class='comment-time'>
           <%= issue.updated_at.strftime("%H:%M %d %b %Y") %>

@@ -9,7 +9,7 @@
       %>
     <% end %>
     <div class='comment-content'>
-      <%= strip_tags(comment.content).gsub(/(?:\n\r?|\r\n?)/, '<br>').split('<br><br>').reject(&:empty?).join('<br><br>').html_safe %>
+      <%= comment.formatted_content %>
     </div>
     <div class='comment-footer'>
       <div class='comment-label'>
