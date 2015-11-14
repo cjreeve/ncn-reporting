@@ -15,6 +15,7 @@ class Admin::UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     @user.region = current_user.region unless @user.region
+    @user.role = "volunteer" unless @user.role.present?
   end
 
   def update
@@ -34,6 +35,7 @@ class Admin::UsersController < ApplicationController
   def new
     @user = User.new
     @user.region = current_user.region
+    @user.role = "volunteer" unless @user.role.present?
   end
 
   def create

@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource except: [:create]
+  load_and_authorize_resource
 
   respond_to :html
 

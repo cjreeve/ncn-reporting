@@ -1,6 +1,6 @@
 class AreasController < ApplicationController
   before_action :set_area, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource except: [:create]
+  load_and_authorize_resource
 
   # GET /areas
   # GET /areas.json

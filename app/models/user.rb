@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   belongs_to :region
 
   validates :region, presence: true
-  validates :name, length: { in: 5..80 }, uniqueness: true
+  validates :name, length: { in: 2..80 }, uniqueness: true
   validates :email, presence: true
   validates :role, presence: true
 

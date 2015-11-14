@@ -1,6 +1,6 @@
 class RoutesController < ApplicationController
   before_action :set_route, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource except: [:create]
+  load_and_authorize_resource
 
   # GET /routes
   # GET /routes.json

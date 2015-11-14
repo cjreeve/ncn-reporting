@@ -1,8 +1,7 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
   before_action :load_issues, only: [:index, :show]
-  load_and_authorize_resource except: [:create]
-  # authorize_resource except: [:create, :destroy]
+  load_and_authorize_resource
 
   # GET /issues
   # GET /issues.json
