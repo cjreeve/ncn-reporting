@@ -38,7 +38,7 @@ Area: Name
 
 Roll: name
 
-rails g scaffold Region name:string lat:float lng:float  email:string email_name:string notifications_sent_at:datetime
+rails g scaffold Region name:string lat:float lng:float map_zoom:integer email:string email_ notifications_sent_at:datetime
 maybe add 'key' instead of identifier or slug?
 
 FEATURES
