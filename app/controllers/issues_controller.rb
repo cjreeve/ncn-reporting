@@ -162,7 +162,6 @@ class IssuesController < ApplicationController
 
   def progress
     @issue = Issue.find(params[:id])
-    @issue.load_coordinate_string
     @issues = Issue.all.order('lng DESC')
     @issue.editor = current_user
     if params[:submit] && @issue.submittable?

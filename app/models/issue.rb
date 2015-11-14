@@ -21,6 +21,7 @@ class Issue < ActiveRecord::Base
     3 => 'high'
   }
   
+  before_validation :load_coordinate_string
   before_validation :set_issue_number
   before_validation :set_priority
   before_validation :set_title
@@ -115,7 +116,9 @@ class Issue < ActiveRecord::Base
   end
 
   def load_coordinate_string
-    self.coordinate = "#{self.lat.round(5)}, #{self.lng.round(5)}" if self.lat && self.lng
+    if self.lat && self.lng && self.coordinate.blank?
+      self.coordinate = "#{self.lat.round(5)}, #{self.lng.round(5)}"
+    end
   end
 
   def valid_coordinate?
