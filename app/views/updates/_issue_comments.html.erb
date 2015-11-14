@@ -7,17 +7,22 @@
       <% end %>
     </p>
   <% end %>
-  <ul>
+  <ul class="update-comments">
     <% if issue.comments.count > 3 %>
-      …<br>
+      <li><span class="helip">⋮</span></li>
     <% end %>
     <% issue.comments.order('comments.updated_at ASC').last(3).each do |comment| %>
-        &bullet; <%= comment.content %> 
-        <span class='commentor'> -
-          <%= link_to comment.user.name, user_path(comment.user) %> at
-          <%= issue.updated_at.strftime("%H:%M %d-%b-%Y") %>
+      <li>
+        <span class='commentor'>
+          <%= link_to comment.user.name, user_path(comment.user) %>:
         </span>
-        <br>
+        <span class="comment">
+          <%= comment.content %>
+        </span>
+        <span class='comment-time'>
+          <%= issue.updated_at.strftime("%H:%M %d %b %Y") %>
+        </span>
+      </li>
     <% end %>
   </ul>
 <% end %>

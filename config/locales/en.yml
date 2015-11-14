@@ -26,6 +26,7 @@ en:
     draft: 'created'
     submitted: 'submitted'
     open: 'published'
+    in_progress: "started"
     reopened: 'reopened'
     resolved: 'resolved'
     unsolvable: 'canceled'
