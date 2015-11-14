@@ -2,17 +2,69 @@
   <div class='row'>
     <div class='small-12 medium-8 large-6 columns'>
       <h1>Latest changes</h1>
+
       Changes from the last 10 days
       <br>
       <br>
       <ul class='updates-list'>
+        <%# binding.pry %>
         <% @issues.each do |issue| %>
 
+          <%# show page updates %>
           <% while @page_ids_and_update_times.present? && @page_ids_and_update_times.last[1] > issue.updated_at  do %>
             <%= render 'page_update', page:  @page_ids_and_update_times.pop %>
           <% end %>
 
-          <% if (issue.updated_at - issue.edited_at).abs < 0.5 &&
+          <%# PUBLISHED BY %>
+          <% if issue.reported_at && (issue.updated_at - issue.reported_at).abs < 3601 && issue.open? %>
+            <li class="<%= updated_summary(issue) %>">
+              <div class='update-header'><%= updated_at_human issue %></div>
+              <%= render 'issue_title', issue: issue %>
+              <ul class='editor'>
+                <li>
+                   &mdash; published by <%= render 'issue_editor', issue: issue %>
+                </li>
+              </ul>
+              <%= render 'issue_comments', issue: issue %>
+            </li>
+
+          <%# MARKED AS ... %>
+          <% elsif issue.completed_at && (issue.updated_at - issue.completed_at).abs < 3601 %>
+            <li class="<%= updated_summary(issue) %>">
+              <div class='update-header'><%= updated_at_human issue %></div>
+              <%= render 'issue_title', issue: issue %>
+              <ul class='editor'>
+                <li>
+                   &mdash;  <%=t 'action.'+issue.state %> by <%= render 'issue_editor', issue: issue %>
+                </li>
+              </ul>
+              <%= render 'issue_comments', issue: issue %>
+            </li>
+
+          <%# CREATED or SUBMITTED BY %>
+          <% elsif (issue.updated_at - issue.created_at).abs < 3601  %>
+            <li class="<%= updated_summary(issue) %>">
+              <div class='update-header'><%= updated_at_human issue %></div>
+              <%= render 'issue_title', issue: issue %>
+              <ul class='editor'>
+                <li>
+                   &mdash; <%=t 'action.'+issue.state %> by <%= render 'issue_editor', issue: issue %>
+                </li>
+              </ul>
+              <%= render 'issue_comments', issue: issue %>
+            </li>
+
+          <%# COMMENTS %>
+          <% elsif issue.comments.present? && (issue.updated_at - issue.comments.last.updated_at).abs < 2 %>
+            <li class="<%= updated_summary(issue) %>">
+              <div class='update-header'><%= updated_at_human issue %></div>
+                <%= render 'issue_title', issue: issue %>
+
+                <%= render 'issue_comments', issue: issue %>
+            </li>
+
+          <%# show EDITED BY update %>
+          <% else (issue.updated_at - issue.edited_at).abs < 2.0 &&
                 (issue.reported_at.blank? || (issue.edited_at - issue.reported_at).abs > 3600) &&
                 (issue.completed_at.blank? || (issue.edited_at - issue.completed_at).abs > 3600)
             %>
@@ -26,35 +78,6 @@
               </ul>
               <%= render 'issue_comments', issue: issue %>
             </li>
-          <% elsif issue.reported_at && (issue.updated_at - issue.reported_at).abs < 3601 %>
-            <li class="<%= updated_summary(issue) %>">
-              <div class='update-header'><%= updated_at_human issue %></div>
-              <%= render 'issue_title', issue: issue %>
-              <ul class='editor'>
-                <li>
-                   &mdash; published by <%= render 'issue_editor', issue: issue %>
-                </li>
-              </ul>
-              <%= render 'issue_comments', issue: issue %>
-            </li>
-          <% elsif issue.completed_at && (issue.updated_at - issue.completed_at).abs < 3601 %>
-            <li class="<%= updated_summary(issue) %>">
-              <div class='update-header'><%= updated_at_human issue %></div>
-              <%= render 'issue_title', issue: issue %>
-              <ul class='editor'>
-                <li>
-                   &mdash; marked as <%= issue.state %> by <%= render 'issue_editor', issue: issue %>
-                </li>
-              </ul>
-              <%= render 'issue_comments', issue: issue %>
-            </li>
-            <% elsif issue.comments.present? && (issue.updated_at - issue.comments.last.updated_at).abs < 1 %>
-              <li class="<%= updated_summary(issue) %>">
-                <div class='update-header'><%= updated_at_human issue %></div>
-                  <%= render 'issue_title', issue: issue %>
-
-                  <%= render 'issue_comments', issue: issue %>
-              </li>
           <% end %>
        <% end %>
       </ul>

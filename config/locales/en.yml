@@ -21,3 +21,12 @@
 
 en:
   hello: "Hello world"
+
+  action:
+    draft: 'created'
+    submitted: 'submitted'
+    open: 'published'
+    reopened: 'reopened'
+    resolved: 'resolved'
+    unsolvable: 'canceled'
+    closed: 'closed'
