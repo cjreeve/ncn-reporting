@@ -15,22 +15,74 @@
 # end
 
 
+user_updated_ats = [
+  [26,'2015-09-29 08:44:27 +0100'],
+  [6,'2015-10-28 16:33:32 +0000'],
+  [15,'2015-09-15 17:35:14 +0100'],
+  [16,'2015-09-26 13:01:08 +0100'],
+  [8,'2015-08-28 07:16:45 +0100'],
+  [23,'2015-09-26 15:30:24 +0100'],
+  [12,'2015-09-11 16:59:32 +0100'],
+  [17,'2015-09-28 19:19:56 +0100'],
+  [18,'2015-09-26 13:04:20 +0100'],
+  [20,'2015-09-26 18:24:44 +0100'],
+  [33,'2015-11-02 16:03:39 +0000'],
+  [28,'2015-10-16 18:28:29 +0100'],
+  [19,'2015-10-22 15:11:45 +0100'],
+  [22,'2015-10-15 09:46:11 +0100'],
+  [30,'2015-10-17 13:27:20 +0100'],
+  [31,'2015-10-17 17:22:05 +0100'],
+  [2,'2015-10-25 22:05:52 +0000'],
+  [29,'2015-11-04 09:11:38 +0000'],
+  [32,'2015-10-26 16:55:31 +0000'],
+  [9,'2015-10-30 10:26:58 +0000'],
+  [27,'2015-11-08 18:42:32 +0000'],
+  [34,'2015-11-05 17:04:45 +0000'],
+  [10,'2015-11-08 19:00:16 +0000'],
+  [7,'2015-11-07 13:00:40 +0000'],
+  [25,'2015-11-09 09:19:06 +0000'],
+  [13,'2015-11-12 16:04:18 +0000'],
+  [21,'2015-11-12 16:04:56 +0000'],
+  [4,'2015-11-13 17:28:40 +0000'],
+  [24,'2015-11-12 16:02:55 +0000'],
+  [11,'2015-11-14 16:01:39 +0000'],
+  [1,'2015-11-15 00:45:30 +0000'],
+  [3,'2015-11-15 00:45:10 +0000'],
+  [14,'2015-09-16 14:45:01 +0100']
+]
 
-region = Region.find_or_create_by(name: 'London')
-region_atributes = {
-  lat: 51.517106,
-  lng: -0.113615,
-  map_zoom: 11,
-  email: 'noreply@ncn-reporting.herokuapp.com',
-  email_name: 'ncn-reporting',
-  notifications_sent_at: "2015-08-07 16:00"
-}
-region.update_attributes!(region_atributes)
-
-User.all.each do |user|
-  user.region = region
-  user.save
+ActiveRecord::Base.record_timestamps = false
+begin
+  user_updated_ats.each do |user_details|
+    u = User.find(user_details[0])
+    u.updated_at = user_details[1]
+    u.save
+  end
+ensure
+  ActiveRecord::Base.record_timestamps = true
 end
+
+
+# region = Region.find_or_create_by(name: 'London')
+# region_atributes = {
+#   lat: 51.517106,
+#   lng: -0.113615,
+#   map_zoom: 11,
+#   email: 'noreply@ncn-reporting.herokuapp.com',
+#   email_name: 'ncn-reporting',
+#   notifications_sent_at: "2015-08-07 16:00"
+# }
+# region.update_attributes!(region_atributes)
+
+# ActiveRecord::Base.record_timestamps = false
+# begin
+#   User.all.each do |user|
+#     user.region = region
+#     user.save
+#   end
+# ensure
+#   ActiveRecord::Base.record_timestamps = true
+# end
 
 
 # # remove label options for staff that are not managing any routes
