@@ -7052,12 +7052,11 @@ article.welcome {
 article.issue h1, article.issue h4 {
   display: inline-block; }
 article.issue h4.issue-state {
-  border: 0.125rem solid #888;
-  border-radius: 0.25rem;
-  background-color: #f5f5f5;
-  padding: 0.3125rem 0.5rem;
-  line-height: 1;
-  color: #555; }
+  margin-top: 1.25rem;
+  color: #333;
+  text-transform: uppercase; }
+  article.issue h4.issue-state.closed {
+    color: #888; }
 article.issue #map-canvas {
   margin-bottom: 1.25rem; }
 article.issue .show-closed-issues-link {
@@ -7340,7 +7339,7 @@ article.updates ul.updates-list {
       display: inline-block; }
     article.updates ul.updates-list > li ul.update-comments {
       margin-top: 0.1875rem;
-      border-top: 0.0625rem dotted #bbb; }
+      border-top: 0.125rem dotted white; }
       article.updates ul.updates-list > li ul.update-comments li {
         padding: 0.1875rem 0;
         line-height: 1.4;
