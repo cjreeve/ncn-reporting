@@ -5,12 +5,20 @@ article.issue{
   }
 
   h4.issue-state{
-    border: rem-calc(2) solid $grey;
-    border-radius: rem-calc(4);
-    background-color: $light-grey;
-    padding: rem-calc(5 8);
-    line-height: 1;
-    color: $dark-grey;
+    margin-top: rem-calc(20);
+    // border: rem-calc(1) solid $medium-grey;
+    // border-left-style: dotted;
+    // border-right-style: dotted;
+    // border-radius: rem-calc(4);
+    // background-color: $light-grey;
+    // padding: rem-calc(5 8);
+    // line-height: 1;
+    color: $black;
+    // &:before, &:after{
+    //   content: ">>"
+    // }
+    // color: $red;
+    text-transform: uppercase;
     &.low{
       // background-color: $green;
     }
@@ -22,6 +30,7 @@ article.issue{
     }
     &.closed{
       // background-color: $medium-grey;
+      color: $grey;
     }
   }
 

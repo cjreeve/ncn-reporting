@@ -41,7 +41,7 @@
       </div>
       <div class='medium-6 columns'>
         <% priority = Issue::PRIORITY[@issue.priority] %>
-        <h4 class="issue-state <%= priority %>"
+        <h4 class="issue-state <%= priority %> <%= @issue.state %>"
           title="issue state is <%= @issue.state %> and has a<%= priority ? ' '+priority : 'n undefined' %> priority">
           <%= @issue.state.gsub('_', ' ') %>
         </h4>
