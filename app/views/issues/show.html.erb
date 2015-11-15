@@ -192,10 +192,10 @@
                 <% if @issue.lat && @issue.lng %>
                   <div>
                     <%= 
-                        link_to 'openstreetmap', "http://www.openstreetmap.org/?mlat=#{@issue.lat}&mlon=#{@issue.lng}&layers=C", tarket: :_blank 
+                        link_to 'openstreetmap', "http://www.openstreetmap.org/?mlat=#{@issue.lat}&mlon=#{@issue.lng}&layers=C", target: :_blank 
                     %>,
                     <%=
-                        link_to 'googlemaps', "http://maps.google.com/?q=#{@issue.lat},#{@issue.lng}", tarket: :_blank
+                        link_to 'googlemaps', "http://maps.google.com/?q=#{@issue.lat},#{@issue.lng}", target: :_blank
                     %>
                   </div>
                 <% end %>
