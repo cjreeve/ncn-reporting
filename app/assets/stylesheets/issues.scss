@@ -4,6 +4,27 @@ article.issue{
     display: inline-block;
   }
 
+  h4.issue-state{
+    // border: rem-calc(2) solid $road-sign-blue;
+    border-radius: rem-calc(4);
+    background-color: $light-blue-grey;
+    padding: rem-calc(5 8);
+    line-height: 1;
+    color: $dark-grey;
+    &.low{
+      background-color: $green;
+    }
+    &.medium{
+      background-color: $yellow;
+    }
+    &.high{
+      background-color: $pink;
+    }
+    &.closed{
+      background-color: $medium-grey;
+    }
+  }
+
   #map-canvas{
     margin-bottom: rem-calc(20);
   }

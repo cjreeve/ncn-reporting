@@ -38,7 +38,11 @@
         </div>
       </div>
       <div class='medium-6 columns'>
-        <h4><%= @issue.state.gsub('_', ' ') %></h4>
+        <% priority = Issue::PRIORITY[@issue.priority] %>
+        <h4 class="issue-state <%= priority %>"
+          title="issue state is <%= @issue.state %> and has a<%= priority ? ' '+priority : 'n undefined' %> priority">
+          <%= @issue.state.gsub('_', ' ') %>
+        </h4>
         <% if @issue.submitted? && !can_publish_issue?(@issue) %>
             <span class='post-title-text'>awaiting review<span>
         <%  end %>
