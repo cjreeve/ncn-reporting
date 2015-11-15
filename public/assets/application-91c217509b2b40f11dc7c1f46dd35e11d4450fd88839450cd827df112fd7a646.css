@@ -7052,19 +7052,12 @@ article.welcome {
 article.issue h1, article.issue h4 {
   display: inline-block; }
 article.issue h4.issue-state {
+  border: 0.125rem solid #888;
   border-radius: 0.25rem;
-  background-color: #b4c8db;
+  background-color: #f5f5f5;
   padding: 0.3125rem 0.5rem;
   line-height: 1;
   color: #555; }
-  article.issue h4.issue-state.low {
-    background-color: #A8F5A8; }
-  article.issue h4.issue-state.medium {
-    background-color: #FE9; }
-  article.issue h4.issue-state.high {
-    background-color: #F99; }
-  article.issue h4.issue-state.closed {
-    background-color: #aaa; }
 article.issue #map-canvas {
   margin-bottom: 1.25rem; }
 article.issue .show-closed-issues-link {
