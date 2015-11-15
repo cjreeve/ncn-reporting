@@ -5,23 +5,23 @@ article.issue{
   }
 
   h4.issue-state{
-    // border: rem-calc(2) solid $road-sign-blue;
+    border: rem-calc(2) solid $grey;
     border-radius: rem-calc(4);
-    background-color: $light-blue-grey;
+    background-color: $light-grey;
     padding: rem-calc(5 8);
     line-height: 1;
     color: $dark-grey;
     &.low{
-      background-color: $green;
+      // background-color: $green;
     }
     &.medium{
-      background-color: $yellow;
+      // background-color: $yellow;
     }
     &.high{
-      background-color: $pink;
+      // background-color: $pink;
     }
     &.closed{
-      background-color: $medium-grey;
+      // background-color: $medium-grey;
     }
   }
 
