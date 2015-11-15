@@ -55,5 +55,6 @@ class ApplicationController < ActionController::Base
 
   def load_global_variables
     @current_region = current_user.try(:region)
+    @application_tagline = "NCN Reporting app"
   end
 end
