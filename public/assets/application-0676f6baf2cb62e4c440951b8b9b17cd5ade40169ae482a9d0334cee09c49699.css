@@ -7051,6 +7051,20 @@ article.welcome {
 
 article.issue h1, article.issue h4 {
   display: inline-block; }
+article.issue h4.issue-state {
+  border-radius: 0.25rem;
+  background-color: #b4c8db;
+  padding: 0.3125rem 0.5rem;
+  line-height: 1;
+  color: #555; }
+  article.issue h4.issue-state.low {
+    background-color: #A8F5A8; }
+  article.issue h4.issue-state.medium {
+    background-color: #FE9; }
+  article.issue h4.issue-state.high {
+    background-color: #F99; }
+  article.issue h4.issue-state.closed {
+    background-color: #aaa; }
 article.issue #map-canvas {
   margin-bottom: 1.25rem; }
 article.issue .show-closed-issues-link {
@@ -7298,7 +7312,14 @@ article.updates ul.updates-list {
     position: relative;
     background-color: #eee;
     margin-bottom: 0.625rem;
-    padding: 0.3125rem; }
+    padding: 0.3125rem;
+    padding-right: 0.625rem; }
+    article.updates ul.updates-list > li p {
+      line-height: 1.3; }
+      article.updates ul.updates-list > li p p {
+        color: #333; }
+    article.updates ul.updates-list > li a {
+      color: #555; }
     article.updates ul.updates-list > li.recently {
       background-color: #ffe0e0; }
     article.updates ul.updates-list > li.today {
@@ -7324,8 +7345,26 @@ article.updates ul.updates-list {
     article.updates ul.updates-list > li label.description {
       color: grey;
       display: inline-block; }
-    article.updates ul.updates-list > li .commentor {
-      font-size: 0.75rem; }
+    article.updates ul.updates-list > li ul.update-comments {
+      margin-top: 0.1875rem;
+      border-top: 0.0625rem dotted #bbb; }
+      article.updates ul.updates-list > li ul.update-comments li {
+        padding: 0.1875rem 0;
+        line-height: 1.4;
+        font-size: 0.8125rem; }
+        article.updates ul.updates-list > li ul.update-comments li .helip {
+          color: #777; }
+        article.updates ul.updates-list > li ul.update-comments li .commentor {
+          padding-right: 0.3125rem; }
+        article.updates ul.updates-list > li ul.update-comments li .comment {
+          font-style: italic; }
+        article.updates ul.updates-list > li ul.update-comments li .comment-time {
+          margin-top: -0.125rem;
+          display: block;
+          text-align: right;
+          font-size: 0.625rem;
+          color: #888;
+          border-bottom: 0.0625rem dotted #fff; }
 
 article.user ul.user-list li {
   position: relative; }
