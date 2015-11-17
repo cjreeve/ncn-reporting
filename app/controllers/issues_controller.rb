@@ -302,8 +302,12 @@ class IssuesController < ApplicationController
 
     # Issue.includes(:labels).where(labels: {id: nil})
     joined_options[:labels] = {id: label_ids} if params[:label]
-    include_tables << :labels if params[:label]
-
+    if params[:label]
+      # TODO: really need to write some tests for the results. I added the joined_table << :labels option because of a bug
+      #       but may be breaking something else :S
+      include_tables << :labels
+      joined_tables << :labels
+    end
     joined_tables = nil unless joined_tables.present?
 
     # binding.pry
