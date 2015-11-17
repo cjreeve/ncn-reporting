@@ -1,9 +1,9 @@
-<% @issue.images.each do |image| %>
+<% @issue.images.each_with_index do |image, index| %>
   <div class='issue-image-container'>
     <% if image.src.present? %>
       <%= image_tag image.src_url(defined?(is_modal) ? :zoom : :main), alt: "", :'data-reveal-id' => 'imageZoomModal'  %>
     <% elsif image.url.present? %>
-      <%= image_tag image.url, alt: "", :'data-reveal-id' => 'imageZoomModal'  %>
+      <%= image_tag image.url, alt: "", :'data-reveal-id' => 'imageZoomModal', :'data-index' => index  %>
     <% else %>
       <br>
     <% end %>
