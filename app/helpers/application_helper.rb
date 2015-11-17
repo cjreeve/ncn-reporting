@@ -18,9 +18,18 @@ module ApplicationHelper
   end
 
   def render_markdown(text, sanitize = 'basic')
-    sanitize = Sanitize::Config::RESTRICTED if sanitize == "restricted"
-    sanitize = Sanitize::Config::BASIC if sanitize == "basic"
-    sanitize = Sanitize::Config::RELAXED if sanitize == "relaxed"
+    if sanitize == "restricted"
+      sanitize = {
+        elements: ['br', 'a'],
+        attributes: { 'a' => ['href', 'title'] },
+        protocols: { 'a' => {'href' => ['http', 'https', 'mailto'] }}
+      }
+      # sanitize = Sanitize::Config::RESTRICTED
+    elsif sanitize == "basic"
+      sanitize = Sanitize::Config::BASIC
+    elsif sanitize == "basic"
+      sanitize = Sanitize::Config::RELAXED if sanitize == "relaxed"
+    end
     if text.present?
       markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, strikethrough: true)
       Sanitize.fragment(
