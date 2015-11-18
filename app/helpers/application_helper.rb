@@ -24,10 +24,9 @@ module ApplicationHelper
         attributes: { 'a' => ['href', 'title'] },
         protocols: { 'a' => {'href' => ['http', 'https', 'mailto'] }}
       }
-      # sanitize = Sanitize::Config::RESTRICTED
     elsif sanitize == "basic"
       sanitize = Sanitize::Config::BASIC
-    elsif sanitize == "basic"
+    elsif sanitize == "relaxed"
       sanitize = Sanitize::Config::RELAXED if sanitize == "relaxed"
     end
     if text.present?
