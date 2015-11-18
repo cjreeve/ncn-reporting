@@ -25,7 +25,7 @@
     class: 'button tiny'
   end
 %>
-<%=
+<%#=
   if @issue.closeable? && can_close_issue?(@issue)
     button_to 'Close',
     [:progress, @issue],

@@ -58,13 +58,13 @@ class Issue < ActiveRecord::Base
       transition [:open, :reopened] => :in_progress
     end
     event :resolve do
-      transition [:open, :reopened, :in_progress] => :resolved
+      transition [:open, :reopened, :in_progress] => :closed
     end
     event :reject do
-      transition [:open, :reopened, :in_progress] => :unsolvable
+      transition [:open, :reopened, :in_progress] => :closed
     end
     event :close do
-      transition [:resolved, :unsolvable] => :closed
+      transition [:open, :reopened, :in_progress, :resolved, :unsolvable] => :closed
     end
     event :reopen do
       transition [:unsolvable, :resolved, :closed] => :reopened

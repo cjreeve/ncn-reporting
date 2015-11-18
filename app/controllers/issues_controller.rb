@@ -174,7 +174,7 @@ class IssuesController < ApplicationController
     elsif params[:start] && @issue.startable?
       @issue.start!
     elsif params[:resolve] && @issue.resolveable?
-      @issue.resolve!
+      @issue.close!
       @issue.resolution = "resolved"
       @issue.completed_at = Time.zone.now
       @issue.save
@@ -186,7 +186,7 @@ class IssuesController < ApplicationController
     elsif params[:archive] && @issue.archiveable?
       @issue.archive!
     elsif params[:reject] && @issue.rejectable?
-      @issue.reject!
+      @issue.close!
       @issue.resolution = "unsolvable"
       @issue.save
     else

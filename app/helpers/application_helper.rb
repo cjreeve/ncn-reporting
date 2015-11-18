@@ -1,5 +1,14 @@
 module ApplicationHelper
 
+  # def sate_progress_bar(current_state)
+  #   states = ['draft', 'submitted', 'open', 'in progress', 'closed']
+
+  #   html_tags = states.collect do |state|
+  #     content_tag, :span, state, class: "#{ state == current_state ? 'current' : '' }"
+  #   end
+  #   html_tags.join
+  # end
+
   def can_do?(user, terms)
      terms.include?(user.role) ||
      (terms.include?("admin") && user.is_admin?)
