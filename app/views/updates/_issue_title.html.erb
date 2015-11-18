@@ -1,6 +1,6 @@
 <h3>
   <%= link_to issue_path(issue) do %>
     (<%= issue.issue_number %>) <%= issue.category.name %> - <%= issue.the_problem %>
-    <span class='status'>(<%= issue.state.humanize %>)</span>
+    <span class='status'>(<%=t 'state.'+issue.state %>)</span>
   <% end %>
 </h3>

@@ -18,7 +18,7 @@
           <td><%= issue.category.name if issue.category %></td>
           <td><%= issue.the_problem %></td>
           <td><%= issue.location_name %></td>
-          <td><%= issue.state %></td>
+          <td><%=t 'state.'+issue.state %></td>
         </tr>
       <% end %>
     </tbody>

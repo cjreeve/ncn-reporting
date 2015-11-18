@@ -48,7 +48,7 @@
                 <td><%= sprintf("%1.4f", issue.lat) if issue.lat %></td>
                 <td><%= sprintf("%1.4f", issue.lng) if issue.lng %></td>
                 <td><%= issue.updated_at.strftime("%d-%b-%Y") if issue.updated_at %></td>
-                <td><%= issue.state.gsub('_', ' ') %></td>
+                <td><%=t 'state.'+issue.state %></td>
                 <td><%= link_to 'Show', issue_path(filter_params(params, {id: issue.id})) %></td>
                 <td style="background-color: <%= priority_colour(issue.priority) %>"> </td>
               </tr>

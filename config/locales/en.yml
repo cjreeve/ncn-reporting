@@ -31,3 +31,12 @@ en:
     resolved: 'resolved'
     unsolvable: 'canceled'
     closed: 'closed'
+  state:
+    draft: draft
+    submitted: submitted
+    open: published
+    in_progress: in progress
+    resolved: resolved
+    unsolvable: unsolvable
+    reopened: reopened
+    closed: closed

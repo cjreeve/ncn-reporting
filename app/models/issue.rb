@@ -57,9 +57,6 @@ class Issue < ActiveRecord::Base
     event :start do
       transition [:open, :reopened] => :in_progress
     end
-    event :archive do
-      transition open: :archived
-    end
     event :resolve do
       transition [:open, :reopened, :in_progress] => :resolved
     end
@@ -70,7 +67,7 @@ class Issue < ActiveRecord::Base
       transition [:resolved, :unsolvable] => :closed
     end
     event :reopen do
-      transition [:unsolvable, :resolved, :closed] => :reopened, archived: :open
+      transition [:unsolvable, :resolved, :closed] => :reopened
     end
   end
 
