@@ -7052,11 +7052,21 @@ article.welcome {
 article.issue h1, article.issue h4 {
   display: inline-block; }
 article.issue h4.issue-state {
-  margin-top: 1.25rem;
+  margin: 0.5rem 0;
   color: #333;
+  font-size: 1.75rem;
   text-transform: uppercase; }
+  article.issue h4.issue-state span {
+    display: inline-block; }
   article.issue h4.issue-state.closed {
     color: #888; }
+article.issue .progress-bar {
+  margin-top: -0.625rem;
+  color: #888;
+  font-size: 0.6875rem; }
+  article.issue .progress-bar .current {
+    border: 0.0625rem solid #aaa;
+    padding: 0 0.0625rem; }
 article.issue #map-canvas {
   margin-bottom: 1.25rem; }
 article.issue .show-closed-issues-link {
@@ -7128,7 +7138,8 @@ article.issue .post-title-text {
   display: inline-block;
   margin-left: 0.625rem;
   font-size: 0.75rem;
-  color: #888; }
+  color: #888;
+  text-transform: none; }
 article.issue #issue_title {
   margin-bottom: 0; }
 article.issue #issue_coordinate {
