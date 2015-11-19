@@ -40,21 +40,26 @@
         </div>
       </div>
       <div class='medium-6 columns'>
+
+        <div class="progress-bar"><%= state_progress_bar @issue.state, @issue.resolution %></div>
+
+
         <% priority = Issue::PRIORITY[@issue.priority] %>
         <h4 class="issue-state <%= priority %> <%=t 'state.'+@issue.state %>"
           title="issue state is <%=t 'state.'+@issue.state %> and has a<%= priority ? ' '+priority : 'n undefined' %> priority">
 
 
-          <%=t 'state.'+@issue.state %>
-          <%#= sate_progress_bar @issue.state %>
+          <%= @issue.status %>
 
         </h4>
+
+        <%# if @issue.draft? %>
+          <%#span class='post-title-text'>submit when ready</span%>
+        <%# end %>
         <% if @issue.submitted? && !can_publish_issue?(@issue) %>
             <span class='post-title-text'>awaiting review<span>
         <%  end %>
-        <% if @issue.closed? %>
-          <span class='post-title-text'><%= @issue.resolution.present? ? '('+@issue.resolution+')' : '' %></span>
-        <% end %>
+
       </div>
     </div>
 

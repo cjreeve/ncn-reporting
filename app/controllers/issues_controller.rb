@@ -19,7 +19,7 @@ class IssuesController < ApplicationController
 
     @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
     @areas = Area.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
-    @states = Issue.state_machine.states.collect(&:name)
+    @states = Issue.state_machine.states.collect(&:name) - [:resolved, :unsolvable]
     @labels = Label.all.order(:name)
 
     @issues_with_coords = @issues.where.not(lat: nil, lng: nil)

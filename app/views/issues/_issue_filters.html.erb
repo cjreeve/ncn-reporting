@@ -75,7 +75,7 @@
           <% @states.each do |state| %>
             <% unless ((@current_state && @current_state == state) || state == :reopened) %>
               <li>
-                <%= link_to state.to_s.gsub('_',' '), issues_path(filter_params(params, {state: state})) %>
+                <%= link_to I18n.t('state.'+state.to_s), issues_path(filter_params(params, {state: state})) %>
               </li>
             <% end %>
           <% end %>

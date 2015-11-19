@@ -123,6 +123,11 @@ class Issue < ActiveRecord::Base
     self.lat.present? && (self.lat > 49.0 &&  self.lat < 61.0)
   end
 
+  def status
+    return self.resolution if self.state == 'closed'
+    I18n.t('state.'+self.state)
+  end
+
   def the_problem
     if self.problem
       self.problem.name

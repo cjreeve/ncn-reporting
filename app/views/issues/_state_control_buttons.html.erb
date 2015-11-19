@@ -4,7 +4,8 @@
     [:progress, @issue],
     method: :put,
     params: filter_params(params, { submit: '' }),
-    class: 'button tiny'
+    class: 'button tiny',
+    title: 'submit this issue when all details are added'
   end
 %>
 <%=
@@ -13,7 +14,8 @@
     [:progress, @issue],
     method: :put,
     params: filter_params(params, { publish: '' }),
-    class: 'button tiny'
+    class: 'button tiny',
+    title: 'publish this issue if all details and labels are present'
   end
 %>
 <%=
@@ -22,7 +24,8 @@
     [:progress, @issue],
     method: :put,
     params: filter_params(params, { start: '' }),
-    class: 'button tiny'
+    class: 'button tiny',
+    title: 'start this issue if it has been passed to the relevant body but is still not complete'
   end
 %>
 <%#=
@@ -39,13 +42,15 @@
     [:progress, @issue],
     method: :put,
     params: filter_params(params, { resolve: ''}),
-    class: 'button tiny success'
+    class: 'button tiny success',
+    title: 'click resolve if the problem is resolved'
   %>
   <%= button_to "Can't resolve",
     [:progress, @issue],
     method: :put,
     params: filter_params(params, { reject: '' }),
-    class: 'button tiny secondary'
+    class: 'button tiny secondary',
+    title: "click \"can't resolve\" if the problem can't be fixed at this time"
   %>
 <% end %>
 <%=
@@ -54,7 +59,8 @@
     [:progress, @issue],
     method: :put,
     params: filter_params(params, { reopen: '' }),
-    class: 'button tiny secondary'
+    class: 'button tiny secondary',
+    title: 'reopen the issue if the problem has re-occurred or was not fully resolved'
   end
 %>
 <%#=
@@ -71,5 +77,6 @@
   [:edit, @issue],
   method: :get,
   params: filter_params(params, { id: @issue.id }),
-  class: 'button tiny secondary'
+  class: 'button tiny secondary',
+  title: 'click here if you wish to edit the issue specifications'
 %>
