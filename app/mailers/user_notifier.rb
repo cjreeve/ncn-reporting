@@ -5,10 +5,7 @@ class UserNotifier < ActionMailer::Base
   def send_user_notifications(user)
     @user = user
 
-    if @user.is_locked? || @user.role == "guest" || %w{volunteer ranger administrator"}.include?(@user.name) ||
-       !@user.receive_email_notifications?
-      return
-    end
+    return if exclude_user? user
 
     #################### shared with ajax notifier ###################
     counter_array = []
@@ -38,14 +35,10 @@ class UserNotifier < ActionMailer::Base
 
     return if @total_pending_count == 0
 
-    if Rails.env.production?
-      recipient_email = @user.email
-    else
-      recipient_email = Rails.application.config.dev_email
-    end
-
-    mail( to: recipient_email,
-          subject: "ncn-reporting - #{ @total_pending_count.to_s + ' issue'.pluralize } for your attention" )
+    mail(
+      to: get_recipient_email(user),
+      subject: "ncn-reporting - #{ @total_pending_count.to_s + ' issue'.pluralize } for your attention"
+      )
   end
 
   def send_issue_state_change_notification(user, issue)
