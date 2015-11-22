@@ -1,3 +1,5 @@
+<% show_label_notice ||= false %>
+
 <br>
 <hr>
 <div style="font-size:12px; color:#777;">
@@ -9,5 +11,7 @@
     You can disable the notifications on your profile page here:<br>
     <%= link_to edit_user_registration_url, edit_user_registration_url %>
   </p>
-  <p>You can also select which open issue notifications you receive by updating your "Label for notification" options</p>
+  <% if show_label_notice %>
+    <p>You can also select which open issue notifications you receive by updating your "Label for notification" options</p>
+  <% end %>
 </div>
