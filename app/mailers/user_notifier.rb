@@ -47,4 +47,33 @@ class UserNotifier < ActionMailer::Base
     mail( to: recipient_email,
           subject: "ncn-reporting - #{ @total_pending_count.to_s + ' issue'.pluralize } for your attention" )
   end
+
+  def send_issue_state_change_notification(user, issue)
+    @user = user
+    @issue = issue
+
+    return if exclude_user? user
+
+    mail(
+      to: get_recipient_email(user),
+      subject: "ncn-reporting - issue #{ issue.issue_number } was #{ I18n.t('action.'+issue.state) }"
+    )
+  end
+
+
+  private
+
+  def exclude_user?(user)
+    @user.is_locked? || @user.role == "guest" || %w{volunteer ranger administrator"}.include?(@user.name) ||
+           !@user.receive_email_notifications?
+  end
+
+  def get_recipient_email(user)
+    if Rails.env.production?
+      @user.email
+    else
+      Rails.application.config.dev_email
+    end
+  end
+
 end

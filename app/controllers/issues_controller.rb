@@ -164,31 +164,34 @@ class IssuesController < ApplicationController
     @issue = Issue.find(params[:id])
     @issues = Issue.all.order('lng DESC')
     @issue.editor = current_user
+    action_taken = nil
     if params[:submit] && @issue.submittable?
       @issue.submit!
       @issue.save
+      action_taken = "submitted"
     elsif params[:publish] && @issue.publishable?
       @issue.publish!
       @issue.reported_at = Time.zone.now
       @issue.save
+      action_taken = "published"
     elsif params[:start] && @issue.startable?
       @issue.start!
-    elsif params[:resolve] && @issue.resolveable?
+      action_taken = "start"
+    elsif params[:resolve] && @issue.closeable?
       @issue.close!
       @issue.resolution = "resolved"
       @issue.completed_at = Time.zone.now
       @issue.save
-    elsif params[:close] && @issue.closeable?
-      @issue.close!
+      action_taken = "resolved"
     elsif params[:reopen] && @issue.reopenable?
       @issue.reopen!
       @issue.save
-    elsif params[:archive] && @issue.archiveable?
-      @issue.archive!
+      action_taken = "reopened"
     elsif params[:reject] && @issue.rejectable?
       @issue.close!
       @issue.resolution = "unsolvable"
       @issue.save
+      action_taken = "rejected"
     else
       if (params[:submit] || params[:publish]) && !@issue.submittable? && !@issue.publishable?
         text = "Please provide the following before publishing this issue:  "
@@ -200,6 +203,11 @@ class IssuesController < ApplicationController
         return redirect_to issue_path, alert: "Invalid progress request"
       end
     end
+
+    if action_taken.present? && @issue.user != current_user
+      UserNotifier.send_issue_state_change_notification(@issue.user, @issue).deliver
+    end
+
     redirect_to issue_path(filter_params(params))
   end
 

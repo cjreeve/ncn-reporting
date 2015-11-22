@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Hi <%= @user.first_name %>!</p>
+    <p>
+      Just to let you know that <%= link_to "issue #{ @issue.issue_number }", issue_number_url(@issue.issue_number)  %>
+      <% if @issue.user == @user %>
+        you created
+      <% end %>
+      has been <%=  I18n.t('action.'+@issue.state)  %>.
+      <% if @issue.resolution == "resolved" && @issue.state == "closed" %>
+        Wohey!
+      <% end %>
+    </p>
+
+    <% if @issue.state == "closed" %>
+      <p>
+        Don't agree? Feel free to reopen the issue and leave a comment. :-)
+      </p>
+    <% end %>
+
+    <p>Lovely jubbly,</p>
+    <p><b>ncn-reporting</b></p>
+    <%= render 'shared_footer' %>
+  </body>
+</html>
