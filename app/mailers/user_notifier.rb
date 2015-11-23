@@ -53,6 +53,19 @@ class UserNotifier < ActionMailer::Base
     )
   end
 
+  def send_issue_comment_notification(user, comment, issue, commenter)
+    @user = user
+    @comment = comment
+    @commenter = commenter
+    @issue = issue
+
+    return if exclude_user? user
+
+    mail(
+      to: get_recipient_email(user),
+      subject: "ncn-reporting - #{ commenter.first_name } commented on issue #{ issue.issue_number }"
+    )
+  end
 
   private
 

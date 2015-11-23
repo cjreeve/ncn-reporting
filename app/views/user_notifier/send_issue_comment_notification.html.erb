@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Hi <%= @user.first_name %>!</p>
+    <p>
+      <%= @commenter.name.gsub('(sustrans)','') %> added the following comment to
+      <%= link_to "issue #{ @issue.issue_number }", issue_number_url(@issue.issue_number) %>.
+      <div style="display:block;color:#777;border-left:2px solid #ddd;padding-left:20px;">
+        <%= @comment.formatted_content %>
+      </div>
+    </p>
+
+    <p>Best wishes,</p>
+    <p><b>ncn-reporting</b></p>
+    <%= render 'shared_footer', show_comment_beta_notice: true %>
+  </body>
+</html>

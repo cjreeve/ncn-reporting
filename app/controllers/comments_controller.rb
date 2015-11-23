@@ -26,14 +26,20 @@ class CommentsController < ApplicationController
     @new_comment = Comment.new
     @comments = Comment.where(issue: @comment.issue).order(created_at: :asc)
     @issue = @comment.issue
+    commenters = ((@comments.collect(&:user) + [@issue.user]).uniq - [current_user])
 
     respond_to do |format|
       if @comment.save
         @issue.touch
+        @comments << @comment
+
         format.html { redirect_to :show, status: :created }
-        format.js { 
+        format.js {
           return (render :comment) 
         }
+        commenters.each do |commenter|
+          UserNotifier.send_issue_comment_notification(commenter, @comment, @issue, current_user).deliver
+        end
       else
         format.html { return render :show }
         # format.js { return an error message }
