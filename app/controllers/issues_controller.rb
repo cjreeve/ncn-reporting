@@ -309,23 +309,23 @@ class IssuesController < ApplicationController
     options[:user_id] = current_user.id if options[:state] == 'draft'
 
     # Issue.includes(:labels).where(labels: {id: nil})
+
     joined_options[:labels] = {id: label_ids} if params[:label]
     if params[:label]
-      # TODO: really need to write some tests for the results. I added the joined_table << :labels option because of a bug
-      #       but may be breaking something else :S
+      # TODO: really need to write some tests for the results.
       include_tables << :labels
-      joined_tables << :labels
+      # the following join was added to fix a bug bit it created another bug in that nil label results did not show
+      # not sure what the first bug was but may have been fixed now
+      # joined_tables << :labels
     end
     joined_tables = nil unless joined_tables.present?
-
-    # binding.pry
 
     case params["action"]
     when "index"
       @issues = Issue.joins(joined_tables).includes(include_tables).where(options).where(joined_options).where.not(exclusions).order(joined_order).order(order => direction).paginate(page: params[:page], per_page: per_page)
     when "show"
-      @next_issue_id = Issue.joins(joined_tables).where(options).where(joined_options).where.not(exclusions).order('issues.id ASC').where('issues.id > ?', params["id"]).limit(1).first.try(:id)
-      @prev_issue_id = Issue.joins(joined_tables).where(options).where(joined_options).where.not(exclusions).order('issues.id DESC').where('issues.id < ?', params["id"]).limit(1).first.try(:id)
+      @next_issue_id = Issue.joins(joined_tables).includes(include_tables).where(options).where(joined_options).where.not(exclusions).order('issues.id ASC').where('issues.id > ?', params["id"]).limit(1).first.try(:id)
+      @prev_issue_id = Issue.joins(joined_tables).includes(include_tables).where(options).where(joined_options).where.not(exclusions).order('issues.id DESC').where('issues.id < ?', params["id"]).limit(1).first.try(:id)
     end
   end
 end
