@@ -1,7 +1,15 @@
 # encoding: UTF-8
 
 CarrierWave.configure do |config|
-  unless Rails.env == 'development'
+  if Rails.env == 'development'
+    config.fog_credentials = {
+      provider: 'AWS',
+      aws_access_key_id: '',
+      aws_secret_access_key: '',
+      region: 'eu-west-1'
+    }
+    config.fog_directory = 'ncn-reporting'
+  else
     config.fog_credentials = {
       provider: 'AWS',
       aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],

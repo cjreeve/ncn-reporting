@@ -39,6 +39,11 @@ class IssuesController < ApplicationController
       format.html
       format.csv { send_data @issues.to_csv }
       format.gpx { send_data @issues.to_gpx, filename: 'ncn-issue-waypoints.gpx' }
+      format.pdf do
+        send_data @issues.to_pdf, filename: "mypdf.pdf",
+                              type: "application/pdf",
+                              disposition: "inline"
+      end
     end
   end
 
@@ -227,7 +232,7 @@ class IssuesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def issue_params
     params.require(:issue).permit(:issue_number, :title, :description, :priority, :reported_at,
-      :completed_at, :location_name, :coordinate, :route_id, :area_id, :url, :category_id, 
+      :completed_at, :location_name, :coordinate, :route_id, :area_id, :url, :category_id,
       :problem_id, :user_id, :administrative_area_id, :resolution,
       images_attributes: [:id, :url, :src, :caption, :_destroy],
       label_ids: [])

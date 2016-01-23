@@ -33,6 +33,9 @@ gem 'cancancan', '~> 1.10'
 gem 'redcarpet'
 gem 'geocoder'
 gem 'gpx'
+#generate PDFs
+gem 'prawn', '~> 2.0'
+gem 'prawn-table', '~> 0.2'
 gem 'sanitize'
 
 # Image processing
@@ -40,7 +43,6 @@ gem 'carrierwave'
 gem 'mini_magick'
 # gem 'rmagick'
 gem 'fog'
-
 
 
 

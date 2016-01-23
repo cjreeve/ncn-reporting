@@ -1,6 +1,8 @@
 class Issue < ActiveRecord::Base
   attr_accessor :coordinate
 
+  require "open-uri"
+
   belongs_to :route
   belongs_to :area
   belongs_to :administrative_area
@@ -14,13 +16,13 @@ class Issue < ActiveRecord::Base
   belongs_to :editor, class_name: "User"
 
   accepts_nested_attributes_for(:images, allow_destroy: true, reject_if:  proc { |a| a[:url].blank? && a[:src].blank? && a[:caption].blank? })
-  
+
   PRIORITY = {
     1 => 'low',
     2 => 'medium',
     3 => 'high'
   }
-  
+
   before_validation :load_coordinate_string
   before_validation :set_issue_number
   before_validation :set_priority
@@ -191,13 +193,13 @@ class Issue < ActiveRecord::Base
       self.area = self.administrative_area.area
     end
   end
-  
+
   private
 
   def set_edited_at
     self.edited_at = Time.zone.now
   end
-  
+
   def set_issue_number
     self.issue_number = Issue.last.try(:issue_number).to_i + 1 unless self.issue_number.present?
   end
@@ -264,7 +266,7 @@ class Issue < ActiveRecord::Base
         issue_values << (issue.url ? issue.url : '')
         issue_values << (issue.priority ? issue.priority : '')
         issue_values << (issue.reported_at ? issue.reported_at.strftime("%d/%m/%Y") : '')
-        issue_values << (issue.completed_at ? issue.completed_at.strftime("%d/%m/%Y") : '')  
+        issue_values << (issue.completed_at ? issue.completed_at.strftime("%d/%m/%Y") : '')
         # csv << issue.attributes.values_at(*column_names)
         csv << issue_values
       end
@@ -276,7 +278,82 @@ class Issue < ActiveRecord::Base
     gpx = GPX::GPXFile.new
     all.each do |stop|
       gpx.waypoints << GPX::Waypoint.new({name: stop.the_summary , lat: stop.lat, lon: stop.lng, time: stop.created_at})
-    end 
+    end
     gpx.to_s
+  end
+
+  def self.to_pdf
+
+    # SiteUploader.storage :fog
+
+    p = Prawn::Document.new
+
+    # p.stroke_axis
+    # p.stroke_circle [0, 0], 10
+    # pdf.blank_line
+    p.font_size(24)
+    p.text "NCN Issues Report", align: :center
+    p.move_down(30)
+
+    all.each do |issue|
+      p.font_size(18);
+      p.text "(#{ issue.issue_number }) - #{ issue.route.name } - #{ issue.category.name }: #{ issue.problem.name }"
+      p.move_down(10)
+
+      p.font_size(12);
+      p.text "<b>Description:</b> #{ issue.description.present? ? ApplicationController.helpers.render_markdown(issue.description, 'restricted') : 'none' }", inline_format: true
+
+      p.font_size(11)
+      p.font "Times-Roman"
+      if issue.images.present? # && issue.images.first.fetch_remote_image.present?
+
+        t = p.make_table(
+          prawn_table_rows(issue),
+          cell_style: {border_color: "FFFFFF", inline_format: true}
+        )
+      t.draw
+      p.font "Helvetica"
+      p.move_down 20
+      end
+      p.font "Helvetica"
+      p.move_down(40)
+    end
+
+
+    p.render
+  end
+
+end
+
+def prawn_table_rows(issue)
+  table_rows = []
+
+  issue.images.in_groups_of(2).each_with_index do |images, index1|
+    table_row = images.collect do |image|
+      if image
+        file_path = image.src_url(:main)
+        prawn_table_image(file_path)
+      else
+        ''
+      end
+    end
+    alphabet = ('a'..'z').to_a
+    index2 = -1
+    table_rows << images.collect{ |image| "<b>Image-#{image.issue.issue_number}#{alphabet[index1*2+(index2+=1)]}</b>: <i>#{image.caption}</i>" if image }
+    table_rows << table_row
+    table_rows << [' ', ' ']
+  end
+
+  table_rows
+end
+
+# ▼
+
+def prawn_table_image(file_path)
+  begin
+    image_file = open(file_path)
+    {image: image_file, scale: 0.5}
+  rescue
+    "[image missing]"
   end
 end
