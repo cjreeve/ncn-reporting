@@ -282,26 +282,45 @@ class Issue < ActiveRecord::Base
     gpx.to_s
   end
 
-  def self.to_pdf
-
-    # SiteUploader.storage :fog
+  def self.to_pdf(params)
 
     p = Prawn::Document.new
-
+    filters = []
     # p.stroke_axis
     # p.stroke_circle [0, 0], 10
     # pdf.blank_line
     p.font_size(24)
     p.text "NCN Issues Report", align: :center
+    p.font_size(10);
+    p.text "#{ Time.now.strftime('%d %B %Y') }", align: :center
     p.move_down(30)
+
+    p.font_size(12);
+    if params.present?
+
+      filters << ["route", Route.find_by_slug(params[:route]).try(:name)] if params[:route]
+      filters << ["region", AdministrativeArea.find(params[:region]).try(:short_name)] if params[:region]
+      p.text "#{ filters.collect{ |f| f[1] }.join('  -  ') }", align: :center
+    else
+      p.text "Summary of all outstanding issues."
+    end
+
+    p.move_down(30);
+
 
     all.each do |issue|
       p.font_size(18);
-      p.text "(#{ issue.issue_number }) - #{ issue.route.name } - #{ issue.category.name }: #{ issue.problem.name }"
-      p.move_down(10)
+      p.text "(#{ issue.issue_number }) #{ '- ' + issue.try(:route).try(:name).to_s unless params[:route] } - #{ issue.try(:category).try(:name) }: #{ issue.try(:problem).try(:name) }"
 
       p.font_size(12);
+      if issue.reported_at
+        p.text "#{ issue.reported_at.strftime('%d %b %Y') }", align: :right
+      end
+
+      p.move_down(10)
+
       p.text "<b>Description:</b> #{ issue.description.present? ? ApplicationController.helpers.render_markdown(issue.description, 'restricted') : 'none' }", inline_format: true
+
 
       p.font_size(11)
       p.font "Times-Roman"

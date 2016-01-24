@@ -40,7 +40,7 @@ class IssuesController < ApplicationController
       format.csv { send_data @issues.to_csv }
       format.gpx { send_data @issues.to_gpx, filename: 'ncn-issue-waypoints.gpx' }
       format.pdf do
-        send_data @issues.to_pdf, filename: "mypdf.pdf",
+        send_data @issues.to_pdf(filter_params(params)), filename: "ncn-issue-report.pdf",
                               type: "application/pdf",
                               disposition: "inline"
       end
@@ -247,7 +247,7 @@ class IssuesController < ApplicationController
     joined_tables = []
     joined_order = nil
 
-    if params[:format] == 'csv' || params[:format] == 'gpx'
+    if %w{csv gpx pdf}.include? params[:format]
       per_page = Issue.count
     else
       per_page = 10
