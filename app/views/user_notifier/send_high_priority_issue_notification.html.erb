@@ -6,7 +6,11 @@
   <body>
     <p>Hi <%= @user.first_name %>!</p>
 
-    <p>Just to let you know that <%= @issue.user.first_name %> created a high priority issue.</p>
+    <% if @event_type == :change %>
+      <p>Just to let you know that <%= @issue.editor.first_name %> changed issue <%= @issue.issue_number %> to high priority.</p>
+    <% else %>
+      <p>Just to let you know that <%= @issue.user.first_name %> submitted a high priority issue.</p>
+    <% end %>
 
     <p>You can review this issue here:<br>
       <%= link_to issue_number_url(@issue.issue_number), issue_number_url(@issue.issue_number) %>

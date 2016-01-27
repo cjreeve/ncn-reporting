@@ -23,11 +23,14 @@ class Issue < ActiveRecord::Base
     3 => 'high'
   }
 
+  PRIORITY_CHANGED = false
+
   before_validation :load_coordinate_string
   before_validation :set_issue_number
   before_validation :set_priority
   before_validation :set_title
   before_validation :set_edited_at
+  after_update :send_high_priority_issue_notifications_if_changed
 
   validates :title, length: { in: 2..30, message: '- the problem must be between 2 and 30 characters'}
   validates :url, length: { in: 0..1000, message: '- the url must be less than 1000 characters'}
@@ -225,6 +228,12 @@ class Issue < ActiveRecord::Base
   def set_priority
     if (problem_id.present? && priority.blank?) || (problem_id.present? && problem_id_changed?)
       self.priority = Problem.find(self.problem_id).default_priority
+    end
+  end
+
+  def send_high_priority_issue_notifications_if_changed
+    if priority_changed? && PRIORITY[priority] == 'high' && %w{submitted open reopened}.include?(state)
+      UserNotifier.send_high_priority_issue_notifications(self, :change)
     end
   end
 

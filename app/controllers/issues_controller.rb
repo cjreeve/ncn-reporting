@@ -175,7 +175,7 @@ class IssuesController < ApplicationController
       @issue.save
       action_taken = "submitted"
       if Issue::PRIORITY[@issue.priority] == 'high'
-        UserNotifier.send_high_priority_issue_notifications(@issue)
+        UserNotifier.send_high_priority_issue_notifications(@issue, :submit)
       end
     elsif params[:publish] && @issue.publishable?
       @issue.publish!
