@@ -37,7 +37,7 @@ class UserNotifier < ActionMailer::Base
 
     mail(
       to: get_recipient_email(user),
-      subject: "ncn-reporting - #{ @total_pending_count.to_s + ' issue'.pluralize } for your attention"
+      subject: "#{ @total_pending_count.to_s + ' issue'.pluralize } for your attention"
       )
   end
 
@@ -49,7 +49,7 @@ class UserNotifier < ActionMailer::Base
 
     mail(
       to: get_recipient_email(user),
-      subject: "ncn-reporting - issue #{ issue.issue_number } was #{ I18n.t('action.'+issue.state) }"
+      subject: "issue #{ issue.issue_number } was #{ I18n.t('action.'+issue.state) }"
     )
   end
 
@@ -63,7 +63,34 @@ class UserNotifier < ActionMailer::Base
 
     mail(
       to: get_recipient_email(user),
-      subject: "ncn-reporting - #{ commenter.first_name } commented on issue #{ issue.issue_number }"
+      subject: "#{ commenter.first_name } commented on issue #{ issue.issue_number }"
+    )
+  end
+
+  def send_high_priority_issue_notifications(issue)
+    # two searches are added together to allow for any routes none are selected and the area is selected
+    # and visa versa
+    all_route_section_managers = User.includes(:areas, :routes).where(
+      areas: {id: [nil, issue.area.try(:id)]}, routes: {id: issue.route.try(:id)}
+    ) + User.includes(:areas, :routes).where(
+      areas: {id: issue.area.try(:id)}, routes: {id: [nil, issue.route.try(:id)]}
+    )
+    staff_route_managers = all_route_section_managers.select{ |u| u.role == "staff" }.uniq
+
+    staff_route_managers.each do |user|
+      UserNotifier.send_high_priority_issue_notification(issue, user).deliver
+    end
+  end
+
+  def send_high_priority_issue_notification(issue, user)
+    @user = user
+    @issue = issue
+
+    return if exclude_user? user
+
+    mail(
+      to: get_recipient_email(user),
+      subject: "#{ issue.user.first_name } submitted High Priority issue #{ issue.issue_number }"
     )
   end
 

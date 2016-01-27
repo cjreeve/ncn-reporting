@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Hi <%= @user.first_name %>!</p>
+
+    <p>Just to let you know that <%= @issue.user.first_name %> created a high priority issue.</p>
+
+    <p>You can review this issue here:<br>
+      <%= link_to issue_number_url(@issue.issue_number), issue_number_url(@issue.issue_number) %>
+    </p>
+
+    <p>Best wishes,</p>
+    <p><b>ncn-reporting</b></p>
+    <%= render 'shared_footer' %>
+  </body>
+</html>

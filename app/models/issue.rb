@@ -223,7 +223,7 @@ class Issue < ActiveRecord::Base
   end
 
   def set_priority
-    if self.problem_id.present? && self.priority.blank?
+    if (problem_id.present? && priority.blank?) || (problem_id.present? && problem_id_changed?)
       self.priority = Problem.find(self.problem_id).default_priority
     end
   end
