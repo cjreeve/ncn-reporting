@@ -2,10 +2,6 @@
 $(window).bind('page:change', function() {
   if (typeof(initialize) == "function" && $('#map-canvas').length) {
     initialize();
-    // $(window).load(updateTables);
-    // $(window).on("redraw",function(){switched=false;updateTables();}); // An event to listen for
-    // $(window).on("resize", updateTables);
-    // updateTables;
   }
 });
 
@@ -18,7 +14,6 @@ var crosshairPosition;
 $(document).ready(function() {
 
   $('#openCoordModal').click(function() {
-    // get_current_location_from_browser();
     $('#myCoordModal').foundation('reveal', 'open');
     $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
       initializeCoordFinder();
@@ -45,7 +40,6 @@ function initializeCoordFinder() {
     lat = myCoord.latitude;
     lng = myCoord.longitude;
     zoom = 17;
-    // document.getElementById('issue_coordinate').value = lat.toFixed(5) + ", " + lng.toFixed(5);
     $('.searching-location').hide();
   }
 
@@ -123,8 +117,5 @@ function showMyCoord() {
     $('.searching-location').hide();
     coordFinderMap.setZoom(17);
     coordFinderMap.panTo(crosshairPosition);
-    // if(!myCoordMarker) {
-    //   document.getElementById('issue_coordinate').value = lat.toFixed(5) + ", " + lng.toFixed(5);
-    // }
   }
 }
