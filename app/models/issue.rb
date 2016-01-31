@@ -317,7 +317,9 @@ class Issue < ActiveRecord::Base
     p.move_down(30);
 
 
-    all.each do |issue|
+    n_issues = all.count
+
+    all.each_with_index do |issue, index|
       p.font_size(18);
       p.text "(#{ issue.issue_number }) #{ '- ' + issue.try(:route).try(:name).to_s unless params[:route] } - #{ issue.try(:category).try(:name) }: #{ issue.try(:problem).try(:name) }"
 
@@ -326,8 +328,17 @@ class Issue < ActiveRecord::Base
         p.text "#{ issue.reported_at.strftime('%d %b %Y') }", align: :right
       end
 
-      p.move_down(10)
+      p.font_size(8)
+      p.text "Location: #{ issue.location_name }, Coordinate: #{ issue.lat },#{ issue.lng }"
 
+      begin
+        p.image open("https://maps.googleapis.com/maps/api/staticmap?center=#{ issue.lat },#{ issue.lng }&zoom=16&size=640x150&maptype=terrain&markers=color:blue%7C#{ issue.lat },#{ issue.lng }&key=#{ Rails.application.config.google_api_key }"), width: 540
+      rescue
+        p.text 'map could not be displayed'
+      end
+
+      p.move_down(15)
+      p.font_size(12)
       p.text "<b>Description:</b> #{ issue.description.present? ? ApplicationController.helpers.render_markdown(issue.description, 'restricted') : 'none' }", inline_format: true
 
 
@@ -344,7 +355,8 @@ class Issue < ActiveRecord::Base
       p.move_down 20
       end
       p.font "Helvetica"
-      p.move_down(40)
+
+      p.start_new_page unless (index+1) == n_issues
     end
 
 
