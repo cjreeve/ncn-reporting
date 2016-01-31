@@ -82,6 +82,8 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  config.google_api_key = 'AIzaSyBVBkvm0xBTvzFNxcZ8Ny3YTHAaOKPy6Ps'
+
   config.action_mailer.smtp_settings = {
     :domain => 'ncn-reporting.herokuapp.com',
     :perform_deliveries => true,

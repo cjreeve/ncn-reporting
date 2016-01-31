@@ -38,6 +38,8 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
+  config.google_api_key = 'AIzaSyBFm3Yq2z3csVzGGQe_qlKMrMJ8RxdnxiI'
+
 
   config.action_mailer.smtp_settings = {
     :domain => 'ncn-reporting.herokuapp.com',
