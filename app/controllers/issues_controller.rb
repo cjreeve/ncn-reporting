@@ -55,6 +55,18 @@ class IssuesController < ApplicationController
     @issues = Issue.where(route: @issue.route, area: @issue.area).order('lng DESC').where.not(exclusion_options)
     @issue_labels_count = @issue.labels.count
 
+    # TODO - use geocoder gem for this
+    near_range = 0.0004
+    @duplicate_issues = Issue.joins(:category).joins(:problem).where(
+      category: @issue.category,
+      problem: @issue.problem,
+      lat: (@issue.lat-near_range)..(@issue.lat+near_range),
+      lng: (@issue.lng-near_range)..(@issue.lng+near_range)).where.not(id: @issue)
+
+    @nearby_issues = Issue.where(
+      lat: (@issue.lat-near_range)..(@issue.lat+near_range),
+      lng: (@issue.lng-near_range)..(@issue.lng+near_range)).where.not(id: [@issue.id]+@duplicate_issues.collect(&:id))
+
     if (current_user && (current_user.is_admin? || current_user.role == "staff" || current_user == @issue.user))
       authorize! :destroy, @issue
     end

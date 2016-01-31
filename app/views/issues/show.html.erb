@@ -4,16 +4,16 @@
 <article class='issue'>
   <div class='row'>
     <div class='small-12 columns'>
-    
 
-    
+
+
 
     <%#= link_to '◄ back to index', issues_path(filter_params(params)), class: 'back-to-index' %>
 
     <div class='row'>
       <div class='medium-6 columns'>
         <div class='issue-title-and-nav'>
-          <%= 
+          <%=
             if @prev_issue_id
               link_to issue_path(filter_params(params, {id: @prev_issue_id})) do
                 image_tag 'icons/arrow-large-left-blue.svg', title: 'previous issue', alt: '<'
@@ -23,7 +23,7 @@
             end
           %>
           <h1>Issue <%= @issue.issue_number %></h1>
-          <%= 
+          <%=
             if @next_issue_id
               link_to issue_path(filter_params(params, {id: @next_issue_id})) do
                 image_tag 'icons/arrow-large-right-blue.svg', title: 'next issue', alt: '>'
@@ -75,9 +75,9 @@
             <tr>
               <td>Problem:</td>
               <td>
-                <%= 
+                <%=
                   if @issue.problem
-                    @issue.problem.name 
+                    @issue.problem.name
                   else
                     @issue.title
                   end
@@ -126,42 +126,50 @@
 
         <%= render 'state_control_buttons' if can? :update, Issue  %>
 
-        <table>
-          <body>
-            <% if can? :read, Update %>
-              <tr>
-                <td>Reporter:</td>
-                <td>
-                  <%= 
-                    if @issue.user
-                      link_to @issue.user.name, user_path(@issue.user)
-                    end
-                  %>
-                </td>
-              </tr>
-            <% end %>
-            <% if @issue.reported_at %>
-              <tr>
-                <td>Reported:</td>
-                <td><%= @issue.reported_at.strftime("%H:%M - %d %b %Y") %></td>
-              </tr>
-            <% end %>
-            <% if @issue.completed_at && (@issue.resolved? || @issue.closed?) %>
-              <tr>
-                <td>Completed:</td>
-                <td><%= @issue.completed_at.strftime("%H:%M - %d %b %Y") %></td>
-              </tr>
-            <% end %>
-            <tr>
-              <td>Updated:</td>
-              <td><%= @issue.edited_at.strftime("%H:%M - %d %b %Y") %></td>
-            </tr>
-          </body>
-        </table>
 
+        <div class='row'>
+          <div class="large-6 columns">
+            <table>
+              <body>
+                <% if can? :read, Update %>
+                  <tr>
+                    <td>Reporter:</td>
+                    <td>
+                      <%=
+                        if @issue.user
+                          link_to @issue.user.name, user_path(@issue.user)
+                        end
+                      %>
+                    </td>
+                  </tr>
+                <% end %>
+                <% if @issue.reported_at %>
+                  <tr>
+                    <td>Reported:</td>
+                    <td><%= @issue.reported_at.strftime("%H:%M - %d %b %Y") %></td>
+                  </tr>
+                <% end %>
+                <% if @issue.completed_at && (@issue.resolved? || @issue.closed?) %>
+                  <tr>
+                    <td>Completed:</td>
+                    <td><%= @issue.completed_at.strftime("%H:%M - %d %b %Y") %></td>
+                  </tr>
+                <% end %>
+                <tr>
+                  <td>Updated:</td>
+                  <td><%= @issue.edited_at.strftime("%H:%M - %d %b %Y") %></td>
+                </tr>
+              </body>
+            </table>
+          </div>
+          <div class="large-6 columns">
+            <%= render 'very_near_issues', very_near_issues: @duplicate_issues, very_near_issues_title: "Possible Duplicate" %>
+            <%= render 'very_near_issues', very_near_issues: @nearby_issues, very_near_issues_title: "Nearby Issues" %>
+          </div>
+        </div>
       </div>
     </div>
-    
+
   </div>
 </div>
 <div class='row'>
@@ -196,12 +204,12 @@
             <% end %>
             <tr>
               <td>Coordinate:</td>
-              <td> 
+              <td>
                 <%= @issue.coordinate %>
                 <% if @issue.lat && @issue.lng %>
                   <div>
-                    <%= 
-                        link_to 'openstreetmap', "http://www.openstreetmap.org/?mlat=#{@issue.lat}&mlon=#{@issue.lng}&layers=C", target: :_blank 
+                    <%=
+                        link_to 'openstreetmap', "http://www.openstreetmap.org/?mlat=#{@issue.lat}&mlon=#{@issue.lng}&layers=C", target: :_blank
                     %>,
                     <%=
                         link_to 'googlemaps', "http://maps.google.com/?q=#{@issue.lat},#{@issue.lng}", target: :_blank
@@ -225,7 +233,7 @@
 
         <% if can? :read, Comment %>
           <div id='comments'>
-            <%= render 'comments/comments', 
+            <%= render 'comments/comments',
               comments: @issue.comments.order(created_at: :asc),
               issue: @issue,
               new_comment: @new_comment
@@ -261,9 +269,9 @@
 
     <br><br>
 
-      
 
-    
+
+
       <div id="map-canvas" style="width: 100%; height: 400px;"></div>
 
       <div class='show-closed-issues-link'>

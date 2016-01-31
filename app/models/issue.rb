@@ -37,6 +37,8 @@ class Issue < ActiveRecord::Base
 
   after_validation :coordinate_to_latlng
 
+  geocoded_by :address, latitude: :lat, longitude: :lng
+
   reverse_geocoded_by :latitude, :longitude do |issue, results|
     if results.present?
       unless issue.location_name.present?
