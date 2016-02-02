@@ -5,272 +5,255 @@
   <div class='row'>
     <div class='small-12 columns'>
 
-
-
-
-    <%#= link_to '◄ back to index', issues_path(filter_params(params)), class: 'back-to-index' %>
-
-    <div class='row'>
-      <div class='medium-6 columns'>
-        <div class='issue-title-and-nav'>
-          <%=
-            if @prev_issue_id
-              link_to issue_path(filter_params(params, {id: @prev_issue_id})) do
-                image_tag 'icons/arrow-large-left-blue.svg', title: 'previous issue', alt: '<'
+      <div class='row'>
+        <div class='medium-6 columns'>
+          <div class='issue-title-and-nav'>
+            <%=
+              if @prev_issue_id
+                link_to issue_path(filter_params(params, {id: @prev_issue_id})) do
+                  image_tag 'icons/arrow-large-left-blue.svg', title: 'previous issue', alt: '<'
+                end
+              else
+                image_tag 'icons/arrow-large-left-grey.svg', title: 'no more', alt: ''
               end
-            else
-              image_tag 'icons/arrow-large-left-grey.svg', title: 'no more', alt: ''
-            end
-          %>
-          <h1>Issue <%= @issue.issue_number %></h1>
-          <%=
-            if @next_issue_id
-              link_to issue_path(filter_params(params, {id: @next_issue_id})) do
-                image_tag 'icons/arrow-large-right-blue.svg', title: 'next issue', alt: '>'
+            %>
+            <h1>Issue <%= @issue.issue_number %></h1>
+            <%=
+              if @next_issue_id
+                link_to issue_path(filter_params(params, {id: @next_issue_id})) do
+                  image_tag 'icons/arrow-large-right-blue.svg', title: 'next issue', alt: '>'
+                end
+              else
+                image_tag 'icons/arrow-large-right-grey.svg', title: 'no more', alt: ''
               end
-            else
-              image_tag 'icons/arrow-large-right-grey.svg', title: 'no more', alt: ''
-            end
-          %>
-          <% if can? :create, Issue %>
-            <span class='create-new-issue-container'>
-              -&nbsp;<%= link_to 'new', new_issue_path, class: 'create-new-issue' %>
-            </span>
-          <% end %>
+            %>
+            <% if can? :create, Issue %>
+              <span class='create-new-issue-container'>
+                -&nbsp;<%= link_to 'new', new_issue_path, class: 'create-new-issue' %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+        <div class='medium-6 columns'>
+
+          <div class="progress-bar"><%= state_progress_bar @issue.state, @issue.resolution %></div>
+
+          <% priority = Issue::PRIORITY[@issue.priority] %>
+          <h4 class="issue-state <%= priority %> <%=t 'state.'+@issue.state %>"
+            title="issue state is <%=t 'state.'+@issue.state %> and has a<%= priority ? ' '+priority : 'n undefined' %> priority">
+            <%= @issue.status %>
+          </h4>
+
+          <% if @issue.submitted? && !can_publish_issue?(@issue) %>
+              <span class='post-title-text'>awaiting review<span>
+          <%  end %>
+
         </div>
       </div>
-      <div class='medium-6 columns'>
 
-        <div class="progress-bar"><%= state_progress_bar @issue.state, @issue.resolution %></div>
+      <div class='row'>
+        <div class='medium-6 columns'>
 
-
-        <% priority = Issue::PRIORITY[@issue.priority] %>
-        <h4 class="issue-state <%= priority %> <%=t 'state.'+@issue.state %>"
-          title="issue state is <%=t 'state.'+@issue.state %> and has a<%= priority ? ' '+priority : 'n undefined' %> priority">
-
-
-          <%= @issue.status %>
-
-        </h4>
-
-        <%# if @issue.draft? %>
-          <%#span class='post-title-text'>submit when ready</span%>
-        <%# end %>
-        <% if @issue.submitted? && !can_publish_issue?(@issue) %>
-            <span class='post-title-text'>awaiting review<span>
-        <%  end %>
-
-      </div>
-    </div>
-
-    <div class='row'>
-      <div class='medium-6 columns'>
-
-        <table>
-          <body>
-            <tr>
-              <td>Category:</td>
-              <td><%= @issue.category.name if @issue.category %></td>
-            </tr>
-            <tr>
-              <td>Problem:</td>
-              <td>
-                <%=
-                  if @issue.problem
-                    @issue.problem.name
-                  else
-                    @issue.title
-                  end
-                %>
-              </td>
-            </tr>
-            <% if can? :read, Update %>
+          <table>
+            <body>
               <tr>
-                <td>Priority:</td>
-                <td><%= Issue::PRIORITY[@issue.priority] if @issue.priority %></td>
+                <td>Category:</td>
+                <td><%= @issue.category.name if @issue.category %></td>
               </tr>
               <tr>
-                <td><%= 'Label'.pluralize(@issue_labels_count) %>:</td>
+                <td>Problem:</td>
                 <td>
-                  <% if @issue.labels.present? %>
-                    <%  @issue.labels.each_with_index do |label, index| %>
-                        <%=
-                          link_to label.name, issues_path(label: label.id)
-                        %><%=
-                          ( (index+1) != @issue_labels_count ? ', ' : '')
-                        %>
+                  <%=
+                    if @issue.problem
+                      @issue.problem.name
+                    else
+                      @issue.title
+                    end
+                  %>
+                </td>
+              </tr>
+              <% if can? :read, Update %>
+                <tr>
+                  <td>Priority:</td>
+                  <td><%= Issue::PRIORITY[@issue.priority] if @issue.priority %></td>
+                </tr>
+                <tr>
+                  <td><%= 'Label'.pluralize(@issue_labels_count) %>:</td>
+                  <td>
+                    <% if @issue.labels.present? %>
+                      <%  @issue.labels.each_with_index do |label, index| %>
+                          <%=
+                            link_to label.name, issues_path(label: label.id)
+                          %><%=
+                            ( (index+1) != @issue_labels_count ? ', ' : '')
+                          %>
+                      <% end %>
+                    <% else %>
+                      none
                     <% end %>
-                  <% else %>
-                    none
+                  </td>
+                </tr>
+              <% end %>
+            </body>
+          </table>
+
+          <section class="issue-contacts">
+            <h5>Route Contacts</h5>
+            <% if @issue.area.present? && @issue.route.present? %>
+              <b>Staff:</b> <%= user_links @staff_route_managers %> </br>
+              <% if can? :read, Update %>
+                <b><%= "Ranger".pluralize(@ranger_route_managers.count) %>:</b> <%= user_links @ranger_route_managers %>
+              <% end %>
+            <% else %>
+              Specify both a route and area to show contacts
+            <% end %>
+          </section>
+
+        </div>
+        <div class='medium-6 columns'>
+
+          <%= render 'state_control_buttons' if can? :update, Issue  %>
+
+          <div class='row'>
+            <div class="large-6 columns">
+              <table>
+                <body>
+                  <% if can? :read, Update %>
+                    <tr>
+                      <td>Reporter:</td>
+                      <td>
+                        <%=
+                          if @issue.user
+                            link_to @issue.user.name, user_path(@issue.user)
+                          end
+                        %>
+                      </td>
+                    </tr>
+                  <% end %>
+                  <% if @issue.reported_at %>
+                    <tr>
+                      <td>Reported:</td>
+                      <td><%= @issue.reported_at.strftime("%H:%M - %d %b %Y") %></td>
+                    </tr>
+                  <% end %>
+                  <% if @issue.completed_at && (@issue.resolved? || @issue.closed?) %>
+                    <tr>
+                      <td>Completed:</td>
+                      <td><%= @issue.completed_at.strftime("%H:%M - %d %b %Y") %></td>
+                    </tr>
+                  <% end %>
+                  <tr>
+                    <td>Updated:</td>
+                    <td><%= @issue.edited_at.strftime("%H:%M - %d %b %Y") %></td>
+                  </tr>
+                </body>
+              </table>
+            </div>
+            <div class="large-6 columns">
+              <%= render 'very_near_issues', very_near_issues: @duplicate_issues, very_near_issues_title: "Possible Duplicate" %>
+              <%= render 'very_near_issues', very_near_issues: @nearby_issues, very_near_issues_title: "Nearby Issues" %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class='row'>
+    <div class='medium-6 columns'>
+
+      <div class='row'>
+        <div class='large-11 columns'>
+
+          <table class="route-specification">
+            <body>
+              <% if @issue.route.present? %>
+                <tr>
+                  <td>Route:</td>
+                  <td><%= @issue.route.name %></td>
+                </tr>
+              <% end %>
+              <% if @issue.area.present? %>
+                <td>Area:</td>
+                <td><%= @issue.area.name %></td>
+              <% end %>
+              <% if @issue.location_name.present? %>
+                <tr>
+                  <td>Location:</td>
+                  <td><%= @issue.location_name %></td>
+                </tr>
+              <% end %>
+              <% if @issue.administrative_area.present? %>
+                <tr>
+                  <td>Administrative area:</td>
+                  <td><%= @issue.administrative_area.name %></td>
+                </tr>
+              <% end %>
+              <tr>
+                <td>Coordinate:</td>
+                <td>
+                  <%= @issue.coordinate %>
+                  <% if @issue.lat && @issue.lng %>
+                    <div>
+                      <%=
+                          link_to 'openstreetmap', "http://www.openstreetmap.org/?mlat=#{@issue.lat}&mlon=#{@issue.lng}&layers=C", target: :_blank
+                      %>,
+                      <%=
+                          link_to 'googlemaps', "http://maps.google.com/?q=#{@issue.lat},#{@issue.lng}", target: :_blank
+                      %>
+                    </div>
                   <% end %>
                 </td>
               </tr>
-            <% end %>
-          </body>
-        </table>
+            </body>
+          </table>
 
-        <section class="issue-contacts">
-          <h5>Route Contacts</h5>
-          <% if @issue.area.present? && @issue.route.present? %>
-            <b>Staff:</b> <%= user_links @staff_route_managers %> </br>
-            <% if can? :read, Update %>
-              <b><%= "Ranger".pluralize(@ranger_route_managers.count) %>:</b> <%= user_links @ranger_route_managers %>
+
+          <section class="description">
+            <h2>Description</h2>
+            <% if @issue.description.present? %>
+              <%= render_markdown @issue.description %>
+            <% else %>
+              <span style='color:grey'>none</span>
             <% end %>
-          <% else %>
-            Specify both a route and area to show contacts
+          </section>
+
+          <% if can? :read, Comment %>
+            <div id='comments'>
+              <%= render 'comments/comments',
+                comments: @issue.comments.order(created_at: :asc),
+                issue: @issue,
+                new_comment: @new_comment
+              %>
+            </div>
           <% end %>
-        </section>
-
-      </div>
-      <div class='medium-6 columns'>
-
-        <%= render 'state_control_buttons' if can? :update, Issue  %>
-
-
-        <div class='row'>
-          <div class="large-6 columns">
-            <table>
-              <body>
-                <% if can? :read, Update %>
-                  <tr>
-                    <td>Reporter:</td>
-                    <td>
-                      <%=
-                        if @issue.user
-                          link_to @issue.user.name, user_path(@issue.user)
-                        end
-                      %>
-                    </td>
-                  </tr>
-                <% end %>
-                <% if @issue.reported_at %>
-                  <tr>
-                    <td>Reported:</td>
-                    <td><%= @issue.reported_at.strftime("%H:%M - %d %b %Y") %></td>
-                  </tr>
-                <% end %>
-                <% if @issue.completed_at && (@issue.resolved? || @issue.closed?) %>
-                  <tr>
-                    <td>Completed:</td>
-                    <td><%= @issue.completed_at.strftime("%H:%M - %d %b %Y") %></td>
-                  </tr>
-                <% end %>
-                <tr>
-                  <td>Updated:</td>
-                  <td><%= @issue.edited_at.strftime("%H:%M - %d %b %Y") %></td>
-                </tr>
-              </body>
-            </table>
-          </div>
-          <div class="large-6 columns">
-            <%= render 'very_near_issues', very_near_issues: @duplicate_issues, very_near_issues_title: "Possible Duplicate" %>
-            <%= render 'very_near_issues', very_near_issues: @nearby_issues, very_near_issues_title: "Nearby Issues" %>
-          </div>
         </div>
       </div>
+
     </div>
+    <div class='medium-6 columns'>
 
-  </div>
-</div>
-<div class='row'>
-  <div class='medium-6 columns'>
+      <%= render 'alternative_url' %>
 
-    <div class='row'>
-      <div class='large-11 columns'>
-
-        <table class="route-specification">
-          <body>
-            <% if @issue.route.present? %>
-              <tr>
-                <td>Route:</td>
-                <td><%= @issue.route.name %></td>
-              </tr>
-            <% end %>
-            <% if @issue.area.present? %>
-              <td>Area:</td>
-              <td><%= @issue.area.name %></td>
-            <% end %>
-            <% if @issue.location_name.present? %>
-              <tr>
-                <td>Location:</td>
-                <td><%= @issue.location_name %></td>
-              </tr>
-            <% end %>
-            <% if @issue.administrative_area.present? %>
-              <tr>
-                <td>Administrative area:</td>
-                <td><%= @issue.administrative_area.name %></td>
-              </tr>
-            <% end %>
-            <tr>
-              <td>Coordinate:</td>
-              <td>
-                <%= @issue.coordinate %>
-                <% if @issue.lat && @issue.lng %>
-                  <div>
-                    <%=
-                        link_to 'openstreetmap', "http://www.openstreetmap.org/?mlat=#{@issue.lat}&mlon=#{@issue.lng}&layers=C", target: :_blank
-                    %>,
-                    <%=
-                        link_to 'googlemaps', "http://maps.google.com/?q=#{@issue.lat},#{@issue.lng}", target: :_blank
-                    %>
-                  </div>
-                <% end %>
-              </td>
-            </tr>
-          </body>
-        </table>
-
-
-        <section class="description">
-          <h2>Description</h2>
-          <% if @issue.description.present? %>
-            <%= render_markdown @issue.description %>
-          <% else %>
-            <span style='color:grey'>none</span>
-          <% end %>
-        </section>
-
-        <% if can? :read, Comment %>
-          <div id='comments'>
-            <%= render 'comments/comments',
-              comments: @issue.comments.order(created_at: :asc),
-              issue: @issue,
-              new_comment: @new_comment
-            %>
-          </div>
-        <% end %>
-      </div>
+      <% if @issue.images.present? %>
+        <div id='issue-page-images' class='owl-carousel'>
+          <%= render 'issue_images' %>
+        </div>
+      <% end %>
     </div>
-
   </div>
-  <div class='medium-6 columns'>
 
-    <%= render 'alternative_url' %>
 
-    <% if @issue.images.present? %>
-      <div id='issue-page-images' class='owl-carousel'>
-        <%= render 'issue_images' %>
-      </div>
-    <% end %>
+
+  <div id="imageZoomModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+    <div id='issue-modal-images' class='owl-carousel'>
+       <%= render 'issue_images', is_modal: true %>
+    </div>
   </div>
-</div>
 
-
-
-<div id="imageZoomModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-  <div id='issue-modal-images' class='owl-carousel'>
-     <%= render 'issue_images', is_modal: true %>
-  </div>
-</div>
-
-<div class='row'>
-  <div class='small-12 columns'>
-
-    <br><br>
-
-
-
+  <div class='row'>
+    <div class='small-12 columns'>
+      <br><br>
 
       <div id="map-canvas" style="width: 100%; height: 400px;"></div>
 
