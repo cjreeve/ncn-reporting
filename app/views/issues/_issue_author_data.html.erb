@@ -1,0 +1,32 @@
+<table>
+  <body>
+    <% if can? :read, Update %>
+      <tr>
+        <td>Reporter:</td>
+        <td>
+          <%=
+            if @issue.user
+              link_to @issue.user.name, user_path(@issue.user)
+            end
+          %>
+        </td>
+      </tr>
+    <% end %>
+    <% if @issue.reported_at %>
+      <tr>
+        <td>Reported:</td>
+        <td><%= @issue.reported_at.strftime("%H:%M - %d %b %Y") %></td>
+      </tr>
+    <% end %>
+    <% if @issue.completed_at && (@issue.resolved? || @issue.closed?) %>
+      <tr>
+        <td>Completed:</td>
+        <td><%= @issue.completed_at.strftime("%H:%M - %d %b %Y") %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td>Updated:</td>
+      <td><%= @issue.edited_at.strftime("%H:%M - %d %b %Y") %></td>
+    </tr>
+  </body>
+</table>

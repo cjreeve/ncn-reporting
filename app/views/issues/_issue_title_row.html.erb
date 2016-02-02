@@ -1,0 +1,26 @@
+<div class='issue-title-and-nav'>
+  <%=
+    if @prev_issue_id
+      link_to issue_path(filter_params(params, {id: @prev_issue_id})) do
+        image_tag 'icons/arrow-large-left-blue.svg', title: 'previous issue', alt: '<'
+      end
+    else
+      image_tag 'icons/arrow-large-left-grey.svg', title: 'no more', alt: ''
+    end
+  %>
+  <h1>Issue <%= @issue.issue_number %></h1>
+  <%=
+    if @next_issue_id
+      link_to issue_path(filter_params(params, {id: @next_issue_id})) do
+        image_tag 'icons/arrow-large-right-blue.svg', title: 'next issue', alt: '>'
+      end
+    else
+      image_tag 'icons/arrow-large-right-grey.svg', title: 'no more', alt: ''
+    end
+  %>
+  <% if can? :create, Issue %>
+    <span class='create-new-issue-container'>
+      -&nbsp;<%= link_to 'new', new_issue_path, class: 'create-new-issue' %>
+    </span>
+  <% end %>
+</div>

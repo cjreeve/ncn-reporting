@@ -1,0 +1,18 @@
+<div class='show-closed-issues-link'>
+  <% if params['incl_closed'].present? %>
+    <%= link_to 'exclude closed issues', issue_path(filter_params(params, {id: @issue})) %>
+  <% else %>
+    <%= link_to 'include closed issues', issue_path(filter_params(params, {id: @issue, incl_closed: true})) %>
+  <% end %>
+</div>
+<br><br>
+
+<p>
+  <% if can? :destroy, @issue %>
+    <%= link_to 'delete', @issue, method: :delete, data: { confirm: 'Are you sure you want to delete this issue?' }, style: "float: right" %>
+  <% end %>
+  <% if can? :edit, Issue %>
+    <%= link_to 'Edit', edit_issue_path(@issue) %> |
+  <% end %>
+  <%= link_to 'Index', issues_path %>
+</p>

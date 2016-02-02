@@ -1,0 +1,43 @@
+
+<table>
+  <body>
+    <tr>
+      <td>Category:</td>
+      <td><%= @issue.category.name if @issue.category %></td>
+    </tr>
+    <tr>
+      <td>Problem:</td>
+      <td>
+        <%=
+          if @issue.problem
+            @issue.problem.name
+          else
+            @issue.title
+          end
+        %>
+      </td>
+    </tr>
+    <% if can? :read, Update %>
+      <tr>
+        <td>Priority:</td>
+        <td><%= Issue::PRIORITY[@issue.priority] if @issue.priority %></td>
+      </tr>
+      <tr>
+        <td><%= 'Label'.pluralize(@issue_labels_count) %>:</td>
+        <td>
+          <% if @issue.labels.present? %>
+            <%  @issue.labels.each_with_index do |label, index| %>
+                <%=
+                  link_to label.name, issues_path(label: label.id)
+                %><%=
+                  ( (index+1) != @issue_labels_count ? ', ' : '')
+                %>
+            <% end %>
+          <% else %>
+            none
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </body>
+</table>

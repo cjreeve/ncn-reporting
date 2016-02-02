@@ -1,0 +1,8 @@
+<section class="description">
+  <h2>Description</h2>
+  <% if @issue.description.present? %>
+    <%= render_markdown @issue.description %>
+  <% else %>
+    <span style='color:grey'>none</span>
+  <% end %>
+</section>

@@ -1,0 +1,42 @@
+<table class="route-specification">
+  <body>
+    <% if @issue.route.present? %>
+      <tr>
+        <td>Route:</td>
+        <td><%= @issue.route.name %></td>
+      </tr>
+    <% end %>
+    <% if @issue.area.present? %>
+      <td>Area:</td>
+      <td><%= @issue.area.name %></td>
+    <% end %>
+    <% if @issue.location_name.present? %>
+      <tr>
+        <td>Location:</td>
+        <td><%= @issue.location_name %></td>
+      </tr>
+    <% end %>
+    <% if @issue.administrative_area.present? %>
+      <tr>
+        <td>Administrative area:</td>
+        <td><%= @issue.administrative_area.name %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td>Coordinate:</td>
+      <td>
+        <%= @issue.coordinate %>
+        <% if @issue.lat && @issue.lng %>
+          <div>
+            <%=
+                link_to 'openstreetmap', "http://www.openstreetmap.org/?mlat=#{@issue.lat}&mlon=#{@issue.lng}&layers=C", target: :_blank
+            %>,
+            <%=
+                link_to 'googlemaps', "http://maps.google.com/?q=#{@issue.lat},#{@issue.lng}", target: :_blank
+            %>
+          </div>
+        <% end %>
+      </td>
+    </tr>
+  </body>
+</table>
