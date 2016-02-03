@@ -5,6 +5,33 @@
   <div class='row'>
     <div class='small-12 columns'>
 
+      <% if @duplicate_issues.present? %>
+
+        <%= content_for :warning_banner do %>
+          <div id="warning-banner">
+            <div class="row">
+              <div class="small-12 columns">
+                It appears there <%= @duplicate_issues.count == 1 ? 'is already an' : 'are already' %>
+                <%= 'issue'.pluralize @duplicate_issues.length %> reported for this:
+                <%=
+                  @duplicate_issues.collect do |duplicate_issue|
+                    link_to issue_url(duplicate_issue) do
+                      duplicate_issue.issue_number.to_s
+                    end
+                  end.to_sentence
+                %>.
+
+                If it is the same problem you can re-open and/open comment on the last reported issue and delete this one via the link at the bottom right of the page.
+
+                If this is not a duplicate issue you can mark it so by clicking the 'not duplicate' link.
+
+              </div>
+            </div>
+            <span id="close-warning-banner">&times;</span>
+          </div>
+        <% end %>
+      <% end %>
+
       <div class='row'>
         <div class='medium-6 columns'>
           <%= render 'issue_title_row' %>

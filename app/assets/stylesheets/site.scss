@@ -36,3 +36,31 @@ Sticky Footer by Ryan Fait
 http://ryanfait.com/
 
 */
+
+#warning-banner{
+  position: relative;
+  padding: rem-calc(5 20);
+  background-color: $red;
+  margin-top: rem-calc(-20);
+  color: white;
+  font-size: rem-calc(14);
+  line-height: 1.2;
+  a{
+    font-weight: 700;
+    color: white;
+  }
+  #close-warning-banner{
+    position: absolute;
+    top: rem-calc(0);
+    right: rem-calc(10);
+    font-size: rem-calc(35);
+    cursor: pointer;
+    color: $dark-grey;
+    @media #{$large-up}{
+      right: rem-calc(20);
+    }
+    &:hover{
+      color: darken($dark-grey, 7);
+    }
+  }
+}

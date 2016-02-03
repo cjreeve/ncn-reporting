@@ -40,12 +40,13 @@
     <meta name="msapplication-TileImage" content="/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    
+
   </head>
 
   <body>
     <%= render 'layouts/header', user: current_user %>
     <div class='wrapper'>
+      <%= yield :warning_banner %>
       <%= yield %>
       <div class="push"></div>
     </div>
