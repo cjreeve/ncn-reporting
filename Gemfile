@@ -2,19 +2,19 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.6'
-# gem 'ruby', '2.1.6'
+gem 'rails', '4.2.2'
+ruby "2.2.3"
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.1'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+gem 'turbolinks', '~> 2.5'
 
 # fix top stop turbo links breaking on link page loads
-gem 'jquery-turbolinks'
+gem 'jquery-turbolinks', '~> 2.1'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
@@ -24,37 +24,37 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 
-gem 'foundation-rails'
-gem 'simple_form'
-gem 'state_machine'
-gem 'will_paginate'
-gem 'devise'
+gem 'foundation-rails', '~> 5.5'
+gem 'simple_form', '~> 3.1'
+gem 'state_machine', '~> 1.2'
+gem 'will_paginate', '~> 3.0'
+gem 'devise', '~> 3.5'
 gem 'cancancan', '~> 1.10'
-gem 'redcarpet'
-gem 'geocoder'
-gem 'gpx'
+gem 'redcarpet', '~> 3.3'
+gem 'geocoder', '~> 1.2'
+gem 'gpx', '~> 0.8'
 #generate PDFs
 gem 'prawn', '~> 2.0'
 gem 'prawn-table', '~> 0.2'
-gem 'sanitize'
+gem 'sanitize', '~> 4.0'
 
 # Image processing
-gem 'carrierwave'
-gem 'mini_magick'
+gem 'carrierwave', '~> 0.10'
+gem 'mini_magick', '~> 4.4'
 # gem 'rmagick'
-gem 'fog'
+gem 'fog', '~> 1.22'
 
 
 
 # Gems used for precompilling assets
 group :assets do
-  gem 'sass-rails'
+  gem 'sass-rails', '~> 5.0'
   # gem 'compass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier', '>= 1.0.3'
+  gem 'coffee-rails', '~> 4.1'
+  gem 'uglifier', '~> 2.7'
   # Add Foundation Here
-  gem 'compass-rails' # you need this or you get an err
-  gem 'foundation-icons-sass-rails'
+  gem 'compass-rails', '~> 2.0' # you need this or you get an err
+  gem 'foundation-icons-sass-rails', '~> 3.0'
 end
 
 group :development do
@@ -66,8 +66,8 @@ group :development do
 end
 
 group :production do
-  gem 'pg'
-  gem 'rails_12factor'
+  gem 'pg', '~> 0.18'
+  gem 'rails_12factor', '~> 0.0'
 end
 
 # Use ActiveModel has_secure_password
