@@ -8,9 +8,11 @@ class ApplicationController < ActionController::Base
 
   after_filter :store_location
 
+  add_flash_types :uniqueness_properties_changed
+
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last visited.
-    return unless request.get? 
+    return unless request.get?
     if (request.path != "/users/sign_in" &&
         request.path != "/users/sign_up" &&
         request.path != "/users/password/new" &&
@@ -18,7 +20,7 @@ class ApplicationController < ActionController::Base
         request.path != "/users/confirmation" &&
         request.path != "/users/sign_out" &&
         !request.xhr?) # don't store ajax calls
-      session[:previous_url] = request.fullpath 
+      session[:previous_url] = request.fullpath
     end
   end
 

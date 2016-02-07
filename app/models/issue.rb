@@ -10,6 +10,8 @@ class Issue < ActiveRecord::Base
   has_many :comments
   has_many :issue_label_selections
   has_many :labels, through: :issue_label_selections
+  has_many :twins
+  has_many :twinned_issues, through: :twins, dependent: :destroy
   belongs_to :category
   belongs_to :problem
   belongs_to :user

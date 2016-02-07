@@ -61,7 +61,7 @@ class IssuesController < ApplicationController
       category: @issue.category,
       problem: @issue.problem,
       lat: (@issue.lat-near_range)..(@issue.lat+near_range),
-      lng: (@issue.lng-near_range)..(@issue.lng+near_range)).where.not(id: @issue)
+      lng: (@issue.lng-near_range)..(@issue.lng+near_range)).where.not(id: [@issue] + @issue.twinned_issues)
 
     @nearby_issues = Issue.where(
       lat: (@issue.lat-near_range)..(@issue.lat+near_range),
@@ -127,6 +127,7 @@ class IssuesController < ApplicationController
     @categories = Category.all
     @problems = {}
     @categories.each { |c| @problems[c.id] = c.problems }
+    flash[:uniqueness_properties_changed] = uniqueness_properties_changed?(@issue)
 
     respond_to do |format|
       if @issue.save
@@ -143,8 +144,11 @@ class IssuesController < ApplicationController
   # PATCH/PUT /issues/1.json
   def update
     @issue.editor = current_user if current_user
+    @issue.assign_attributes(issue_params)
+    flash[:uniqueness_properties_changed] = uniqueness_properties_changed?(@issue)
+
     respond_to do |format|
-      if @issue.update(issue_params)
+      if @issue.save
         format.html { redirect_to issue_path(filter_params(params)), notice: 'Issue was successfully updated.' }
         format.json { render :show, status: :ok, location: @issue }
       else
@@ -174,6 +178,30 @@ class IssuesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to issues_url, notice: 'Issue was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def uniqueness_properties_changed?(issue)
+    issue.id_changed? || issue.category_id_changed? || issue.problem_id_changed? || (issue.coordinate != "#{ issue.lat }, #{ issue.lng }")
+  end
+
+  def toggle_twins
+    @issue = Issue.find(params[:id])
+    @twin_issue = Issue.find(params[:twin_id])
+    if @issue && @twin_issue
+      if @issue.twinned_issues.include?(@twin_issue)
+        @issue.twinned_issues -= [@twin_issue]
+      else
+        @issue.twinned_issues += [@twin_issue]
+      end
+      if @issue.save
+        redirect_to issue_path(filter_params(params))
+      else
+        redirect_to issue_path(filter_params(params))
+      end
+    else
+      flash[:alert] = "issue could not be found"
+      redirect_to issue_path(filter_params(params))
     end
   end
 

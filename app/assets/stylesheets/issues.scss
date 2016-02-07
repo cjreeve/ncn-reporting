@@ -37,6 +37,17 @@ article.issue{
     }
   }
 
+  ul.linked-issues{
+    .toggle-duplicate{
+      visibility: hidden;
+    }
+    li:hover{
+      .toggle-duplicate{
+        visibility: visible;
+      }
+    }
+  }
+
   #map-canvas{
     margin-bottom: rem-calc(20);
   }

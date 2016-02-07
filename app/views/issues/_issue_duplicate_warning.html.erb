@@ -1,0 +1,28 @@
+<%# binding.pry %>
+<% if flash[:uniqueness_properties_changed] && @duplicate_issues.present? %>
+
+  <%= content_for :warning_banner do %>
+    <div id="warning-banner">
+      <div class="row">
+        <div class="small-12 columns">
+          It appears there <%= @duplicate_issues.count == 1 ? 'is already an' : 'are already' %>
+          <%= 'issue'.pluralize @duplicate_issues.length %> reported for this:
+          <%=
+            duplicate_issue_links = @duplicate_issues.collect do |duplicate_issue|
+              link_to issue_url(duplicate_issue) do
+                duplicate_issue.issue_number.to_s
+              end
+            end.to_sentence
+            duplicate_issue_links.html_safe
+          %>.
+
+          If it is the same problem you can re-open the last reported issue and delete this one via the link at the bottom right of the page.
+
+          If this is not a duplicate issue you can mark it so by removing it from the "Possible Duplicate" list.
+
+        </div>
+      </div>
+      <span id="close-warning-banner">&times;</span>
+    </div>
+  <% end %>
+<% end %>

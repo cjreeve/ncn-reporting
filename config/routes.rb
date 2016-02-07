@@ -55,6 +55,7 @@ Rails.application.routes.draw do
   resources :issues do
     member do
       put 'progress'
+      put 'toggle_twins'
     end
   end
   get '/issue/:issue_number' => 'issues#show', as: :issue_number

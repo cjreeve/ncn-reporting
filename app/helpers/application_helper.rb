@@ -216,7 +216,7 @@ module ApplicationHelper
 
   def filter_params(params, new_params = {})
     the_params = params.permit(Rails.application.config.filter_params)
-    the_params.merge!(new_params)
+    the_params.merge!(new_params).symbolize_keys
   end
 
   def generate_issue_title(issue)
