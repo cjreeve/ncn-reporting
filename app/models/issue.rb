@@ -128,8 +128,10 @@ class Issue < ActiveRecord::Base
   end
 
   def valid_coordinate?
-    self.lng.present? && (self.lng > -11.0 && self.lng < 2.0) &&
-    self.lat.present? && (self.lat > 49.0 &&  self.lat < 61.0)
+    min_lng, max_lng = Rails.application.config.coord_limits[:lng]
+    min_lat, max_lat = Rails.application.config.coord_limits[:lat]
+    self.lng.present? && (self.lng > min_lng && self.lng < max_lng) &&
+    self.lat.present? && (self.lat > min_lat &&  self.lat < max_lat)
   end
 
   def status

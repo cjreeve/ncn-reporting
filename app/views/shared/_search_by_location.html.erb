@@ -1,0 +1,21 @@
+<%= form_tag '/search', method: :get do %>
+  <div class='search-bar'>
+    <div>
+      <div class='search-field'>
+        <%= search_field_tag  :q, params[:q],
+                              placeholder: 'place or coordinate',
+                              class: ""
+        %>
+      </div>
+      <div class='search-button'>
+        <%= submit_tag 'search', name: nil, class: "button secondary", id: "search-location-button" %>
+      </div>
+    </div>
+    <div>
+      <div class="prompt">
+        leave blank to view your current location
+      </div>
+      <div> </div>
+    </div>
+  </div>
+<% end %>

@@ -22,6 +22,7 @@
 //= require notifications
 //= require owl
 //= require problems
+//= require search
 //= require site
 //= require turbolinks
 //# require_tree .

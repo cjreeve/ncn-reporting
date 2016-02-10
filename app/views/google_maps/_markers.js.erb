@@ -26,7 +26,7 @@
     <%
       issue_counter = issues.count + 1
       locations = issues.collect do |issue|
-        [ 
+        [
           generate_issue_title(issue),
           issue.lat,
           issue.lng,
@@ -62,7 +62,7 @@
     <% else %>
       var lon_angle = <%= coord_stats[:max_lng] %> - <%= coord_stats[:min_lng] %>;
       var lat_angle = <%= coord_stats[:max_lat] %> - <%= coord_stats[:min_lat] %>;
-      
+
       var angle = lon_angle.abs > lat_angle.abs*2 ? lon_angle : lat_angle;
       if (angle < 0) {
         angle += 360;

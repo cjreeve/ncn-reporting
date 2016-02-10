@@ -64,3 +64,36 @@ http://ryanfait.com/
     }
   }
 }
+
+
+.search-bar{
+  display: table;
+  >div{
+    display: table-row;
+    >div{
+      display: table-cell;
+      vertical-align: top;
+    }
+  }
+  div.search-field{
+    input[type="search"]{
+      height: rem-calc(25);
+      margin: 0;
+      padding: rem-calc(5 10);
+    }
+  }
+  div.search-button{
+    input[type="submit"]{
+      height: rem-calc(37);
+      margin: 0;
+      padding: rem-calc(8);
+      border: rem-calc(1) solid $medium-grey;
+      color: $grey;
+    }
+  }
+  .prompt{
+    font-size: rem-calc(10);
+    padding-left: rem-calc(10);
+    color: $grey;
+  }
+}

@@ -43,5 +43,7 @@ module Workspace
 
     config.dev_email = "cjreeve@gmail.com"
 
+    config.coord_limits = { lng: [-11.0, 2.0], lat: [49.0, 61.0] }
+
   end
 end

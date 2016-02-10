@@ -181,6 +181,30 @@ class IssuesController < ApplicationController
     end
   end
 
+  def search
+    if params[:q]
+      near_range = 0.03
+      min_lng, max_lng = Rails.application.config.coord_limits[:lng]
+      min_lat, max_lat = Rails.application.config.coord_limits[:lat]
+
+      @lat, @lng = params[:q].split(",").collect{ |c| c.to_f }
+
+      # search for if not a valid coordinate
+      unless @lng && @lat && (@lng > min_lng && @lng < max_lng) && (@lat > min_lat &&  @lat < max_lat)
+        l = Location.find_or_create_by(id: 1)
+        l.address = params[:q]
+        l.save
+        @lng = l.longitude
+        @lat = l.latitude
+      end
+
+      @issues_with_coords = Issue.where(
+        lat: (@lat-near_range)..(@lat+near_range),
+        lng: (@lng-near_range)..(@lng+near_range)
+      )
+    end
+  end
+
   def uniqueness_properties_changed?(issue)
     issue.id_changed? || issue.category_id_changed? || issue.problem_id_changed? || (issue.coordinate != "#{ issue.lat }, #{ issue.lng }")
   end

@@ -221,7 +221,7 @@ module ApplicationHelper
 
   def generate_issue_title(issue)
     title = (issue.category.present? ? issue.category.name : '') +
-            (issue.problem.present? ? (' - ' + issue.problem.name) : '')
+            (issue.problem.present? ? (' - ' + issue.problem.name) : '') + " - #{ issue.state.parameterize.gsub('_', ' ') }"
     title = issue.title unless title.present?
     '(' + issue.issue_number.to_s + ') ' + title
   end

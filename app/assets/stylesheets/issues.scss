@@ -4,6 +4,10 @@ article.issue{
     display: inline-block;
   }
 
+  .search-bar{
+    float: right;
+  }
+
   h4.issue-state{
     margin: rem-calc(8 0);
     color: $black;

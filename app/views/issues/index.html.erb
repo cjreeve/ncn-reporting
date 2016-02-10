@@ -8,6 +8,8 @@
     <%#= f.input :id, collection: @routes, label: false, input_html: { name: :routes } %>
     <%# end %>
 
+    <%= render 'shared/search_by_location' %>
+
 
     <h1>Issues</h1>
 
@@ -16,10 +18,10 @@
     <% end %>
 
 
-      
+
       <div class='issues-table-container'>
         <%= render 'issue_filters' %>
-        
+
         <table class='issues responsive'>
           <thead>
             <tr>
