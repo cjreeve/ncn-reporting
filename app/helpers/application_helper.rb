@@ -108,38 +108,43 @@ module ApplicationHelper
   end
 
   def marker_style(priority, state = nil)
+
     if priority.present? && priority > 0
-      marker_colour = "green" if priority == 1
-      marker_colour = "yellow" if priority == 2
-      marker_colour = "red" if priority == 3
+      marker_colour = "green-dot" if priority == 1
+      marker_colour = "yellow-dot" if priority == 2
+      marker_colour = "red-dot" if priority == 3
     else
-      marker_colour = "blue"
+      marker_colour = "blue-dot"
     end
-    "http://maps.google.com/mapfiles/ms/icons/"+marker_colour+"-dot.png"
+    marker_colour = "grey" if state == "closed"
+
+    "http://maps.google.com/mapfiles/ms/icons/"+marker_colour+".png"
   end
 
   def get_issue_coord_stats(issues)
-    total_lat = 0.0
-    total_lng = 0.0
-    max_lat = (issues.present? ? issues.first.lat : 0)
-    min_lat = (issues.present? ? issues.first.lat : 0)
-    max_lng = (issues.present? ? issues.first.lng : 0)
-    min_lng = (issues.present? ? issues.first.lng : 0)
-    issues.each do |issue|
-      total_lat += issue.lat
-      total_lng += issue.lng
-      max_lat = issue.lat if issue.lat > max_lat
-      min_lat = issue.lat if issue.lat < min_lat
-      max_lng = issue.lng if issue.lng > max_lng
-      min_lng = issue.lng if issue.lng < min_lng
+    if issues.present?
+      total_lat = 0.0
+      total_lng = 0.0
+      max_lat = issues.first.lat
+      min_lat = issues.first.lat
+      max_lng = issues.first.lng
+      min_lng = issues.first.lng
+      issues.each do |issue|
+        total_lat += issue.lat
+        total_lng += issue.lng
+        max_lat = issue.lat if issue.lat > max_lat
+        min_lat = issue.lat if issue.lat < min_lat
+        max_lng = issue.lng if issue.lng > max_lng
+        min_lng = issue.lng if issue.lng < min_lng
+      end
+      max_spread = (max_lat - min_lat > max_lng - min_lng) ? (max_lat - min_lat) : (max_lng - min_lng)
+      max_spread = 0.06 if max_spread == 0
+      {
+        average_coord: [total_lat/issues.length, total_lng/issues.length],
+        max_lat: max_lat, min_lat: min_lat, max_lng: max_lng, min_lng: min_lng,
+        max_spread: max_spread
+      }
     end
-    max_spread = (max_lat - min_lat > max_lng - min_lng) ? (max_lat - min_lat) : (max_lng - min_lng)
-    max_spread = 0.06 if max_spread == 0
-    {
-      average_coord: [total_lat/issues.length, total_lng/issues.length],
-      max_lat: max_lat, min_lat: min_lat, max_lng: max_lng, min_lng: min_lng,
-      max_spread: max_spread
-    }
   end
 
   def priority_colour(priority)

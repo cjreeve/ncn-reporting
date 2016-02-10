@@ -17,7 +17,7 @@ $(document).ready(function() {
       get_current_location_from_browser();
 
       if(myCoord !== undefined) {
-        var coord_string = myCoord.latitude + ", " + myCoord.longitude;
+        var coord_string = myCoord.latitude.toFixed(5) + ", " + myCoord.longitude.toFixed(5);
         $('input#q').val(coord_string);
         $('#search-location-button').closest('form').submit();
       }

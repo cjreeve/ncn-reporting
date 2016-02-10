@@ -5,8 +5,14 @@ article.issue{
   }
 
   .search-bar{
-    float: right;
+    margin-bottom: rem-calc(20);
+    @media #{$medium-up}{
+      position: absolute;
+      right: rem-calc(20);
+      top: rem-calc(25);
+    }
   }
+
 
   h4.issue-state{
     margin: rem-calc(8 0);

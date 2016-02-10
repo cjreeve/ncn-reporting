@@ -93,7 +93,7 @@ http://ryanfait.com/
   }
   .prompt{
     font-size: rem-calc(10);
-    padding-left: rem-calc(10);
+    padding: rem-calc(0 0 10 10);
     color: $grey;
   }
 }

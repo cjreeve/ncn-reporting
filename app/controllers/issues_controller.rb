@@ -182,6 +182,8 @@ class IssuesController < ApplicationController
   end
 
   def search
+    @issues_with_coords = []
+
     if params[:q]
       near_range = 0.03
       min_lng, max_lng = Rails.application.config.coord_limits[:lng]

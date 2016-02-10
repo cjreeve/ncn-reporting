@@ -5,19 +5,18 @@
   function initialize() {
 
     <%
-      coord_stats = get_issue_coord_stats(issues)
+      coord_stats = get_issue_coord_stats(issues) || {}
       if this_issue.present?
         this_lat = this_issue.lat
         this_lng = this_issue.lng
       else
-        this_lat = coord_stats[:average_coord][0]
-        this_lng = coord_stats[:average_coord][1]
+        this_lat, this_lng = coord_stats[:average_coord]
       end
     %>
 
     var mapCenter = new google.maps.LatLng(<%= this_lat %>, <%= this_lng %>);
     var mapOptions = {
-      zoom: <%= (1.0/coord_stats[:max_spread]).to_i %>,
+      zoom: <%= coord_stats[:max_spread] ? (1.0/coord_stats[:max_spread]).to_i : 15 %>,
       center: mapCenter
     };
 
@@ -31,7 +30,7 @@
           issue.lat,
           issue.lng,
           (issue_counter -= 1),
-          marker_style(issue.priority),
+          marker_style(issue.priority, issue.state),
           formatted_description(issue)
         ]
       end
@@ -49,6 +48,16 @@
       var zIndex = 10000;
       var icon = "http://maps.google.com/mapfiles/ms/icons/pink.png";
       var description = "<%= formatted_description this_issue %>";
+      createMarker(map,[myTitle, myLat, myLng, zIndex, icon, description]);
+    <% end %>
+
+    <% if defined?(your_coord) %>
+      var myTitle = "Your Location";
+      var myLat = <%= your_coord[:lat] %>;
+      var myLng = <%= your_coord[:lng] %>;
+      var zIndex = 10000;
+      var icon = '/images/crosshair.svg';
+      var description = "";
       createMarker(map,[myTitle, myLat, myLng, zIndex, icon, description]);
     <% end %>
 

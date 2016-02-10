@@ -1,5 +1,5 @@
-
-<%= render('google_maps/markers.js', issues: @issues_with_coords, this_issue: Issue.new(lat: @lat, lng: @lng)) %>
+<%# if params[:q] %>
+<%= render 'google_maps/markers.js', issues: @issues_with_coords, your_coord: {lat: @lat, lng: @lng} %>
 
 <div style="margin: 0 20px">
   <%= render 'shared/search_by_location' %>
