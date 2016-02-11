@@ -69,6 +69,8 @@
       map.setZoom(17);
       var bikeLayer = new google.maps.BicyclingLayer();
       bikeLayer.setMap(map);
+    <% elsif defined?(your_coord) %>
+      map.setZoom(13);
     <% else %>
       var lon_angle = <%= coord_stats[:max_lng] %> - <%= coord_stats[:min_lng] %>;
       var lat_angle = <%= coord_stats[:max_lat] %> - <%= coord_stats[:min_lat] %>;
