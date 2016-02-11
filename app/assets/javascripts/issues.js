@@ -5,6 +5,12 @@ $(window).bind('page:change', function() {
   }
 });
 
+$(window).bind('page:load', function() {
+  if (typeof(initialize) == "function" && $('#map-canvas').length) {
+    initialize();
+  }
+});
+
 
 var coordFinderMap;
 var myCoord;

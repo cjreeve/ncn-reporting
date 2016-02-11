@@ -77,16 +77,16 @@ http://ryanfait.com/
   }
   div.search-field{
     input[type="search"]{
-      height: rem-calc(25);
+      height: rem-calc(20);
       margin: 0;
       padding: rem-calc(5 10);
     }
   }
   div.search-button{
     input[type="submit"]{
-      height: rem-calc(37);
+      height: rem-calc(32);
       margin: 0;
-      padding: rem-calc(8);
+      padding: rem-calc(5 8);
       border: rem-calc(1) solid $medium-grey;
       color: $grey;
     }
