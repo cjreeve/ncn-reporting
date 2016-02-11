@@ -1,0 +1,11 @@
+article.search{
+  margin: rem-calc(0 20);
+  a.new-issue-link{
+    float: right;
+    display: inline-block;
+    margin: rem-calc(0 0 15 15);
+  }
+  .search-bar{
+    min-width: rem-calc(250);
+  }
+}
