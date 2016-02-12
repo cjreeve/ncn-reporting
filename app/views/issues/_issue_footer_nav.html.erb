@@ -1,8 +1,8 @@
 <div class='show-closed-issues-link'>
-  <% if params['incl_closed'].present? %>
-    <%= link_to 'exclude closed issues', issue_path(filter_params(params, {id: @issue})) %>
+  <% if params['excl_closed'].present? %>
+    <%= link_to 'include closed issues', issue_path(filter_params(params, {id: @issue})) %>
   <% else %>
-    <%= link_to 'include closed issues', issue_path(filter_params(params, {id: @issue, incl_closed: true})) %>
+    <%= link_to 'exclude closed issues', issue_path(filter_params(params, {id: @issue, excl_closed: true})) %>
   <% end %>
 </div>
 <br><br>

@@ -51,8 +51,12 @@ class IssuesController < ApplicationController
   # GET /issues/1.json
   def show
     exclusion_options = {lat: nil, lng: nil}
-    exclusion_options[:state] = 'closed' unless params['incl_closed'] == 'true'
-    @issues = Issue.where(route: @issue.route, area: @issue.area).order('lng DESC').where.not(exclusion_options)
+    exclusion_options[:state] = 'closed' if params['excl_closed'] == 'true'
+    near_range = 0.03
+    @issues = Issue.where(
+      lat: (@issue.lat-near_range)..(@issue.lat+near_range),
+      lng: (@issue.lng-near_range)..(@issue.lng+near_range)
+    ).order('lng DESC').where.not(exclusion_options)
     @issue_labels_count = @issue.labels.count
 
     # TODO - use geocoder gem for this
