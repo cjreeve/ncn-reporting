@@ -90,7 +90,8 @@ class Issue < ActiveRecord::Base
   def publishable?
     self.valid_coordinate? &&
     self.route.present? &&
-    self.area.present?
+    self.area.present? &&
+    self.labels.present?
   end
 
   def startable?

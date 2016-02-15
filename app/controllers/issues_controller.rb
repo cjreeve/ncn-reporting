@@ -276,6 +276,7 @@ class IssuesController < ApplicationController
         text += " a valid coordinate -" unless @issue.valid_coordinate?
         text += " a route -" unless @issue.route.present?
         text += " a group -" unless @issue.area.present?
+        text += " label(s) -" unless @issue.labels.present?
         return redirect_to issue_path, alert: text[0..-3]
       else
         return redirect_to issue_path, alert: "Invalid progress request"
