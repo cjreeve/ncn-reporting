@@ -5,7 +5,8 @@
     method: :put,
     params: filter_params(params, { submit: '' }),
     class: 'button tiny',
-    title: 'submit this issue when all details are added'
+    title: 'submit this issue when all details are added',
+    data: (@issue.images.blank? ? { confirm: 'Are you sure you want to submit this without a photo?' } : {} )
   end
 %>
 <%=
@@ -15,7 +16,8 @@
     method: :put,
     params: filter_params(params, { publish: '' }),
     class: 'button tiny',
-    title: 'publish this issue if all details and labels are present'
+    title: 'publish this issue if all details and labels are present',
+    data: (@issue.images.blank? ? { confirm: 'Are you sure you want to publish this without a photo?' } : {} )
   end
 %>
 <%=
