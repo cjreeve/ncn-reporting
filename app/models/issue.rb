@@ -60,6 +60,9 @@ class Issue < ActiveRecord::Base
     event :submit do
       transition draft: :submitted
     end
+    event :respecify do
+      transition submitted: :draft
+    end
     event :publish do
       transition submitted: :open
     end
@@ -85,6 +88,10 @@ class Issue < ActiveRecord::Base
     self.route.present? &&
     self.area.present? &&
     self.state_events.include?(:submit)
+  end
+
+  def respecifyable?
+    self.state_events.include?(:respecify)
   end
 
   def publishable?

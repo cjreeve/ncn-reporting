@@ -247,6 +247,10 @@ class IssuesController < ApplicationController
       if Issue::PRIORITY[@issue.priority] == 'high'
         UserNotifier.send_high_priority_issue_notifications(@issue, :submit)
       end
+    elsif params[:respecify]
+      @issue.respecify!
+      @issue.save
+      action_taken = "respecified"
     elsif params[:publish] && @issue.publishable?
       @issue.publish!
       @issue.reported_at = Time.zone.now

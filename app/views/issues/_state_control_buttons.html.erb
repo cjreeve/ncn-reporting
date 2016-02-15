@@ -75,6 +75,16 @@
   end
 %>
 <%=
+  if @issue.respecifyable?
+    button_to 'Respecify',
+    [:progress, @issue],
+    method: :put,
+    params: filter_params(params, { respecify: '' }),
+    class: 'button tiny secondary',
+    title: 'click here if you wish to edit the issue specifications'
+  end
+%>
+<%=
   button_to 'Edit',
   [:edit, @issue],
   method: :get,
