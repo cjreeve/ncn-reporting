@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def state_t(value)
+    I18n.t('state.' + value.to_s.parameterize)
+  end
+
   def state_progress_bar(current_state, resolution)
     states = ['draft', 'submitted', 'open', 'in_progress', 'closed']
 
