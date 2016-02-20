@@ -211,6 +211,22 @@ class Issue < ActiveRecord::Base
     end
   end
 
+  def send_high_priority_issue_notifications(event_type)
+
+    # two searches are added together to allow for any routes none are selected and the area is selected
+    # and visa versa
+    all_route_section_managers = User.includes(:areas, :routes).where(
+      areas: {id: [nil, self.area.try(:id)]}, routes: {id: self.route.try(:id)}
+    ) + User.includes(:areas, :routes).where(
+      areas: {id: self.area.try(:id)}, routes: {id: [nil, self.route.try(:id)]}
+    )
+    staff_route_managers = all_route_section_managers.select{ |u| u.role == "staff" }.uniq
+
+    staff_route_managers.each do |user|
+      UserNotifier.send_high_priority_issue_notification(self, user, event_type).deliver unless (self.editor.try(:role) == "staff")
+    end
+  end
+
   private
 
   def set_edited_at
@@ -246,8 +262,8 @@ class Issue < ActiveRecord::Base
   end
 
   def send_high_priority_issue_notifications_if_changed
-    if priority_changed? && PRIORITY[priority] == 'high' && %w{submitted open reopened}.include?(state)
-      UserNotifier.send_high_priority_issue_notifications(self, :change)
+    if self.priority_changed? && PRIORITY[priority] == 'high' && %w{submitted open reopened}.include?(self.state)
+      self.send_high_priority_issue_notifications(:change)
     end
   end
 

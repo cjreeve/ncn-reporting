@@ -67,21 +67,6 @@ class UserNotifier < ActionMailer::Base
     )
   end
 
-  def send_high_priority_issue_notifications(issue, event_type)
-    # two searches are added together to allow for any routes none are selected and the area is selected
-    # and visa versa
-    all_route_section_managers = User.includes(:areas, :routes).where(
-      areas: {id: [nil, issue.area.try(:id)]}, routes: {id: issue.route.try(:id)}
-    ) + User.includes(:areas, :routes).where(
-      areas: {id: issue.area.try(:id)}, routes: {id: [nil, issue.route.try(:id)]}
-    )
-    staff_route_managers = all_route_section_managers.select{ |u| u.role == "staff" }.uniq
-
-    staff_route_managers.each do |user|
-      UserNotifier.send_high_priority_issue_notification(issue, user, event_type).deliver unless (issue.editor.try(:role) == "staff")
-    end
-  end
-
   def send_high_priority_issue_notification(issue, user, event_type)
     @user = user
     @issue = issue
