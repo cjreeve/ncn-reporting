@@ -99,6 +99,7 @@ class IssuesController < ApplicationController
   def new
     @issue = Issue.new
     @issue.images.build
+    @issue.coordinate = params[:c]
     @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
     @areas = Area.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
     # @image = Image.new

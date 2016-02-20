@@ -1,9 +1,11 @@
 article.search{
   margin: rem-calc(0 20);
-  a.new-issue-link{
+  button.new-issue-link{
     float: right;
-    display: inline-block;
-    margin: rem-calc(0 0 15 15);
+    margin: rem-calc(0 0 0 15);
+    @media #{$medium-up}{
+      margin: rem-calc(-51 0 15 15);
+    }
   }
   .search-bar{
     min-width: rem-calc(250);

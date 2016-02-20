@@ -125,3 +125,31 @@ function showMyCoord() {
     coordFinderMap.panTo(crosshairPosition);
   }
 }
+
+
+
+// search and results map
+
+$(document).ready(function() {
+  $('#add-marker-listener').click(function(event){
+    event.preventDefault();
+
+    map.setOptions({ draggableCursor : "url(http://labs.google.com/ridefinder/images/mm_20_white.png) 6 32, auto" })
+
+    google.maps.event.addListener(map, 'click', function(e) {
+      placeMarker(e.latLng, map);
+      var theCoord = e.latLng.lat().toFixed(5) + ", " + e.latLng.lng().toFixed(5)
+
+      var infowindow = new google.maps.InfoWindow({
+        content: theCoord + '<br>' + '<a href="/issues/new?c=' + theCoord + '" >' + 'Create Issue &gt;' + '</a>'
+      });
+      infowindow.open(map, myCoordMarker);
+    });
+
+    $('#add-marker-listener').html('now click map');
+    $('#add-marker-listener').delay(2000).fadeOut("slow");
+
+  });
+});
+
+

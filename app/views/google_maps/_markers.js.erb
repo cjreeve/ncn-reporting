@@ -2,6 +2,8 @@
 
 <script>
 
+  var map;
+
 
   function initialize() {
 
@@ -21,7 +23,7 @@
       center: mapCenter
     };
 
-    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
     <%
       issue_counter = issues.count + 1

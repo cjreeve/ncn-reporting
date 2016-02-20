@@ -1,6 +1,8 @@
 <article class="search">
-  <%= link_to 'new issue >', new_issue_path, class: 'new-issue-link' %>
   <%= render 'shared/search_by_location' %>
+  <button type='button' id='add-marker-listener' class='button tiny secondary new-issue-link' >new marker</button>
+
+
   <div id="map-canvas" style="width: 100%; height: 500px;"></div>
 </article>
 
