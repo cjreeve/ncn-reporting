@@ -1,7 +1,7 @@
 <div class='issue-title-and-nav'>
   <%=
     if @prev_issue_id
-      link_to issue_path(filter_params(params, {id: @prev_issue_id})) do
+      link_to issue_number_path(filter_params(params, {issue_number: @prev_issue_id})) do
         image_tag 'icons/arrow-large-left-blue.svg', title: 'previous issue', alt: '<'
       end
     else
@@ -11,7 +11,7 @@
   <h1>Issue <%= @issue.issue_number %></h1>
   <%=
     if @next_issue_id
-      link_to issue_path(filter_params(params, {id: @next_issue_id})) do
+      link_to issue_number_path(filter_params(params, {issue_number: @next_issue_id})) do
         image_tag 'icons/arrow-large-right-blue.svg', title: 'next issue', alt: '>'
       end
     else
