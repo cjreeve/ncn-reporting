@@ -89,6 +89,12 @@ http://ryanfait.com/
       padding: rem-calc(5 8);
       border: rem-calc(1) solid $medium-grey;
       color: $grey;
+      &.searching{
+        background: url(image_path('icons/ajax-loader-fb.gif')) no-repeat;
+        background-position: center center;
+        background-color: darken($light-grey, 5);
+        color: transparent;
+      }
     }
   }
   .prompt{
@@ -97,3 +103,4 @@ http://ryanfait.com/
     color: $grey;
   }
 }
+

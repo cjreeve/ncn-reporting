@@ -27,6 +27,7 @@ $(document).ready(function() {
   $('#search-location-button').click(function(event){
     if ($('input#q').val().length == 0) {
       event.preventDefault();
+      $('#search-location-button').addClass('searching');
       if (!myCoord) {
         findMyCoord();
       }
