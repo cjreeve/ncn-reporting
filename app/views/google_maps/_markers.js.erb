@@ -90,6 +90,9 @@
       }
     <% end %>
 
+    if($('#add-marker-listener').length > 0){
+      $('#add-marker-listener').fadeIn(3000);
+    }
   }
 
   function createMarker(map, location) {
