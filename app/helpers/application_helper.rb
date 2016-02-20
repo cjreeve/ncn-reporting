@@ -31,7 +31,7 @@ module ApplicationHelper
       sanitize = {
         elements: ['br', 'a'],
         attributes: { 'a' => ['href', 'title'] },
-        protocols: { 'a' => {'href' => ['http', 'https', 'mailto'] }}
+        protocols: { 'a' => {'href' => ['http', 'https', 'mailto', :relative] }}
       }
     elsif sanitize == "basic"
       sanitize = Sanitize::Config::BASIC
