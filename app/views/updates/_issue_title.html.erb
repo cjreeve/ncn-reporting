@@ -1,5 +1,5 @@
 <h3>
-  <%= link_to issue_path(issue) do %>
+  <%= link_to issue_number_path2(issue, params) do %>
     (<%= issue.issue_number %>) <%= issue.category.name %> - <%= issue.the_problem %>
     <span class='status'>(<%=t 'state.'+issue.state %>)</span>
   <% end %>

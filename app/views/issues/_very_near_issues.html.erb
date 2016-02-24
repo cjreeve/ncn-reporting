@@ -3,7 +3,7 @@
   <ul class="linked-issues">
     <% very_near_issues.each do |issue| %>
       <li>
-        <%= link_to "issue #{ issue.issue_number }", issue_path(issue) %> -
+        <%= link_to "issue #{ issue.issue_number }", issue_number_path2(issue, params) %> -
         <%=t issue.state %>
         <%=
           if very_near_issues_title == "Possible Duplicate" || @issue.twinned_issues.include?(issue)

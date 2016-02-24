@@ -228,6 +228,11 @@ module ApplicationHelper
     the_params.merge!(new_params).symbolize_keys
   end
 
+  def issue_number_path2(issue, params = {}, new_params = {})
+    new_params[:issue_number] = issue.issue_number
+    issue_number_path( filter_params( params, new_params ) )
+  end
+
   def generate_issue_title(issue)
     title = (issue.category.present? ? issue.category.name : '') +
             (issue.problem.present? ? (' - ' + issue.problem.name) : '') + " - #{ issue.state.parameterize.gsub('_', ' ') }"

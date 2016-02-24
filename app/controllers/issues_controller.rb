@@ -154,7 +154,7 @@ class IssuesController < ApplicationController
 
     respond_to do |format|
       if @issue.save
-        format.html { redirect_to issue_path(filter_params(params)), notice: 'Issue was successfully updated.' }
+        format.html { redirect_to issue_number_path2(@issue, params), notice: 'Issue was successfully updated.' }
         format.json { render :show, status: :ok, location: @issue }
       else
         @routes = Route.all.order(:name)
@@ -225,14 +225,11 @@ class IssuesController < ApplicationController
       else
         @issue.twinned_issues += [@twin_issue]
       end
-      if @issue.save
-        redirect_to issue_path(filter_params(params))
-      else
-        redirect_to issue_path(filter_params(params))
-      end
+      @issue.save
+      redirect_to issue_number_path2(@issue, params)
     else
       flash[:alert] = "issue could not be found"
-      redirect_to issue_path(filter_params(params))
+      redirect_to issue_number_path2(@issue, params)
     end
   end
 
@@ -282,9 +279,9 @@ class IssuesController < ApplicationController
         text += " a route -" unless @issue.route.present?
         text += " a group -" unless @issue.area.present?
         text += " label(s) -" unless @issue.labels.present?
-        return redirect_to issue_path, alert: text[0..-3]
+        return redirect_to  issue_number_path2(@issue, params), alert: text[0..-3]
       else
-        return redirect_to issue_path, alert: "Invalid progress request"
+        return redirect_to issue_number_path2(@issue, params), alert: "Invalid progress request"
       end
     end
 
@@ -292,7 +289,7 @@ class IssuesController < ApplicationController
       UserNotifier.send_issue_state_change_notification(@issue.user, @issue).deliver
     end
 
-    redirect_to issue_path(filter_params(params))
+    redirect_to issue_number_path2(@issue, params)
   end
 
 

@@ -46,7 +46,12 @@ class ApplicationController < ActionController::Base
 
   def filter_params(params, new_params = {})
     the_params = params.permit(Rails.application.config.filter_params)
-    the_params.merge!(new_params)
+    the_params.merge!(new_params).symbolize_keys
+  end
+
+  def issue_number_path2(issue, params = {}, new_params = {})
+    new_params[:issue_number] = issue.issue_number
+    issue_number_path( filter_params( params, new_params ) )
   end
 
   private
