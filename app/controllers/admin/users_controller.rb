@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
   load_and_authorize_resource #except: [:create]
 
   before_filter :check_read_authorisation
-  before_filter :check_manage_authorisation, only: [:edit, :update]
+  before_filter :check_manage_authorisation, except: [:index, :show]
 
   def index
     @users = User.where('updated_at is not null').order("updated_at DESC") + User.where('updated_at is null')
