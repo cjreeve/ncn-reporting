@@ -16,5 +16,7 @@
 
   <%= f.input :password, autocomplete: "off", required: false %>
   <%#= f.input :password_confirmation, required: false %>
+
+  <%= f.input :creator_id, as: :hidden, input_html: { value: current_user.id } %>
 </div>
 

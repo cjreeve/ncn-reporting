@@ -1,8 +1,9 @@
 class Admin::UsersController < ApplicationController
 
-  load_and_authorize_resource except: [:create]
+  load_and_authorize_resource #except: [:create]
 
-  before_filter :check_authorisation
+  before_filter :check_read_authorisation
+  before_filter :check_manage_authorisation, only: [:edit, :update]
 
   def index
     @users = User.where('updated_at is not null').order("updated_at DESC") + User.where('updated_at is null')
@@ -59,14 +60,20 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-    param_keys = [:name, :email, :region_id, :password, :receive_email_notifications, route_ids: [], area_ids: [], label_ids: []]
+    param_keys = [:name, :email, :creator_id, :region_id, :password, :receive_email_notifications, route_ids: [], area_ids: [], label_ids: []]
     param_keys += [:role, :is_admin, :is_locked] if current_user.is_admin?
     permitted_params = params.require(:user).permit(param_keys)
   end
 
-  def check_authorisation
-    unless current_user.is_admin?
+  def check_read_authorisation
+    unless current_user.is_admin? || current_user.role == "staff"
       redirect_to '/', notice: 'You are not authorised to view that page'
+    end
+  end
+
+  def check_manage_authorisation
+    unless current_user.is_admin?
+      redirect_to '/', notice: 'You are not authorised to manage that page'
     end
   end
 

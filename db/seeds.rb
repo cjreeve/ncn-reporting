@@ -15,22 +15,36 @@
 # end
 
 
-
 ActiveRecord::Base.record_timestamps = false
 begin
-  Issue.where(state: 'resolved').each do |i|
-    i.resolution = "resolved"
-    i.state = "closed"
-    i.save
-  end
-  Issue.where(resolution: [nil, ""], state: ["unsolvable", "resolved", "closed"]).each do |i|
-    i.resolution = "resolved"
-    i.state = "closed"
-    i.save
+  creator = User.first
+
+  User.all.each do |user|
+    user.creator = creator
+    user.save
   end
 ensure
   ActiveRecord::Base.record_timestamps = true
 end
+
+
+
+
+# ActiveRecord::Base.record_timestamps = false
+# begin
+#   Issue.where(state: 'resolved').each do |i|
+#     i.resolution = "resolved"
+#     i.state = "closed"
+#     i.save
+#   end
+#   Issue.where(resolution: [nil, ""], state: ["unsolvable", "resolved", "closed"]).each do |i|
+#     i.resolution = "resolved"
+#     i.state = "closed"
+#     i.save
+#   end
+# ensure
+#   ActiveRecord::Base.record_timestamps = true
+# end
 
 
 
@@ -119,7 +133,7 @@ end
 
 
 
-# Set all staff accounts to show sustrans and 
+# Set all staff accounts to show sustrans and
 # ActiveRecord::Base.record_timestamps = false
 # begin
 #   label_sustrans = Label.find_by_name('sustrans')
@@ -145,7 +159,7 @@ end
 #   Area.find_or_create_by(name: area_name)
 # end
 
-# [ ["Graffiti", 1], ["Turned", 2], ["Missing", 2], ["Wrong", 2], ["Obstruction", 2],["Obstruction!", 3], 
+# [ ["Graffiti", 1], ["Turned", 2], ["Missing", 2], ["Wrong", 2], ["Obstruction", 2],["Obstruction!", 3],
 #   ["Overgrown", 1], ["Uneven", 1], ["Pothole(s)", 2], ["Damaged", 1], ["Dangerous", 3]
 # ].each do |problem_data|
 #   Problem.find_or_create_by(name: problem_data[0], default_priority: problem_data[1])

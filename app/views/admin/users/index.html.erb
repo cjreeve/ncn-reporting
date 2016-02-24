@@ -3,10 +3,13 @@
   <div class='row'>
     <div class='small-12 columns'>
       <h1>Admin: Users</h1>
-      &nbsp;-&nbsp;<%= link_to 'create new', new_admin_user_path, class: 'create-new-issue' %>
-      
-      <%= form_tag site_notification_emails_path, method: :get do %>
-        <%= submit_tag 'Send Notifications', data: { confirm: "Send notification emails to all users?" } %>
+      <% if can? :manage, User %>
+        &nbsp;-&nbsp;<%= link_to 'create new', new_admin_user_path, class: 'create-new-issue' %>
+
+        <%= form_tag site_notification_emails_path, method: :get do %>
+          <%= submit_tag 'Send Notifications', data: { confirm: "Send notification emails to all users?" } %>
+        <% end %>
+
       <% end %>
 
       <table>
@@ -41,7 +44,7 @@
                 <% end %>
               </td>
               <td>
-                <% if user.removable? %>
+                <% if user.removable? && can?(:manage, User) %>
                   <%= link_to "&times;".html_safe, admin_user_path(user), method: :delete, data: { confirm: "Are you sure? This can't be undone."} %>
                 <% end %>
               </td>

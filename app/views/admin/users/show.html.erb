@@ -29,22 +29,27 @@
           <tr>
             <td>Created:</td><td><%= @user.created_at.strftime("%d %b %Y - %H:%M") %></td>
           </tr>
+          <tr>
+            <td>Created by:</td><td><%= link_to @user.creator.name, admin_user_path(@user.creator) %></td>
+          </tr>
           <% if @user.current_sign_in_at %>
             <tr>
               <td>Active:</td><td><%= @user.updated_at.strftime("%d %b %Y - %H:%M") %></td>
             </tr>
-  <!--           <tr>
-              <td>Signed in:</td><td><%#= @user.current_sign_in_at.strftime("%d %b %Y - %H:%M") %></td>
-            <tr> -->
-              <td>Sign-in IP:</td><td><%= @user.current_sign_in_ip %></td>
-            </tr>
+            <% if can? :manage, User %>
+              <tr>
+                <td>Sign-in IP:</td><td><%= @user.current_sign_in_ip %></td>
+              </tr>
+            <% end %>
           <% end %>
 
         </tbody>
       </table>
 
-      <%= link_to 'Index', admin_users_path %> | 
-      <%= link_to 'Edit', edit_admin_user_path %>
+      <%= link_to 'Index', admin_users_path %>
+      <% if can? :manage, User %>
+        | <%= link_to 'Edit', edit_admin_user_path %>
+      <% end %>
 
     </div>
   </div>

@@ -3,16 +3,16 @@
     <div class='small-12 columns'>
 
       <h1>Controls</h1>
-      
+
       <h2>Acounts</h2>
 
       <ul>
         <li>
           <%= link_to 'My User Account Settings', edit_user_registration_path %>
         </li>
-        <% if current_user.is_admin? %>
+        <% if can? :read, User %>
           <li>
-            <%= link_to "Manage User Accounts", admin_users_path %>
+            <%= link_to "#{ can?(:manage, User) ? 'Manage' : '' } User Accounts", admin_users_path %>
           </li>
         <% end %>
       </ul>
