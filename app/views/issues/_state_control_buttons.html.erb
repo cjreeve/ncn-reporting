@@ -88,7 +88,7 @@
   button_to 'Edit',
   [:edit, @issue],
   method: :get,
-  params: filter_params(params, { id: @issue.id }),
+  params: filter_params(params),
   class: 'button tiny secondary',
   title: 'click here if you wish to edit the issue specifications'
 %>
