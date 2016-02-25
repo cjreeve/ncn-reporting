@@ -86,16 +86,6 @@ ActiveRecord::Schema.define(version: 20160224221005) do
   add_index "issue_label_selections", ["issue_id"], name: "index_issue_label_selections_on_issue_id", using: :btree
   add_index "issue_label_selections", ["label_id"], name: "index_issue_label_selections_on_label_id", using: :btree
 
-  create_table "issue_twins", force: :cascade do |t|
-    t.integer  "issue_twin_1_id"
-    t.integer  "issue_twin_2_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "issue_twins", ["issue_twin_1_id"], name: "index_issue_twins_on_issue_twin_1_id", using: :btree
-  add_index "issue_twins", ["issue_twin_2_id"], name: "index_issue_twins_on_issue_twin_2_id", using: :btree
-
   create_table "issues", force: :cascade do |t|
     t.integer  "issue_number",                                                       null: false
     t.string   "title",                  limit: 255, default: "",                    null: false
@@ -119,7 +109,6 @@ ActiveRecord::Schema.define(version: 20160224221005) do
     t.integer  "administrative_area_id"
     t.integer  "editor_id"
     t.string   "resolution",             limit: 255
-    t.string   "address"
   end
 
   add_index "issues", ["administrative_area_id"], name: "index_issues_on_administrative_area_id", using: :btree
