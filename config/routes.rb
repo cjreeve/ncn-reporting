@@ -59,6 +59,8 @@ Rails.application.routes.draw do
     end
   end
   get '/issue/:issue_number' => 'issues#show', as: :issue_number
+  patch '/issue/:issue_number' => 'issues#update'
+
   get '/search' => 'issues#search', as: :issues_search
 
   get '*everything' => 'pages#main'
