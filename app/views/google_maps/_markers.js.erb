@@ -12,6 +12,9 @@
       if this_issue.present?
         this_lat = this_issue.lat
         this_lng = this_issue.lng
+      elsif defined?(your_coord)
+        this_lat = your_coord[:lat]
+        this_lng = your_coord[:lng]
       else
         this_lat, this_lng = coord_stats[:average_coord]
       end
@@ -72,7 +75,11 @@
       var bikeLayer = new google.maps.BicyclingLayer();
       bikeLayer.setMap(map);
     <% elsif defined?(your_coord) %>
-      map.setZoom(13);
+      if ($('html').width() > 628) {
+        map.setZoom(14);
+      } else {
+        map.setZoom(17);
+      }
     <% else %>
       var lon_angle = <%= coord_stats[:max_lng] %> - <%= coord_stats[:min_lng] %>;
       var lat_angle = <%= coord_stats[:max_lat] %> - <%= coord_stats[:min_lat] %>;
