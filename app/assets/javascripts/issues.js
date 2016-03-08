@@ -25,6 +25,11 @@ $(document).ready(function() {
       initializeCoordFinder();
     });
   });
+
+  $('.publish-issue.disabled').click(function(e) {
+    e.preventDefault();
+    $('#missing-details-issue-modal').foundation('reveal', 'open');
+  });
 });
 
 

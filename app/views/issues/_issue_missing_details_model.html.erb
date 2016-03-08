@@ -1,0 +1,35 @@
+<div id="missing-details-issue-modal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <h2 id="modalTitle">Missing Details</h2>
+  <p class="lead">Please provide the following before publishing.</p>
+
+  <%= simple_form_for @issue, url: issue_path(filter_params(params, { id: @issue.id })) do |f| %>
+    <div class='row'>
+      <% if f.object.coordinate.blank? %>
+        <div class='medium-6 large-4 columns'>
+          <%= f.input :coordinate %>
+        </div>
+      <% end %>
+      <% if f.object.route_id.blank? %>
+        <div class='medium-6 large-4 columns'>
+          <%= f.input :route_id, collection: @routes, as: :select %>
+        </div>
+      <% end %>
+      <% if f.object.area_id.blank? %>
+        <div class='medium-6 large-4 columns'>
+          <%= f.input :area_id, collection: @areas, as: :select, label: 'Group' %>
+        </div>
+      <% end %>
+      <% if f.object.priority.blank? %>
+        <div class='medium-6 large-4 columns'>
+          <%= f.input :priority, collection: Issue::PRIORITY.collect{ |p| [p[1], p[0]] }, input_html: { selected: @issue.priority } %>
+        </div>
+      <% end %>
+    </div>
+    <% if f.object.labels.blank? %>
+      <%= f.input :label_ids, as: :check_boxes, collection: @labels.collect{ |l| [l.name, l.id] }, label: 'Labels' %>
+    <% end %>
+    <%= f.button :submit, 'Update' %>
+  <% end %>
+
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>

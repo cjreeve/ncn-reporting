@@ -74,4 +74,6 @@
   </div>
 </article>
 
-<%= render 'google_maps/markers.js', issues: @issues, this_issue: @issue %>
+<%= render 'google_maps/markers.js', issues: @issues, this_issue: @issue unless (@issue.lat.blank? || @issue.lng.blank?) %>
+
+<%= render 'issue_missing_details_model' %>

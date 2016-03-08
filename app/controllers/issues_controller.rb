@@ -54,22 +54,25 @@ class IssuesController < ApplicationController
     exclusion_options[:state] = 'closed' if params['excl_closed'] == 'true'
     near_range = 0.03
     @issues = Issue.where(
-      lat: (@issue.lat-near_range)..(@issue.lat+near_range),
-      lng: (@issue.lng-near_range)..(@issue.lng+near_range)
+      lat: (@issue.lat.to_f-near_range)..(@issue.lat.to_f+near_range),
+      lng: (@issue.lng.to_f-near_range)..(@issue.lng.to_f+near_range)
     ).order('lng DESC').where.not(exclusion_options)
     @issue_labels_count = @issue.labels.count
+    @labels = Label.all.order(:name)
+    @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
+    @areas = Area.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
 
     # TODO - use geocoder gem for this
     near_range = 0.0004
     @duplicate_issues = Issue.joins(:category).joins(:problem).where(
       category: @issue.category,
       problem: @issue.problem,
-      lat: (@issue.lat-near_range)..(@issue.lat+near_range),
-      lng: (@issue.lng-near_range)..(@issue.lng+near_range)).where.not(id: [@issue] + @issue.twinned_issues)
+      lat: (@issue.lat.to_f-near_range)..(@issue.lat.to_f+near_range),
+      lng: (@issue.lng.to_f-near_range)..(@issue.lng.to_f+near_range)).where.not(id: [@issue] + @issue.twinned_issues)
 
     @nearby_issues = Issue.where(
-      lat: (@issue.lat-near_range)..(@issue.lat+near_range),
-      lng: (@issue.lng-near_range)..(@issue.lng+near_range)).where.not(id: [@issue.id]+@duplicate_issues.collect(&:id))
+      lat: (@issue.lat.to_f-near_range)..(@issue.lat.to_f+near_range),
+      lng: (@issue.lng.to_f-near_range)..(@issue.lng.to_f+near_range)).where.not(id: [@issue.id]+@duplicate_issues.collect(&:id))
 
     if (current_user && (current_user.is_admin? || current_user.role == "staff" || current_user == @issue.user))
       authorize! :destroy, @issue

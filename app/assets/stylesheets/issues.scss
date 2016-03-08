@@ -403,3 +403,48 @@ article.issue{
 .close-reveal-modal{
   z-index: 999999;
 }
+
+.publish-issue.disabled{
+  cursor: pointer;
+}
+
+#missing-details-issue-modal.reveal-modal{
+  @media #{$small-only}{
+    width: 96%;
+    margin-left: 2%;
+  }
+
+  @media #{$medium-up}{
+    width: 60%;
+  }
+  @media #{$large-up}{
+    width: 55%;
+  }
+  .row{
+    margin: rem-calc(0 -15);
+  }
+  .input.issue_label_ids{
+    .checkbox{
+      display: inline-block;
+      width: 100%;
+      float: left;
+      @media #{$medium-up}{
+        width: 50%;
+      }
+      @media #{$large-up}{
+        width: 30%;
+      }
+      label{
+        position: relative;
+        input{
+          position: relative;
+          top: rem-calc(2);
+          margin: rem-calc(0 5 10 0);
+        }
+      }
+    }
+  }
+  input.button{
+    margin: rem-calc(20 0 0 0);
+  }
+}
