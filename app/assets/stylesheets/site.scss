@@ -63,6 +63,13 @@ http://ryanfait.com/
       color: darken($dark-grey, 7);
     }
   }
+
+  &.secondary{
+    background-color: #f18d19;
+    #close-warning-banner{
+      line-height: 0.75;
+    }
+  }
 }
 
 

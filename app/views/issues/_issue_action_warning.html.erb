@@ -1,0 +1,31 @@
+<%
+  if @issue.state == 'draft'
+    action = 'submit'
+  elsif @issue.state == 'submitted'
+    action = 'publish'
+  else
+    action = 'action'
+  end
+%>
+
+<% if @duplicate_issues.blank? &&
+      (
+        (@issue.state == 'submitted' && @ranger_route_managers.include?(current_user)) ||
+        (@issue.state == 'draft' && @issue.user == current_user)
+      )
+%>
+
+  <%= content_for :warning_banner do %>
+    <div id="warning-banner" class="secondary show-for-medium-up">
+      <div class="row">
+        <div class="small-12 columns">
+          Please <%= action %> this issue once you have checked the details
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+<% end %>
+
+
+

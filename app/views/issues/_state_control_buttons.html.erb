@@ -95,3 +95,6 @@
   title: 'click here if you wish to edit the issue specifications'
 %>
 
+<% if @issue.draft? && can?(:destroy, @issue) %>
+  <%= link_to 'delete', @issue, method: :delete, data: { confirm: 'Are you sure you want to delete this issue?' }, style: "padding-left:10px" %>
+<% end %>
