@@ -82,7 +82,8 @@
     method: :put,
     params: filter_params(params, { respecify: '' }),
     class: 'button tiny secondary',
-    title: 'click here to push the issue back to a draft state if the issue requires further details from the author'
+    title: 'click here to push the issue back to a draft state if the issue requires further details from the author',
+    data: ((@issue.images.present? && @issue.publishable?) ? { confirm: 'Are you sure you want to push this back to draft?' } : {} )
   end
 %>
 <%=
