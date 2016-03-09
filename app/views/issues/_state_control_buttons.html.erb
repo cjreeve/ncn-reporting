@@ -4,7 +4,7 @@
     [:progress, @issue],
     method: :put,
     params: filter_params(params, { submit: '' }),
-    class: 'button tiny',
+    class: 'button tiny success',
     title: 'submit this issue when all details are added',
     data: (@issue.images.blank? ? { confirm: 'Are you sure you want to submit this without a photo?' } : {} )
   end
@@ -16,7 +16,7 @@
     [:progress, @issue],
     method: :put,
     params: filter_params(params, { publish: '' }),
-    class: "button tiny publish-issue #{ is_publishable ? '' : 'disabled' }",
+    class: "button tiny success publish-issue #{ is_publishable ? '' : 'disabled' }",
     title: 'publish this issue if all details and labels are present',
     data: ((@issue.images.blank? && is_publishable) ? { confirm: 'Are you sure you want to publish this without a photo?' } : { } )
   end
@@ -91,7 +91,7 @@
   [:edit, @issue],
   method: :get,
   params: filter_params(params),
-  class: 'button tiny secondary',
+  class: 'button tiny',
   title: 'click here if you wish to edit the issue specifications'
 %>
 
