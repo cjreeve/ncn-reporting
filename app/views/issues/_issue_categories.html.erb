@@ -20,7 +20,7 @@
     <% if can? :read, Update %>
       <tr>
         <td>Priority:</td>
-        <td><%= Issue::PRIORITY[@issue.priority] if @issue.priority %></td>
+        <td><%= @issue.priority.to_i > 0 ? Issue::PRIORITY[@issue.priority] : emph_none %></td>
       </tr>
       <tr>
         <td><%= 'Label'.pluralize(@issue_labels_count) %>:</td>
@@ -34,7 +34,7 @@
                 %>
             <% end %>
           <% else %>
-            none
+            <%= emph_none %>
           <% end %>
         </td>
       </tr>

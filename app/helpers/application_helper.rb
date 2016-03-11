@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def emph_none
+    content_tag :span, 'none', class: 'highlight'
+  end
+
   def state_t(value)
     I18n.t('state.' + value.to_s.parameterize)
   end
