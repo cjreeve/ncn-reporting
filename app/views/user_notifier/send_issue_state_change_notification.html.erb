@@ -14,7 +14,9 @@
       <% if @issue.resolution == "resolved" && @issue.state == "closed" %>
         Wohey!
       <% end %>
-      <% if @issue.draft?
+      <% if @issue.draft? %>
+        Please review.
+      <% end %>
     </p>
 
     <% if @issue.state == "closed" %>
