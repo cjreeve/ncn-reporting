@@ -23,7 +23,7 @@ en:
   hello: "Hello world"
 
   action:
-    draft: 'created'
+    draft: 'returned to draft'
     submitted: 'submitted'
     open: 'published'
     in_progress: "started"
