@@ -10,6 +10,7 @@ class Ability
     if (user.role == "staff") && !user.is_locked?
       can :read, Region
       can :manage, Issue
+      can :search, Issue
       can :manage, Area
       can :manage, Category
       can :manage, Image
@@ -31,6 +32,7 @@ class Ability
       can :read, Region
       can [:read, :create, :edit, :update, :progress], Issue
       can [:destroy], Issue, user_id: user.id
+      can :search, Issue
       can :read, Category
       can :manage, Problem
       can :manage, AdministrativeArea
@@ -48,6 +50,7 @@ class Ability
       can :read, Region
       can [:read, :create, :edit, :update, :progress], Issue
       can [:destroy], Issue, user_id: user.id
+      can :search, Issue
       can :read, User
       can :update, User, id: user.id
       can :manage, Comment, user_id: user.id
@@ -61,6 +64,7 @@ class Ability
       can :read, Region
       can :read, Issue
       can :destroy, Issue, user_id: user.id
+      can :search, Issue
       can :manage, Site
       can :read, User, role: 'staff'
     end
