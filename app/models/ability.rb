@@ -59,7 +59,8 @@ class Ability
 
     if (user.role == "guest") && !user.is_locked?
       can :read, Region
-      can [:read], Issue
+      can :read, Issue
+      can :destroy, Issue, user_id: user.id
       can :manage, Site
       can :read, User, role: 'staff'
     end
