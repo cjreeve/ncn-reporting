@@ -11,21 +11,18 @@
   </div>
 <% end %>
 
-<%#= f.input :issue_number %>
-<% unless @issue.user_id.present? %>
-  <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
-<% end %>
+<%= f.input :user_id, as: :hidden, input_html: { value: (@issue.user_id.to_i > 0 ? @issue.user_id : current_user.id) } %>
 
 <div class='row'>
   <div class='medium-6 columns'>
     <%= f.input :category_id, collection: @categories, label: 'Select issue category', include_blank: false %>
   </div>
   <div class='medium-6 columns'>
-    
+
     <ul class='list-style category-problems-list'>
       <% @categories.each do |category| %>
         <li id="category-<%= category.id %>-problems" class='category-problems' style='display: none'>
-          <% problem_options = [["-",nil]] + @problems[category.id].collect{|p| [p.name, p.id]} + [["Other", nil]] 
+          <% problem_options = [["-",nil]] + @problems[category.id].collect{|p| [p.name, p.id]} + [["Other", nil]]
           %>
           <%= f.input :problem_id, collection: problem_options, label: 'The problem', disabled: true, include_blank: false, input_html: {selected: @issue.problem_id } %>
         </li>
