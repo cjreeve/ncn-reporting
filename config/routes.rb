@@ -41,7 +41,7 @@ Rails.application.routes.draw do
     get :problems
   end
 
-  resources :areas
+  resources :groups
 
   resources :images
 

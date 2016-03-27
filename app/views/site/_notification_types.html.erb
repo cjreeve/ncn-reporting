@@ -9,8 +9,8 @@
 <%#   SUBMITTED    %>
 <% if @user_submitted_issue_count > 0 %>
   <%=
-    options = { state: 'submitted', route: @user_route_slugs, area: @user_area_ids }
-    { state: 'submitted', route: @user_route_slugs, area: @user_area_ids }
+    options = { state: 'submitted', route: @user_route_slugs, group: @user_group_ids }
+    { state: 'submitted', route: @user_route_slugs, group: @user_group_ids }
     render 'site/notification_link', options: options,
                                 name: 'submitted',
                                 count: @user_submitted_issue_count
@@ -20,7 +20,7 @@
 <%#   RESOLVED    %>
 <% if @user_resolved_issue_count > 0 %>
   <%=
-    options = { state: 'resolved', route: @user_route_slugs, area: @user_area_ids }
+    options = { state: 'resolved', route: @user_route_slugs, group: @user_group_ids }
     render 'site/notification_link', options: options,
                                 name: 'resolved',
                                 count: @user_resolved_issue_count
@@ -54,7 +54,7 @@
     <%=
       options = {state: 'open', label: @label_ids[label_key]}
       options[:route] = @user_route_slugs if @user_route_slugs.present?
-      options[:area] = @user_area_ids if @user_area_ids.present?
+      options[:group] = @user_group_ids if @user_group_ids.present?
       options[:label] = @label_ids[label_key]
       render 'site/notification_link', options: options,
                                   name: 'open ' + label.name,

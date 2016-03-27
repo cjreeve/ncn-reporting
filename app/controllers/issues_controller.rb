@@ -9,23 +9,23 @@ class IssuesController < ApplicationController
 
     options = {}
     exclusion_options = {}
-    route_ids = area_ids = nil
+    route_ids = group_ids = nil
     route_ids = params[:route].split('.').collect{ |r| Route.find_by_slug(r).try(:id) } if params[:route]
-    area_ids = params[:area].split('.').collect{ |id| id.to_i } if params[:area]
+    group_ids = params[:group].split('.').collect{ |id| id.to_i } if params[:group]
     options[:routes] = {id: route_ids} if params[:route] && params[:route] != "all"
-    options[:areas] = {id: area_ids} if params[:area] && params[:area] != "all"
+    options[:groups] = {id: group_ids} if params[:group] && params[:group] != "all"
     exclusion_options[:issues] = {state: "closed"} unless params[:state] == "closed"
-    @administrative_areas = AdministrativeArea.joins(issues: [:route, :area]).where(options).where.not(exclusion_options).uniq
+    @administrative_areas = AdministrativeArea.joins(issues: [:route, :group]).where(options).where.not(exclusion_options).uniq
 
     @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
-    @areas = Area.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
+    @groups = Group.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
     @states = Issue.state_machine.states.collect(&:name) - [:resolved, :unsolvable]
     @labels = Label.all.order(:name)
 
     @issues_with_coords = @issues.where.not(lat: nil, lng: nil)
 
     @current_route = Route.find_by_slug(params[:route])
-    @current_area = (params[:area].present? && @areas.collect(&:id).include?(params[:area].to_i)) ? Area.find(params[:area].to_i) : nil
+    @current_group = (params[:group].present? && @groups.collect(&:id).include?(params[:group].to_i)) ? Group.find(params[:group].to_i) : nil
     @current_state = (params[:state].present? && @states.include?(params[:state].to_sym)) ? params[:state] : nil
     @current_state = "all states" if params[:state] == "all"
     @current_administrative_area = (params[:region].present? && @administrative_areas.collect(&:id).include?(params[:region].to_i)) ? AdministrativeArea.find(params[:region].to_i) : nil
@@ -60,7 +60,7 @@ class IssuesController < ApplicationController
     @issue_labels_count = @issue.labels.count
     @labels = Label.all.order(:name)
     @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
-    @areas = Area.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
+    @groups = Group.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
 
     # TODO - use geocoder gem for this
     near_range = 0.0004
@@ -80,14 +80,14 @@ class IssuesController < ApplicationController
 
     @new_comment = Comment.new
 
-    if @issue.area && @issue.route
+    if @issue.group && @issue.route
 
-      # two searches are added together to allow for any routes none are selected and the area is selected
+      # two searches are added together to allow for any routes none are selected and the group is selected
       # and visa versa
-      all_route_section_managers = User.includes(:areas, :routes).where(
-        areas: {id: [nil, @issue.area.try(:id)]}, routes: {id: @issue.route.try(:id)}
-      ) + User.includes(:areas, :routes).where(
-        areas: {id: @issue.area.try(:id)}, routes: {id: [nil, @issue.route.try(:id)]}
+      all_route_section_managers = User.includes(:groups, :routes).where(
+        groups: {id: [nil, @issue.group.try(:id)]}, routes: {id: @issue.route.try(:id)}
+      ) + User.includes(:groups, :routes).where(
+        groups: {id: @issue.group.try(:id)}, routes: {id: [nil, @issue.route.try(:id)]}
       )
 
       @staff_route_managers = all_route_section_managers.select{ |u| u.role == "staff" }.uniq
@@ -104,7 +104,7 @@ class IssuesController < ApplicationController
     @issue.images.build
     @issue.coordinate = params[:c]
     @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
-    @areas = Area.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
+    @groups = Group.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
     # @image = Image.new
     @categories = Category.all
     # @problems = @categories.first.problems
@@ -116,7 +116,7 @@ class IssuesController < ApplicationController
   # GET /issues/1/edit
   def edit
     @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
-    @areas = Area.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
+    @groups = Group.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
     @categories = Category.all
     @problems = {}
     @categories.each { |c| @problems[c.id] = c.problems }
@@ -131,7 +131,7 @@ class IssuesController < ApplicationController
   def create
     @issue = Issue.new(issue_params)
     @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
-    @areas = Area.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
+    @groups = Group.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
     @categories = Category.all
     @problems = {}
     @categories.each { |c| @problems[c.id] = c.problems }
@@ -162,7 +162,7 @@ class IssuesController < ApplicationController
       else
         @routes = Route.all.order(:name)
         @routes = Route.all.order(:name)
-        @areas = Area.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
+        @groups = Group.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
         @labels = Label.all.order(:name)
         @categories = Category.all
         @problems = {}
@@ -280,7 +280,7 @@ class IssuesController < ApplicationController
         text = "Please provide the following before publishing this issue:  "
         text += " a valid coordinate -" unless @issue.valid_coordinate?
         text += " a route -" unless @issue.route.present?
-        text += " a group -" unless @issue.area.present?
+        text += " a group -" unless @issue.group.present?
         text += " label(s) -" unless (@issue.labels.present? || current_user.role == 'volunteer')
         return redirect_to  issue_number_path2(@issue, params), alert: text[0..-3]
       else
@@ -311,7 +311,7 @@ class IssuesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def issue_params
     params.require(:issue).permit(:issue_number, :title, :description, :priority, :reported_at,
-      :completed_at, :location_name, :coordinate, :route_id, :area_id, :url, :category_id,
+      :completed_at, :location_name, :coordinate, :route_id, :group_id, :url, :category_id,
       :problem_id, :user_id, :administrative_area_id, :resolution,
       images_attributes: [:id, :url, :src, :caption, :_destroy],
       label_ids: [])
@@ -361,7 +361,7 @@ class IssuesController < ApplicationController
 
     states = Issue.state_machine.states.collect(&:name)
     route_ids = params[:route].split('.').collect{ |r| Route.find_by_slug(r).try(:id) } if params[:route]
-    area_ids = params[:area].split('.').collect{ |id| id.to_i } if params[:area]
+    group_ids = params[:group].split('.').collect{ |id| id.to_i } if params[:group]
     administrative_area_ids = params[:region].split('.').collect{ |id| id.to_i } if params[:region]
     user_ids = params[:user].split('.').collect{ |id| id.to_i } if params[:user]
 
@@ -377,7 +377,7 @@ class IssuesController < ApplicationController
     options[:category] = category_ids if params[:category]
     options[:problem] = problem_ids if params[:problem]
     options[:route] = route_ids if params[:route] && params[:route] != "all"
-    options[:area] = area_ids if params[:area] && params[:area] != "all"
+    options[:group] = group_ids if params[:group] && params[:group] != "all"
     options[:administrative_area] = administrative_area_ids if params[:region] && params[:region] != "all"
     options[:user] = user_ids if params[:user]
     if params[:state].present? && states.include?(params[:state].to_sym)

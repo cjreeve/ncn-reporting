@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UserManagedAreaSelectionTest < ActiveSupport::TestCase
+class UserManagedGroupSelectionTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

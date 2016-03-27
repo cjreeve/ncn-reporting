@@ -26,17 +26,17 @@
         </ul>
       </li>
       <li>
-        <a href="#" class="button select" data-dropdown="areaSelection" aria-controls="areaSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_area ? @current_area.name + " ▼" : "all groups ▼" %></a>
-        <ul id="areaSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
-          <% unless @current_area.nil? %>
+        <a href="#" class="button select" data-dropdown="groupSelection" aria-controls="groupSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_group ? @current_group.name + " ▼" : "all groups ▼" %></a>
+        <ul id="groupSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
+          <% unless @current_group.nil? %>
             <li>
-              <%= link_to "all groups", issues_path(filter_params(params, {area: nil})) %>
+              <%= link_to "all groups", issues_path(filter_params(params, {group: nil})) %>
             </li>
           <% end %>
-          <% @areas.each do |area| %>
-            <% unless @current_area == area %>
+          <% @groups.each do |group| %>
+            <% unless @current_group == group %>
               <li>
-                <%= link_to area.name, issues_path(filter_params(params, {area: area.id})) %>
+                <%= link_to group.name, issues_path(filter_params(params, {group: group.id})) %>
               </li>
             <% end %>
           <% end %>

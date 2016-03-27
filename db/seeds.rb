@@ -20,7 +20,7 @@
 begin
   User.all.each do |user|
     puts "updating user #{ user.id }  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-    user.administrative_area_ids = user.areas.collect{ |a| a.administrative_area_ids }.flatten.compact
+    user.administrative_area_ids = user.groups.collect{ |a| a.administrative_area_ids }.flatten.compact
     user.save
   end
 ensure
@@ -182,17 +182,17 @@ end
 # end
 
 
-User.where(role: 'admin').each do |u|
-  u.is_admin = true
-  u.role = 'coordinator'
-  u.save
-end
+# User.where(role: 'admin').each do |u|
+#   u.is_admin = true
+#   u.role = 'coordinator'
+#   u.save
+# end
 
-User.where(role: 'locked').each do |u|
-  u.is_locked = true
-  u.role = 'volunteer'
-  u.save
-end
+# User.where(role: 'locked').each do |u|
+#   u.is_locked = true
+#   u.role = 'volunteer'
+#   u.save
+# end
 
 
 

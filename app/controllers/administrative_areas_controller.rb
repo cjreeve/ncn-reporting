@@ -1,6 +1,6 @@
 class AdministrativeAreasController < ApplicationController
   before_action :set_administrative_area, only: [:show, :edit, :update, :destroy]
-  before_action :set_areas, only: [:new, :edit, :update]
+  before_action :set_groups, only: [:new, :edit, :update]
   load_and_authorize_resource
 
   respond_to :html
@@ -50,11 +50,11 @@ class AdministrativeAreasController < ApplicationController
       @administrative_area = AdministrativeArea.find(params[:id])
     end
 
-    def set_areas
-      @areas = Area.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
+    def set_groups
+      @groups = Group.all.order(:name).sort_by{ |g| g.name.gsub('Other','zzz') }
     end
 
     def administrative_area_params
-      params.require(:administrative_area).permit(:name, :short_name, :area_id)
+      params.require(:administrative_area).permit(:name, :short_name, :group_id)
     end
 end

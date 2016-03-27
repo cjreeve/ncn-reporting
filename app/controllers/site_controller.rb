@@ -12,8 +12,8 @@ class SiteController < ApplicationController
     user_routes = @user.routes.to_a
     @user_route_slugs = user_routes.collect(&:slug).join('.')
 
-    user_areas = @user.areas.to_a
-    @user_area_ids = user_areas.collect(&:id).join('.')
+    user_groups = @user.groups.to_a
+    @user_group_ids = user_groups.collect(&:id).join('.')
     user_labels = @user.labels
     @label_ids = Hash[ user_labels.collect { |l| [l.name.parameterize.to_sym, l.id] } ]
 
@@ -21,11 +21,11 @@ class SiteController < ApplicationController
       @own_draft_issue_count = @user.own_draft_issue_count,
       @own_issue_resolved_count = @user.own_issue_resolved_count,
       @own_issue_unsolvable_count = @user.own_issue_unsolvable_count,
-      @user_submitted_issue_count = @user.user_submitted_issue_count(user_areas, user_routes),
-      @user_resolved_issue_count = @user.user_resolved_issue_count(user_areas, user_routes)
+      @user_submitted_issue_count = @user.user_submitted_issue_count(user_groups, user_routes),
+      @user_resolved_issue_count = @user.user_resolved_issue_count(user_groups, user_routes)
     ].sum
 
-    @open_label_counts = @user.open_label_counts(user_labels, user_areas, user_routes)
+    @open_label_counts = @user.open_label_counts(user_labels, user_groups, user_routes)
     @total_pending_count += @open_label_counts.values.sum
     ####################################################################
 

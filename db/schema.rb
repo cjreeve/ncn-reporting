@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160326185432) do
+ActiveRecord::Schema.define(version: 20160327144324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,20 +21,12 @@ ActiveRecord::Schema.define(version: 20160326185432) do
     t.string   "short_name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "area_id"
+    t.integer  "group_id"
   end
 
-  add_index "administrative_areas", ["area_id"], name: "index_administrative_areas_on_area_id", using: :btree
+  add_index "administrative_areas", ["group_id"], name: "index_administrative_areas_on_group_id", using: :btree
   add_index "administrative_areas", ["name"], name: "index_administrative_areas_on_name", unique: true, using: :btree
   add_index "administrative_areas", ["short_name"], name: "index_administrative_areas_on_short_name", unique: true, using: :btree
-
-  create_table "areas", force: :cascade do |t|
-    t.string   "name",       limit: 255, default: "", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "areas", ["name"], name: "index_areas_on_name", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       limit: 255, default: "", null: false
@@ -64,6 +56,14 @@ ActiveRecord::Schema.define(version: 20160326185432) do
 
   add_index "comments", ["issue_id"], name: "index_comments_on_issue_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "groups", force: :cascade do |t|
+    t.string   "name",       limit: 255, default: "", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "groups", ["name"], name: "index_groups_on_name", using: :btree
 
   create_table "images", force: :cascade do |t|
     t.text     "url"
@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(version: 20160326185432) do
     t.string   "state",                  limit: 255, default: "draft",               null: false
     t.integer  "route_id"
     t.text     "url"
-    t.integer  "area_id"
+    t.integer  "group_id"
     t.integer  "category_id"
     t.integer  "problem_id"
     t.integer  "user_id"
@@ -112,10 +112,10 @@ ActiveRecord::Schema.define(version: 20160326185432) do
   end
 
   add_index "issues", ["administrative_area_id"], name: "index_issues_on_administrative_area_id", using: :btree
-  add_index "issues", ["area_id"], name: "index_issues_on_area_id", using: :btree
   add_index "issues", ["category_id"], name: "index_issues_on_category_id", using: :btree
   add_index "issues", ["completed_at"], name: "index_issues_on_completed_at", using: :btree
   add_index "issues", ["editor_id"], name: "index_issues_on_editor_id", using: :btree
+  add_index "issues", ["group_id"], name: "index_issues_on_group_id", using: :btree
   add_index "issues", ["issue_number"], name: "index_issues_on_issue_number", unique: true, using: :btree
   add_index "issues", ["lat"], name: "index_issues_on_lat", using: :btree
   add_index "issues", ["lng"], name: "index_issues_on_lng", using: :btree
@@ -210,15 +210,15 @@ ActiveRecord::Schema.define(version: 20160326185432) do
   add_index "user_label_selections", ["label_id"], name: "index_user_label_selections_on_label_id", using: :btree
   add_index "user_label_selections", ["user_id"], name: "index_user_label_selections_on_user_id", using: :btree
 
-  create_table "user_managed_area_selections", force: :cascade do |t|
+  create_table "user_managed_group_selections", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "area_id"
+    t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "user_managed_area_selections", ["area_id"], name: "index_user_managed_area_selections_on_area_id", using: :btree
-  add_index "user_managed_area_selections", ["user_id"], name: "index_user_managed_area_selections_on_user_id", using: :btree
+  add_index "user_managed_group_selections", ["group_id"], name: "index_user_managed_group_selections_on_group_id", using: :btree
+  add_index "user_managed_group_selections", ["user_id"], name: "index_user_managed_group_selections_on_user_id", using: :btree
 
   create_table "user_managed_route_selections", force: :cascade do |t|
     t.integer  "user_id"

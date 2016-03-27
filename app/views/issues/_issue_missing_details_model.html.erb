@@ -14,9 +14,9 @@
           <%= f.input :route_id, collection: @routes, as: :select %>
         </div>
       <% end %>
-      <% if f.object.area_id.blank? %>
+      <% if f.object.group_id.blank? %>
         <div class='medium-6 large-4 columns'>
-          <%= f.input :area_id, collection: @areas, as: :select, label: 'Group' %>
+          <%= f.input :group_id, collection: @groups, as: :select, label: 'Group' %>
         </div>
       <% end %>
       <% if f.object.priority.blank? %>

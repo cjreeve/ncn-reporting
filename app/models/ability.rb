@@ -11,7 +11,7 @@ class Ability
       can :read, Region
       can :manage, Issue
       can :search, Issue
-      can :manage, Area
+      can :manage, Group
       can :manage, Category
       can :manage, Image
       can :manage, Problem

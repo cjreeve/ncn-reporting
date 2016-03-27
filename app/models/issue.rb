@@ -4,7 +4,7 @@ class Issue < ActiveRecord::Base
   require "open-uri"
 
   belongs_to :route
-  belongs_to :area
+  belongs_to :group
   belongs_to :administrative_area
   has_many :images, dependent: :destroy
   has_many :comments
@@ -92,7 +92,7 @@ class Issue < ActiveRecord::Base
   def submittable?
     self.valid_coordinate? &&
     self.route.present? &&
-    self.area.present? &&
+    self.group.present? &&
     self.state_events.include?(:submit)
   end
 
@@ -103,7 +103,7 @@ class Issue < ActiveRecord::Base
   def publishable?
     self.valid_coordinate? &&
     self.route.present? &&
-    self.area.present? &&
+    self.group.present? &&
     self.labels.present?
   end
 
@@ -212,19 +212,19 @@ class Issue < ActiveRecord::Base
   end
 
   def find_group_from_coordinate
-    if self.area.blank? && self.administrative_area.area.present?
-      self.area = self.administrative_area.area
+    if self.group.blank? && self.administrative_area.group.present?
+      self.group = self.administrative_area.group
     end
   end
 
   def send_high_priority_issue_notifications(event_type)
 
-    # two searches are added together to allow for any routes none are selected and the area is selected
+    # two searches are added together to allow for any routes none are selected and the group is selected
     # and visa versa
-    all_route_section_managers = User.includes(:areas, :routes).where(
-      areas: {id: [nil, self.area.try(:id)]}, routes: {id: self.route.try(:id)}
-    ) + User.includes(:areas, :routes).where(
-      areas: {id: self.area.try(:id)}, routes: {id: [nil, self.route.try(:id)]}
+    all_route_section_managers = User.includes(:groups, :routes).where(
+      groups: {id: [nil, self.group.try(:id)]}, routes: {id: self.route.try(:id)}
+    ) + User.includes(:groups, :routes).where(
+      groups: {id: self.group.try(:id)}, routes: {id: [nil, self.route.try(:id)]}
     )
     staff_route_managers = all_route_section_managers.select{ |u| u.role == "staff" }.uniq
 
@@ -286,7 +286,7 @@ class Issue < ActiveRecord::Base
        "problem",
        "status",
        "route",
-       "area",
+       "group",
        "location",
        "latitude",
        "longitude",
@@ -303,7 +303,7 @@ class Issue < ActiveRecord::Base
         issue_values << issue.title
         issue_values << issue.state
         issue_values << (issue.route ? issue.route.name : '')
-        issue_values << (issue.area ? issue.area.name : '')
+        issue_values << (issue.group ? issue.group.name : '')
         issue_values << (issue.location_name ? issue.location_name : '')
         issue_values << (issue.lat ? issue.lat : '')
         issue_values << (issue.lng ? issue.lng : '')

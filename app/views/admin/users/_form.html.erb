@@ -8,7 +8,7 @@
   <%= f.input :is_admin, label: "administrator" %>
   <%= f.input :is_locked, label: "locked" %>
   <%= f.association :routes %>
-  <%= f.association :areas, label: "Groups" %>
+  <%= f.association :groups, label: "Groups" %>
 
   <%= f.label :administrative_area_tokens, "Managed areas" %>
   <%= f.text_field :administrative_area_tokens,
