@@ -114,3 +114,19 @@ http://ryanfait.com/
 span.highlight{
   color: $red;
 }
+
+ul.token-input-list-facebook, ul.token-input-list{
+  width: 100%;
+  margin-bottom: rem-calc(16);
+  border: rem-calc(1) solid #ccc;
+  li{
+    font-family: 'PT Sans', sans-serif;
+    color: $black;
+    tester{
+      cursor: pointer;
+      &:hover{
+        cursor: pointer
+      }
+    }
+  }
+}

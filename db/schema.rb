@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224221005) do
+ActiveRecord::Schema.define(version: 20160326185432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -190,6 +190,16 @@ ActiveRecord::Schema.define(version: 20160224221005) do
   add_index "twins", ["issue_id"], name: "index_twins_on_issue_id", using: :btree
   add_index "twins", ["twinned_issue_id"], name: "index_twins_on_twinned_issue_id", using: :btree
 
+  create_table "user_admin_area_selections", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "administrative_area_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "user_admin_area_selections", ["administrative_area_id"], name: "index_user_admin_area_selections_on_administrative_area_id", using: :btree
+  add_index "user_admin_area_selections", ["user_id"], name: "index_user_admin_area_selections_on_user_id", using: :btree
+
   create_table "user_label_selections", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "label_id"
@@ -252,4 +262,6 @@ ActiveRecord::Schema.define(version: 20160224221005) do
 
   add_foreign_key "twins", "issues"
   add_foreign_key "twins", "issues", column: "twinned_issue_id"
+  add_foreign_key "user_admin_area_selections", "administrative_areas"
+  add_foreign_key "user_admin_area_selections", "users"
 end

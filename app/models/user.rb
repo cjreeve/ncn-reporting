@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
   has_many :routes, through: :user_managed_route_selections
   has_many :user_managed_area_selections
   has_many :areas, through: :user_managed_area_selections
+
+  has_many :user_admin_area_selections
+  has_many :administrative_areas, through: :user_admin_area_selections
   has_many :user_label_selections
   has_many :labels, through: :user_label_selections
 
@@ -24,6 +27,12 @@ class User < ActiveRecord::Base
   validates :name, length: { in: 2..80 }, uniqueness: true
   validates :email, presence: true
   validates :role, presence: true
+
+  attr_reader :administrative_area_tokens
+
+  def administrative_area_tokens=(ids)
+    self.administrative_area_ids = ids.split(",")
+  end
 
 
   ### public methods ###

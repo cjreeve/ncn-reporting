@@ -15,17 +15,29 @@
 # end
 
 
-ActiveRecord::Base.record_timestamps = false
-begin
-  creator = User.first
 
+# ActiveRecord::Base.record_timestamps = false
+begin
   User.all.each do |user|
-    user.creator = creator
+    puts "updating user #{ user.id }  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    user.administrative_area_ids = user.areas.collect{ |a| a.administrative_area_ids }.flatten.compact
     user.save
   end
 ensure
   ActiveRecord::Base.record_timestamps = true
 end
+
+# ActiveRecord::Base.record_timestamps = false
+# begin
+#   creator = User.first
+
+#   User.all.each do |user|
+#     user.creator = creator
+#     user.save
+#   end
+# ensure
+#   ActiveRecord::Base.record_timestamps = true
+# end
 
 
 

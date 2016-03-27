@@ -8,7 +8,12 @@
   <%= f.input :is_admin, label: "administrator" %>
   <%= f.input :is_locked, label: "locked" %>
   <%= f.association :routes %>
-  <%= f.association :areas %>
+  <%= f.association :areas, label: "Groups" %>
+
+  <%= f.label :administrative_area_tokens, "Managed areas" %>
+  <%= f.text_field :administrative_area_tokens,
+      "data-pre" => @user.administrative_areas.collect{ |a| {id: a.id, name: a.short_name }}.to_json
+  %>
 
   <%= f.association :labels, label: "Label for notification" %>
   <%= f.input :receive_email_notifications %>

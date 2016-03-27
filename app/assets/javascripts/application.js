@@ -17,6 +17,7 @@
 //= require turbolinks_loader
 //= require vendor/owl.carousel
 //= require vendor/responsive_tables
+//= require vendor/jquery.tokeninput
 //= require images
 //= require issues
 //= require notifications
@@ -24,6 +25,7 @@
 //= require problems
 //= require search
 //= require site
+//= require tokeninput
 //= require turbolinks
 //# require_tree .
 

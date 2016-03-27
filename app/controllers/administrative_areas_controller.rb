@@ -6,8 +6,15 @@ class AdministrativeAreasController < ApplicationController
   respond_to :html
 
   def index
-    @administrative_areas = AdministrativeArea.all
-    respond_with(@administrative_areas)
+    if params[:q]
+      @administrative_areas = AdministrativeArea.where("name ilike ?", "%#{params[:q]}%")
+    else
+      @administrative_areas = AdministrativeArea.all
+    end
+    respond_to do |format|
+      format.html
+      format.json { render json: @administrative_areas.collect{ |a| {id: a.id, name: a.short_name }} }
+    end
   end
 
   def show
