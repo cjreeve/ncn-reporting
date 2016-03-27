@@ -380,6 +380,7 @@ class IssuesController < ApplicationController
     options[:problem] = problem_ids if params[:problem]
     options[:route] = route_ids if params[:route] && params[:route] != "all"
     options[:group] = group_ids if params[:group] && params[:group] != "all"
+    options[:group] = nil if params[:group] == "-1"
     options[:administrative_area] = administrative_area_ids if params[:area] && params[:area] != "all"
     options[:user] = user_ids if params[:user]
     if params[:state].present? && states.include?(params[:state].to_sym)

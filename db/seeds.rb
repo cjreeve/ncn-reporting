@@ -15,10 +15,28 @@
 # end
 
   region = Region.first
-  Group.all.each do |group|
+  Group.where(region_id: nil).each do |group|
     group.region = region
     group.save
   end
+
+  other_group = Group.find_by_name("Other")
+  AdministrativeArea.where(group: other_group).each do |area|
+    area.group_id = nil
+    area.save
+  end
+
+  ActiveRecord::Base.record_timestamps = false
+  begin
+    Issue.where(group: other_group).each do |issue|
+      issue.group_id = nil
+      issue.save
+    end
+  ensure
+    ActiveRecord::Base.record_timestamps = true
+  end
+
+  other_group.destroy if other_group.issues.count == 0
 
 
   User.all.each do |user|
