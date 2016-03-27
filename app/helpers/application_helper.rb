@@ -106,12 +106,12 @@ module ApplicationHelper
 
   def can_publish_issue?(issue)
     current_user.is_admin? || current_user.role == "staff" ||
-    (current_user.role == "ranger" && current_user.routes.include?(issue.route) && current_user.groups.include?(issue.group))
+    (current_user.role == "ranger" && current_user.routes.include?(issue.route) && current_user.administrative_areas.include?(issue.administrative_area))
   end
 
   def can_close_issue?(issue)
     current_user.is_admin? || current_user.role == "staff" ||
-    (current_user.role == "ranger" && current_user.routes.include?(issue.route) && current_user.groups.include?(issue.group)) ||
+    (current_user.role == "ranger" && current_user.routes.include?(issue.route) && current_user.administrative_areas.include?(issue.administrative_area)) ||
     current_user == @issue.user
   end
 

@@ -64,9 +64,9 @@ class User < ActiveRecord::Base
   end
 
   # TODO - how to show other route or group 'submitted' notifications for volunteer coordinator?
-  def user_submitted_issue_count(user_groups = self.groups.to_a, user_routes = self.routes.to_a)
-    if %w{ranger coordinator}.include?(self.role) && user_groups.present?
-      options = { state: 'submitted', group: user_groups }
+  def user_submitted_issue_count(user_areas = self.administrative_areas.to_a, user_routes = self.routes.to_a)
+    if %w{ranger coordinator}.include?(self.role) && user_areas.present?
+      options = { state: 'submitted', administrative_area: user_areas }
       options[:route] = user_routes if user_routes.present?
       Issue.where(options).count
     else
@@ -75,9 +75,9 @@ class User < ActiveRecord::Base
   end
 
   # TODO - how to show other route or group 'resolved' notifications for volunteer coordinator?
-  def user_resolved_issue_count(user_groups = self.groups.to_a, user_routes = self.routes.to_a)
-    if %w{ranger coordinator}.include?(self.role) && user_groups.present?
-      options = { state: 'resolved', group: user_groups }
+  def user_resolved_issue_count(user_areas = self.administrative_areas.to_a, user_routes = self.routes.to_a)
+    if %w{ranger coordinator}.include?(self.role) && user_areas.present?
+      options = { state: 'resolved', administrative_area: user_areas }
       options[:route] = user_routes if user_routes.present?
       Issue.where(options).count
     else
@@ -86,13 +86,13 @@ class User < ActiveRecord::Base
   end
 
 
-  def open_label_counts(user_labels = self.labels, user_groups = self.groups.to_a, user_routes = self.routes.to_a)
+  def open_label_counts(user_labels = self.labels, user_areas = self.administrative_areas.to_a, user_routes = self.routes.to_a)
     # TODO - how to show 'other' route or group 'open' notifications for volunteer coordinator?
     open_label_counts = {}
     user_labels.each do |label|
       options = {state: ["open", "reopened"]}
       options[:labels] = {name: label.name}
-      options[:group] = user_groups if user_groups.present? && !(user_groups.one? && user_groups.first.name.downcase == "other")
+      options[:administrative_area] = user_areas if user_areas.present? && !(user_areas.one? && user_areas.first.name.downcase == "other")
       options[:route] =  user_routes if user_routes.present? && !(user_routes.one? && user_routes.first.name.downcase == "other")
       label_key = label.name.parameterize.to_sym
       open_label_counts[label_key] = Issue.joins(:labels).where(options).uniq.count

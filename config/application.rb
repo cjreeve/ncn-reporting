@@ -28,6 +28,7 @@ module Workspace
 
     # the safe params list for filters
     config.filter_params = [
+      :area,
       :group,
       :category,
       :dir,

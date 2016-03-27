@@ -219,12 +219,12 @@ class Issue < ActiveRecord::Base
 
   def send_high_priority_issue_notifications(event_type)
 
-    # two searches are added together to allow for any routes none are selected and the group is selected
+    # two searches are added together to allow for any routes none are selected and the administrative_area is selected
     # and visa versa
-    all_route_section_managers = User.includes(:groups, :routes).where(
-      groups: {id: [nil, self.group.try(:id)]}, routes: {id: self.route.try(:id)}
-    ) + User.includes(:groups, :routes).where(
-      groups: {id: self.group.try(:id)}, routes: {id: [nil, self.route.try(:id)]}
+    all_route_section_managers = User.includes(:administrative_areas, :routes).where(
+      administrative_areas: {id: [nil, self.administrative_area.try(:id)]}, routes: {id: self.route.try(:id)}
+    ) + User.includes(:administrative_areas, :routes).where(
+      administrative_areas: {id: self.administrative_area.try(:id)}, routes: {id: [nil, self.route.try(:id)]}
     )
     staff_route_managers = all_route_section_managers.select{ |u| u.role == "staff" }.uniq
 
@@ -344,7 +344,7 @@ class Issue < ActiveRecord::Base
     if params.present?
 
       filters << ["route", Route.find_by_slug(params[:route]).try(:name)] if params[:route]
-      filters << ["region", AdministrativeArea.find(params[:region]).try(:short_name)] if params[:region]
+      filters << ["area", AdministrativeArea.find(params[:area]).try(:short_name)] if params[:area]
       p.text "#{ filters.collect{ |f| f[1] }.join('  -  ') }", align: :center
     else
       p.text "Summary of all outstanding issues."

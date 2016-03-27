@@ -16,16 +16,11 @@
 
 
 
-# ActiveRecord::Base.record_timestamps = false
-begin
   User.all.each do |user|
     puts "updating user #{ user.id }  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
     user.administrative_area_ids = user.groups.collect{ |a| a.administrative_area_ids }.flatten.compact
     user.save
   end
-ensure
-  ActiveRecord::Base.record_timestamps = true
-end
 
 # ActiveRecord::Base.record_timestamps = false
 # begin

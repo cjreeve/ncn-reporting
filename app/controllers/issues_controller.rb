@@ -28,7 +28,7 @@ class IssuesController < ApplicationController
     @current_group = (params[:group].present? && @groups.collect(&:id).include?(params[:group].to_i)) ? Group.find(params[:group].to_i) : nil
     @current_state = (params[:state].present? && @states.include?(params[:state].to_sym)) ? params[:state] : nil
     @current_state = "all states" if params[:state] == "all"
-    @current_administrative_area = (params[:region].present? && @administrative_areas.collect(&:id).include?(params[:region].to_i)) ? AdministrativeArea.find(params[:region].to_i) : nil
+    @current_administrative_area = (params[:area].present? && @administrative_areas.collect(&:id).include?(params[:area].to_i)) ? AdministrativeArea.find(params[:area].to_i) : nil
     if params[:label] == "undefined"
        @current_label = Label.new(name: "undefined")
     elsif params[:label]
@@ -80,14 +80,14 @@ class IssuesController < ApplicationController
 
     @new_comment = Comment.new
 
-    if @issue.group && @issue.route
+    if @issue.administrative_area && @issue.route
 
-      # two searches are added together to allow for any routes none are selected and the group is selected
+      # two searches are added together to allow for any routes none are selected and the administrative_area is selected
       # and visa versa
-      all_route_section_managers = User.includes(:groups, :routes).where(
-        groups: {id: [nil, @issue.group.try(:id)]}, routes: {id: @issue.route.try(:id)}
-      ) + User.includes(:groups, :routes).where(
-        groups: {id: @issue.group.try(:id)}, routes: {id: [nil, @issue.route.try(:id)]}
+      all_route_section_managers = User.includes(:administrative_areas, :routes).where(
+        administrative_areas: {id: [nil, @issue.administrative_area.try(:id)]}, routes: {id: @issue.route.try(:id)}
+      ) + User.includes(:administrative_areas, :routes).where(
+        administrative_areas: {id: @issue.administrative_area.try(:id)}, routes: {id: [nil, @issue.route.try(:id)]}
       )
 
       @staff_route_managers = all_route_section_managers.select{ |u| u.role == "staff" }.uniq
@@ -318,6 +318,7 @@ class IssuesController < ApplicationController
   end
 
   def load_issues
+    return unless current_user
 
     options = {}
     exclusions = {}
@@ -362,7 +363,7 @@ class IssuesController < ApplicationController
     states = Issue.state_machine.states.collect(&:name)
     route_ids = params[:route].split('.').collect{ |r| Route.find_by_slug(r).try(:id) } if params[:route]
     group_ids = params[:group].split('.').collect{ |id| id.to_i } if params[:group]
-    administrative_area_ids = params[:region].split('.').collect{ |id| id.to_i } if params[:region]
+    administrative_area_ids = params[:area].split('.').collect{ |id| id.to_i } if params[:area]
     user_ids = params[:user].split('.').collect{ |id| id.to_i } if params[:user]
 
     if params[:label] == "undefined"
@@ -378,7 +379,7 @@ class IssuesController < ApplicationController
     options[:problem] = problem_ids if params[:problem]
     options[:route] = route_ids if params[:route] && params[:route] != "all"
     options[:group] = group_ids if params[:group] && params[:group] != "all"
-    options[:administrative_area] = administrative_area_ids if params[:region] && params[:region] != "all"
+    options[:administrative_area] = administrative_area_ids if params[:area] && params[:area] != "all"
     options[:user] = user_ids if params[:user]
     if params[:state].present? && states.include?(params[:state].to_sym)
       if params[:state] == 'open'
