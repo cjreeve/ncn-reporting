@@ -15,10 +15,10 @@ class IssuesController < ApplicationController
     options[:routes] = {id: route_ids} if params[:route] && params[:route] != "all"
     options[:groups] = {id: group_ids} if params[:group] && params[:group] != "all"
     exclusion_options[:issues] = {state: "closed"} unless params[:state] == "closed"
-    @administrative_areas = AdministrativeArea.joins(issues: [:route, :group]).where(options).where.not(exclusion_options).uniq
+    @administrative_areas = AdministrativeArea.joins(issues: [:route, :group]).where(options).where.not(exclusion_options).order(:short_name).uniq.limit(20)
 
     @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
-    @groups = Group.all.order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
+    @groups = Group.where(region: current_user.region).order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
     @states = Issue.state_machine.states.collect(&:name) - [:resolved, :unsolvable]
     @labels = Label.all.order(:name)
 
@@ -278,11 +278,12 @@ class IssuesController < ApplicationController
     else
       if (params[:submit] || params[:publish]) && !@issue.submittable? && !@issue.publishable?
         text = "Please provide the following before publishing this issue:  "
-        text += " a valid coordinate -" unless @issue.valid_coordinate?
-        text += " a route -" unless @issue.route.present?
-        text += " a group -" unless @issue.group.present?
-        text += " label(s) -" unless (@issue.labels.present? || current_user.role == 'volunteer')
-        return redirect_to  issue_number_path2(@issue, params), alert: text[0..-3]
+        values = []
+        values << "a valid coordinate" unless @issue.valid_coordinate?
+        values << "a route" unless @issue.route.present?
+        values << " label(s)" unless (@issue.labels.present? || current_user.role == 'volunteer')
+        text += values.to_sentence
+        return redirect_to  issue_number_path2(@issue, params), alert: text
       else
         return redirect_to issue_number_path2(@issue, params), alert: "Invalid progress request"
       end

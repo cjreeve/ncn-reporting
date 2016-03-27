@@ -4,16 +4,22 @@
       <td>Route:</td>
       <td><%= @issue.route.present? ? @issue.route.name : emph_none %></td>
     </tr>
-    <td>Group:</td>
-    <td><%= @issue.group.present? ? @issue.group.name : emph_none %></td>
     <tr>
       <td>Location:</td>
       <td><%= @issue.location_name.present? ? @issue.location_name : emph_none %></td>
     </tr>
-      <tr>
-        <td>Administrative area:</td>
-        <td><%= @issue.administrative_area.present? ? @issue.administrative_area.name : emph_none %></td>
-      </tr>
+    <tr>
+      <td>Administrative area:</td>
+      <td><%= @issue.administrative_area.present? ? @issue.administrative_area.name : emph_none %></td>
+    </tr>
+    <tr>
+      <td>Group:</td>
+      <td><%= @issue.group.present? ? @issue.group.name : emph_none %></td>
+    </tr>
+    <tr>
+      <td>Region:</td>
+      <td><%= @issue.group.present? ? @issue.group.region.name : emph_none %></td>
+    </tr>
     <tr>
       <td>Coordinate:</td>
       <td>

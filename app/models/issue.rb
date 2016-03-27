@@ -40,7 +40,7 @@ class Issue < ActiveRecord::Base
   before_validation :set_edited_at
   after_update :send_high_priority_issue_notifications_if_changed
 
-  validates :title, length: { in: 2..30, message: '- the problem must be between 2 and 30 characters'}
+  validates :title, length: { in: 2..30, message: '- the problem must be defined'}
   validates :url, length: { in: 0..1000, message: '- the url must be less than 1000 characters'}
 
   after_validation :coordinate_to_latlng
@@ -92,7 +92,6 @@ class Issue < ActiveRecord::Base
   def submittable?
     self.valid_coordinate? &&
     self.route.present? &&
-    self.group.present? &&
     self.state_events.include?(:submit)
   end
 
@@ -103,7 +102,6 @@ class Issue < ActiveRecord::Base
   def publishable?
     self.valid_coordinate? &&
     self.route.present? &&
-    self.group.present? &&
     self.labels.present?
   end
 
@@ -212,8 +210,10 @@ class Issue < ActiveRecord::Base
   end
 
   def find_group_from_coordinate
-    if self.group.blank? && self.administrative_area.group.present?
+    if self.administrative_area.group.present?
       self.group = self.administrative_area.group
+    else
+      self.group_id = nil
     end
   end
 

@@ -1,11 +1,11 @@
 <section class="issue-contacts">
   <h5>Route Contacts</h5>
-  <% if @issue.group.present? && @issue.route.present? %>
+  <% if @issue.route.present? && @issue.coordinate.present? %>
     <b>Staff:</b> <%= user_links @staff_route_managers %> </br>
     <% if can? :read, Update %>
       <b><%= "Ranger".pluralize(@ranger_route_managers.count) %>:</b> <%= user_links @ranger_route_managers %>
     <% end %>
   <% else %>
-    Specify both a route and group to show contacts
+    Specify a route and coordinate to show contacts
   <% end %>
 </section>

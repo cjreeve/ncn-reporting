@@ -5,6 +5,13 @@
     <div class='medium-6 columns'>
       <%= f.input :name %>
     </div>
+    <div class='medium-6 columns'>
+      <% if can? :manage, Region %>
+        <%= f.input :region_id, collection: @regions, as: :select %>
+      <% else %>
+        <%= f.input :region_id, as: :hidden, input_html: { value: current_user.region.id } %>
+      <% end %>
+    </div>
   </div>
 
   <div class="row form-actions">

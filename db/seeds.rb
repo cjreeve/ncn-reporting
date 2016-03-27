@@ -14,6 +14,11 @@
 #   end
 # end
 
+  region = Region.first
+  Group.all.each do |group|
+    group.region = region
+    group.save
+  end
 
 
   User.all.each do |user|

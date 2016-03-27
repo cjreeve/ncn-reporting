@@ -5,7 +5,9 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.json
   def index
-    @groups = Group.all.order(:name)
+    options = {}
+    options[:region] = current_user.region unless current_user.is_admin?
+    @groups = Group.where(options).order(:name)
   end
 
   # GET /groups/1
@@ -66,10 +68,11 @@ class GroupsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_group
       @group = Group.find(params[:id])
+      @regions = Region.all.order(:name)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:name)
+      params.require(:group).permit(:name, :region_id)
     end
 end

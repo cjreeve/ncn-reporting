@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160327144324) do
+ActiveRecord::Schema.define(version: 20160327205257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,9 +61,11 @@ ActiveRecord::Schema.define(version: 20160327144324) do
     t.string   "name",       limit: 255, default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "region_id"
   end
 
   add_index "groups", ["name"], name: "index_groups_on_name", using: :btree
+  add_index "groups", ["region_id"], name: "index_groups_on_region_id", using: :btree
 
   create_table "images", force: :cascade do |t|
     t.text     "url"
@@ -260,6 +262,7 @@ ActiveRecord::Schema.define(version: 20160327144324) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["role"], name: "index_users_on_role", using: :btree
 
+  add_foreign_key "groups", "regions"
   add_foreign_key "twins", "issues"
   add_foreign_key "twins", "issues", column: "twinned_issue_id"
   add_foreign_key "user_admin_area_selections", "administrative_areas"

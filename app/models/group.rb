@@ -7,4 +7,6 @@ class Group < ActiveRecord::Base
 
   has_many :administrative_areas
 
+  belongs_to :region
+
 end
