@@ -9,16 +9,19 @@
   <div class='medium-8 large-9 columns'>
     <ul class='small-block-grid-1 medium-block-grid-4 large-block-grid-6 issue-filters'>
       <li>
-        <a href="#" class="button select" data-dropdown="regionSelection" aria-controls="regionSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_region ? @current_region.name + " ▼" : "all routes ▼" %></a>
-        <ul id="regionSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
-          <% @regions.each do |region| %>
-            <% unless @current_region == region %>
-              <li>
-                <%= link_to region.name, issues_path({region: region.id}) %>
-              </li>
+        <% more_char = (@regions.count > 1 ? '▼' : '') %>
+        <a href="#" class="button select" data-dropdown="regionSelection" aria-controls="regionSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_region ? @current_region.name + " #{more_char}" : "all routes #{more_char}" %></a>
+        <% if @regions.count > 1 %>
+          <ul id="regionSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
+            <% @regions.each do |region| %>
+              <% unless @current_region == region %>
+                <li>
+                  <%= link_to region.name, issues_path({region: region.id}) %>
+                </li>
+              <% end %>
             <% end %>
-          <% end %>
-        </ul>
+          </ul>
+        <% end %>
       </li>
       <li>
         <a href="#" class="button select" data-dropdown="groupSelection" aria-controls="groupSelection" data-options="is_hover:true" aria-expanded="false">

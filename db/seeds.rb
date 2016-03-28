@@ -36,7 +36,7 @@
     ActiveRecord::Base.record_timestamps = true
   end
 
-  other_group.destroy if other_group.issues.count == 0
+  other_group.destroy if other_group && other_group.issues.count == 0
 
 
   User.all.each do |user|
