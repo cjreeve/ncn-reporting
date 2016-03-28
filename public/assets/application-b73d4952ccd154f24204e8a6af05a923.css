@@ -7010,6 +7010,103 @@ table td, table th {
 
   div.table-wrapper div.scrollable {
     margin-left: 10%; } }
+/* Example tokeninput style #1: Token vertical list*/
+ul.token-input-list {
+  overflow: hidden;
+  height: auto !important;
+  height: 1%;
+  width: 400px;
+  border: 1px solid #999;
+  cursor: text;
+  font-size: 12px;
+  font-family: Verdana;
+  z-index: 999;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  list-style-type: none;
+  clear: left; }
+
+ul.token-input-list li {
+  list-style-type: none; }
+
+ul.token-input-list li input {
+  border: 0;
+  width: 350px;
+  padding: 3px 8px;
+  background-color: white;
+  -webkit-appearance: caret; }
+
+li.token-input-token {
+  overflow: hidden;
+  height: auto !important;
+  height: 1%;
+  margin: 3px;
+  padding: 3px 5px;
+  background-color: #d0efa0;
+  color: #000;
+  font-weight: bold;
+  cursor: default;
+  display: block; }
+
+li.token-input-token p {
+  float: left;
+  padding: 0;
+  margin: 0; }
+
+li.token-input-token span {
+  float: right;
+  color: #777;
+  cursor: pointer; }
+
+li.token-input-selected-token {
+  background-color: #08844e;
+  color: #fff; }
+
+li.token-input-selected-token span {
+  color: #bbb; }
+
+div.token-input-dropdown {
+  position: absolute;
+  width: 400px;
+  background-color: #fff;
+  overflow: hidden;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  cursor: default;
+  font-size: 12px;
+  font-family: Verdana;
+  z-index: 1; }
+
+div.token-input-dropdown p {
+  margin: 0;
+  padding: 5px;
+  font-weight: bold;
+  color: #777; }
+
+div.token-input-dropdown ul {
+  margin: 0;
+  padding: 0; }
+
+div.token-input-dropdown ul li {
+  background-color: #fff;
+  padding: 3px;
+  list-style-type: none; }
+
+div.token-input-dropdown ul li.token-input-dropdown-item {
+  background-color: #fafafa; }
+
+div.token-input-dropdown ul li.token-input-dropdown-item2 {
+  background-color: #fff; }
+
+div.token-input-dropdown ul li em {
+  font-weight: bold;
+  font-style: normal; }
+
+div.token-input-dropdown ul li.token-input-selected-dropdown-item {
+  background-color: #d0efa0; }
+
 html body {
   font-family: 'PT Sans', sans-serif; }
   html body > article {
@@ -7139,6 +7236,52 @@ http://ryanfait.com/
         right: 1.25rem; } }
     #warning-banner #close-warning-banner:hover {
       color: #434343; }
+  #warning-banner.secondary {
+    background-color: #f18d19; }
+    #warning-banner.secondary #close-warning-banner {
+      line-height: 0.75; }
+
+.search-bar {
+  display: table; }
+  .search-bar > div {
+    display: table-row; }
+    .search-bar > div > div {
+      display: table-cell;
+      vertical-align: top; }
+  .search-bar div.search-field input[type="search"] {
+    height: 1.25rem;
+    margin: 0;
+    padding: 0.3125rem 0.625rem; }
+  .search-bar div.search-button input[type="submit"] {
+    height: 2rem;
+    margin: 0;
+    padding: 0.3125rem 0.5rem;
+    border: 0.0625rem solid #aaa;
+    color: #888; }
+    .search-bar div.search-button input[type="submit"].searching {
+      background: url("/assets/icons/ajax-loader-fb.gif") no-repeat;
+      background-position: center center;
+      background-color: #e8e8e8;
+      color: transparent; }
+  .search-bar .prompt {
+    font-size: 0.625rem;
+    padding: 0 0 0.625rem 0.625rem;
+    color: #888; }
+
+span.highlight {
+  color: #E41634; }
+
+ul.token-input-list-facebook, ul.token-input-list {
+  width: 100%;
+  margin-bottom: 1rem;
+  border: 0.0625rem solid #ccc; }
+  ul.token-input-list-facebook li, ul.token-input-list li {
+    font-family: 'PT Sans', sans-serif;
+    color: #333; }
+    ul.token-input-list-facebook li tester, ul.token-input-list li tester {
+      cursor: pointer; }
+      ul.token-input-list-facebook li tester:hover, ul.token-input-list li tester:hover {
+        cursor: pointer; }
 
 header {
   position: relative;
@@ -7280,65 +7423,15 @@ header {
 @media only screen and (max-width: 40em) {
   .notification-count-label {
     display: none; } }
-article.page h2 {
-  font-size: 1.875rem; }
-article.page h2 {
-  font-size: 1.5rem; }
-article.page h3 {
-  font-size: 1.25rem;
-  font-style: italic; }
-
-article.welcome {
-  position: relative;
-  /*margin-top: rem-calc(-10);*/
-  /*background-image: url("backdrop-136.jpg");*/
-  /*background-size: 100% auto;*/
-  /*background-repeat: no-repeat;*/
-  /*min-height: rem-calc(720);*/ }
-  article.welcome img.backdrop {
-    position: absolute;
-    top: 0;
-    width: 100%; }
-  article.welcome h1, article.welcome h2 {
-    color: #024b79; }
-  article.welcome h1 {
-    margin-bottom: 0; }
-  article.welcome h2 {
-    margin-bottom: 1.875rem;
-    font-size: 0.9375rem; }
-    @media only screen and (min-width: 40.0625em) {
-      article.welcome h2 {
-        font-size: 1.5625rem; } }
-  article.welcome .sign-in-container {
-    margin-top: 3.125rem;
-    background-color: rgba(200, 200, 200, 0.5);
-    border-radius: 1.25rem;
-    padding: 1.875rem; }
-    @media only screen and (min-width: 40.0625em) {
-      article.welcome .sign-in-container {
-        margin-top: 6.25rem;
-        background-color: rgba(200, 200, 200, 0.4); } }
-    @media only screen and (min-width: 64.0625em) {
-      article.welcome .sign-in-container {
-        margin-top: 15.625rem;
-        background-color: rgba(200, 200, 200, 0.3); } }
-    article.welcome .sign-in-container .button-container {
-      text-align: right; }
-      article.welcome .sign-in-container .button-container .sign-in {
-        min-width: 12.5rem;
-        height: 3.125rem;
-        background-color: rgba(200, 200, 200, 0.6);
-        padding: 0.3125rem 0.625rem;
-        border-radius: 0.3125rem;
-        color: #023c60;
-        font-size: 1.5625rem; }
-        article.welcome .sign-in-container .button-container .sign-in:hover {
-          text-decoration: none;
-          background-color: rgba(200, 200, 250, 0.8);
-          color: #024b79; }
-
 article.issue h1, article.issue h4 {
   display: inline-block; }
+article.issue .search-bar {
+  margin-bottom: 1.25rem; }
+  @media only screen and (min-width: 40.0625em) {
+    article.issue .search-bar {
+      position: absolute;
+      right: 1.25rem;
+      top: 1.5625rem; } }
 article.issue h4.issue-state {
   margin: 0.5rem 0;
   color: #333;
@@ -7410,22 +7503,24 @@ article.issue .issue-filters > li {
     padding: 0.625rem 0 0 0;
     margin-bottom: 0;
     height: 2.5rem;
-    font-size: 0.9375rem; }
+    font-size: 0.75rem; }
     @media only screen and (min-width: 40.0625em) and (max-width: 64em) {
       article.issue .issue-filters > li a.button {
-        font-size: 0.75rem; } }
+        font-size: 0.6875rem; } }
   @media only screen and (max-width: 40em) {
     article.issue .issue-filters > li {
       padding-bottom: 0.625rem; }
       article.issue .issue-filters > li > a {
         margin-bottom: 0.625rem; } }
 article.issue .issue-filters .f-dropdown {
-  max-width: 8rem; }
+  max-width: 6.4375rem; }
   article.issue .issue-filters .f-dropdown a {
-    padding: 0.3125rem 0.5rem; }
+    font-size: 0.75rem;
+    padding: 0.1875rem 0.5rem;
+    line-height: 1.2; }
     @media only screen and (min-width: 40.0625em) and (max-width: 64em) {
       article.issue .issue-filters .f-dropdown a {
-        font-size: 0.75rem; } }
+        font-size: 0.6875rem; } }
 article.issue .post-title-text {
   display: inline-block;
   margin-left: 0.625rem;
@@ -7590,6 +7685,106 @@ article.issue .issue-contacts {
 
 .close-reveal-modal {
   z-index: 999999; }
+
+input.success.publish-issue.disabled {
+  cursor: pointer; }
+
+@media only screen and (max-width: 40em) {
+  #missing-details-issue-modal.reveal-modal {
+    width: 96%;
+    margin-left: 2%; } }
+@media only screen and (min-width: 40.0625em) {
+  #missing-details-issue-modal.reveal-modal {
+    width: 60%; } }
+@media only screen and (min-width: 64.0625em) {
+  #missing-details-issue-modal.reveal-modal {
+    width: 55%; } }
+#missing-details-issue-modal.reveal-modal .row {
+  margin: 0 -0.9375rem; }
+#missing-details-issue-modal.reveal-modal .input.issue_label_ids .checkbox {
+  display: inline-block;
+  width: 100%;
+  float: left; }
+  @media only screen and (min-width: 40.0625em) {
+    #missing-details-issue-modal.reveal-modal .input.issue_label_ids .checkbox {
+      width: 50%; } }
+  @media only screen and (min-width: 64.0625em) {
+    #missing-details-issue-modal.reveal-modal .input.issue_label_ids .checkbox {
+      width: 30%; } }
+  #missing-details-issue-modal.reveal-modal .input.issue_label_ids .checkbox label {
+    position: relative; }
+    #missing-details-issue-modal.reveal-modal .input.issue_label_ids .checkbox label input {
+      position: relative;
+      top: 0.125rem;
+      margin: 0 0.3125rem 0.625rem 0; }
+#missing-details-issue-modal.reveal-modal input.button {
+  margin: 1.25rem 0 0 0; }
+
+article.page h2 {
+  font-size: 1.875rem; }
+article.page h2 {
+  font-size: 1.5rem; }
+article.page h3 {
+  font-size: 1.25rem;
+  font-style: italic; }
+
+article.welcome {
+  position: relative;
+  /*margin-top: rem-calc(-10);*/
+  /*background-image: url("backdrop-136.jpg");*/
+  /*background-size: 100% auto;*/
+  /*background-repeat: no-repeat;*/
+  /*min-height: rem-calc(720);*/ }
+  article.welcome img.backdrop {
+    position: absolute;
+    top: 0;
+    width: 100%; }
+  article.welcome h1, article.welcome h2 {
+    color: #024b79; }
+  article.welcome h1 {
+    margin-bottom: 0; }
+  article.welcome h2 {
+    margin-bottom: 1.875rem;
+    font-size: 0.9375rem; }
+    @media only screen and (min-width: 40.0625em) {
+      article.welcome h2 {
+        font-size: 1.5625rem; } }
+  article.welcome .sign-in-container {
+    margin-top: 3.125rem;
+    background-color: rgba(200, 200, 200, 0.5);
+    border-radius: 1.25rem;
+    padding: 1.875rem; }
+    @media only screen and (min-width: 40.0625em) {
+      article.welcome .sign-in-container {
+        margin-top: 6.25rem;
+        background-color: rgba(200, 200, 200, 0.4); } }
+    @media only screen and (min-width: 64.0625em) {
+      article.welcome .sign-in-container {
+        margin-top: 15.625rem;
+        background-color: rgba(200, 200, 200, 0.3); } }
+    article.welcome .sign-in-container .button-container {
+      text-align: right; }
+      article.welcome .sign-in-container .button-container .sign-in {
+        min-width: 12.5rem;
+        height: 3.125rem;
+        background-color: rgba(200, 200, 200, 0.6);
+        padding: 0.3125rem 0.625rem;
+        border-radius: 0.3125rem;
+        color: #023c60;
+        font-size: 1.5625rem; }
+        article.welcome .sign-in-container .button-container .sign-in:hover {
+          text-decoration: none;
+          background-color: rgba(200, 200, 250, 0.8);
+          color: #024b79; }
+
+article.search {
+  margin: 0 1.25rem; }
+  article.search button.new-issue-link {
+    float: right;
+    margin: 0 0 -3.1875rem 0.9375rem;
+    z-index: 100; }
+  article.search .search-bar {
+    min-width: 15.625rem; }
 
 article.updates h3 {
   margin-top: 0.625rem;
