@@ -148,11 +148,16 @@ article.issue{
     .f-dropdown{
       max-width: rem-calc(103);
       a{
-        font-size: rem-calc(12);
-        padding: rem-calc(3 8);
-        line-height: 1.2;
-        @media #{$medium-only} {
+        font-size: rem-calc(14);
+        padding: rem-calc(5 8);
+        line-height: 1.5;
+        @media #{$medium-up} {
           font-size: rem-calc(11);
+          padding: rem-calc(3 8);
+          line-height: 1.2;
+        }
+        @media #{$large-up} {
+          font-size: rem-calc(12);
         }
       }
     }
