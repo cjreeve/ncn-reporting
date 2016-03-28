@@ -41,6 +41,7 @@ class Ability
       can :manage, Comment, user_id: user.id
       can :manage, Page, role: ["volunteer", "ranger"]
       can :read, Page
+      can :read, Route
       can :read, Label
       can :manage, Site
       can :read, Update
@@ -56,6 +57,7 @@ class Ability
       can :manage, Comment, user_id: user.id
       can :manage, Page, role: "volunteer"
       can :read, Page
+      can :manage, Route
       can :manage, Site
       can :read, Update
     end

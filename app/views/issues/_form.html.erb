@@ -47,8 +47,12 @@
   </div>
 </div>
 <div class='row'>
-  <div class='medium-6 columns'>
-    <%= f.input :route_id, collection: @routes, as: :select %>
+  <div class='medium-6 large-3 columns'>
+    <%= f.label :route_id, "Route" %>
+    <%= f.text_field :route_id,
+        "data-pre" => (f.object.route ? [{id: f.object.route.id, name: f.object.route.name }].to_json : nil)
+    %>
+
   </div>
   <div class='medium-6 columns'>
     <%#= f.input :group_id, collection: @groups, as: :select, label: 'Group  (leave blank to guess from coordinate)' %>

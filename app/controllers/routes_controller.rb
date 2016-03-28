@@ -5,7 +5,15 @@ class RoutesController < ApplicationController
   # GET /routes
   # GET /routes.json
   def index
-    @routes = Route.all
+    if params[:q]
+      @routes = Route.where("name ilike ?", "%#{params[:q]}%").order(:name)
+    else
+      @routes = Route.all.order(:name)
+    end
+    respond_to do |format|
+      format.html
+      format.json { render json: @routes.collect{ |a| {id: a.id, name: a.name }} }
+    end
   end
 
   # GET /routes/1
