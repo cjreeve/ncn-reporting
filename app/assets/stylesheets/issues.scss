@@ -133,9 +133,9 @@ article.issue{
         padding: rem-calc(10 0 0 0);
         margin-bottom: 0;
         height: rem-calc(40);
-        font-size: rem-calc(15);
+        font-size: rem-calc(12);
         @media #{$medium-only} {
-          font-size: rem-calc(12);
+          font-size: rem-calc(11);
         }
       }
       @media #{$small-only} {
@@ -146,11 +146,13 @@ article.issue{
       }
     }
     .f-dropdown{
-      max-width: rem-calc(128);
+      max-width: rem-calc(103);
       a{
-        padding: rem-calc(5 8);
+        font-size: rem-calc(12);
+        padding: rem-calc(3 8);
+        line-height: 1.2;
         @media #{$medium-only} {
-          font-size: rem-calc(12);
+          font-size: rem-calc(11);
         }
       }
     }

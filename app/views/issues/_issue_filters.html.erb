@@ -7,7 +7,7 @@
 
 <div class='row'>
   <div class='medium-8 large-9 columns'>
-    <ul class='small-block-grid-1 medium-block-grid-4 large-block-grid-5 issue-filters'>
+    <ul class='small-block-grid-1 medium-block-grid-4 large-block-grid-6 issue-filters'>
       <li>
         <a href="#" class="button select" data-dropdown="regionSelection" aria-controls="regionSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_region ? @current_region.name + " ▼" : "all routes ▼" %></a>
         <ul id="regionSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
@@ -53,7 +53,7 @@
         </ul>
       </li>
       <li>
-        <a href="#" class="button select" data-dropdown="administrativeAreaSelection" aria-controls="administrativeAreaSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_administrative_area ? @current_administrative_area.short_name + " ▼" : "all areas ▼" %></a>
+        <a href="#" class="button select" title="<%= @administrative_areas.present? ? 'select to limit by area' : 'no areas for current selections' %>" data-dropdown="administrativeAreaSelection" aria-controls="administrativeAreaSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_administrative_area ? @current_administrative_area.short_name + " ▼" : "all areas ▼" %></a>
         <ul id="administrativeAreaSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
           <% unless @current_administrative_area.nil? %>
             <li>
@@ -109,7 +109,7 @@
         </ul>
       </li>
       <% if can_do? current_user, "ranger staff admin" %>
-        <li class='hide-for-medium-only'>
+        <li class=''>
           <a href="#" class="button select" data-dropdown="labelSelection" aria-controls="labelSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_label ? @current_label.name + " ▼" : "labels ▼" %></a>
           <ul id="labelSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
             <% unless @current_label.nil? %>
