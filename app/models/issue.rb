@@ -213,7 +213,7 @@ class Issue < ActiveRecord::Base
     if self.administrative_area.group.present?
       self.group = self.administrative_area.group
     else
-      self.group_id = nil
+      self.group = nil
     end
   end
 
