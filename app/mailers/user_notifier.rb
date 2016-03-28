@@ -37,7 +37,7 @@ class UserNotifier < ActionMailer::Base
 
     mail(
       to: get_recipient_email(user),
-      subject: "#{ @total_pending_count.to_s + ' issue'.pluralize } for your attention2"
+      subject: "#{ @total_pending_count.to_s + ' issue'.pluralize } for your attention"
       )
   end
 
