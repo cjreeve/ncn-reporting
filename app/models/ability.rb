@@ -57,7 +57,7 @@ class Ability
       can :manage, Comment, user_id: user.id
       can :manage, Page, role: "volunteer"
       can :read, Page
-      can :manage, Route
+      can :read, Route
       can :manage, Site
       can :read, Update
     end
