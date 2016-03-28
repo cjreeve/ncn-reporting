@@ -12,20 +12,24 @@ class IssuesController < ApplicationController
     route_ids = group_ids = nil
     route_ids = params[:route].split('.').collect{ |r| Route.find_by_slug(r).try(:id) } if params[:route]
     group_ids = params[:group].split('.').collect{ |id| id.to_i } if params[:group]
+    area_ids = params[:area].split('.').collect{ |id| id.to_i } if params[:area]
     options[:routes] = {id: route_ids} if params[:route] && params[:route] != "all"
     options[:groups] = {id: group_ids} if params[:group] && params[:group] != "all"
+    options[:administrative_areas] = {id: area_ids} if params[:area]
     exclusion_options[:issues] = {state: "closed"} unless params[:state] == "closed"
     @administrative_areas = AdministrativeArea.joins(issues: [:route, :group]).where(options).where.not(exclusion_options).order(:short_name).uniq.limit(20)
 
-    @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
-    @groups = Group.where(region: current_user.region).order(:name).sort_by{ |a| a.name.gsub('Other','zzz') }
+    @groups = Group.joins(:issues).where(region: @current_region).uniq.order(:name)
+    @current_group = (@current_region.group_ids.include?(params[:group].to_i) ? Group.find_by_id(params[:group].to_i) : nil)
+
+    @routes = Route.joins(issues: [:group, :administrative_area]).where(options).uniq.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
+    @current_route = Route.find_by_slug(params[:route])
+
     @states = Issue.state_machine.states.collect(&:name) - [:resolved, :unsolvable]
     @labels = Label.all.order(:name)
 
     @issues_with_coords = @issues.where.not(lat: nil, lng: nil)
 
-    @current_route = Route.find_by_slug(params[:route])
-    @current_group = (params[:group].present? && @groups.collect(&:id).include?(params[:group].to_i)) ? Group.find(params[:group].to_i) : nil
     @current_state = (params[:state].present? && @states.include?(params[:state].to_sym)) ? params[:state] : nil
     @current_state = "all states" if params[:state] == "all"
     @current_administrative_area = (params[:area].present? && @administrative_areas.collect(&:id).include?(params[:area].to_i)) ? AdministrativeArea.find(params[:area].to_i) : nil
@@ -333,6 +337,9 @@ class IssuesController < ApplicationController
     else
       per_page = 10
     end
+
+    @regions = Region.all.order(:name)
+    @current_region = (params[:region] ? Region.find_by_id(params[:region].to_i) : current_user.region)
 
     order = :updated_at
     order = :issue_number if params[:order] == 'number'
