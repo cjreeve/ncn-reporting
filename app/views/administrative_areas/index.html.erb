@@ -20,7 +20,7 @@
             <tr>
               <td>
                 <% if has_issues %>
-                  <%= link_to administrative_area.name, issues_path(region: administrative_area.id, state: :all) %>
+                  <%= link_to administrative_area.name, issues_path(area: administrative_area.id, state: :all) %>
                 <% else %>
                   <%= administrative_area.name %>
                 <% end %>
