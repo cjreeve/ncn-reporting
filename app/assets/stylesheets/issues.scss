@@ -137,6 +137,9 @@ article.issue{
         @media #{$medium-only} {
           font-size: rem-calc(11);
         }
+        @media #{$medium-up} {
+          height: rem-calc(35);
+        }
       }
       @media #{$small-only} {
         padding-bottom: rem-calc(10);
