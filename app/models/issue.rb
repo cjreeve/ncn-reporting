@@ -170,7 +170,7 @@ class Issue < ActiveRecord::Base
   end
 
   def the_summary
-    self.category.name + ' - ' + the_problem
+    self.issue_number.to_s + '-' + self.category.name.to_s[0..3] + '-' + the_problem.to_s[0..14]  + " - #{ self.status }"
   end
 
   def latitude
