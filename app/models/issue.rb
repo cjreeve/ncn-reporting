@@ -48,7 +48,7 @@ class Issue < ActiveRecord::Base
   geocoded_by :address, latitude: :lat, longitude: :lng
 
   reverse_geocoded_by :latitude, :longitude do |issue, results|
-    if results.present?
+    if results.present? && (issue.lat_changed? || issue.lng_changed?)
       unless issue.location_name.present?
         issue.location_name = issue.get_location_name(results)
       end
