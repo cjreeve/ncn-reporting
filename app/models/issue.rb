@@ -48,7 +48,7 @@ class Issue < ActiveRecord::Base
   geocoded_by :address, latitude: :lat, longitude: :lng
 
   reverse_geocoded_by :latitude, :longitude do |issue, results|
-    if results.present? && (issue.lat_changed? || issue.lng_changed?)
+    if results.present?
       unless issue.location_name.present?
         issue.location_name = issue.get_location_name(results)
       end
@@ -60,7 +60,7 @@ class Issue < ActiveRecord::Base
     end
   end
 
-  after_validation :reverse_geocode
+  after_validation :reverse_geocode, if: :lat_or_lng_changed?
 
   state_machine :state, initial: :draft do
     event :submit do
@@ -234,6 +234,10 @@ class Issue < ActiveRecord::Base
   end
 
   private
+
+  def lat_or_lng_changed?
+    self.lat_changed? || self.lng_changed?
+  end
 
   def set_edited_at
     self.edited_at = Time.zone.now
