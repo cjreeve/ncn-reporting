@@ -88,14 +88,22 @@ class IssuesController < ApplicationController
 
       # two searches are added together to allow for any routes none are selected and the administrative_area is selected
       # and visa versa
-      all_route_section_managers = User.includes(:administrative_areas, :routes).where(
-        administrative_areas: {id: [nil, @issue.administrative_area.try(:id)]}, routes: {id: @issue.route.try(:id)}
-      ) + User.includes(:administrative_areas, :routes).where(
-        administrative_areas: {id: @issue.administrative_area.try(:id)}, routes: {id: [nil, @issue.route.try(:id)]}
-      )
+      all_route_section_managers = User.includes(:administrative_areas, :routes)
+                                       .where(
+                                          administrative_areas: {id: [nil, @issue.administrative_area.try(:id)]},
+                                          routes: {id: @issue.route.try(:id)}) +
+                                    User.includes(:administrative_areas, :routes)
+                                        .where(
+                                          administrative_areas: {id: @issue.administrative_area.try(:id)},
+                                          routes: {id: [nil, @issue.route.try(:id)]})
 
       @staff_route_managers = all_route_section_managers.select{ |u| u.role == "staff" }.uniq
       @ranger_route_managers = all_route_section_managers.select{ |u| u.role == "ranger" }.uniq
+      @coordinator_route_managers = User.includes(:groups)
+                                        .where( groups: {id: [nil, @issue.group.try(:id)]})
+                                        .where(role: "coordinator")
+
+      # .select{ |u| u.role == "coordinator" }.uniq
     else
       @staff_route_managers = @ranger_route_managers = []
     end
