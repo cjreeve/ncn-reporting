@@ -1,5 +1,11 @@
 module ApplicationHelper
 
+  def follower_links(users)
+    users.collect do |u|
+      content_tag :a, u.name, url: '#'
+    end.to_sentence.html_safe
+  end
+
   def emph_none
     content_tag :span, 'none', class: 'highlight'
   end

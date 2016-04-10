@@ -1,6 +1,7 @@
 class IssuesController < ApplicationController
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
   before_action :load_issues, only: [:index, :show]
+  # before_action :load_issue_followers, only: [:show, :create]
   load_and_authorize_resource
 
   # GET /issues
@@ -85,25 +86,10 @@ class IssuesController < ApplicationController
     @new_comment = Comment.new
 
     if @issue.administrative_area && @issue.route
-
-      # two searches are added together to allow for any routes none are selected and the administrative_area is selected
-      # and visa versa
-      all_route_section_managers = User.includes(:administrative_areas, :routes)
-                                       .where(
-                                          administrative_areas: {id: [nil, @issue.administrative_area.try(:id)]},
-                                          routes: {id: @issue.route.try(:id)}) +
-                                    User.includes(:administrative_areas, :routes)
-                                        .where(
-                                          administrative_areas: {id: @issue.administrative_area.try(:id)},
-                                          routes: {id: [nil, @issue.route.try(:id)]})
-
+      all_route_section_managers = load_all_route_section_managers(@issue)
       @staff_route_managers = all_route_section_managers.select{ |u| u.role == "staff" }.uniq
       @ranger_route_managers = all_route_section_managers.select{ |u| u.role == "ranger" }.uniq
-      @coordinator_route_managers = User.includes(:groups)
-                                        .where( groups: {id: [nil, @issue.group.try(:id)]})
-                                        .where(role: "coordinator")
-
-      # .select{ |u| u.role == "coordinator" }.uniq
+      @coordinator_route_managers = load_coordinator_route_managers(@issue)
     else
       @staff_route_managers = @ranger_route_managers = []
     end
@@ -151,6 +137,10 @@ class IssuesController < ApplicationController
 
     respond_to do |format|
       if @issue.save
+
+        @issue = set_issue_followers(@issue, load_all_route_section_managers(@issue))
+        @issue.save
+
         format.html { redirect_to @issue, notice: 'Issue was successfully created.' }
         format.json { render :show, status: :created, location: @issue }
       else
@@ -164,12 +154,21 @@ class IssuesController < ApplicationController
   # PATCH/PUT /issues/1.json
   def update
     @issue.editor = current_user if current_user
+    old_label_names = @issue.labels.collect(&:name)
     @issue.assign_attributes(issue_params)
     flash[:uniqueness_properties_changed] = uniqueness_properties_changed?(@issue)
+
+    if notifiable_properties_changed?(@issue)
+      @issue = set_issue_followers(@issue, load_all_route_section_managers(@issue))
+    elsif !old_label_names.include?("sustrans") && @issue.labels.collect(&:name).include?("sustrans")
+      @issue.followers << load_all_route_section_managers(@issue).select{ |u| u.role == "staff" }
+      @issue.followers = @issue.followers.uniq
+    end
 
     respond_to do |format|
       if @issue.save
         format.html { redirect_to issue_number_path2(@issue, params), notice: 'Issue was successfully updated.' }
+        format.js { return render :followers }
         format.json { render :show, status: :ok, location: @issue }
       else
         @routes = Route.all.order(:name)
@@ -181,6 +180,7 @@ class IssuesController < ApplicationController
         @categories.each { |c| @problems[c.id] = c.problems }
         @issue.images << Image.new unless @issue.images.present? && @issue.images.last.url.present? && @issue.images.last.caption.present?
         format.html { return render filter_params(params, action: 'edit') }
+        format.js { return render :followers }
         format.json { render json: @issue.errors, status: :unprocessable_entity }
       end
     end
@@ -325,9 +325,9 @@ class IssuesController < ApplicationController
   def issue_params
     params.require(:issue).permit(:issue_number, :title, :description, :priority, :reported_at,
       :completed_at, :location_name, :coordinate, :route_id, :group_id, :url, :category_id,
-      :problem_id, :user_id, :administrative_area_id, :resolution,
+      :problem_id, :user_id, :administrative_area_id, :resolution, :user_tokens,
       images_attributes: [:id, :url, :src, :caption, :_destroy],
-      label_ids: [])
+      label_ids: [], follower_ids: [])
   end
 
   def load_issues
@@ -429,5 +429,51 @@ class IssuesController < ApplicationController
       @next_issue_id = Issue.joins(joined_tables).includes(include_tables).where(options).where(joined_options).where.not(exclusions).order('issues.issue_number ASC').where('issues.issue_number > ?', params["issue_number"]).limit(1).first.try(:issue_number)
       @prev_issue_id = Issue.joins(joined_tables).includes(include_tables).where(options).where(joined_options).where.not(exclusions).order('issues.issue_number DESC').where('issues.issue_number < ?', params["issue_number"]).limit(1).first.try(:issue_number)
     end
+  end
+
+  def load_all_route_section_managers(issue)
+    # two searches are added together to allow for any routes none are selected and the administrative_area is selected
+    # and visa versa
+    User.includes(:administrative_areas, :routes)
+        .where(
+          administrative_areas: {id: [nil, issue.administrative_area.try(:id)]},
+          routes: {id: issue.route.try(:id)}) +
+    User.includes(:administrative_areas, :routes)
+        .where(
+          administrative_areas: {id: issue.administrative_area.try(:id)},
+          routes: {id: [nil, issue.route.try(:id)]})
+  end
+
+  def load_coordinator_route_managers(issue)
+    User.includes(:groups)
+        .where( groups: {id: [nil, @issue.group.try(:id)]})
+        .where(role: "coordinator")
+  end
+
+
+  def set_issue_followers(issue, all_route_section_managers)
+    followers = all_route_section_managers.select{ |u| u.role == "ranger" }
+    if @issue.priority == 3 || @issue.labels.collect(&:name).include?('sustrans')
+      followers += all_route_section_managers.select{ |u| u.role == "staff" }
+      followers += load_coordinator_route_managers(issue)
+    end
+    unless followers.present?
+      followers += load_coordinator_route_managers(issue)
+    end
+    unless followers.present?
+      followers += all_route_section_managers.select{ |u| u.role == "staff" }
+    end
+
+    issue.followers << followers
+    issue.followers = issue.followers.uniq
+    issue
+  end
+
+  def notifiable_properties_changed?(issue)
+    issue.id_changed? ||
+      issue.administrative_area_id_changed? ||
+      issue.route_id_changed? ||
+      (issue.priority_changed? && issue.priority == 3) ||
+      (issue.problem_id_changed? && issue.problem.try(:default_priority) == 3)
   end
 end

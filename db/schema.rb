@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160327205257) do
+ActiveRecord::Schema.define(version: 20160406213437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,16 @@ ActiveRecord::Schema.define(version: 20160327205257) do
   end
 
   add_index "images", ["issue_id"], name: "index_images_on_issue_id", using: :btree
+
+  create_table "issue_follower_selections", force: :cascade do |t|
+    t.integer  "issue_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "issue_follower_selections", ["issue_id"], name: "index_issue_follower_selections_on_issue_id", using: :btree
+  add_index "issue_follower_selections", ["user_id"], name: "index_issue_follower_selections_on_user_id", using: :btree
 
   create_table "issue_label_selections", force: :cascade do |t|
     t.integer  "issue_id"
@@ -263,6 +273,8 @@ ActiveRecord::Schema.define(version: 20160327205257) do
   add_index "users", ["role"], name: "index_users_on_role", using: :btree
 
   add_foreign_key "groups", "regions"
+  add_foreign_key "issue_follower_selections", "issues"
+  add_foreign_key "issue_follower_selections", "users"
   add_foreign_key "twins", "issues"
   add_foreign_key "twins", "issues", column: "twinned_issue_id"
   add_foreign_key "user_admin_area_selections", "administrative_areas"

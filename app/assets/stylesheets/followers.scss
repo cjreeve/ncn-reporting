@@ -1,0 +1,48 @@
+
+#followers{
+  padding-bottom: rem-calc(15);
+  #follower-list{
+    .follower-list-container{
+      border: dotted rem-calc(1) $medium-grey;
+      background-color: $light-grey;
+      padding: rem-calc(5 7);
+      font-size: rem-calc(11);
+      a{
+        color: $black;
+      }
+    }
+    #edit-followers{
+      margin-right: rem-calc(5);
+      float: right;
+      font-size: rem-calc(14);
+      color: $dark-grey;
+      padding: rem-calc(0 5 5 5);
+      visibility: hidden;
+      @media #{$small-only}{
+        visibility: visible;
+      }
+    }
+  }
+  #follower-list:hover{
+    #edit-followers{
+      visibility: visible;
+    }
+  }
+
+  #follower-tokens{
+    ul{
+      li{
+        p{
+          font-size: rem-calc(14);
+        }
+      }
+    }
+    input#update-issue-followers{
+      float: right;
+      margin-top: rem-calc(-10);
+      padding: rem-calc(7 12);
+      font-size: rem-calc(15);
+    }
+  }
+
+}

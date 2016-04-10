@@ -1,0 +1,26 @@
+
+<div id="follower-list">
+  <div class='follower-list-container'>
+    <b>Notified</b>: <%= follower_links @issue.followers %>
+  </div>
+  <div>
+    &nbsp;
+    <a id='edit-followers'>edit</a>
+  </div>
+</div>
+
+
+<div id='follower-tokens' style='display:none;'>
+  <%= simple_form_for @issue, remote: true do |f| %>
+    <%= f.text_field :user_tokens,
+        "data-pre" => @issue.followers.collect{ |u| {id: u.id, name: u.name }}.to_json
+    %>
+    <%=
+      f.button :submit,
+      'save',
+      id: 'update-issue-followers',
+      class: 'button secondary tiny'
+      # data: {'disable-with' => 'updatig…'}
+    %>
+  <% end %>
+</div>

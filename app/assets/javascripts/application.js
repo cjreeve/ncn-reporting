@@ -18,6 +18,7 @@
 //= require vendor/owl.carousel
 //= require vendor/responsive_tables
 //= require vendor/jquery.tokeninput
+//= require followers
 //= require images
 //= require issues
 //= require notifications

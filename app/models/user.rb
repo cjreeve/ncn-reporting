@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
   has_many :administrative_areas, through: :user_admin_area_selections
   has_many :user_label_selections
   has_many :labels, through: :user_label_selections
+  has_many :issue_follower_selections
+  has_many :interests, through: :issue_follower_selections, source: :issue
 
   has_many :user_accounts, class_name: 'User', foreign_key: 'creator_id'
   belongs_to :creator, class_name: 'User'

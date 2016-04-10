@@ -1,0 +1,6 @@
+
+
+$('#followers').html("<%= j(render 'issues/followers', issue: @issue)  %>");
+
+initialiseFollowerTokens();
+watch_followers_edit_click();

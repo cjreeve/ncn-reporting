@@ -12,10 +12,18 @@ class Issue < ActiveRecord::Base
   has_many :labels, through: :issue_label_selections
   has_many :twins
   has_many :twinned_issues, through: :twins, dependent: :destroy
+  has_many :issue_follower_selections, dependent: :destroy
+  has_many :followers, -> { uniq }, through: :issue_follower_selections, source: :user
   belongs_to :category
   belongs_to :problem
   belongs_to :user
   belongs_to :editor, class_name: "User"
+
+  attr_reader :user_tokens
+
+  def user_tokens=(ids)
+    self.follower_ids = ids.split(",")
+  end
 
   accepts_nested_attributes_for(
     :images,
