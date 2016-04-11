@@ -30,12 +30,14 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        @issue.touch
+        # @issue.touch
+        @issue.followers << current_user
+        @issue.save
         @comments << @comment
 
         format.html { redirect_to :show, status: :created }
         format.js {
-          return (render :comment) 
+          return (render :comment)
         }
         commenters.each do |commenter|
           UserNotifier.send_issue_comment_notification(commenter, @comment, @issue, current_user).deliver
@@ -60,8 +62,8 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.destroy
         format.html { redirect_to :show, status: :created }
-        format.js { 
-          return (render :comment) 
+        format.js {
+          return (render :comment)
         }
       else
         format.html { return render :show }

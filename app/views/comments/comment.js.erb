@@ -1,2 +1,6 @@
 $('#comments').html("<%= j(render 'comments/comments', comments: @comments, issue: @issue, new_comment: @new_comment)  %>");
 $('#comment_content').val('');
+
+$('#followers').html("<%= j(render 'issues/followers', issue: @issue)  %>");
+initialiseFollowerTokens();
+watch_followers_edit_click();
