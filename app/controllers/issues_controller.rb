@@ -474,14 +474,14 @@ class IssuesController < ApplicationController
 
   def load_coordinator_route_managers(issue)
     User.includes(:groups)
-        .where( groups: {id: [nil, @issue.group.try(:id)]})
+        .where( groups: {id: [nil, issue.group.try(:id)]})
         .where(role: "coordinator")
   end
 
 
   def set_issue_followers(issue, all_route_section_managers)
     followers = all_route_section_managers.select{ |u| u.role == "ranger" }
-    if @issue.priority == 3 || @issue.labels.collect(&:name).include?('sustrans')
+    if issue.priority == 3 || issue.labels.collect(&:name).include?('sustrans')
       followers += all_route_section_managers.select{ |u| u.role == "staff" }
       followers += load_coordinator_route_managers(issue)
     end

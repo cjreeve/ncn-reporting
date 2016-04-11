@@ -14,36 +14,84 @@
 #   end
 # end
 
-  region = Region.first
-  Group.where(region_id: nil).each do |group|
-    group.region = region
-    group.save
+def load_all_route_section_managers(issue)
+  # two searches are added together to allow for any routes none are selected and the administrative_area is selected
+  # and visa versa
+  User.includes(:administrative_areas, :routes)
+      .where(
+        administrative_areas: {id: [nil, issue.administrative_area.try(:id)]},
+        routes: {id: issue.route.try(:id)}) +
+  User.includes(:administrative_areas, :routes)
+      .where(
+        administrative_areas: {id: issue.administrative_area.try(:id)},
+        routes: {id: [nil, issue.route.try(:id)]})
+end
+
+def load_coordinator_route_managers(issue)
+  User.includes(:groups)
+      .where( groups: {id: [nil, issue.group.try(:id)]})
+      .where(role: "coordinator")
+end
+
+def set_issue_followers(issue, all_route_section_managers)
+  followers = all_route_section_managers.select{ |u| u.role == "ranger" }
+  if issue.priority == 3 || issue.labels.collect(&:name).include?('sustrans')
+    followers += all_route_section_managers.select{ |u| u.role == "staff" }
+    followers += load_coordinator_route_managers(issue)
+  end
+  unless followers.present?
+    followers += load_coordinator_route_managers(issue)
+  end
+  unless followers.present?
+    followers += all_route_section_managers.select{ |u| u.role == "staff" }
   end
 
-  other_group = Group.find_by_name("Other")
-  AdministrativeArea.where(group: other_group).each do |area|
-    area.group_id = nil
-    area.save
-  end
+  issue.followers << followers
+  issue.followers = issue.followers.uniq
+  issue
+end
 
+
+
+Issue.all.each do |issue|
+  issue = set_issue_followers(issue, load_all_route_section_managers(issue))
   ActiveRecord::Base.record_timestamps = false
-  begin
-    Issue.where(group: other_group).each do |issue|
-      issue.group_id = nil
-      issue.save
-    end
-  ensure
-    ActiveRecord::Base.record_timestamps = true
-  end
-
-  other_group.destroy if other_group && other_group.issues.count == 0
+  issue.save
+  ActiveRecord::Base.record_timestamps = true
+end
 
 
-  User.all.each do |user|
-    puts "updating user #{ user.id }  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-    user.administrative_area_ids = user.groups.collect{ |a| a.administrative_area_ids }.flatten.compact
-    user.save
-  end
+
+  # region = Region.first
+  # Group.where(region_id: nil).each do |group|
+  #   group.region = region
+  #   group.save
+  # end
+
+  # other_group = Group.find_by_name("Other")
+  # AdministrativeArea.where(group: other_group).each do |area|
+  #   area.group_id = nil
+  #   area.save
+  # end
+
+  # ActiveRecord::Base.record_timestamps = false
+  # begin
+  #   Issue.where(group: other_group).each do |issue|
+  #     issue.group_id = nil
+  #     issue.save
+  #   end
+  # ensure
+  #   ActiveRecord::Base.record_timestamps = true
+  # end
+
+  # other_group.destroy if other_group && other_group.issues.count == 0
+
+
+  # User.all.each do |user|
+  #   puts "updating user #{ user.id }  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+  #   user.administrative_area_ids = user.groups.collect{ |a| a.administrative_area_ids }.flatten.compact
+  #   user.save
+  # end
 
 # ActiveRecord::Base.record_timestamps = false
 # begin
