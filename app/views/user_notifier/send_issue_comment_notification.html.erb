@@ -15,6 +15,9 @@
 
     <p>Best wishes,</p>
     <p><b>ncn-reporting</b></p>
+    <div style='text-align: right;'>
+      <%= link_to 'unfollow', unfollow_issue_url(@issue.issue_number) %>
+    </div>
     <%= render 'shared_footer', show_comment_beta_notice: true %>
   </body>
 </html>
