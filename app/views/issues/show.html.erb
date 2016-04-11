@@ -45,9 +45,11 @@
           <%= render 'issue_location_data' %>
           <%= render 'issue_description' %>
           <%= render 'issue_comments' %>
-          <div id='followers'>
-            <%= render 'followers' %>
-          </div>
+          <% if can? :edit, @issue %>
+            <div id='followers'>
+              <%= render 'followers' %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
