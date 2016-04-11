@@ -1,5 +1,5 @@
 class IssuesController < ApplicationController
-  before_action :set_issue, only: [:show, :edit, :update, :destroy]
+  before_action :set_issue, only: [:show, :edit, :update, :destroy, :follow, :unfollow]
   before_action :load_issues, only: [:index, :show]
   # before_action :load_issue_followers, only: [:show, :create]
   load_and_authorize_resource
@@ -199,6 +199,34 @@ class IssuesController < ApplicationController
       format.html { redirect_to issues_url, notice: 'Issue was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def follow
+    if @issue.followers.include?(current_user)
+      flash[:alert] = "You are already following this issue"
+    else
+      @issue.followers += [current_user]
+      if @issue.save
+        flash[:alert] = "You are now following this issue"
+      else
+        flash[:alert] = "Sorry it didn't work. Please try again."
+      end
+    end
+    redirect_to issue_number_path(issue_number: @issue.issue_number)
+  end
+
+  def unfollow
+    if @issue.followers.include?(current_user)
+      @issue.followers -= [current_user]
+      if @issue.save
+        flash[:alert] = "You are no longer following this issue"
+      else
+        flash[:alert] = "Sorry it didn't work. Please try again."
+      end
+    else
+      flash[:alert] = "You are not following this issue"
+    end
+    redirect_to issue_number_path(issue_number: @issue.issue_number)
   end
 
   def search

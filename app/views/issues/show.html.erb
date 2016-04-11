@@ -27,6 +27,7 @@
           <div class='row'>
             <div class="large-6 columns">
               <%= render 'issue_author_data' %>
+              <%= render 'follow_issue_toggle_link' %>
             </div>
             <div class="large-6 columns">
               <%= render 'very_near_issues', very_near_issues: @duplicate_issues, very_near_issues_title: "Possible Duplicate" %>

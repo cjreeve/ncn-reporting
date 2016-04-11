@@ -60,6 +60,9 @@ Rails.application.routes.draw do
   end
   get '/issue/:issue_number' => 'issues#show', as: :issue_number
   patch '/issue/:issue_number' => 'issues#update'
+  get '/issue/:issue_number/follow' => 'issues#follow', as: :follow_issue
+  get '/issue/:issue_number/unfollow' => 'issues#unfollow', as: :unfollow_issue
+
 
   get '/search' => 'issues#search', as: :issues_search
 

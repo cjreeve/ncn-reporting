@@ -458,3 +458,16 @@ input.success.publish-issue.disabled{
     margin: rem-calc(20 0 0 0);
   }
 }
+
+
+.follow-issue-toggle-option{
+  @media #{$small-only}{
+    margin: rem-calc(-10 0 20 0);
+  }
+  i{
+    color: $dark-green;
+  }
+  a{
+    color: $dark-grey;
+  }
+}

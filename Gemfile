@@ -25,6 +25,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 gem 'foundation-rails', '~> 5.5'
+gem 'foundation-icons-sass-rails', '~> 3.0'
 gem 'simple_form', '~> 3.1'
 gem 'state_machine', '~> 1.2'
 gem 'will_paginate', '~> 3.0'
@@ -54,7 +55,6 @@ group :assets do
   gem 'uglifier', '~> 2.7'
   # Add Foundation Here
   gem 'compass-rails', '~> 2.0' # you need this or you get an err
-  gem 'foundation-icons-sass-rails', '~> 3.0'
 end
 
 group :development do
