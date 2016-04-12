@@ -46,6 +46,8 @@ def set_issue_followers(issue, all_route_section_managers)
     followers += all_route_section_managers.select{ |u| u.role == "staff" }
   end
 
+  followers += issue.comments.collect { |c| c.user }
+
   issue.followers << followers
   issue.followers = issue.followers.uniq
   issue
