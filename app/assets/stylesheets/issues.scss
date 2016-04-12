@@ -478,3 +478,11 @@ input.success.publish-issue.disabled{
     color: $dark-grey;
   }
 }
+
+#cancel-issue-follower-update{
+  color: $grey;
+  font-size: rem-calc(11);
+  float:right;
+  display: inline-block;
+  margin-right: rem-calc(15);
+}
