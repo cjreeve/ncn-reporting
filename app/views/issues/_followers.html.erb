@@ -1,7 +1,14 @@
 
 <div id="follower-list">
   <div class='follower-list-container'>
-    <b>Notified</b>: <%= follower_links @issue.followers %>
+    <b>Notified</b>:
+    <%=
+      if @issue.followers.present?
+        follower_links @issue.followers
+      else
+        "&nbsp;none".html_safe
+      end
+    %>
   </div>
   <div>
     &nbsp;

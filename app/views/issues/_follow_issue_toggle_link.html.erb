@@ -1,13 +1,15 @@
 <% if can? :edit, @issue %>
   <div class='follow-issue-toggle-option'>
-    <% title_text = "You will receive emails of comments people make on this issue when this option is checked. You are automatically added to this email list if you create an issue, make a comment or are a ranger for the route section." %>
     <% if @issue.followers.include?(current_user) %>
+      <% title_text = "You will receive emails of comments people make on this issue. Click to stop receiving comment updates for this issue." %>
       <i class="fi-check"></i>
       <%= link_to 'follow comments',
           unfollow_issue_path(issue_number: @issue.issue_number),
           title: title_text
       %>
     <% else %>
+      <% title_text = "You do *not* receive emails of comments people make on this issue. Click to receive comment updates for this issue." %>
+      <i class="">&nbsp;</i>
       <%= link_to 'follow comments',
           follow_issue_path(issue_number: @issue.issue_number),
           title: title_text

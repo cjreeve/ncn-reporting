@@ -205,8 +205,7 @@ class IssuesController < ApplicationController
     if @issue.followers.include?(current_user)
       flash[:alert] = "You are already following this issue"
     else
-      @issue.followers += [current_user]
-      if @issue.save
+      if @issue.followers << current_user
         flash[:alert] = "You are now following this issue"
       else
         flash[:alert] = "Sorry it didn't work. Please try again."
@@ -217,8 +216,7 @@ class IssuesController < ApplicationController
 
   def unfollow
     if @issue.followers.include?(current_user)
-      @issue.followers -= [current_user]
-      if @issue.save
+      if IssueFollowerSelection.find_by(user_id: current_user, issue_id: @issue).try(:destroy)
         flash[:alert] = "You are no longer following this issue"
       else
         flash[:alert] = "Sorry it didn't work. Please try again."
@@ -280,6 +278,7 @@ class IssuesController < ApplicationController
     @issue = Issue.find(params[:id])
     @issues = Issue.all.order('lng DESC')
     @issue.editor = current_user
+    @issue.followers << current_user
     action_taken = nil
     if params[:submit] && @issue.submittable?
       @issue.submit!
@@ -492,7 +491,8 @@ class IssuesController < ApplicationController
       followers += all_route_section_managers.select{ |u| u.role == "staff" }
     end
 
-    issue.followers << followers
+    followers << current_user
+    issue.followers += followers
     issue.followers = issue.followers.uniq
     issue
   end

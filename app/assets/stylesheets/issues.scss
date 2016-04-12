@@ -466,6 +466,13 @@ input.success.publish-issue.disabled{
   }
   i{
     color: $dark-green;
+    border: rem-calc(1) solid $medium-grey;
+    border-radius: rem-calc(3);
+    padding: rem-cac(3);
+    line-height: 1;
+    width: rem-calc(18);
+    display: inline-block;
+    text-align: center;
   }
   a{
     color: $dark-grey;
