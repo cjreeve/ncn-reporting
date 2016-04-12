@@ -20673,12 +20673,31 @@ $.TokenList.Cache = function (options) {
     };
 };
 }(jQuery));
+$(window).bind('page:change', function() {
+  watch_followers_edit_click();
+});
+
+$(window).bind('page:load', function() {
+  watch_followers_edit_click();
+});
+
+function watch_followers_edit_click() {
+  $('#edit-followers').click(function(e) {
+    e.preventDefault();
+    $('#follower-list').hide();
+    $('#follower-tokens').fadeIn();
+  });
+}
+
+
+
+
+;
 (function() {
   jQuery(function() {
     return $(document).ready(function() {
       return $('.remove-photo-fields').on('click', function(e) {
         e.preventDefault();
-        console.log('issue_images_attributes_' + $(this).data('image-form-id') + '_id');
         $('#issue_images_attributes_' + $(this).data('image-form-id') + '__destroy').val("true");
         return $(this).closest(".image-fields").hide();
       });
@@ -21018,7 +21037,20 @@ $(function() {
     prePopulate: $("#issue_route_id").data("pre"),
     tokenLimit: 1
   });
+
+  initialiseFollowerTokens();
 });
+
+
+function initialiseFollowerTokens() {
+  $("#issue_user_tokens").tokenInput("/users.json", {
+    crossDomain: false,
+    prePopulate: $("#issue_user_tokens").data("pre"),
+    tokenLimit: 50,
+    theme: "facebook"
+  });
+}
+;
 (function() {
   var CSRFToken, Click, ComponentUrl, EVENTS, Link, ProgressBar, browserIsntBuggy, browserSupportsCustomEvents, browserSupportsPushState, browserSupportsTurbolinks, bypassOnLoadPopstate, cacheCurrentPage, cacheSize, changePage, clone, constrainPageCacheTo, createDocument, crossOriginRedirect, currentState, enableProgressBar, enableTransitionCache, executeScriptTags, extractTitleAndBody, fetch, fetchHistory, fetchReplacement, historyStateIsDefined, initializeTurbolinks, installDocumentReadyPageEventTriggers, installHistoryChangeHandler, installJqueryAjaxSuccessPageUpdateTrigger, loadedAssets, manuallyTriggerHashChangeForFirefox, pageCache, pageChangePrevented, pagesCached, popCookie, processResponse, progressBar, recallScrollPosition, ref, referer, reflectNewUrl, reflectRedirectedUrl, rememberCurrentState, rememberCurrentUrl, rememberReferer, removeNoscriptTags, requestMethodIsSafe, resetScrollPosition, setAutofocusElement, transitionCacheEnabled, transitionCacheFor, triggerEvent, visit, xhr,
     indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
@@ -21811,6 +21843,7 @@ $(function() {
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 
 
 
