@@ -225,7 +225,7 @@ class Issue < ActiveRecord::Base
     end
   end
 
-  def send_high_priority_issue_notifications(event_type)
+  def send_issue_creation_notifications(event_type)
 
     # two searches are added together to allow for any routes none are selected and the administrative_area is selected
     # and visa versa
@@ -234,10 +234,12 @@ class Issue < ActiveRecord::Base
     ) + User.includes(:administrative_areas, :routes).where(
       administrative_areas: {id: self.administrative_area.try(:id)}, routes: {id: [nil, self.route.try(:id)]}
     )
-    staff_route_managers = all_route_section_managers.select{ |u| u.role == "staff" }.uniq
+    route_managers = all_route_section_managers.select{ |u| u.role == "ranger" }
+    route_managers += all_route_section_managers.select{ |u| u.role == "staff" } if Issue::PRIORITY[issue.priority] == "high"
+    route_managers = route_managers.uniq
 
-    staff_route_managers.each do |user|
-      UserNotifier.send_high_priority_issue_notification(self, user, event_type).deliver unless (self.editor.try(:role) == "staff")
+    route_managers.each do |user|
+      UserNotifier.send_issue_creation_notification(self, user, event_type).deliver unless (self.editor.try(:role) == "staff")
     end
   end
 
@@ -281,7 +283,7 @@ class Issue < ActiveRecord::Base
 
   def send_high_priority_issue_notifications_if_changed
     if self.priority_changed? && PRIORITY[priority] == 'high' && %w{submitted open reopened}.include?(self.state)
-      self.send_high_priority_issue_notifications(:change)
+      self.send_issue_creation_notifications(:change)
     end
   end
 

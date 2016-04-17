@@ -284,9 +284,7 @@ class IssuesController < ApplicationController
       @issue.submit!
       @issue.save
       action_taken = "submitted"
-      if Issue::PRIORITY[@issue.priority] == 'high'
-        @issue.send_high_priority_issue_notifications(:submit)
-      end
+      @issue.send_issue_creation_notification(:submit)
     elsif params[:respecify]
       @issue.respecify!
       @issue.save

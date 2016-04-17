@@ -67,17 +67,23 @@ class UserNotifier < ActionMailer::Base
     )
   end
 
-  def send_high_priority_issue_notification(issue, user, event_type)
+  def send_issue_creation_notification(issue, user, event_type)
     @user = user
     @issue = issue
     @event_type = event_type
 
     return if exclude_user? user
 
+    if Issue::PRIORITY[issue.priority] == 'high'
+      priority_phrase = "a High Priority"
+    else
+      priority_phrase = "an"
+    end
+
     if event_type == :change
       subject = "#{ issue.editor.first_name } changed issue #{ issue.issue_number } to High Priority"
     else
-      subject = "#{ issue.user.first_name } submitted a High Priority issue (#{ issue.issue_number })"
+      subject = "#{ issue.user.first_name } submitted #{ priority_phrase } issue (#{ issue.issue_number })"
     end
 
     mail(
