@@ -82,7 +82,16 @@
   </div>
 </div>
 
-<%= f.input :description, input_html: { rows: 5 } %>
+<%= f.label :description, 'Description of problem', style: 'display:inline' %>
+<span
+  data-tooltip
+  aria-haspopup="true"
+  class="has-tip input-prompt"
+  title="Give only a third-person summary of the problem and any information that may be helpful in resolving it. Write further information about what you have done as a comment below. This is to enable problem descriptions to be printed and shared"
+>(?)
+</span>
+
+<%= f.input :description, input_html: { rows: 5 }, label: false %>
 
 <div class='edit-issue-image-fields'>
   <h2>Photos</h2>
