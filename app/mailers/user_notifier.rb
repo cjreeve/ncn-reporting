@@ -74,7 +74,7 @@ class UserNotifier < ActionMailer::Base
 
     return if exclude_user? user
 
-    if Issue::PRIORITY[issue.priority] == 'high'
+    if Issue::PRIORITY[@issue.priority] == 'high'
       priority_phrase = "a High Priority"
     else
       priority_phrase = "an"

@@ -284,7 +284,7 @@ class IssuesController < ApplicationController
       @issue.submit!
       @issue.save
       action_taken = "submitted"
-      @issue.send_issue_creation_notification(:submit)
+      @issue.send_issue_creation_notifications(:submit, current_user)
     elsif params[:respecify]
       @issue.respecify!
       @issue.save

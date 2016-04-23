@@ -1,5 +1,5 @@
 <%
-  if Issue::PRIORITY[issue.priority] == 'high'
+  if Issue::PRIORITY[@issue.priority] == 'high'
     priority_phrase = "a high priority"
   else
     priority_phrase = "an"
