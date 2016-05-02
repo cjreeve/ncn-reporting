@@ -1,0 +1,42 @@
+<% more_char = (@regions.count > 1 ? '▼' : '') %>
+
+<span class='filter-options-label'>
+  Filter areas by region
+</span>
+<ul class='small-block-grid-1 medium-block-grid-4 large-block-grid-6'>
+  <li>
+    <%
+      if @current_region == 'all'
+        area_label = "all regions #{more_char}"
+      elsif @current_region == 'undefined'
+        area_label = "groups undefined #{more_char}"
+      else
+        area_label = @current_region.try(:name).to_s + " #{more_char}"
+      end
+    %>
+    <a href="#" class="button select" data-dropdown="regionSelection" aria-controls="regionSelection" data-options="is_hover:true" aria-expanded="false">
+      <%= area_label %>
+    </a>
+    <% if @regions.count > 1 %>
+      <ul id="regionSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
+        <% unless @current_region == 'all' %>
+          <li>
+            <%= link_to 'all regions', administrative_areas_path({region: 'all'}) %>
+          </li>
+        <% end %>
+        <% unless @current_region == 'undefined' %>
+          <li>
+            <%= link_to 'groups undefined', administrative_areas_path({region: 'undefined'}) %>
+          </li>
+        <% end %>
+        <% @regions.each do |region| %>
+          <% unless @current_region == region %>
+            <li>
+              <%= link_to region.name, administrative_areas_path({region: region.id}) %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    <% end %>
+  </li>
+</ul>

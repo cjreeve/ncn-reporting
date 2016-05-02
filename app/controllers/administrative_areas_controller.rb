@@ -9,7 +9,18 @@ class AdministrativeAreasController < ApplicationController
     if params[:q]
       @administrative_areas = AdministrativeArea.where("name ilike ?", "%#{params[:q]}%")
     else
-      @administrative_areas = AdministrativeArea.all
+      if params[:region] == "all"
+        @administrative_areas = AdministrativeArea.all.order(:name)
+        @current_region = 'all'
+      else
+        @current_region = (Region.find_by_id(params[:region] ? params[:region] : current_user.region.id))
+        @administrative_areas = AdministrativeArea
+          .includes(group: [:region])
+          .order(:name)
+          .select{ |a| a.try(:group).try(:region_id) == @current_region.try(:id) }
+      end
+      @current_region = 'undefined' if @current_region.nil?
+      @regions = Region.all.order(:name)
     end
     respond_to do |format|
       format.html
