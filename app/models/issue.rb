@@ -346,58 +346,61 @@ class Issue < ActiveRecord::Base
     if params.present?
 
       filters << ["route", Route.find_by_slug(params[:route]).try(:name)] if params[:route]
-      filters << ["area", AdministrativeArea.find(params[:area]).try(:short_name)] if params[:area]
       p.text "#{ filters.collect{ |f| f[1] }.join('  -  ') }", align: :center
     else
-      p.text "Summary of all outstanding issues."
+      p.text "Summary of all outstanding issues", align: :center
     end
-
-    p.move_down(30);
-
+    p.move_down(10);
 
     n_issues = all.count
+    issue_index = 0
 
-    all.each_with_index do |issue, index|
-      p.font_size(18);
-      p.text "(#{ issue.issue_number }) #{ '- ' + issue.try(:route).try(:name).to_s unless params[:route] } - #{ issue.try(:category).try(:name) }: #{ issue.try(:problem).try(:name) }"
+    all.group_by(&:administrative_area_id).each do |area_id, area_issues|
+      area_issues.each  do |issue|
 
-      p.font_size(12);
-      if issue.reported_at
-        p.text "#{ issue.reported_at.strftime('%d %b %Y') }", align: :right
+        p.text "#{ issue.administrative_area.try(:name) }", align: :center
+        p.move_down(20);
+
+        p.font_size(18);
+        p.text "(#{ issue.issue_number }) #{ '- ' + issue.try(:route).try(:name).to_s unless params[:route] } - #{ issue.try(:category).try(:name) }: #{ issue.try(:problem).try(:name) }"
+
+        p.font_size(12);
+        if issue.reported_at
+          p.text "#{ issue.reported_at.strftime('%d %b %Y') }", align: :right
+        end
+
+        p.font_size(8)
+        p.text "location: #{ issue.location_name }, coordinate: #{ issue.lat }, #{ issue.lng }, state: #{ I18n.t 'state.' + issue.state }"
+
+        begin
+          p.image open("https://maps.googleapis.com/maps/api/staticmap?center=#{ issue.lat },#{ issue.lng }&zoom=16&size=640x150&maptype=terrain&markers=color:blue%7C#{ issue.lat },#{ issue.lng }&key=#{ Rails.application.config.google_api_key }"), width: 540
+        rescue
+          p.text 'map could not be displayed'
+        end
+
+        p.move_down(15)
+        p.font_size(12)
+        p.text "<b>Description:</b> #{ issue.description.present? ? ApplicationController.helpers.render_markdown(issue.description, 'restricted') : 'none' }", inline_format: true
+
+
+        p.font_size(11)
+        p.font "Times-Roman"
+        if issue.images.present? # && issue.images.first.fetch_remote_image.present?
+
+          t = p.make_table(
+            prawn_table_rows(issue),
+            cell_style: {border_color: "FFFFFF", inline_format: true}
+          )
+        t.draw
+        p.font "Helvetica"
+        p.move_down 20
+        end
+        p.font "Helvetica"
+
+        p.start_new_page unless (issue_index+1) == n_issues
+        issue_index += 1
       end
-
-      p.font_size(8)
-      p.text "Location: #{ issue.location_name }, Coordinate: #{ issue.lat },#{ issue.lng }"
-
-      begin
-        p.image open("https://maps.googleapis.com/maps/api/staticmap?center=#{ issue.lat },#{ issue.lng }&zoom=16&size=640x150&maptype=terrain&markers=color:blue%7C#{ issue.lat },#{ issue.lng }&key=#{ Rails.application.config.google_api_key }"), width: 540
-      rescue
-        p.text 'map could not be displayed'
-      end
-
-      p.move_down(15)
-      p.font_size(12)
-      p.text "<b>Description:</b> #{ issue.description.present? ? ApplicationController.helpers.render_markdown(issue.description, 'restricted') : 'none' }", inline_format: true
-
-
-      p.font_size(11)
-      p.font "Times-Roman"
-      if issue.images.present? # && issue.images.first.fetch_remote_image.present?
-
-        t = p.make_table(
-          prawn_table_rows(issue),
-          cell_style: {border_color: "FFFFFF", inline_format: true}
-        )
-      t.draw
-      p.font "Helvetica"
-      p.move_down 20
-      end
-      p.font "Helvetica"
-
-      p.start_new_page unless (index+1) == n_issues
     end
-
-
     p.render
   end
 
