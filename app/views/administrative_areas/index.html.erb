@@ -12,6 +12,9 @@
             <th>Name</th>
             <th>Short name</th>
             <th>Group</th>
+            <th>Rangers</th>
+            <th>Unresolved</th>
+            <th>Resolved</th>
             <th colspan="3"></th>
           </tr>
         </thead>
@@ -29,6 +32,37 @@
               </td>
               <td><%= administrative_area.short_name %></td>
               <td><%= administrative_area.group.name if administrative_area.group %></td>
+
+              <td>
+                <% rangers = User.joins(:administrative_areas)
+                    .where(administrative_areas: {id: administrative_area.id})
+                    .where(role: 'ranger')
+                %>
+                <%= rangers.count %>
+              </td>
+              <td>
+                <% if has_issues %>
+                  <%= Issue.joins(:administrative_area)
+                      .where(administrative_areas: {id: administrative_area.id})
+                      .where(state: ['submitted', 'open', 'reopened', 'in_progress'])
+                      .count
+                  %>
+                <% else %>
+                  0
+                <% end %>
+              </td>
+              <td>
+                <% if has_issues %>
+                  <%= Issue.joins(:administrative_area)
+                      .where(administrative_areas: {id: administrative_area.id})
+                      .where(state: ['closed'])
+                      .count
+                  %>
+                <% else %>
+                  0
+                <% end %>
+              </td>
+
               <td><%= link_to 'Show', administrative_area %></td>
               <td><%= link_to 'Edit', edit_administrative_area_path(administrative_area) %></td>
               <td>

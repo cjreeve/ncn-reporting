@@ -16,7 +16,7 @@ class AdministrativeAreasController < ApplicationController
         @current_region = (Region.find_by_id(params[:region] ? params[:region] : current_user.region.id))
         @administrative_areas = AdministrativeArea
           .includes(group: [:region])
-          .order(:name)
+          .order([:group_id, :name])
           .select{ |a| a.try(:group).try(:region_id) == @current_region.try(:id) }
       end
       @current_region = 'undefined' if @current_region.nil?
