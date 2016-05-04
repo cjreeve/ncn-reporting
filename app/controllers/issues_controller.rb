@@ -471,7 +471,7 @@ class IssuesController < ApplicationController
 
   def load_coordinator_route_managers(issue)
     User.includes(:groups)
-        .where( groups: {id: [nil, issue.group.try(:id)]})
+        .where( groups: {id: issue.group.try(:id)})
         .where(role: "coordinator")
   end
 

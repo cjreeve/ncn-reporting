@@ -9,7 +9,8 @@
       <%
         exclusions = ["locked"]
         exclusions += ["admin"] if current_user.role == "staff"
-        exclusions += ["admin", "staff"] if current_user.role == "ranger"
+        exclusions += ["admin", "staff"] if current_user.role == "coordinator"
+        exclusions += ["admin", "staff", "coordinator"] if current_user.role == "ranger"
       %>
       <%= f.collection_select :role, User::ROLES - exclusions, :to_s, :humanize %>
     <% end %>

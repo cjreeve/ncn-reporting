@@ -22,7 +22,7 @@ class Ability
       can :read, User
       can :update, User, id: user.id
       can :manage, Comment
-      can :manage, Page, role: ["volunteer", "ranger", "staff"]
+      can :manage, Page, role: ["volunteer", "ranger", "coordinator", "staff"]
       can :create, Page
       can :read, Page
       can :manage, Label
@@ -30,7 +30,7 @@ class Ability
       can :read, Update
     end
 
-    if %w{coordinator ranger}.include?(user.role) && !user.is_locked?
+    if user.ranger_like? && !user.is_locked?
       can :read, Region
       can [:read, :create, :edit, :update, :progress], Issue
       can [:destroy], Issue, user_id: user.id
@@ -43,7 +43,7 @@ class Ability
       can :read, User
       can :manage, User, id: user.id
       can :manage, Comment, user_id: user.id
-      can :manage, Page, role: ["volunteer", "ranger"]
+      can :manage, Page, role: ["volunteer", "ranger", "coordinator"]
       can :read, Page
       can :read, Route
       can :read, Label

@@ -47,6 +47,10 @@ class User < ActiveRecord::Base
     self.issues.limit(1).blank? && self.comments.limit(1).blank?
   end
 
+  def ranger_like?
+    %w{ranger coordinator}.include? role
+  end
+
   def can_view_email?(user)
     self.role == "staff" || user.role == "staff" || self.is_admin? || user == self
   end
@@ -67,7 +71,7 @@ class User < ActiveRecord::Base
 
   # TODO - how to show other route or group 'submitted' notifications for volunteer coordinator?
   def user_submitted_issue_count(user_areas = self.administrative_areas.to_a, user_routes = self.routes.to_a)
-    if %w{ranger coordinator}.include?(self.role) && user_areas.present?
+    if self.ranger_like? && user_areas.present?
       options = { state: 'submitted', administrative_area: user_areas }
       options[:route] = user_routes if user_routes.present?
       Issue.where(options).count
@@ -78,7 +82,7 @@ class User < ActiveRecord::Base
 
   # TODO - how to show other route or group 'resolved' notifications for volunteer coordinator?
   def user_resolved_issue_count(user_areas = self.administrative_areas.to_a, user_routes = self.routes.to_a)
-    if %w{ranger coordinator}.include?(self.role) && user_areas.present?
+    if self.ranger_like? && user_areas.present?
       options = { state: 'resolved', administrative_area: user_areas }
       options[:route] = user_routes if user_routes.present?
       Issue.where(options).count
