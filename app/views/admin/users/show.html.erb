@@ -11,9 +11,6 @@
             <td>email:</td><td><%= @user.email %></td>
           </tr>
           <tr>
-            <td>Region:</td><td><%= @user.region.try(:name) %></td>
-          </tr>
-          <tr>
             <td>Role:</td><td><%= @user.role %></td>
           </tr>
           <% if @user.is_admin? %>
@@ -26,6 +23,15 @@
               <td></td><td><b>account is locked</b></td>
             </tr>
           <% end %>
+          <tr>
+            <td>Region:</td><td><%= @user.region.try(:name) %></td>
+          </tr>
+          <tr>
+            <td>Routes:</td><td><%= @user.administrative_areas.collect(&:short_name).to_sentence %></td>
+          </tr>
+          <tr>
+            <td>Areas:</td><td><%= @user.routes.collect(&:name).to_sentence %></td>
+          </tr>
           <tr>
             <td>Created:</td><td><%= @user.created_at.strftime("%d %b %Y - %H:%M") %></td>
           </tr>
