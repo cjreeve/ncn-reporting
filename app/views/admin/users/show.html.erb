@@ -27,10 +27,10 @@
             <td>Region:</td><td><%= @user.region.try(:name) %></td>
           </tr>
           <tr>
-            <td>Routes:</td><td><%= @user.administrative_areas.collect(&:short_name).to_sentence %></td>
+            <td>Areas:</td><td><%= @user.administrative_areas.collect(&:short_name).to_sentence %></td>
           </tr>
           <tr>
-            <td>Areas:</td><td><%= @user.routes.collect(&:name).to_sentence %></td>
+            <td>Routes:</td><td><%= @user.routes.collect(&:name).to_sentence %></td>
           </tr>
           <tr>
             <td>Created:</td><td><%= @user.created_at.strftime("%d %b %Y - %H:%M") %></td>
