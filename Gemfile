@@ -63,6 +63,7 @@ group :development do
   gem 'pry'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'rb-inotify', '~> 0.9.7'
 end
 
 group :production do
