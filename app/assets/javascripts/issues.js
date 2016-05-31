@@ -139,7 +139,7 @@ $(document).ready(function() {
   $('#add-marker-listener').click(function(event){
     event.preventDefault();
 
-    map.setOptions({ draggableCursor : "url(http://labs.google.com/ridefinder/images/mm_20_white.png) 6 32, auto" })
+    map.setOptions({ draggableCursor : "url(https://labs.google.com/ridefinder/images/mm_20_white.png) 6 32, auto" })
 
     google.maps.event.addListener(map, 'click', function(e) {
       placeMarker(e.latLng, map);
