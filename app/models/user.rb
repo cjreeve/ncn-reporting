@@ -51,6 +51,26 @@ class User < ActiveRecord::Base
     %w{ranger coordinator}.include? role
   end
 
+  def guest?
+    role == 'guest'
+  end
+
+  def volunteer?
+    role == 'volunteer'
+  end
+
+  def ranger?
+    role == 'ranger'
+  end
+
+  def coordinator?
+    role == 'coordinator'
+  end
+
+  def staff?
+    role == 'staff'
+  end
+
   def can_view_email?(user)
     self.role == "staff" || user.role == "staff" || self.is_admin? || user == self
   end
