@@ -52,7 +52,7 @@
       var myLat = <%= this_issue.lat %>;
       var myLng = <%= this_issue.lng %>;
       var zIndex = 10000;
-      var icon = "http://maps.google.com/mapfiles/ms/icons/pink.png";
+      var icon = "https://maps.google.com/mapfiles/ms/icons/pink.png";
       var description = "<%= formatted_description this_issue %>";
       createMarker(map,[myTitle, myLat, myLng, zIndex, icon, description]);
     <% end %>

@@ -133,7 +133,7 @@ module ApplicationHelper
     end
     marker_colour = "grey" if state == "closed"
 
-    "http://maps.google.com/mapfiles/ms/icons/"+marker_colour+".png"
+    "https://maps.google.com/mapfiles/ms/icons/"+marker_colour+".png"
   end
 
   def get_issue_coord_stats(issues)

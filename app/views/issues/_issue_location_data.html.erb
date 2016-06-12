@@ -27,10 +27,10 @@
           <%= @issue.coordinate %>
           <div>
             <%=
-                link_to 'openstreetmap', "http://www.openstreetmap.org/?mlat=#{@issue.lat}&mlon=#{@issue.lng}&layers=C", target: :_blank
+                link_to 'openstreetmap', "https://www.openstreetmap.org/?mlat=#{@issue.lat}&mlon=#{@issue.lng}&layers=C", target: :_blank
             %>,
             <%=
-                link_to 'googlemaps', "http://maps.google.com/?q=#{@issue.lat},#{@issue.lng}", target: :_blank
+                link_to 'googlemaps', "https://maps.google.com/?q=#{@issue.lat},#{@issue.lng}", target: :_blank
             %>
           </div>
         <% else %>
