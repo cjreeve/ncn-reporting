@@ -1,9 +1,6 @@
 <% if can? :read, Comment %>
   <div id='comments'>
-    <%= render 'comments/comments',
-      comments: @issue.comments.order(created_at: :asc),
-      issue: @issue,
-      new_comment: @new_comment
-    %>
+    <%= render 'comments/comments', comments: @comments, issue: @issue %>
+    <%= render 'issues/comment_form', comment: @new_comment, issue: @issue %>
   </div>
 <% end %>

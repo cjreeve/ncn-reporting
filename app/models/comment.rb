@@ -2,6 +2,8 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :issue
 
+  validates :content, presence: { message: 'Please provide a comment'}
+
   def formatted_content
     ApplicationController.helpers.render_markdown(
       ActionController::Base.helpers.strip_tags(

@@ -46,5 +46,7 @@ module Workspace
 
     config.coord_limits = { lng: [-11.0, 2.0], lat: [49.0, 61.0] }
 
+    config.comments_per_page = 7
+
   end
 end

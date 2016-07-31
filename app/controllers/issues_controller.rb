@@ -83,6 +83,8 @@ class IssuesController < ApplicationController
       authorize! :destroy, @issue
     end
 
+    per_page = Rails.application.config.comments_per_page
+    @comments = @issue.comments.order(created_at: :desc).paginate(page: 1, per_page: per_page)
     @new_comment = Comment.new
 
     if @issue.administrative_area && @issue.route

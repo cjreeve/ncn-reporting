@@ -1,0 +1,29 @@
+
+#comments{
+  .show-previous-comments{
+    display: block;
+    margin-bottom: rem-calc(5);
+    border: rem-calc(1) solid $medium-grey;
+    padding: rem-calc(5 10);
+    background-color: $light-grey;
+    font-size: rem-calc(12);
+    color: $dark-grey;
+    text-transform: uppercase;
+    text-align: center;
+    &:hover{
+      text-decoration: none;
+      background-color: darken($light-grey, 7);
+    }
+  }
+}
+
+#new_comment{
+  .alert-box{
+    display: none;
+  }
+  small.error{
+    margin-bottom: rem-calc(5);
+  }
+}
+
+

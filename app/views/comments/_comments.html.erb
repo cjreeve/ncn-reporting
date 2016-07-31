@@ -1,23 +1,16 @@
 
-<% comments.each do |comment| %>
-  <div class='comment'>
-    <% if can? :delete, comment %>
-      <%= link_to "&times".html_safe, 
-          comment_path(comment), method: :delete, 
-          remote: true, 
-          class: 'delete-comment' 
-      %>
-    <% end %>
-    <div class='comment-content'>
-      <%= comment.formatted_content %>
-    </div>
-    <div class='comment-footer'>
-      <div class='comment-label'>
-        <%= link_to comment.user.name, user_path(comment.user) %>
-        at
-        <%= comment.created_at.strftime("%H:%M on %d %b %Y") %>
-      </div>
-    </div>
-  </div>
+<% if comments.total_pages > comments.current_page %>
+  <%= link_to comments_path(page: comments.current_page + 1, issue_id: issue.id),
+              remote: true,
+              data: { disable_with: "loading…" },
+              class: 'show-previous-comments' do
+  %>
+    Show previous comments
+  <% end %>
 <% end %>
-<%= render 'issues/comment_form', new_comment: new_comment, issue: issue %>
+
+<div class='comment-list'>
+  <% comments.reverse.each do |comment| %>
+    <%= render 'comments/comment', comment: comment %>
+  <% end %>
+</div>

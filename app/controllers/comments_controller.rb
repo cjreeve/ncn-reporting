@@ -5,12 +5,12 @@ class CommentsController < ApplicationController
   respond_to :html
 
   def index
-    @comments = Comment.all
-    respond_with(@comments)
-  end
-
-  def show
-    respond_with(@comment)
+    per_page = Rails.application.config.comments_per_page
+    @issue = Issue.find_by_id(params[:issue_id])
+    @comments = @issue.comments.order(created_at: :desc).paginate(page: params[:page], per_page: per_page)
+    respond_to do |format|
+      format.js { return (render :index) }
+    end
   end
 
   def new
@@ -41,7 +41,8 @@ class CommentsController < ApplicationController
           UserNotifier.send_issue_comment_notification(follower, @comment, @issue, current_user).deliver
         end
       else
-        format.html { return render :show }
+        @validation_errors = true
+        format.js { return render :comment }
       end
     end
   end

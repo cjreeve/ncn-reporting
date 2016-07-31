@@ -1,0 +1,19 @@
+<div class='comment'>
+  <% if can? :delete, comment %>
+    <%= link_to "&times".html_safe,
+        comment_path(comment), method: :delete,
+        remote: true,
+        class: 'delete-comment'
+    %>
+  <% end %>
+  <div class='comment-content'>
+    <%= comment.formatted_content %>
+  </div>
+  <div class='comment-footer'>
+    <div class='comment-label'>
+      <%= link_to comment.user.name, user_path(comment.user) %>
+      at
+      <%= comment.created_at.strftime("%H:%M on %d %b %Y") %>
+    </div>
+  </div>
+</div>
