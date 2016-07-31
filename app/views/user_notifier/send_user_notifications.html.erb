@@ -6,13 +6,17 @@
   <body>
     <p>Hi <%= @user.first_name %>!</p>
     <p>
-      Just to remind you of the following <%= "issue".pluralize @total_pending_count %> 
+      Just to remind you of the following <%= "issue".pluralize @total_pending_count %>
       that <%= @total_pending_count == 1 ? 'is' : 'are' %>  awaiting your attention.
     </p>
 
     <ul>
       <%= render 'site/notification_types' %>
     </ul>
+
+    <% if @user_submitted_issue_count > 0 %>
+      If you are a ranger for the location of a 'submitted' issue then please check the issue details and 'publish' the issue so that the person who reported it knows you are aware of the problem. Once an issue is published you will no longer receive periodic reminders about it. You may need to apply a label to the ticket before you can publish it. If the ticket is missing vital details that you can't add, you can click the 'revert' button to put it back in a 'draft' state.
+    <% end %>
 
     <% if @old_issue  %>
       <p>
@@ -34,7 +38,7 @@
         <% if @open_label_counts[:sustrans].present? && @open_label_counts[:sustrans] > 0  %>
           because you have responded to a comment or informed the relevant body,
         <% end %>
-        
+
         you can either change the label if it no longer applies or click the 'Start' button on the issue to mark it as 'in progress'.
       </p>
     <% end %>
