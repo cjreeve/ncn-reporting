@@ -63,7 +63,7 @@ class UserNotifier < ActionMailer::Base
 
     mail(
       to: get_recipient_email(user),
-      subject: "#{ commenter.first_name } commented on issue #{ issue.issue_number }"
+      subject: "New comment on issue #{issue.issue_number} - #{issue.category.name} #{issue.problem.name}"
     )
   end
 
