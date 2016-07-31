@@ -8,7 +8,7 @@
     <p>
       <%= @commenter.name.gsub('(sustrans)','') %> added the following comment to
       <%= link_to "issue #{ @issue.issue_number }", issue_number_url(@issue.issue_number) %> -
-      <%= @issue.category.name %> <%= @issue.problem.name %>
+      <%= @issue.category.name %> <%= @issue.title %>
       <% if @issue.location_name.present? %>
         at <%= @issue.location_name %>
       <% end %>
