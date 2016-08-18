@@ -19,6 +19,11 @@
         <%= @administrative_area.group.name if @administrative_area.group %>
       </p>
 
+      <p>
+        <strong>Reporting URL:</strong>
+        <%= @administrative_area.reporting_url %>
+      </p>
+
       <%= link_to 'Edit', edit_administrative_area_path(@administrative_area) %> |
       <%= link_to 'Back', administrative_areas_path %>
     </div>

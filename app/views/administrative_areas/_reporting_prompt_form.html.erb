@@ -1,0 +1,12 @@
+<p>Add the URL for where the problem can be reported so others don't need to hunt for it</p>
+
+<%= simple_form_for administrative_area,
+                    method: :put,
+                    remote: true do |f|
+%>
+  <%= f.input :issue_id, as: :hidden, input_html: { value: issue_id } %>
+  <%= f.input :reporting_url %>
+  <%= f.button :submit, 'Update' %>
+<% end %>
+
+<%= link_to 'cancel', '#', class: 'cancel-editing-reporting-prompt' %>

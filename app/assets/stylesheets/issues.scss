@@ -486,3 +486,28 @@ input.success.publish-issue.disabled{
   display: inline-block;
   margin-right: rem-calc(15);
 }
+
+.reporting-prompt{
+  border: rem-calc(2) solid $grey;
+  background-color: $light-grey;
+  padding: rem-calc(10);
+  font-size: rem-calc(13);
+  line-height: 1.3;
+  &.emphasise{
+    border: rem-calc(2) solid $red;
+    background-color: $light-pink;
+    p{
+      display: inline;
+      font-size: inherit;
+      line-height: inherit;
+      a{
+        line-height: inherit;
+        color: inherit;
+        font-size: inherit;
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

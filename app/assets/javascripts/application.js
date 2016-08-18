@@ -21,6 +21,7 @@
 //= require followers
 //= require images
 //= require issues
+//= require issue_controls
 //= require notifications
 //= require owl
 //= require problems

@@ -1,0 +1,7 @@
+$('.reporting-prompt-url-form').hide();
+$('.reporting-prompt-text').show();
+$('.reporting-prompt-text').html('loading...');
+$('.reporting-prompt-text').html("<%= j(render '/administrative_areas/reporting_prompt_text', administrative_area: @administrative_area, issue: @issue) %>");
+$('.reporting-prompt').addClass('emphasise');
+
+loadReportingPromptFormOnClick();

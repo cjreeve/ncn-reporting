@@ -1,0 +1,20 @@
+<div class='reporting-prompt-text'>
+  Please report the problem to the relevant local authority if you can.
+  <% if issue.administrative_area.reporting_url.present? %>
+    <br>
+    The following URL may help:
+    <span class='reporting-prompt-url'>
+      <%= link_to issue.administrative_area.reporting_url.gsub('http://','').gsub('https://',''),
+                  issue.administrative_area.reporting_url,
+                  target: :_blank
+      %>
+    </span>
+  <% end %>
+  -
+  <%= link_to 'edit',
+                '#',
+                class: 'edit-reporting-prompt',
+                data: { administrative_area_id: issue.administrative_area.id, issue_id: issue.id }
+  %>
+
+</div>

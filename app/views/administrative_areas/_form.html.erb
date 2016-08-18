@@ -1,13 +1,16 @@
 <%= simple_form_for(@administrative_area) do |f| %>
   <%= f.error_notification %>
   <div class="row form-inputs">
-    <div class='medium-4 columns'>
+    <div class='medium-6 columns'>
       <%= f.input :name, disabled: true %>
     </div>
-    <div class='medium-4 columns'>
+    <div class='medium-6 columns'>
       <%= f.input :short_name %>
     </div>
-    <div class='medium-4 columns'>
+    <div class='medium-6 columns'>
+      <%= f.input :reporting_url %>
+    </div>
+    <div class='medium-6 columns'>
       <%= f.input :group_id, collection: @groups, as: :select, label: 'Group' %>
     </div>
   </div>

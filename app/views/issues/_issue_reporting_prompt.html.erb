@@ -1,0 +1,20 @@
+<% if @issue.administrative_area && @issue.labels.collect(&:name).include?('council') %>
+  <% if (current_user == @issue.user) ||
+    ((@issue.submitted? || @issue.published?) && (
+      @ranger_route_managers.to_a.include?(current_user) ||
+      @coordinator_route_managers.to_a.include?(current_user)
+      )
+    )
+   %>
+    <div class='row'>
+      <div class='medium-6 columns'>
+        <div class='reporting-prompt emphasise'>
+          <div class='reporting-prompt-text'>
+            <%= render 'administrative_areas/reporting_prompt_text', issue: @issue %>
+          </div>
+          <div class='reporting-prompt-url-form'></div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

@@ -11,17 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160406213437) do
+ActiveRecord::Schema.define(version: 20160731184521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "administrative_areas", force: :cascade do |t|
-    t.string   "name",       limit: 255, null: false
-    t.string   "short_name", limit: 255
+    t.string   "name",          limit: 255, null: false
+    t.string   "short_name",    limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "group_id"
+    t.string   "reporting_url"
   end
 
   add_index "administrative_areas", ["group_id"], name: "index_administrative_areas_on_group_id", using: :btree

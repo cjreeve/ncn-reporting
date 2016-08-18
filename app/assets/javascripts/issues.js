@@ -30,6 +30,12 @@ $(document).ready(function() {
     e.preventDefault();
     $('#missing-details-issue-modal').foundation('reveal', 'open');
   });
+
+  // add target='_blank' to banner prompting users to report an issue
+  // if ($('.reporting-prompt p a').length > 0){
+  //   $('.reporting-prompt p a').attr('target','_blank');
+  // }
+  $('.edit-reporting-prompt')
 });
 
 

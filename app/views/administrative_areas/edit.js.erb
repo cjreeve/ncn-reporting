@@ -1,0 +1,6 @@
+
+$('.reporting-prompt').removeClass('emphasise');
+$('.reporting-prompt-text').hide();
+$('.reporting-prompt-url-form').show();
+$('.reporting-prompt-url-form').html('loading...');
+$('.reporting-prompt-url-form').html("<%= j(render '/administrative_areas/reporting_prompt_form', administrative_area: @administrative_area, issue_id: @issue_id) %>");

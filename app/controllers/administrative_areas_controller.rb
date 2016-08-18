@@ -38,6 +38,7 @@ class AdministrativeAreasController < ApplicationController
   end
 
   def edit
+    @issue_id = params[:issue_id]
   end
 
   def create
@@ -47,8 +48,13 @@ class AdministrativeAreasController < ApplicationController
   end
 
   def update
-    @administrative_area.update(administrative_area_params)
-    respond_with(@administrative_area)
+    @issue = Issue.find(administrative_area_params[:issue_id]) if administrative_area_params[:issue_id]
+
+    if @administrative_area.update(administrative_area_params)
+      render :show
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -66,6 +72,6 @@ class AdministrativeAreasController < ApplicationController
     end
 
     def administrative_area_params
-      params.require(:administrative_area).permit(:name, :short_name, :group_id)
+      params.require(:administrative_area).permit(:name, :short_name, :group_id, :reporting_url, :issue_id)
     end
 end
