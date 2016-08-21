@@ -1,6 +1,7 @@
 <% if @issue.administrative_area && @issue.labels.collect(&:name).include?('council') %>
-  <% if (current_user == @issue.user) ||
-    ((@issue.submitted? || @issue.published?) && (
+  <% if (current_user == @issue.user &&
+    (%w{draft submitted open}.include? @issue.state)) ||
+    ((%w{submitted open}.include? @issue.state) && (
       @ranger_route_managers.to_a.include?(current_user) ||
       @coordinator_route_managers.to_a.include?(current_user)
       )

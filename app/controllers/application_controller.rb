@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   add_flash_types :uniqueness_properties_changed
 
   def mail_exception(exception)
-    if true %w{production staging}.include? Rails.env 
+    if %w{production staging}.include? Rails.env 
       UserNotifier.send_system_error_notification(exception).deliver_now
     end
     raise exception
