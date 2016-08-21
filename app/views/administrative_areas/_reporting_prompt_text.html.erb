@@ -1,8 +1,10 @@
+<% link_present = issue.administrative_area.reporting_url.present? %>
+
 <div class='reporting-prompt-text'>
   Please report the problem to the relevant local authority if you can.
-  <% if issue.administrative_area.reporting_url.present? %>
+  <% if link_present %>
     <br>
-    The following URL may help:
+    The following link may help:
     <span class='reporting-prompt-url'>
       <%= link_to issue.administrative_area.reporting_url.gsub('http://','').gsub('https://',''),
                   issue.administrative_area.reporting_url,
@@ -11,7 +13,7 @@
     </span>
   <% end %>
   -
-  <%= link_to 'edit',
+  <%= link_to (link_present ? 'edit' : "add reporting link"),
                 '#',
                 class: 'edit-reporting-prompt',
                 data: { administrative_area_id: issue.administrative_area.id, issue_id: issue.id }

@@ -510,4 +510,17 @@ input.success.publish-issue.disabled{
       }
     }
   }
+  form{
+    .controls{
+      text-align: right;
+      input{
+        padding: rem-calc(10);
+        margin: 0;
+      }
+      .cancel-editing-reporting-prompt{
+        padding-right: rem-calc(10);
+      }
+    }
+  }
+
 }
