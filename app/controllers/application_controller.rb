@@ -1,14 +1,23 @@
 class ApplicationController < ActionController::Base
+  rescue_from Exception, with: :mail_exception
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   before_filter :log_user_activity
   before_filter :load_global_variables
 
-  protect_from_forgery# with: :exception
+  protect_from_forgery # with: :exception
 
   after_filter :store_location
 
   add_flash_types :uniqueness_properties_changed
+
+  def mail_exception(exception)
+    if true %w{production staging}.include? Rails.env 
+      UserNotifier.send_system_error_notification(exception).deliver_now
+    end
+    raise exception
+  end
 
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last visited.

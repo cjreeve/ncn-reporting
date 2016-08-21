@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p><%= @exception.message %></p>
+    <br>
+    <% @exception.backtrace[0..10].each do |line| %>
+      <p><%= line %></p>
+    <% end %>
+  </body>
+</html>

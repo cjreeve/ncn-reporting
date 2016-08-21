@@ -2,6 +2,16 @@ class UserNotifier < ActionMailer::Base
 
   default from: "ncn-reporting <noreply@ncn-reporting.herokuapp.com>"
 
+  def send_system_error_notification(exception)
+    @exception = exception
+    message = @exception.message.split('for #').first 
+
+    mail(
+      to: Rails.application.config.dev_email,
+      subject: "500 - #{ message }"
+    )
+  end
+
   def send_user_notifications(user)
     @user = user
 
