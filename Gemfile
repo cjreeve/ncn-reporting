@@ -57,6 +57,12 @@ group :assets do
   gem 'compass-rails', '~> 2.0' # you need this or you get an err
 end
 
+group :test do
+  gem 'rspec-rails', '~> 3.4'
+  # gem 'shoulda-matchers', '~> 3.0', require: false
+  # gem 'database_cleaner', '~> 1.5'
+end
+
 group :development do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
