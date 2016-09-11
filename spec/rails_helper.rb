@@ -17,6 +17,8 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
+# gem 'database_cleaner'
+config.use_transactional_fixtures = false
 
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
