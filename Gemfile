@@ -21,8 +21,6 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
-# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring',        group: :development
 
 gem 'foundation-rails', '~> 5.5'
 gem 'foundation-icons-sass-rails', '~> 3.0'
@@ -58,15 +56,21 @@ group :assets do
 end
 
 group :test do
-  gem 'rspec-rails', '~> 3.4'
   gem 'shoulda-matchers', '~> 3.0', require: false
   gem 'database_cleaner', '~> 1.5'
+  gem 'faker', '~> 1.6.1'
+end
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.4'
+  gem 'factory_girl_rails', '~> 4.5.0'
+  gem 'capybara', '~> 2.5'
+  gem 'pry'
 end
 
 group :development do
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
-  gem 'pry'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring',        group: :development
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'rb-inotify', '~> 0.9.7'
