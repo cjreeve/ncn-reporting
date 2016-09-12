@@ -24,6 +24,8 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
 end
 
+Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
 # Capybara is an automation framework used for creating functional tests that simulates how users will interact with your application
 require 'capybara/rspec'
 
@@ -75,16 +77,4 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
-  end
-
-  config.before(:each) do
-    DatabaseCleaner.start
-  end
-
-  config.after(:each) do
-    DatabaseCleaner.clean
-  end
 end
