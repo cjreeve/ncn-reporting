@@ -4,7 +4,7 @@ FactoryGirl.define do
     name          { Faker::Name.name }
     email         { Faker::Internet.email }
     password      { Faker::Internet.password }
-    region        { FactoryGirl.build(:region) }
+    region        { FactoryGirl.create(:region) }
 
     factory :guest do
       role 'guest'
