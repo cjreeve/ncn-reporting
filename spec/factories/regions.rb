@@ -6,7 +6,7 @@ FactoryGirl.define do
     end
 
     name do
-      Region.find_by(name: region_name) || Region.create(name: region_name)
+      Region.find_by(name: region_name) || FactoryGirl.create(:region, name: region_name)
     end
   end
 end

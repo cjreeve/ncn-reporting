@@ -46,10 +46,10 @@ RSpec.describe IssuesController, type: :controller do
 
       context "no attributes" do
         let(:issue) { FactoryGirl.create(:issue) }
-        # let(:another_issue) { FactoryGirl.create(:issue) }
+        let(:another_issue) { FactoryGirl.create(:issue) }
         before(:each) do
           issue
-          # another_issue
+          another_issue
         end
 
         it "does not raise error" do
@@ -63,7 +63,7 @@ RSpec.describe IssuesController, type: :controller do
 
         it "does not find other issue" do
           get :show, issue_number: issue.issue_number
-          # expect( assigns(:issue) ).not_to eq(another_issue)
+          expect( assigns(:issue) ).not_to eq(another_issue)
         end
       end
     end
