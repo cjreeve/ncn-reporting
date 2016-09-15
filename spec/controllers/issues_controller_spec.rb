@@ -44,7 +44,14 @@ RSpec.describe IssuesController, type: :controller do
 
       render_views
 
-      context "no attributes" do
+      context "signed in as ranger" do
+
+        let(:ranger) { FactoryGirl.create(:ranger) }
+
+        before(:each) do
+          sign_in ranger
+        end
+
         let(:issue) { FactoryGirl.create(:issue) }
         let(:another_issue) { FactoryGirl.create(:issue) }
         before(:each) do
@@ -64,6 +71,28 @@ RSpec.describe IssuesController, type: :controller do
         it "does not find other issue" do
           get :show, issue_number: issue.issue_number
           expect( assigns(:issue) ).not_to eq(another_issue)
+        end
+      end
+
+      context "central area and route 1" do
+
+        context "ranger for area and route" do
+
+          let(:ranger) { FactoryGirl.create(:ranger) }
+
+          before(:each) do
+            sign_in ranger
+            controller.stub(:current_user).and_return(ranger)
+          end
+
+          context "published issue with label council" do
+            let(:issue) { FactoryGirl.create(:issue, label_names: ['council'], user_name: ranger.name) }
+
+            it "shows the class 'reporting-prompt'" do
+              get :show, issue_number: issue.issue_number
+              expect(response.body).to have_css('div.reporting-prompt')
+            end
+          end
         end
       end
     end

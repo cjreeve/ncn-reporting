@@ -1,10 +1,12 @@
 
 FactoryGirl.define do
   factory :user do
+    transient     { region_name 'central' }
+
     name          { Faker::Name.name }
     email         { Faker::Internet.email }
     password      { Faker::Internet.password }
-    region        { FactoryGirl.create(:region) }
+    region        { Region.find_by(name: region_name) || FactoryGirl.create(:region, name: region_name) }
 
     factory :guest do
       role 'guest'
