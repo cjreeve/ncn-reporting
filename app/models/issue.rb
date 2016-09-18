@@ -53,22 +53,24 @@ class Issue < ActiveRecord::Base
 
   after_validation :coordinate_to_latlng
 
-  geocoded_by :address, latitude: :lat, longitude: :lng
+  unless Rails.env.test?
+    geocoded_by :address, latitude: :lat, longitude: :lng
 
-  reverse_geocoded_by :latitude, :longitude do |issue, results|
-    if results.present?
-      unless issue.location_name.present?
-        issue.location_name = issue.get_location_name(results)
+    reverse_geocoded_by :latitude, :longitude do |issue, results|
+      if results.present?
+        unless issue.location_name.present?
+          issue.location_name = issue.get_location_name(results)
+        end
+
+        administrative_area_name = issue.get_admin_area(results).strip
+        administrative_area_name = "unknown" if administrative_area_name.length == 0
+        issue.administrative_area = AdministrativeArea.find_or_create_by(name: administrative_area_name)
+        issue.find_group_from_coordinate
       end
-
-      administrative_area_name = issue.get_admin_area(results).strip
-      administrative_area_name = "unknown" if administrative_area_name.length == 0
-      issue.administrative_area = AdministrativeArea.find_or_create_by(name: administrative_area_name)
-      issue.find_group_from_coordinate
     end
-  end
 
-  after_validation :reverse_geocode, if: :lat_or_lng_changed?
+    after_validation :reverse_geocode, if: :lat_or_lng_changed?
+  end
 
   state_machine :state, initial: :draft do
     event :submit do
