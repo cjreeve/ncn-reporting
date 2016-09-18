@@ -76,21 +76,73 @@ RSpec.describe IssuesController, type: :controller do
 
       context "central area and route 1" do
 
-        context "ranger for area and route" do
+        let(:staff) { FactoryGirl.create(:staff) }
+        let(:coordinator) { FactoryGirl.create(:coordinator) }
+        let(:ranger) { FactoryGirl.create(:ranger) }
+        let(:volunteer) { FactoryGirl.create(:volunteer) }
+        let(:guest) { FactoryGirl.create(:volunteer) }
 
-          let(:ranger) { FactoryGirl.create(:ranger) }
 
-          before(:each) do
-            sign_in ranger
-            controller.stub(:current_user).and_return(ranger)
+        context "ranger published issue with label council" do
+          let(:issue) { FactoryGirl.create(:issue, label_names: ['council'], user_name: ranger.name, state: 'open') }
+
+          context "signed in as staff" do
+            before(:each) do
+              sign_in staff
+              controller.stub(:current_user).and_return(staff)
+            end
+
+            it "staff does not see the council 'reporting-prompt'" do
+              get :show, issue_number: issue.issue_number
+              expect(response.body).not_to have_css('div.reporting-prompt')
+            end
           end
 
-          context "published issue with label council" do
-            let(:issue) { FactoryGirl.create(:issue, label_names: ['council'], user_name: ranger.name) }
+          context "signed in as coordinator" do
+            before(:each) do
+              sign_in coordinator
+              controller.stub(:current_user).and_return(coordinator)
+            end
 
-            it "shows the class 'reporting-prompt'" do
+            it "coordinator does not see the council 'reporting-prompt'" do
+              get :show, issue_number: issue.issue_number
+              expect(response.body).not_to have_css('div.reporting-prompt')
+            end
+          end
+
+          context "signed in as ranger" do
+            before(:each) do
+              sign_in ranger
+              controller.stub(:current_user).and_return(ranger)
+            end
+
+            it "ranger sees the council 'reporting-prompt'" do
               get :show, issue_number: issue.issue_number
               expect(response.body).to have_css('div.reporting-prompt')
+            end
+          end
+
+          context "signed in as volunteer" do
+            before(:each) do
+              sign_in volunteer
+              controller.stub(:current_user).and_return(volunteer)
+            end
+
+            it "volunteer does not see the council 'reporting-prompt'" do
+              get :show, issue_number: issue.issue_number
+              expect(response.body).not_to have_css('div.reporting-prompt')
+            end
+          end
+
+          context "signed in as guest" do
+            before(:each) do
+              sign_in guest
+              controller.stub(:current_user).and_return(guest)
+            end
+
+            it "guest does not see the council 'reporting-prompt'" do
+              get :show, issue_number: issue.issue_number
+              expect(response.body).not_to have_css('div.reporting-prompt')
             end
           end
         end

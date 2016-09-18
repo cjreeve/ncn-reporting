@@ -1,6 +1,6 @@
 
 FactoryGirl.define do
   factory :region do
-    name 'central'
+    name 'London'
   end
 end
