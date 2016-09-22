@@ -8952,6 +8952,12 @@ article.issue .issue-contacts {
     background-color: rgba(250, 250, 250, 0.5);
     width: 100%;
     padding: 0 0.625rem; }
+  .issue-image-container.rotate90 img {
+    transform: rotate(90deg); }
+  .issue-image-container.rotate180 img {
+    transform: rotate(180deg); }
+  .issue-image-container.rotate-90 img {
+    transform: rotate(270deg); }
 
 #imageZoomModal.reveal-modal {
   background: none;
