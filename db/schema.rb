@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160731184521) do
+ActiveRecord::Schema.define(version: 20160922211734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20160731184521) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "src",        limit: 255
+    t.integer  "rotation"
   end
 
   add_index "images", ["issue_id"], name: "index_images_on_issue_id", using: :btree

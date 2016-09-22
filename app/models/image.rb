@@ -8,4 +8,6 @@ class Image < ActiveRecord::Base
   def fetch_remote_image
     self.remote_src_url = self.url if self.url.present? && self.src.blank?
   end
+
+  ANGLES = [90, 180, -90]
 end

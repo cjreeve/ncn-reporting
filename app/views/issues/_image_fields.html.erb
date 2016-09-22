@@ -1,11 +1,14 @@
 
 <div class='row image-fields'>
-  <div class='medium-6 columns'>
+  <div class='small-8 medium-5 columns'>
     <%= f.input :url, as: :string, label: "-#{ f.index + 1 }- Photo (#{ 'url or ' unless f.object.src.present? }browse)", disabled: (f.object.src.present? ? true : false) %>
     <%= f.input :src, as: :file, label: false %>
     <%= f.input :_destroy, as: :hidden %>
   </div>
-  <div class='medium-6 columns'>
+  <div class="small-4 medium-2 columns">
+    <%= f.input :rotation, as: :select, collection: Image::ANGLES, include_blank: true, prompt: '0' %>
+  </div>
+  <div class='medium-5 columns'>
     <%= f.input :caption, label: 'Caption' %>
     <%= link_to '> remove image and caption', '#', class: 'remove-photo-fields', style: 'float:right', :'data-image-form-id' => f.index %>
   </div>
