@@ -1,5 +1,11 @@
 module ApplicationHelper
 
+  def rotation_button(image, direction)
+    link_to rotate_image_path(image, direction), remote: true, method: :put do
+      image_tag "icons/rotate-#{ direction }.svg", class: "rotate-#{ direction }", alt: '', title: "rotate #{ direction }"
+    end
+  end
+
   def follower_links(users)
     users.collect do |u|
       content_tag :a, u.name, url: '#'

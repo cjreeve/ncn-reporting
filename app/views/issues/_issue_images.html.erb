@@ -1,5 +1,5 @@
 <% @issue.images.each_with_index do |image, index| %>
-  <div class="issue-image-container rotate<%= image.rotation %>">
+  <div class="issue-image-container">
     <% if image.src.present? %>
       <%= image_tag image.src_url(defined?(is_modal) ? :zoom : :main), alt: "", :'data-reveal-id' => 'imageZoomModal', :'data-index' => index   %>
     <% elsif image.url.present? %>

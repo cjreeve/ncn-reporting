@@ -9,12 +9,21 @@ class ImageUploader < SiteUploader
     %w(jpg jpeg gif png)
   end
 
+  process :rotate_img
+
+  def rotate_img
+    manipulate! do |img|
+      img.rotate model.rotation.to_s if model.rotation.present? && !model.rotation.zero?
+      img #returns the manipulated image
+    end
+  end
+
   version :thumb do
     process resize_to_fill: [150, 150]
   end
 
   version :main do
-    process resize_to_fit: [468, 620]
+    process resize_to_fit: [468, 1000]
   end
 
   version :zoom do

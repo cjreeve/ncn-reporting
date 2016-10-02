@@ -1,0 +1,10 @@
+<div class="thumb-container image-<%= image.id %>">
+  <%= image_tag "#{ image.src_url(:thumb)}?v=#{ Time.now.to_i }", class: 'thumb', alt: '' if image.src_url %>
+  <div class='rotation-controls'>
+    <%= rotation_button image, :left %>
+    <%= rotation_button image, :right %>
+  </div>
+  <div class='rotation-label'>
+    rotate
+  </div>
+</div>

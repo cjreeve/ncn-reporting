@@ -62,6 +62,12 @@ class ImagesController < ApplicationController
     end
   end
 
+  def rotate
+    @image = Image.find(params[:id])
+    @image.text_to_rotation(params[:direction])
+    @image.rotate_image!
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_image
