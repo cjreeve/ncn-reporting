@@ -11,8 +11,4 @@
   <% if can? :destroy, @issue %>
     <%= link_to 'delete', @issue, method: :delete, data: { confirm: 'Are you sure you want to delete this issue?' }, style: "float: right" %>
   <% end %>
-  <% if can? :edit, Issue %>
-    <%= link_to 'Edit', edit_issue_path(@issue) %> |
-  <% end %>
-  <%= link_to 'Index', issues_path %>
 </p>
