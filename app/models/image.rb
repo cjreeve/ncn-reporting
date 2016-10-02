@@ -6,8 +6,7 @@ class Image < ActiveRecord::Base
 
   mount_uploader :src, ImageUploader
 
-  ANGLES = [90, 180, -90]
-
+  ANGLES = [90, 180, -90]nil
   before_validation :fetch_remote_image
 
   after_save :rotate_image!, if: ->(obj){ obj.rotation.present? && !obj.rotation.zero? }
@@ -18,7 +17,7 @@ class Image < ActiveRecord::Base
 
   def rotate_image!
     self.src.recreate_versions!
-    self.update_attributes(rotation: 0)
+    self.update_attributes(rotation: nil)
   end
 
   def text_to_rotation(text)
