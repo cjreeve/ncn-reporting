@@ -129,7 +129,7 @@
 <% end %>
 
 <div class='submit-or-cancel'>
-  <% canel_link = f.object.new_record? ? issues_path(the_params) : issue_number_path2(@issue, params) %>
+  <% canel_link = f.object.new_record? ? issues_path : issue_number_path(@issue.issue_number) %>
   <%= link_to 'cancel', canel_link %>
   <%= f.button :submit, data: { disable_with: 'saving...'} %>
 </div>
