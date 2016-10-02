@@ -1,7 +1,7 @@
 <% @issue.images.each_with_index do |image, index| %>
   <div class="issue-image-container">
     <% if image.src.present? %>
-      <%= image_tag image.src_url(defined?(is_modal) ? :zoom : :main), alt: "", :'data-reveal-id' => 'imageZoomModal', :'data-index' => index   %>
+      <%= image_tag "#{ image.src_url(defined?(is_modal) ? :zoom : :main) }?v=#{ image.updated_at.to_i }", alt: "", :'data-reveal-id' => 'imageZoomModal', :'data-index' => index   %>
     <% elsif image.url.present? %>
       <%= image_tag image.url, alt: "", :'data-reveal-id' => 'imageZoomModal', :'data-index' => index  %>
     <% else %>

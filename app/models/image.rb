@@ -18,6 +18,7 @@ class Image < ActiveRecord::Base
   def rotate_image!
     self.src.recreate_versions!
     self.update_attributes(rotation: nil) unless self.rotation.nil?
+    self.touch
   end
 
   def text_to_rotation(text)
