@@ -8928,6 +8928,36 @@ article.issue .edit-issue-image-fields {
   article.issue .edit-issue-image-fields .image-fields .remove-photo-fields {
     font-size: 0.8125rem;
     color: #888; }
+  article.issue .edit-issue-image-fields .image-fields .thumb-container {
+    position: relative; }
+    article.issue .edit-issue-image-fields .image-fields .thumb-container img.thumb {
+      width: 100%;
+      margin-bottom: 0.125rem; }
+    article.issue .edit-issue-image-fields .image-fields .thumb-container .rotation-controls {
+      display: table;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0; }
+      article.issue .edit-issue-image-fields .image-fields .thumb-container .rotation-controls > a {
+        display: table-cell; }
+        article.issue .edit-issue-image-fields .image-fields .thumb-container .rotation-controls > a img {
+          width: 100%;
+          visibility: hidden; }
+        article.issue .edit-issue-image-fields .image-fields .thumb-container .rotation-controls > a:hover img {
+          cursor: pointer;
+          visibility: visible; }
+    article.issue .edit-issue-image-fields .image-fields .thumb-container .rotation-label {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: white; }
+    article.issue .edit-issue-image-fields .image-fields .thumb-container:hover .rotation-label {
+      display: block; }
 article.issue .issue-contacts {
   margin-bottom: 1.25rem;
   font-size: 0.875rem; }
@@ -8945,6 +8975,7 @@ article.issue .issue-contacts {
 
 .issue-image-container {
   position: relative;
+  display: inline-block;
   border: 0.0625rem solid #444; }
   .issue-image-container .caption {
     position: absolute;
@@ -8952,12 +8983,6 @@ article.issue .issue-contacts {
     background-color: rgba(250, 250, 250, 0.5);
     width: 100%;
     padding: 0 0.625rem; }
-  .issue-image-container.rotate90 img {
-    transform: rotate(90deg); }
-  .issue-image-container.rotate180 img {
-    transform: rotate(180deg); }
-  .issue-image-container.rotate-90 img {
-    transform: rotate(270deg); }
 
 #imageZoomModal.reveal-modal {
   background: none;
