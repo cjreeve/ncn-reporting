@@ -54,5 +54,7 @@ module Workspace
 
     config.comments_per_page = 7
 
+    config.enable_issue_reporting_prompt = false
+
   end
 end
