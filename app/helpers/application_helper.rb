@@ -60,11 +60,25 @@ module ApplicationHelper
     end
     if text.present?
       markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, strikethrough: true)
-      Sanitize.fragment(
+      text = Sanitize.fragment(
         markdown.render( text ),
         sanitize
-      ).html_safe
+      )
+
+      ["issue ", "Issue ", "issue-", "Issue-"].each do |identifier|
+        text = linkify_text_identifiers(text, identifier)
+      end
+      text.html_safe
     end
+  end
+
+  def linkify_text_identifiers(text, identifier)
+    parts = text.split(identifier)
+    numbers = parts[1..-1].collect{ |s| s.to_i unless s.to_i.zero? }.compact
+    numbers.each do |number|
+      text.gsub! "#{ identifier }#{ number }", link_to("#{ identifier }#{ number }", "/issue/#{ number }")
+    end
+    text
   end
 
   def updated_at_human(object)
