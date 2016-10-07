@@ -74,7 +74,7 @@ module ApplicationHelper
 
   def linkify_text_identifiers(text, identifier)
     parts = text.split(identifier)
-    numbers = parts[1..-1].collect{ |s| s.to_i unless s.to_i.zero? }.compact
+    numbers = parts[1..-1].collect{ |s| s.to_i unless s.to_i.zero? }.compact.uniq
     numbers.each do |number|
       text.gsub! "#{ identifier }#{ number }", link_to("#{ identifier }#{ number }", "/issue/#{ number }")
     end
