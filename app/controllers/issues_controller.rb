@@ -487,12 +487,12 @@ class IssuesController < ApplicationController
     unless followers.present?
       followers += load_coordinator_route_managers(issue)
     end
-    unless followers.present?
+    if followers.blank? && issue.lat.present? && issue.lng.present?
       followers += all_route_section_managers.select{ |u| u.role == "staff" }
     end
 
     followers << current_user
-    issue.followers += followers
+    issue.followers += followers.uniq
     issue.followers = issue.followers.uniq
     issue
   end
