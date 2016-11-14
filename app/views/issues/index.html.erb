@@ -4,16 +4,8 @@
 <article class='issue'>
   <div class='row'>
     <div class='small-12 columns'>
-    <%#= simple_form_for(:routes, url: issues_path, method: :get) do |f| %>
-    <%#= f.input :id, collection: @routes, label: false, input_html: { name: :routes } %>
-    <%# end %>
-
 
     <h1>Issues</h1>
-
-    <% if can? :create, Issue %>
-      &nbsp;-&nbsp;<%= link_to 'create new', new_issue_path, class: 'create-new-issue' %>
-    <% end %>
 
     <%= render 'shared/search_by_location' %>
 

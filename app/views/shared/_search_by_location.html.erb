@@ -8,7 +8,11 @@
         %>
       </div>
       <div class='search-button'>
-        <%= submit_tag 'search', name: nil, class: "button secondary", id: "search-location-button" %>
+        <%= submit_tag ('search' + (can?(:create, Issue) ? ' & report' :'')),
+                        name: nil,
+                        class: "button secondary",
+                        id: "search-location-button"
+        %>
       </div>
     </div>
     <div>

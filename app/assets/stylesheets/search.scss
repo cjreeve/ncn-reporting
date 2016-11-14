@@ -1,5 +1,9 @@
 article.search{
   margin: rem-calc(0 20);
+  p{
+    font-size: rem-calc(11);
+    color: $dark-grey;
+  }
   button.new-issue-link{
     float: right;
     margin: rem-calc(0 0 -51 15);

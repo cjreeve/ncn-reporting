@@ -1,11 +1,19 @@
 <article class="search">
   <%= render 'shared/search_by_location' %>
-  <button type='button' id='add-marker-listener' class='button tiny secondary new-issue-link' style='display:none'>
-    new marker
-  </button>
 
+  <% if can? :create, Issue %>
+    <p>
+      To report a problem, first check if there is not already a marker in the location of the problem. If there is a marker at the location, click on the marker and go to the issue to reopen, edit or comment on it. If there is no marker at the location then click the 'New Marker' button at the top-right of the map, then click on the exact location of the problem on the map and select 'create issue' from the marker balloon. If you click in the wrong location on the map, just click a again!
+    </p>
+  <% end %>
 
-  <div id="map-canvas" style="width: 100%; height: 500px;"></div>
+  <div>
+    <button type='button' id='add-marker-listener' class='button tiny secondary new-issue-link' style='display:none'>
+      new marker
+    </button>
+
+    <div id="map-canvas" style="width: 100%; height: 500px;"></div>
+  </div>
 </article>
 
 <%= render 'google_maps/markers.js', issues: @issues_with_coords, your_coord: {lat: @lat, lng: @lng} %>
