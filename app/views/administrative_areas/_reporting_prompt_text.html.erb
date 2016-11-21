@@ -1,10 +1,10 @@
 <% link_present = issue.administrative_area.reporting_url.present? %>
 
 <div class='reporting-prompt-text'>
-  Please report the problem to the relevant local authority if you can.
+  Please report the problem to the relevant local authority if you think we can't resolve this ourselves.
   <% if link_present %>
-    <br>
     The following link may help:
+    <br>
     <span class='reporting-prompt-url'>
       <%= link_to issue.administrative_area.reporting_url.gsub('http://','').gsub('https://',''),
                   issue.administrative_area.reporting_url,

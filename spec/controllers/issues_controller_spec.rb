@@ -85,7 +85,7 @@ RSpec.describe IssuesController, type: :controller do
           let(:volunteer) { FactoryGirl.create(:volunteer) }
           let(:guest) { FactoryGirl.create(:volunteer) }
 
-          let(:issue) { FactoryGirl.create(:issue, label_names: ['council'], user_name: ranger.name, state: 'open') }
+          let(:issue) { FactoryGirl.create(:issue, label_names: ['council'], user_name: ranger.name, state: 'open', priority: 2) }
 
           context "signed in as staff" do
             before(:each) do
@@ -156,7 +156,7 @@ RSpec.describe IssuesController, type: :controller do
           let(:ranger) { FactoryGirl.create(:ranger) }
           let(:volunteer) { FactoryGirl.create(:volunteer) }
 
-          let(:issue) { FactoryGirl.create(:issue, label_names: ['council'], user_name: volunteer.name, state: 'open') }
+          let(:issue) { FactoryGirl.create(:issue, label_names: ['council'], user_name: volunteer.name, state: 'open', priority: 2) }
 
           context "signed in as ranger" do
             before(:each) do
@@ -187,7 +187,7 @@ RSpec.describe IssuesController, type: :controller do
           let(:ranger) { FactoryGirl.create(:ranger) }
           let(:volunteer) { FactoryGirl.create(:volunteer) }
 
-          let(:issue) { FactoryGirl.create(:issue, label_names: ['council'], user_name: volunteer.name, state: 'open') }
+          let(:issue) { FactoryGirl.create(:issue, label_names: ['council'], user_name: volunteer.name, state: 'open', priority: 2) }
 
           context "signed in as ranger" do
             before(:each) do
