@@ -6,9 +6,9 @@
       <p class="alert"><%= alert %></p>
       <% if user.present? %>
         <div class='controls-row'>
-          <%= 
+          <%=
             unless params[:action] == "controls" || current_user.role == "guest"
-              link_to controls_path, id: 'controls-cog', class: 'controls-icon' do 
+              link_to controls_path, id: 'controls-cog', class: 'controls-icon' do
                 image_tag 'settings-cog.png'
               end
             end
@@ -35,12 +35,19 @@
 
               <%= link_to_if can?(:read, current_user), current_user.name, user_path(current_user) %>
               &nbsp;&bullet;&nbsp;&nbsp;
-              <%= 
-                  link_to 'sign out', 
-                    destroy_user_session_path, 
-                    method: :delete, 
+              <%=
+                  link_to 'sign out',
+                    destroy_user_session_path,
+                    method: :delete,
                     style: 'float:right'
               %>
+
+              <div class='user-messaging-area'>
+                <% if can?(:edit, User) && current_user.image.blank? %>
+                  Hello, you can now upload profile pictures<br>
+                  <%= link_to 'Click here', edit_user_registration_path %>  to upload one!
+                <% end %>
+              </div>
             </div>
             <div class='user-controls show-for-small-only'>
               <nav class="top-bar" data-topbar role="navigation">
@@ -53,10 +60,10 @@
                           <%= link_to 'Profile', user_path(current_user) %>
                         </li>
                         <li>
-                          <%= 
-                              link_to 'sign out', 
-                                destroy_user_session_path, 
-                                method: :delete, 
+                          <%=
+                              link_to 'sign out',
+                                destroy_user_session_path,
+                                method: :delete,
                                 style: 'float:right'
                           %>
                         </li>

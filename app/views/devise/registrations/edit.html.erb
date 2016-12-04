@@ -4,15 +4,9 @@
 
       <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-      <%= render 'users/profile_picture', user: resource %>
-
-      <%= simple_form_for @image, remote: true, html: { multipart: true } do |f| %>
-        <%= f.input :src, as: :file, label: false, input_html: { style: 'display: none' } %>
-        <%= f.input :id,  as: :hidden, input_html: { value: @image.id } %>
-        <%= f.input :owner_id, as: :hidden, input_html: { value: resource.id } %>
-        <%= f.input :owner_type, as: :hidden, input_html: { value: resource.class.name } %>
-        <%#= f.button :submit, "Upload #{ resource.image ? 'new' : '' } image", class: 'secondary' %>
-      <% end %>
+      <div class='profile-image-upload-area'>
+        <%= render 'users/profile_picture', image: resource.image %>
+      </div>
 
       <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
         <%= f.error_notification %>

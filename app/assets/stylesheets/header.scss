@@ -147,6 +147,14 @@ header{
       }
     }
   }
+
+  .user-messaging-area{
+    width: rem-calc(300);
+    padding-top: rem-calc(20);
+    a{
+      font-weight: bold;
+    }
+  }
 }
 
 #tubolinks-loader{

@@ -1,5 +1,5 @@
 class ImagesController < ApplicationController
-  before_action :set_image, only: [:show, :edit, :update, :destroy]
+  before_action :set_image, only: [:destroy]
   load_and_authorize_resource
   respond_to :html, :js
 
@@ -26,13 +26,12 @@ class ImagesController < ApplicationController
   # POST /images
   # POST /images.json
   def create
-    # update image attributes
     respond_to do |format|
       if @image.update(image_params)
-        format.html { redirect_to user_path(current_user), notice: 'Image was successfully uploaded.' }
+        # format.html { redirect_to user_path(current_user), notice: 'Image was successfully uploaded.' }
         format.js { render :show }
       else
-        format.html { render 'registration/edit' }
+        # format.html { render 'registration/edit' }
         format.js { render :show }
       end
     end
@@ -49,8 +48,8 @@ class ImagesController < ApplicationController
         # format.html { redirect_to user_path(current_user), notice: 'Image was successfully uploaded.' }
         format.js { render :show }
       else
-        format.html { render :edit }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
+        # format.html { render :edit }
+        format.js { render :show }
       end
     end
   end

@@ -2,12 +2,12 @@ jQuery ->
 
   $(document.body).ready ->
 
-    $('article.user input#image_src').on 'change', ->
+    $('article.user').on 'change', 'input#image_src', ->
       $('article.user input#image_src').closest('form').submit()
-      $('.profile-image').html('<img class="ajax-loader" alt="loading" src="/images/ajax-loader-fb.gif">')
+      $('.profile-image').html('<img class="ajax-loader" alt="loading" src="/images/ajax-loader-fb.gif"><br>uploading')
 
 
-    $('article.user .reveal-browse-button').on 'click', (e) ->
+    $('article.user').on 'click', '.reveal-browse-button', (e) ->
       e.preventDefault()
       $(this).hide()
       $('article.user #image_src').show()

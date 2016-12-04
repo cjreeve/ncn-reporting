@@ -29,6 +29,7 @@ class Ability
       can :manage, Label
       can :manage, Site
       can :read, Update
+      can :manage, Image
     end
 
     if user.ranger_like? && !user.is_locked?
@@ -51,6 +52,8 @@ class Ability
       can :read, Label
       can :manage, Site
       can :read, Update
+      can :manage, Image, owner_type: 'Issue'
+      can :manage, Image, owner_type: 'User', owner_id: user.id
     end
 
     if (user.role == "volunteer") && !user.is_locked?
@@ -69,6 +72,8 @@ class Ability
       can :read, Route
       can :manage, Site
       can :read, Update
+      can :manage, Image, owner_type: 'Issue'
+      can :manage, Image, owner_type: 'User', owner_id: user.id
     end
 
     if (user.role == "guest") && !user.is_locked?

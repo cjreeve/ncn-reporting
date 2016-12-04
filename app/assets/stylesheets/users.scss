@@ -4,6 +4,8 @@ article.user{
     height: rem-calc(100);
     width: rem-calc(100);
     text-align: center;
+    font-size: rem-calc(11);
+    color: $grey;
     img.ajax-loader{
       margin-top: rem-calc(44);
     }
@@ -11,13 +13,16 @@ article.user{
       width: 100%;
     }
     .delete-image{
-      display: none;
+      @media #{$medium-up}{
+        display: none;
+      }
+
       position: absolute;
-      top: rem-calc(0);
+      top: rem-calc(-3);
       right: rem-calc(3);
       line-height: 1;
-      font-size: rem-calc(20);
-      color: $grey;
+      font-size: rem-calc(30);
+      color: $black;
       &:hover{
         text-decoration: none;
         color: $dark-grey;
