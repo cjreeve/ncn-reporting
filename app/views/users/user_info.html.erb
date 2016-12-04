@@ -12,7 +12,7 @@
         <div><%= @user.role %></div>
         <div><%= @user.routes.collect(&:name).to_sentence if @user.routes.present? %></div>
         <div>
-          <%#= @user.groups.first.name if @user.groups.present? %>
+          <%= @user.groups.first.name if @user.groups.present? %>
           <%= @user.region.name %>
         </div>
         <div>
