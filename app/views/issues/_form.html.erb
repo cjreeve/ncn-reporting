@@ -95,6 +95,13 @@
 
 <div class='edit-issue-image-fields'>
   <h2>Photos</h2>
+  <p class='tip'>
+    There are two ways to upload pictures:<br>
+    1) Copy the URL of an image that is publicly available on the internet (e.g. google photos that are added to a shared folder)<br>
+    2) Browse/locate the image on your phone or computer.<br>
+    Use the second method if you wish to upload a photo by directly taking a photo with your phone. Once you have chosen a photo by one of these methods then click Create/Update Issue on the bottom of the page to save your changes. You can only upload one image at a time. To upload a second image, click edit on the issue and select a new file to upload. Note that it can take a long time to upload photos from your phone using a rural mobile data connection.
+  </p>
+
   <%= f.simple_fields_for :images do |g|  %>
     <%= render 'image_fields', f: g %>
   <% end %>
