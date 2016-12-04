@@ -12,13 +12,13 @@ jQuery ->
       $(this).hide()
       $('article.user #image_src').show()
 
-    $('.user-info-link').hover (e) ->
+    $('.user-info-link').on 'mouseover', (e) ->
       $.ajax
         dataType: 'html'
         url: '/users/' + $(this).find('a').data('user-id') + '/user_info'
         error: (jqXHR, textStatus, errorThrown) ->
-          # $(this).find('p.notice').append "AJAX Error: #{textStatus}"
+          $(this).find('.user-info').html('Error loading user summary')
         success: (data, textStatus, jqXHR) =>
+          # $(this).find('.user-info').removeClass('loading')
           $(this).find('.user-info').html(data)
-      # $(this).find('.user-info').html("<%= j( render 'users/user_info', user:  ) %>")
 

@@ -21,6 +21,7 @@ class Ability
       can :manage, AdministrativeArea
       can :read, User
       can :update, User, id: user.id
+      can :user_info, User
       can :manage, Comment
       can :manage, Page, role: ["volunteer", "ranger", "coordinator", "staff"]
       can :create, Page
@@ -42,6 +43,7 @@ class Ability
       can :manage, AdministrativeArea
       can :read, User
       can :manage, User, id: user.id
+      can :user_info, User
       can :manage, Comment, user_id: user.id
       can :manage, Page, role: ["volunteer", "ranger", "coordinator"]
       can :read, Page
@@ -60,6 +62,7 @@ class Ability
       can :search, Issue
       can :read, User
       can :update, User, id: user.id
+      can :user_info, User
       can :manage, Comment, user_id: user.id
       can :manage, Page, role: "volunteer"
       can :read, Page
