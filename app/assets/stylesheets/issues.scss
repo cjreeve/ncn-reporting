@@ -312,7 +312,9 @@ article.issue{
             display: table-cell;
             img{
               width: 100%;
-              visibility: hidden;
+              @media #{$medium-up}{
+                visibility: hidden;
+              }
             }
             &:hover{
               img{
@@ -323,13 +325,15 @@ article.issue{
           }
         }
         .rotation-label{
-          display: none;
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
           text-align: center;
           color: white;
+          @media #{$medium-up}{
+            display: none;
+          }
         }
         &:hover{
           .rotation-label{
