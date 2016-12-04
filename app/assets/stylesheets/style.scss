@@ -116,3 +116,13 @@ html body{
     }
   }
 }
+
+.link-style{
+  background: none;
+  padding: 0;
+  border: none;
+  color: $blue;
+  &:hover{
+    text-decoration: underline;
+  }
+}

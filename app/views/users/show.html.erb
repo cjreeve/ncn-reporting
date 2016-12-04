@@ -7,6 +7,12 @@
 
       <h1><%= @user.name %></h1>
 
+      <% if @user.image %>
+        <%= image_tag @user.image.src_url(:thumb) %>
+      <% else %>
+        <%= image_tag 'missing-profile-picture.svg' %>
+      <% end %>
+
       <table>
         <tbody>
           <% if current_user.can_view_email?(@user) %>

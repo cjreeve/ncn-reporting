@@ -40,6 +40,8 @@ gem 'sanitize', '~> 4.0'
 # Image processing
 gem 'carrierwave', '~> 0.10'
 gem 'mini_magick', '~> 4.4'
+gem 'remotipart', '~> 1.2'
+
 # gem 'rmagick'
 gem 'fog', '~> 1.22'
 

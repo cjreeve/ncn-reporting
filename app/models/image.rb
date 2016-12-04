@@ -2,7 +2,7 @@ class Image < ActiveRecord::Base
 
   attr_accessor :rotate
 
-  belongs_to :issue
+  belongs_to :owner, polymorphic: true
 
   mount_uploader :src, ImageUploader
 
@@ -10,6 +10,8 @@ class Image < ActiveRecord::Base
   before_validation :fetch_remote_image
 
   after_save :rotate_image!, if: ->(obj){ obj.rotation.present? && !obj.rotation.zero? }
+
+  alias_method :issue, :owner
 
   def fetch_remote_image
     self.remote_src_url = self.url if self.url.present? && self.src.blank?
@@ -24,7 +26,7 @@ class Image < ActiveRecord::Base
   def text_to_rotation(text)
     if text == 'left'
       self.rotation = -90
-    elsif text = 'right'
+    elsif text == 'right'
       self.rotation = 90
     end
   end

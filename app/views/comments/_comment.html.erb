@@ -11,7 +11,7 @@
   </div>
   <div class='comment-footer'>
     <div class='comment-label'>
-      <%= link_to comment.user.name, user_path(comment.user) %>
+      <%= render 'users/user_info_link', user: comment.user %>
       at
       <%= comment.created_at.strftime("%H:%M on %d %b %Y") %>
     </div>

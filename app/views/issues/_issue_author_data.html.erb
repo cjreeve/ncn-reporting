@@ -4,11 +4,7 @@
       <tr>
         <td>Reporter:</td>
         <td>
-          <%=
-            if @issue.user
-              link_to @issue.user.name, user_path(@issue.user)
-            end
-          %>
+          <%= render 'users/user_info_link', user: @issue.user %>
         </td>
       </tr>
     <% end %>

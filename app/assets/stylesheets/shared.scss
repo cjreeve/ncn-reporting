@@ -1,0 +1,36 @@
+
+.user-info-link{
+  position: relative;
+  .user-info{
+    display: none;
+  }
+  &:hover{
+    .user-info{
+      position: absolute;
+      bottom: rem-calc(17);
+      left: rem-calc(10);
+      display: block;
+      width: rem-calc(250);
+      background-color: white;
+      padding: rem-calc(5);
+      box-shadow: 2px 2px 5px grey;
+      z-index: 1000;
+      &.loading{
+        text-align: center;
+      }
+      table{
+        width: 100%;
+        margin: 0;
+        tbody{
+          tr{
+            td{
+              img{
+                width: rem-calc(60);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

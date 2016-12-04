@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get '/controls' => 'pages#controls', as: :controls
 
   get 'users' => 'users#index', as: 'users_index'
+  get '/users/:id/user_info' => 'users#user_info'
 
   resources :comments
 

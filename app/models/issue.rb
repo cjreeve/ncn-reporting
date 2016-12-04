@@ -6,7 +6,7 @@ class Issue < ActiveRecord::Base
   belongs_to :route
   belongs_to :group
   belongs_to :administrative_area
-  has_many :images, dependent: :destroy
+  has_many :images, as: :owner, dependent: :destroy
   has_many :comments
   has_many :issue_label_selections
   has_many :labels, through: :issue_label_selections

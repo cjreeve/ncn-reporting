@@ -1,4 +1,45 @@
 article.user{
+  .profile-image{
+    position: relative;
+    height: rem-calc(100);
+    width: rem-calc(100);
+    text-align: center;
+    img.ajax-loader{
+      margin-top: rem-calc(44);
+    }
+    img.missing-profile-picture{
+      width: 100%;
+    }
+    .delete-image{
+      display: none;
+      position: absolute;
+      top: rem-calc(0);
+      right: rem-calc(3);
+      line-height: 1;
+      font-size: rem-calc(20);
+      color: $grey;
+      &:hover{
+        text-decoration: none;
+        color: $dark-grey;
+      }
+    }
+    &:hover{
+      .delete-image{
+        display: inline;
+      }
+    }
+  }
+  .reveal-browse-button{
+    font-size: rem-calc(11);
+  }
+  #image_src{
+    margin-top: rem-calc(20);
+  }
+
+  #edit_user{
+    margin-top: rem-calc(20);
+  }
+
   ul.user-list{
     li{
       position: relative;

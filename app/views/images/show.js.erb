@@ -1,0 +1,7 @@
+
+<% if @image.owner_type == 'User' %>
+
+  $('.profile-image').html("<%= j( @image.destroyed? ? '' : image_tag(@image.src_url(:thumb), alt: 'profile image') ) %>")
+
+
+<% end %>

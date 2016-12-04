@@ -1,0 +1,29 @@
+<table>
+  <tbody>
+    <rtr>
+      <td>
+        <% if @user.image %>
+          <%= image_tag @user.image.src_url(:small_thumb), class: 'profile-image' %>
+        <% else %>
+          <%= image_tag 'missing-profile-picture.svg', class: 'profile-image' %>
+          <% end %>
+      </td>
+      <td>
+        <div><%= @user.role %></div>
+        <div><%= @user.routes.collect(&:name).to_sentence if @user.routes.present? %></div>
+        <div>
+          <%#= @user.groups.first.name if @user.groups.present? %>
+          <%= @user.region.name %>
+        </div>
+        <div>
+          <% ticket_count = @user.issues.where("state != 'draft'").size %>
+          <%= link_to_if ticket_count > 0,
+            ticket_count.to_s + ' ticket'.pluralize(ticket_count),
+            issues_path(user: @user.id),
+            title: 'Number of problems reported'
+          %>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

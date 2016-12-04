@@ -14,13 +14,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/edit
     def edit
+      @image = @user.image || Image.new
       super
     end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    super
+  end
 
   # DELETE /resource
   # def destroy
@@ -39,7 +40,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     protected
 
     def allowed_user_paramn
-      new_user_params = [:name, :receive_email_notifications, :administrative_area_tokens, route_ids: [], group_ids: [], label_ids: []]
+      new_user_params = [:name, :receive_email_notifications, :administrative_area_tokens, images_attributes: [:id, :url, :src, :caption, :rotation, :_destroy], route_ids: [], group_ids: [], label_ids: []]
       if current_user.is_admin? && !current_user.is_locked?
         return new_user_params + [:role, :is_admin, :is_locked]
       else

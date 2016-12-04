@@ -36,7 +36,10 @@ module ApplicationHelper
 
   def user_links(users)
     if users.present?
-      users.collect { |u| link_to u.name.gsub('(sustrans)',''), user_path(u) }.to_sentence.html_safe
+      users.collect do |user|
+        # link_to u.name.gsub('(sustrans)',''), user_path(u)
+        render 'users/user_info_link', user: user, strip_role: true
+      end.to_sentence.html_safe
     else
       'none'
     end

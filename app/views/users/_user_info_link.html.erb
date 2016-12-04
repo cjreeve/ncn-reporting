@@ -1,0 +1,8 @@
+<% strip_role ||= false %>
+
+<span class='user-info-link'>
+  <%= link_to user.stripper_name(strip_role), user_path(user), data: { user_id: user.id } %>
+  <div class='user-info loading'>
+    <%= image_tag 'icons/ajax-loader-fb.gif', alt: 'loading...' %>
+  </div>
+</span>

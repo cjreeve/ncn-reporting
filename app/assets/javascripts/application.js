@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require foundation
 //= require turbolinks_loader
 //= require vendor/owl.carousel
@@ -27,6 +28,7 @@
 //= require problems
 //= require search
 //= require site
+//= require user
 //= require tokeninput
 //= require turbolinks
 //# require_tree .

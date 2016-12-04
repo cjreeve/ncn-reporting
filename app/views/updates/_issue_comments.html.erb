@@ -14,7 +14,7 @@
     <% issue.comments.order('comments.updated_at ASC').last(3).each do |comment| %>
       <li>
         <span class='commentor'>
-          <%= link_to comment.user.name, user_path(comment.user) %>:
+          <%= render 'users/user_info_link', user: comment.user %>:
         </span>
         <span class="comment">
           <%= comment.formatted_content %>

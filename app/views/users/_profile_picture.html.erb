@@ -1,0 +1,16 @@
+<div class='profile-image'>
+  <% if user.image %>
+    <%= image_tag user.image.src_url(:small_thumb) %>
+    <%= button_to "&times;".html_safe,
+      image_path(user.image.id),
+      remote: true,
+      method: :delete,
+      data: { confirm: "Are you sure you want to delete your profile picture?", disable_with: "deleting..." },
+      class: 'link-style delete-image'
+    %>
+  <% else %>
+    <%= image_tag 'missing-profile-picture.svg' %>
+  <% end %>
+</div>
+
+<%= link_to 'upload profile picture', '#', class: 'reveal-browse-button' %>

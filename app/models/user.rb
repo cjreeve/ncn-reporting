@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 
   ROLES = %w[staff coordinator ranger volunteer guest]
 
+  has_one :image, as: :owner, dependent: :destroy
+
   has_many :issues
   has_many :comments
   has_many :user_managed_route_selections
@@ -36,11 +38,21 @@ class User < ActiveRecord::Base
     self.administrative_area_ids = ids.split(",")
   end
 
+  accepts_nested_attributes_for(
+    :image,
+    allow_destroy: true,
+    reject_if:  proc { |a| a[:src].blank? }
+  )
+
 
   ### public methods ###
 
   def first_name
     self.name.split(' ').first
+  end
+
+  def stripper_name(strip_role = true)
+    strip_role ? self.name.gsub('(sustrans)','') : self.name
   end
 
   def removable?
