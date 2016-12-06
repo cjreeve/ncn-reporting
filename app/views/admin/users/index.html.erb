@@ -15,6 +15,7 @@
       <table>
         <thead>
           <tr>
+            <td>
             <td>Name</td>
             <td>Role</td>
             <td></td>
@@ -27,6 +28,7 @@
         <tbody>
           <% @users.each do |user| %>
             <tr>
+              <td><%= image_tag user.image_url(:small_thumb), alt: '', width: 50 %></td>
               <td><%= link_to user.name, admin_user_path(user) %></td>
               <td><%= user.role %></td>
               <td><%= user.is_admin ? 'admin' : '' %>

@@ -5,6 +5,14 @@
 
       <h1>Admin: User <%= @user.name %></h1>
 
+      <p>
+        <%=
+          link_to @user.image_url(:zoom) do
+            image_tag @user.image_url(:thumb)
+          end
+        %>
+      </p>
+
       <table>
         <tbody>
           <tr>
