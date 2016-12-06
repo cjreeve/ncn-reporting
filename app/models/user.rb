@@ -83,6 +83,14 @@ class User < ActiveRecord::Base
     role == 'staff'
   end
 
+  def image_url(version = nil)
+    if self.image.present?
+      version ? self.image.src_url(version) : self.image.src
+    else
+      'missing-profile-picture.svg'
+    end
+  end
+
   def can_view_email?(user)
     self.role == "staff" || user.role == "staff" || self.is_admin? || user == self
   end

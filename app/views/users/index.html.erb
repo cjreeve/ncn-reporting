@@ -3,21 +3,43 @@
 
 <article class='user'>
   <div class='row'>
-    <div class='small-12 medium-6 large-4 columns'>
-      <h1>Users</h1>
-      <ul class='user-list'>
+    <div class='small-12 columns'>
+      <h1><%= current_user.region.name %> Region Users</h1>
+
+      <ul class='small-block-grid-1 medium-block-grid-2 large-block-grid-3 user-list'>
         <% @users.each do |user| %>
           <li>
-            <%= link_to user.name, user_path(user) %>
-            <% user_issue_count = user.issues.where(state: ['open', 'reopened']).count %>
-            <% if user_issue_count > 0 %>
-              <%=
-                link_to '(' + user_issue_count.to_s + ')',
-                issues_path(user: user.id, state: 'open'),
-                class: 'user-issue-count',
-                title: "#{ user_issue_count } open issues"
-              %>
-            <% end %>
+
+            <div class='user-tile'>
+
+              <div class='user-image'>
+                <%= link_to user_path(user) do %>
+                  <%= image_tag user.image_url(:small_thumb), alt: '' if user.image %>
+                <% end %>
+              </div>
+
+              <div class='user-info'>
+                <div class='user-name'>
+                  <%= link_to user.name, user_path(user) %>
+
+                  <% user_issue_count = user.issues.where(state: ['open', 'reopened']).count %>
+                  <% if user_issue_count > 0 %>
+                    <%=
+                      link_to '(' + user_issue_count.to_s + ')',
+                      issues_path(user: user.id, state: 'open'),
+                      class: 'user-issue-count',
+                      title: "#{ user_issue_count } open issues"
+                    %>
+                  <% end %>
+                </div>
+                <div class='user-group'>
+                  <% if user.groups.present? %>
+                    <%= user.groups.first.try(:name) %> Group
+                  <% end %>
+                </div>
+              </div>
+
+            </div>
           </li>
         <% end %>
       </ul>
