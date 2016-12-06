@@ -9348,12 +9348,27 @@ article.user #image_src {
 article.user #edit_user {
   margin-top: 1.25rem; }
 article.user ul.user-list li {
-  position: relative; }
-  article.user ul.user-list li .user-issue-count {
-    position: relative;
-    top: -0.25rem;
-    font-size: 0.625rem;
-    color: #E41634; }
+  list-style: none;
+  margin-bottom: 0.9375rem; }
+  article.user ul.user-list li .user-tile {
+    display: table; }
+    article.user ul.user-list li .user-tile > div {
+      display: table-cell;
+      vertical-align: top; }
+    article.user ul.user-list li .user-tile .user-image {
+      width: 3.125rem;
+      padding-right: 0.625rem; }
+    article.user ul.user-list li .user-tile .user-info .user-name {
+      position: relative; }
+      article.user ul.user-list li .user-tile .user-info .user-name .user-issue-count {
+        position: relative;
+        top: -0.25rem;
+        font-size: 0.625rem;
+        color: #E41634; }
+    article.user ul.user-list li .user-tile .user-info .user-group {
+      line-height: 1;
+      font-size: 0.75rem;
+      color: #888; }
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Set default font family to sans-serif.
