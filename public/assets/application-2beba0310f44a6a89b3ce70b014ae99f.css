@@ -9370,6 +9370,25 @@ article.user ul.user-list li {
       font-size: 0.75rem;
       color: #888; }
 
+.admin.users .send-site-notifications {
+  display: inline-block; }
+  .admin.users .send-site-notifications .button.tiny {
+    margin-right: 0.3125rem;
+    margin-bottom: 0.3125rem; }
+    @media only screen and (min-width: 40.0625em) {
+      .admin.users .send-site-notifications .button.tiny {
+        margin-bottom: 1.875rem; } }
+.admin.users .site-notification-sent-time {
+  font-size: 0.75rem;
+  color: #E41634; }
+  .admin.users .site-notification-sent-time.today {
+    color: #43ac6a; }
+  .admin.users .site-notification-sent-time.recently {
+    color: #888; }
+  @media only screen and (max-width: 40em) {
+    .admin.users .site-notification-sent-time {
+      display: block;
+      margin-bottom: 1.875rem; } }
 .admin table.users tr td {
   height: 3.125rem; }
   @media only screen and (min-width: 64.0625em) {
