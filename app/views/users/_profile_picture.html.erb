@@ -1,3 +1,5 @@
+<% image = user.image %>
+
 <div class='profile-image'>
   <% if image && !image.destroyed? && !image.new_record? %>
     <%= image_tag image.src_url(:small_thumb) %>
@@ -20,7 +22,7 @@
 <%= simple_form_for image, remote: true, html: { multipart: true } do |f| %>
   <%= f.input :src, as: :file, label: false, input_html: { style: 'display: none', value: nil } %>
   <%= f.input :id,  as: :hidden, input_html: { value: image.try(:id) } %>
-  <%= f.input :owner_id, as: :hidden, input_html: { value: current_user.id } %>
+  <%= f.input :owner_id, as: :hidden, input_html: { value: user.id } %>
   <%= f.input :owner_type, as: :hidden, input_html: { value: 'User' } %>
   <%#= f.button :submit, "Upload #{ resource.image ? 'new' : '' } image", class: 'secondary' %>
 <% end %>

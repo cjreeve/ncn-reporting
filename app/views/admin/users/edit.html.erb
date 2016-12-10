@@ -1,10 +1,18 @@
 
-<article class='admin'>
+<article class='admin user'>
+
+  <div class='row'>
+    <div class='small-12 columns'>
+      <h2>Admin: Edit user <%= @user.name %></h2>
+    </div>
+  </div>
+
   <div class='row'>
     <div class='small-12 medium-6 large-4 columns'>
 
-      
-      <h2>Admin: Edit user <%= @user.name %></h2>
+      <div class='profile-image-upload-area'>
+        <%= render 'users/profile_picture', user: @user %>
+      </div>
 
       <%= simple_form_for(@user, url: admin_user_path(@user), html: { method: :put }) do |f| %>
         <%= render 'admin/users/form', f: f %>

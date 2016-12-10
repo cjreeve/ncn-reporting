@@ -1,6 +1,6 @@
 
 <% if @image.owner_type == 'User' %>
 
-  $('.profile-image-upload-area').html("<%= j( render('users/profile_picture', image: @image) ) %>")
+  $('.profile-image-upload-area').html("<%= j( render('users/profile_picture', user: @owner) ) %>")
 
 <% end %>

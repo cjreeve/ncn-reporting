@@ -14,7 +14,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/edit
     def edit
-      @image = @user.image || Image.new
       super
     end
 

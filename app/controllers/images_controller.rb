@@ -26,6 +26,9 @@ class ImagesController < ApplicationController
   # POST /images
   # POST /images.json
   def create
+
+    @owner = @image.owner
+
     respond_to do |format|
       if @image.update(image_params)
         # format.html { redirect_to user_path(current_user), notice: 'Image was successfully uploaded.' }
@@ -42,6 +45,7 @@ class ImagesController < ApplicationController
   def update
 
     @image = Image.find(image_params[:id])
+    @owner = @image.owner
 
     respond_to do |format|
       if @image.update(image_params)
@@ -57,6 +61,7 @@ class ImagesController < ApplicationController
   # DELETE /images/1
   # DELETE /images/1.json
   def destroy
+    @owner = @image.owner
     @image.destroy
     respond_to do |format|
       format.js { render :show }
