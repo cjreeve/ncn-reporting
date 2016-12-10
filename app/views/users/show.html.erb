@@ -8,7 +8,13 @@
       <h1><%= @user.name %></h1>
 
       <% if @user.image %>
-        <%= image_tag @user.image.src_url(:thumb) %>
+        <%= link_to image_tag(@user.image.src_url(:thumb)), '#', data: { reveal_id: 'profilePictureModal' } %>
+
+        <div id="profilePictureModal" class="reveal-modal small" data-reveal aria-hidden="true" role="dialog">
+          <%= image_tag @user.image.src_url(:main), alt: @user.name %>
+          <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+        </div>
+
       <% else %>
         <%= image_tag 'missing-profile-picture.svg' %>
       <% end %>

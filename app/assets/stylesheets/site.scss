@@ -146,3 +146,30 @@ ul.token-input-list-facebook, ul.token-input-list{
     padding-right: rem-calc(10);
   }
 }
+
+
+html body .reveal-modal{
+  @media #{$small-only}{
+    width: 96%;
+    margin-left: 2%;
+    min-height: auto;
+  }
+  &.tiny{
+    @media #{$medium-only}{
+      width: 55%;
+    }
+  }
+  &.small{
+    @media #{$medium-only}{
+      width: 45%;
+    }
+    @media #{$large-up}{
+      width: 35%;
+    }
+  }
+  &.medium{
+    @media #{$medium-only}{
+      width: 80%;
+    }
+  }
+}
