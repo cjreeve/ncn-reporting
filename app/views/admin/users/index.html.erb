@@ -12,10 +12,10 @@
 
       <% end %>
 
-      <table>
+      <table class="responsive users">
         <thead>
           <tr>
-            <td>
+            <td> </td>
             <td>Name</td>
             <td>Role</td>
             <td></td>
@@ -27,8 +27,8 @@
         </thead>
         <tbody>
           <% @users.each do |user| %>
-            <tr>
-              <td><%= image_tag user.image_url(:small_thumb), alt: '', width: 50 %></td>
+            <tr class="<%= updated_summary(user) %>">
+              <td><%= image_tag user.image_url(:small_thumb), alt: '' %></td>
               <td><%= link_to user.name, admin_user_path(user) %></td>
               <td><%= user.role %></td>
               <td><%= user.is_admin ? 'admin' : '' %>

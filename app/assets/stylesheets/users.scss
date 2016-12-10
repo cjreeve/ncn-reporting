@@ -79,3 +79,35 @@ article.user{
     }
   }
 }
+
+
+.admin{
+  table.users{
+    tr{
+      td{
+        height: rem-calc(50);
+        @media #{$large-up}{
+          height: auto;
+        }
+        img{
+          border-left: rem-calc(3) solid $light-grey;
+        }
+        img{
+          width: rem-calc(30);
+          @media #{$large-up}{
+            width: rem-calc(50);
+          }
+        }
+      }
+      &.recently img{
+        border-color: $light-pink;;
+      }
+      &.today img{
+       border-color: $light-yellow;
+      }
+      &.yesterday img{
+       border-color: $light-green;
+      }
+    }
+  }
+}
