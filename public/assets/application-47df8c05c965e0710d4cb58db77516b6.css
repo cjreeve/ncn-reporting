@@ -9369,6 +9369,27 @@ article.user ul.user-list li {
       line-height: 1;
       font-size: 0.75rem;
       color: #888; }
+
+.admin table.users tr td {
+  height: 3.125rem; }
+  @media only screen and (min-width: 64.0625em) {
+    .admin table.users tr td {
+      height: auto; } }
+  .admin table.users tr td img {
+    border-left: 0.25rem solid #f5f5f5; }
+  .admin table.users tr td img {
+    width: 1.875rem; }
+    @media only screen and (min-width: 64.0625em) {
+      .admin table.users tr td img {
+        width: 3.125rem; } }
+.admin table.users tr.recently img {
+  border-color: #ffb3b3; }
+.admin table.users tr.today img {
+  border-color: #FE9; }
+.admin table.users tr.yesterday img {
+  border-color: #b1f6b1; }
+.admin table.users tr.month img {
+  border-color: #d6e1ec; }
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Set default font family to sans-serif.
