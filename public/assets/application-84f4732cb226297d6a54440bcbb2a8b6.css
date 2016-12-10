@@ -8564,6 +8564,24 @@ ul.token-input-list-facebook, ul.token-input-list {
     display: inline-block;
     padding-right: 0.625rem; }
 
+@media only screen and (max-width: 40em) {
+  html body .reveal-modal {
+    width: 96%;
+    margin-left: 2%;
+    min-height: auto; } }
+@media only screen and (min-width: 40.0625em) and (max-width: 64em) {
+  html body .reveal-modal.tiny {
+    width: 55%; } }
+@media only screen and (min-width: 40.0625em) and (max-width: 64em) {
+  html body .reveal-modal.small {
+    width: 45%; } }
+@media only screen and (min-width: 64.0625em) {
+  html body .reveal-modal.small {
+    width: 35%; } }
+@media only screen and (min-width: 40.0625em) and (max-width: 64em) {
+  html body .reveal-modal.medium {
+    width: 80%; } }
+
 .user-info {
   display: none; }
 
@@ -9369,6 +9387,11 @@ article.user ul.user-list li {
       line-height: 1;
       font-size: 0.75rem;
       color: #888; }
+
+#profilePictureModal {
+  background: none;
+  padding: 0;
+  text-align: right; }
 
 .admin.users .send-site-notifications {
   display: inline-block; }
