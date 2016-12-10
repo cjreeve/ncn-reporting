@@ -90,7 +90,7 @@ article.user{
           height: auto;
         }
         img{
-          border-left: rem-calc(3) solid $light-grey;
+          border-left: rem-calc(4) solid $light-grey;
         }
         img{
           width: rem-calc(30);
@@ -100,13 +100,16 @@ article.user{
         }
       }
       &.recently img{
-        border-color: $light-pink;;
+        border-color: darken($light-pink, 9);
       }
       &.today img{
-       border-color: $light-yellow;
+       border-color: $yellow;
       }
       &.yesterday img{
-       border-color: $light-green;
+       border-color: darken($light-green, 10);
+      }
+      &.month img{
+       border-color: lighten($light-blue-grey, 10);
       }
     }
   }

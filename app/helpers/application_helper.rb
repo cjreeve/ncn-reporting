@@ -130,6 +130,8 @@ module ApplicationHelper
       'today'
     elsif (the_time+1.day).today?
       'yesterday'
+    elsif the_time > (Date.today - 1.month)
+      'month'
     end
   end
 
