@@ -1,15 +1,41 @@
 
-<article class='admin'>
+<article class='admin users'>
+
   <div class='row'>
     <div class='small-12 columns'>
+
       <h1>Admin: Users</h1>
       <% if can? :manage, User %>
         &nbsp;-&nbsp;<%= link_to 'create new', new_admin_user_path, class: 'create-new-issue' %>
+      <% end %>
 
-        <%= form_tag site_notification_emails_path, method: :get do %>
-          <%= submit_tag 'Send Notifications', data: { confirm: "Send notification emails to all users?" } %>
-        <% end %>
+      <% if can? :manage, User %>
+        <div>
+          <%= form_tag site_notification_emails_path, method: :get, class: 'send-site-notifications' do %>
+            <%= submit_tag 'Send Notifications',
+            data: { confirm: "Send notification emails to all users?" },
+            class: 'button secondary tiny',
+            title: 'Click here to send notification emails to all users that have issues to review'
+          %>
+          <% end %>
 
+          <% first_region = Region.first %>
+          <% if first_region.notifications_sent_at.present? %>
+            <%
+              if first_region.notifications_sent_at.today?
+                highlight_priority_class = 'today'
+              elsif first_region.notifications_sent_at > (Date.today - 13.days)
+                highlight_priority_class = 'recently'
+              else
+                highlight_priority_class = ''
+              end
+
+            %>
+            <span class="site-notification-sent-time <%= highlight_priority_class %>">
+              Last sent: <%= raw Region.first.notifications_sent_at.strftime("%H:%M %a&nbsp;%d&nbsp;%B&nbsp;%Y") %>
+            </span>
+          <% end %>
+        </div>
       <% end %>
 
       <table class="responsive users">

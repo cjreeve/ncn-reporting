@@ -82,6 +82,34 @@ article.user{
 
 
 .admin{
+  &.users{
+
+    .send-site-notifications{
+      display: inline-block;
+      .button.tiny{
+        margin-right: rem-calc(5);
+        margin-bottom: rem-calc(5);
+        @media #{$medium-up}{
+          margin-bottom: rem-calc(30);
+        }
+      }
+    }
+    .site-notification-sent-time{
+      font-size: rem-calc(12);
+      color: $red;
+      &.today{
+        color: $dark-green;
+      }
+      &.recently{
+        color: $grey;
+      }
+      @media #{$small-only}{
+        display: block;
+        margin-bottom: rem-calc(30);
+      }
+    }
+  }
+
   table.users{
     tr{
       td{
