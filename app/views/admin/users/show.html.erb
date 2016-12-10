@@ -7,10 +7,15 @@
 
       <p>
         <%=
-          link_to @user.image_url(:zoom) do
+          link_to '#', data: { reveal_id: 'profilePictureModal' } do
             image_tag @user.image_url(:thumb)
           end
         %>
+
+        <div id="profilePictureModal" class="reveal-modal large" data-reveal aria-hidden="true" role="dialog">
+          <%= image_tag @user.image.src_url(:zoom), alt: @user.name %>
+          <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+        </div>
       </p>
 
       <table>
