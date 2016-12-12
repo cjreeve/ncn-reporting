@@ -7,7 +7,11 @@
 
       <p>
         <%=
-          link_to '#', data: ( @user.image ? { reveal_id: 'profilePictureModal' } : nil ) do
+          if @user.image
+            link_to '#', data: { reveal_id: 'profilePictureModal' } do
+              image_tag @user.image_url(:thumb)
+            end
+          else
             image_tag @user.image_url(:thumb)
           end
         %>
