@@ -369,7 +369,7 @@ class IssuesController < ApplicationController
 
     # set the user issue filter mode preference
     if %w(national regional personal).include?(params[:mode]) && params[:mode] != current_user.issue_filter_mode
-      current_user.update_attribute(:issue_filter_mode, params[:mode])
+      current_user.update_attributes(issue_filter_mode: params[:mode])
     end
 
     if current_user.issue_filter_mode == 'regional'
