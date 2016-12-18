@@ -1,5 +1,14 @@
 module ApplicationHelper
 
+  def mode_option(mode)
+    is_current_mode = (current_user.issue_filter_mode == mode.to_s)
+    content_tag :span,
+      class: "#{ is_current_mode ? 'active' : '' }",
+      title: "#{ is_current_mode ? 'current' : 'change to'} issue index display mode: #{ mode }" do
+        link_to_if !is_current_mode, mode, root_path(mode: mode)
+    end
+  end
+
   def rotation_button(image, direction)
     link_to rotate_image_path(image, direction), remote: true, method: :put do
       image_tag "icons/rotate-#{ direction }.svg", class: "rotate-#{ direction }", alt: '', title: "rotate #{ direction }"

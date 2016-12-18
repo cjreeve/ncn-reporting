@@ -14,53 +14,62 @@
 #   end
 # end
 
-def load_all_route_section_managers(issue)
-  # two searches are added together to allow for any routes none are selected and the administrative_area is selected
-  # and visa versa
-  User.includes(:administrative_areas, :routes)
-      .where(
-        administrative_areas: {id: [nil, issue.administrative_area.try(:id)]},
-        routes: {id: issue.route.try(:id)}) +
-  User.includes(:administrative_areas, :routes)
-      .where(
-        administrative_areas: {id: issue.administrative_area.try(:id)},
-        routes: {id: [nil, issue.route.try(:id)]})
-end
-
-def load_coordinator_route_managers(issue)
-  User.includes(:groups)
-      .where( groups: {id: [nil, issue.group.try(:id)]})
-      .where(role: "coordinator")
-end
-
-def set_issue_followers(issue, all_route_section_managers)
-  followers = all_route_section_managers.select{ |u| u.role == "ranger" }
-  if issue.priority == 3 || issue.labels.collect(&:name).include?('sustrans')
-    followers += all_route_section_managers.select{ |u| u.role == "staff" }
-    followers += load_coordinator_route_managers(issue)
-  end
-  unless followers.present?
-    followers += load_coordinator_route_managers(issue)
-  end
-  unless followers.present?
-    followers += all_route_section_managers.select{ |u| u.role == "staff" }
-  end
-
-  followers += issue.comments.collect { |c| c.user }
-
-  issue.followers << followers
-  issue.followers = issue.followers.uniq
-  issue
-end
-
-
-
-Issue.all.each do |issue|
-  issue = set_issue_followers(issue, load_all_route_section_managers(issue))
-  ActiveRecord::Base.record_timestamps = false
-  issue.save
+# ensure issue_filter_model is set
+ActiveRecord::Base.record_timestamps = false
+begin
+  User.all.each { |u| u.save }
+ensure
   ActiveRecord::Base.record_timestamps = true
 end
+
+
+# def load_all_route_section_managers(issue)
+#   # two searches are added together to allow for any routes none are selected and the administrative_area is selected
+#   # and visa versa
+#   User.includes(:administrative_areas, :routes)
+#       .where(
+#         administrative_areas: {id: [nil, issue.administrative_area.try(:id)]},
+#         routes: {id: issue.route.try(:id)}) +
+#   User.includes(:administrative_areas, :routes)
+#       .where(
+#         administrative_areas: {id: issue.administrative_area.try(:id)},
+#         routes: {id: [nil, issue.route.try(:id)]})
+# end
+
+# def load_coordinator_route_managers(issue)
+#   User.includes(:groups)
+#       .where( groups: {id: [nil, issue.group.try(:id)]})
+#       .where(role: "coordinator")
+# end
+
+# def set_issue_followers(issue, all_route_section_managers)
+#   followers = all_route_section_managers.select{ |u| u.role == "ranger" }
+#   if issue.priority == 3 || issue.labels.collect(&:name).include?('sustrans')
+#     followers += all_route_section_managers.select{ |u| u.role == "staff" }
+#     followers += load_coordinator_route_managers(issue)
+#   end
+#   unless followers.present?
+#     followers += load_coordinator_route_managers(issue)
+#   end
+#   unless followers.present?
+#     followers += all_route_section_managers.select{ |u| u.role == "staff" }
+#   end
+
+#   followers += issue.comments.collect { |c| c.user }
+
+#   issue.followers << followers
+#   issue.followers = issue.followers.uniq
+#   issue
+# end
+
+
+
+# Issue.all.each do |issue|
+#   issue = set_issue_followers(issue, load_all_route_section_managers(issue))
+#   ActiveRecord::Base.record_timestamps = false
+#   issue.save
+#   ActiveRecord::Base.record_timestamps = true
+# end
 
 
 

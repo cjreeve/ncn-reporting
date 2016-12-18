@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
 
   attr_reader :administrative_area_tokens
 
+  before_validation do
+    self.issue_filter_mode = 'regional' unless %w(national regional personal).include?(self.issue_filter_mode)
+  end
+
   def administrative_area_tokens=(ids)
     self.administrative_area_ids = ids.split(",")
   end
