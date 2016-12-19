@@ -30,7 +30,7 @@
         </li>
       <% end %>
 
-      <% unless current_user.issue_filter_mode == 'personal' %>
+      <% unless current_user.issue_filter_mode == 'customised' %>
         <li>
           <a href="#" class="button select" data-dropdown="groupSelection" aria-controls="groupSelection" data-options="is_hover:true" aria-expanded="false">
             <%=

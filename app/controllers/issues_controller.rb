@@ -368,7 +368,7 @@ class IssuesController < ApplicationController
     joined_order = nil
 
     # set the user issue filter mode preference
-    if %w(national regional personal).include?(params[:mode]) && params[:mode] != current_user.issue_filter_mode
+    if %w(national regional customised).include?(params[:mode]) && params[:mode] != current_user.issue_filter_mode
       current_user.update_attributes(issue_filter_mode: params[:mode])
     end
 
@@ -376,7 +376,7 @@ class IssuesController < ApplicationController
       params['region'] = current_user.region.id
       include_tables << :group
       joined_options[:groups] = { region_id: current_user.region.id }
-    elsif current_user.issue_filter_mode == 'personal'
+    elsif current_user.issue_filter_mode == 'customised'
       params[:route] = current_user.routes.collect(&:slug).join('.') if current_user.routes.present?
       if current_user.administrative_areas.present?
         params[:area] = current_user.administrative_areas.collect(&:id).join('.')
