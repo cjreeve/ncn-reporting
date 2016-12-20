@@ -378,8 +378,8 @@ class IssuesController < ApplicationController
       joined_options[:groups] = { region_id: current_user.region.id }
     elsif current_user.issue_filter_mode == 'customised'
       params[:route] = current_user.routes.collect(&:slug).join('.') if current_user.routes.present? && params[:route].blank?
-      if current_user.administrative_areas.present? && params[:area].blank?
-        params[:area] = current_user.administrative_areas.collect(&:id).join('.')
+      if current_user.administrative_areas.present?
+        params[:area] = current_user.administrative_areas.collect(&:id).join('.') if params[:area].blank?
       elsif current_user.groups.present?
         params[:group] = current_user.groups.collect(&:id).join('.')
       end
