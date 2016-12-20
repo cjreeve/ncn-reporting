@@ -1,0 +1,35 @@
+
+<% unless current_user.issue_filter_mode == 'customised' %>
+  <li>
+    <a href="#" class="button select" data-dropdown="groupSelection" aria-controls="groupSelection" data-options="is_hover:true" aria-expanded="false">
+      <%=
+        if @current_group
+          @current_group.name + " ▼"
+        elsif params[:group] == "-1"
+          "no group ▼"
+        else
+          "all groups ▼"
+        end
+      %>
+    </a>
+    <ul id="groupSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
+      <% unless params[:group] == nil %>
+        <li>
+          <%= link_to "all groups", issues_path(filter_params(params, {group: nil})) %>
+        </li>
+      <% end %>
+      <% @groups.each do |group| %>
+        <% unless @current_group == group %>
+          <li>
+            <%= link_to group.name, issues_path(filter_params(params, {group: group.id})) %>
+          </li>
+        <% end %>
+      <% end %>
+      <% unless params[:group] == "-1" %>
+        <li>
+          <%= link_to "no group", issues_path(filter_params(params, {group: -1})) %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+<% end %>

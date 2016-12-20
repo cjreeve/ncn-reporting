@@ -1,0 +1,22 @@
+<li>
+  <a href="#" class="button select" data-dropdown="stateSelection" aria-controls="stateSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_state ? state_t(@current_state) + " ▼" : "status (default) ▼" %></a>
+  <ul id="stateSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
+    <% unless @current_state.nil? %>
+      <li>
+        <%= link_to "default", issues_path(filter_params(params, {state: nil})) %>
+      </li>
+    <% end %>
+    <% unless @current_state && @current_state == "all states" %>
+      <li>
+        <%= link_to "all states", issues_path(filter_params(params, {state: "all"})) %>
+      </li>
+    <% end %>
+    <% @states.each do |state| %>
+      <% unless ((@current_state && @current_state == state) || state == :reopened) %>
+        <li>
+          <%= link_to state_t(state), issues_path(filter_params(params, {state: state})) %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</li>

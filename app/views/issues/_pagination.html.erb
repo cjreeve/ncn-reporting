@@ -1,0 +1,11 @@
+<%= will_paginate @issues, inner_window: 0, outter_window: 0, previous_label: '❮ prev', next_label: 'next ❯' %>
+<div class='issue-count-row'>
+  <span title="<%= @issues.total_entries %> issues in selection">
+    <% if @issues.total_entries > 10 %>
+      <%= @issues.offset + 1 %> to <%= @issues.offset + @issues.per_page %> of <b><%= @issues.total_entries %></b>
+    <% else %>
+      <br><br>
+      <%= @issues.total_entries %> <%= 'issue'.pluralize(@issues.total_entries) %>
+    <% end %>
+  </span>
+</div>

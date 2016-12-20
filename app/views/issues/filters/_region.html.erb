@@ -1,0 +1,19 @@
+<% if current_user.issue_filter_mode == 'national' ||
+  (params['region'].present? && params['region'].to_i != current_user.region.id)
+%>
+  <li>
+    <% more_char = (@regions.count > 1 ? '▼' : '') %>
+    <a href="#" class="button select" data-dropdown="regionSelection" aria-controls="regionSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_region ? @current_region.name + " #{more_char}" : "all routes #{more_char}" %></a>
+    <% if @regions.count > 1 %>
+      <ul id="regionSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
+        <% @regions.each do |region| %>
+          <% unless @current_region == region %>
+            <li>
+              <%= link_to region.name, issues_path({region: region.id}) %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    <% end %>
+  </li>
+<% end %>

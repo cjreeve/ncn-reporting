@@ -24,7 +24,7 @@ class IssuesController < ApplicationController
     @current_group = (@current_region.group_ids.include?(params[:group].to_i) ? Group.find_by_id(params[:group].to_i) : nil)
 
     @routes = Route.joins(issues: [:group, :administrative_area]).where(options).uniq.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
-    @current_route = Route.find_by_slug(params[:route])
+    @current_route ||= Route.find_by_slug(params[:route])
 
     @states = Issue.state_machine.states.collect(&:name) - [:resolved, :unsolvable]
     @labels = Label.all.order(:name)
@@ -33,7 +33,7 @@ class IssuesController < ApplicationController
 
     @current_state = (params[:state].present? && @states.include?(params[:state].to_sym)) ? params[:state] : nil
     @current_state = "all states" if params[:state] == "all"
-    @current_administrative_area = (params[:area].present? && @administrative_areas.collect(&:id).include?(params[:area].to_i)) ? AdministrativeArea.find(params[:area].to_i) : nil
+    @current_administrative_area = AdministrativeArea.find_by_id(params[:area]) unless (params[:area] && params[:area].include?('.'))
     if params[:label] == "undefined"
        @current_label = Label.new(name: "undefined")
     elsif params[:label]
@@ -377,8 +377,8 @@ class IssuesController < ApplicationController
       include_tables << :group
       joined_options[:groups] = { region_id: current_user.region.id }
     elsif current_user.issue_filter_mode == 'customised'
-      params[:route] = current_user.routes.collect(&:slug).join('.') if current_user.routes.present?
-      if current_user.administrative_areas.present?
+      params[:route] = current_user.routes.collect(&:slug).join('.') if current_user.routes.present? && params[:route].blank?
+      if current_user.administrative_areas.present? && params[:area].blank?
         params[:area] = current_user.administrative_areas.collect(&:id).join('.')
       elsif current_user.groups.present?
         params[:group] = current_user.groups.collect(&:id).join('.')

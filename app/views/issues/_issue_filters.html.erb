@@ -10,155 +10,16 @@
 <div class='row'>
   <div class='medium-8 large-9 columns'>
     <ul class='small-block-grid-1 medium-block-grid-4 large-block-grid-6 issue-filters'>
-      <% if current_user.issue_filter_mode == 'national' ||
-        (params['region'].present? && params['region'].to_i != current_user.region.id)
-      %>
-        <li>
-          <% more_char = (@regions.count > 1 ? '▼' : '') %>
-          <a href="#" class="button select" data-dropdown="regionSelection" aria-controls="regionSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_region ? @current_region.name + " #{more_char}" : "all routes #{more_char}" %></a>
-          <% if @regions.count > 1 %>
-            <ul id="regionSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
-              <% @regions.each do |region| %>
-                <% unless @current_region == region %>
-                  <li>
-                    <%= link_to region.name, issues_path({region: region.id}) %>
-                  </li>
-                <% end %>
-              <% end %>
-            </ul>
-          <% end %>
-        </li>
-      <% end %>
-
-      <% unless current_user.issue_filter_mode == 'customised' %>
-        <li>
-          <a href="#" class="button select" data-dropdown="groupSelection" aria-controls="groupSelection" data-options="is_hover:true" aria-expanded="false">
-            <%=
-              if @current_group
-                @current_group.name + " ▼"
-              elsif params[:group] == "-1"
-                "no group ▼"
-              else
-                "all groups ▼"
-              end
-            %>
-          </a>
-          <ul id="groupSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
-            <% unless params[:group] == nil %>
-              <li>
-                <%= link_to "all groups", issues_path(filter_params(params, {group: nil})) %>
-              </li>
-            <% end %>
-            <% @groups.each do |group| %>
-              <% unless @current_group == group %>
-                <li>
-                  <%= link_to group.name, issues_path(filter_params(params, {group: group.id})) %>
-                </li>
-              <% end %>
-            <% end %>
-            <% unless params[:group] == "-1" %>
-              <li>
-                <%= link_to "no group", issues_path(filter_params(params, {group: -1})) %>
-              </li>
-            <% end %>
-          </ul>
-        </li>
-        <li>
-          <a href="#" class="button select" title="<%= @administrative_areas.present? ? 'select to limit by area' : 'no areas for current selections' %>" data-dropdown="administrativeAreaSelection" aria-controls="administrativeAreaSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_administrative_area ? @current_administrative_area.short_name + " ▼" : "all areas ▼" %></a>
-          <ul id="administrativeAreaSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
-            <% unless @current_administrative_area.nil? %>
-              <li>
-                <%= link_to "all areas", issues_path(filter_params(params, {area: nil})) %>
-              </li>
-            <% end %>
-            <% @administrative_areas.sort_by{ |a| a.short_name }.each do |area| %>
-              <% unless (@current_administrative_area && @current_administrative_area == area) %>
-                <li>
-                  <%= link_to area.short_name, issues_path(filter_params(params, {area: area.id})) %>
-                </li>
-              <% end %>
-            <% end %>
-          </ul>
-        </li>
-
-        <li>
-          <a href="#" class="button select" data-dropdown="routeSelection" aria-controls="routeSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_route ? @current_route.name + " ▼" : "all routes ▼" %></a>
-          <ul id="routeSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
-            <% unless @current_route.nil? %>
-              <li>
-                <%= link_to "all routes", issues_path(filter_params(params, {route: nil})) %>
-              </li>
-            <% end %>
-            <% @routes.each do |route| %>
-              <% unless @current_route == route %>
-                <li>
-                  <%= link_to route.name, issues_path(filter_params(params, {route: route.slug})) %>
-                </li>
-              <% end %>
-            <% end %>
-          </ul>
-        </li>
-      <% end %>
-
-      <li>
-        <a href="#" class="button select" data-dropdown="stateSelection" aria-controls="stateSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_state ? state_t(@current_state) + " ▼" : "status (default) ▼" %></a>
-        <ul id="stateSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
-          <% unless @current_state.nil? %>
-            <li>
-              <%= link_to "default", issues_path(filter_params(params, {state: nil})) %>
-            </li>
-          <% end %>
-          <% unless @current_state && @current_state == "all states" %>
-            <li>
-              <%= link_to "all states", issues_path(filter_params(params, {state: "all"})) %>
-            </li>
-          <% end %>
-          <% @states.each do |state| %>
-            <% unless ((@current_state && @current_state == state) || state == :reopened) %>
-              <li>
-                <%= link_to state_t(state), issues_path(filter_params(params, {state: state})) %>
-              </li>
-            <% end %>
-          <% end %>
-        </ul>
-      </li>
-      <% if can_do? current_user, "ranger coordinator staff admin" %>
-        <li class=''>
-          <a href="#" class="button select" data-dropdown="labelSelection" aria-controls="labelSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_label ? @current_label.name + " ▼" : "labels ▼" %></a>
-          <ul id="labelSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
-            <% unless @current_label.nil? %>
-              <li>
-                <%= link_to "any label", issues_path(filter_params(params, {label: nil})) %>
-              </li>
-            <% end %>
-            <% @labels.each do |label| %>
-              <% unless ((@current_label && @current_label == label)) %>
-                <li>
-                  <%= link_to label.name, issues_path(filter_params(params, {label: label})) %>
-                </li>
-              <% end %>
-            <% end %>
-            <% unless @current_label && @current_label.name == "undefined" %>
-              <li>
-                <%= link_to "undefined", issues_path(filter_params(params, {label: "undefined"})) %>
-              </li>
-            <% end %>
-          </ul>
-        </li>
-      <% end %>
+      <%= render 'issues/filters/region' %>
+      <%= render 'issues/filters/group' %>
+      <%= render 'issues/filters/administrative_area' %>
+      <%= render 'issues/filters/route' %>
+      <%= render 'issues/filters/state' %>
+      <%= render 'issues/filters/label' %>
     </ul>
   </div>
+
   <div class='medium-4 large-3 columns'>
-    <%= will_paginate @issues, inner_window: 0, outter_window: 0, previous_label: '❮ prev', next_label: 'next ❯' %>
-    <div class='issue-count-row'>
-      <span title="<%= @issues.total_entries %> issues in selection">
-        <% if @issues.total_entries > 10 %>
-          <%= @issues.offset + 1 %> to <%= @issues.offset + @issues.per_page %> of <b><%= @issues.total_entries %></b>
-        <% else %>
-          <br><br>
-          <%= @issues.total_entries %> issues
-        <% end %>
-      </span>
-    </div>
+    <%= render 'pagination' %>
   </div>
 </div>
