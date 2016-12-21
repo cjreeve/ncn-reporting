@@ -1,4 +1,4 @@
-<div class='comment'>
+<div class="comment number-<%= comment.id %>">
   <% if can? :delete, comment %>
     <%= link_to "&times".html_safe,
         comment_path(comment), method: :delete,

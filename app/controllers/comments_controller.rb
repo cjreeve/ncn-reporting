@@ -61,7 +61,7 @@ class CommentsController < ApplicationController
       if @comment.destroy
         format.html { redirect_to :show, status: :created }
         format.js {
-          return (render :comment)
+          return (render :destroy)
         }
       else
         format.html { return render :show }
