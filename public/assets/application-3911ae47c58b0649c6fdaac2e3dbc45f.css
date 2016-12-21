@@ -8816,14 +8816,14 @@ article.issue ul.issue-filter-mode-options {
     line-height: 1;
     font-size: 0.75rem; }
     article.issue ul.issue-filter-mode-options li span {
-      padding: 0 0.1875rem; }
+      padding: 0 0.1875rem;
+      border: 0.0625rem solid white; }
       article.issue ul.issue-filter-mode-options li span.active {
-        background-color: #e5e5e5;
-        color: white; }
+        border-color: #888;
+        color: #888; }
       article.issue ul.issue-filter-mode-options li span:hover {
-        background-color: #e5e5e5; }
+        border-color: #888; }
         article.issue ul.issue-filter-mode-options li span:hover a {
-          color: white;
           text-decoration: none; }
 article.issue .search-bar {
   margin-bottom: 1.25rem; }
