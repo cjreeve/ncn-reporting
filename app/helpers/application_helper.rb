@@ -88,7 +88,7 @@ module ApplicationHelper
     parts = text.split(identifier)
     numbers = parts[1..-1].collect{ |s| s.to_i unless s.to_i.zero? }.compact.uniq
     numbers.each do |number|
-      text.gsub! "#{ identifier }#{ number }", link_to("#{ identifier }#{ number }", "/issue/#{ number }")
+      text.gsub! "#{ identifier }#{ number }", link_to("#{ identifier }#{ number }", "#{ Rails.application.config.site_url }/issue/#{ number }")
     end
     text
   end
