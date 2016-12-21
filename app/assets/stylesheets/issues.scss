@@ -14,16 +14,15 @@ article.issue{
       font-size: rem-calc(12);
       span{
         padding: rem-calc(0 3);
-        // color: $grey;
+        border: rem-calc(1) solid white;
 
         &.active{
-          background-color: $pale-grey;
-          color: white;
+          border-color: $grey;
+          color: $grey;
         }
         &:hover{
-          background-color: $pale-grey;
+          border-color: $grey;
           a{
-            color: white;
             text-decoration: none;
           }
         }
