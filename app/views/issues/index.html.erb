@@ -50,7 +50,7 @@
       <div class='download-issues'>
         download
         <%= link_to "CSV", issues_path(filter_params(params, {format: "csv"})) %>,
-        <%= link_to "PDF", issues_path(filter_params(params, {format: "pdf"})) %>
+        <%= link_to "PDF", issues_path(filter_params(params, {format: "pdf"})), target: :_blank %>
         <%= link_to "GPX", issues_path(filter_params(params, {format: "gpx"})) %>
       </div>
       </div>
