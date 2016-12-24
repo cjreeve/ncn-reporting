@@ -1,0 +1,20 @@
+<% if @groups.present? %>
+  <li>
+    <% more_char = (@groups.count > 1 ? '▼' : '') %>
+    <a href="#" class="button select" data-dropdown="groupSelection" aria-controls="groupSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_group ? @current_group.name + " #{more_char}" : "all groups #{more_char}" %></a>
+    <% if @groups.count > 1 %>
+      <ul id="groupSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
+        <% unless @current_group == 'all' %>
+          <li><%= link_to 'all groups', admin_users_path({group: 'all'}) %></li>
+        <% end %>
+        <% @groups.each do |group| %>
+          <% unless @current_group == group %>
+            <li>
+              <%= link_to group.name, admin_users_path({group: group.id}) %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    <% end %>
+  </li>
+<% end %>

@@ -6,7 +6,30 @@ class Admin::UsersController < ApplicationController
   before_filter :check_manage_authorisation, except: [:index, :show]
 
   def index
-    @users = User.where('updated_at is not null').order("updated_at DESC") + User.where('updated_at is null')
+    options = {}
+
+    @regions = Region.all.order(:name)
+    @current_region = Region.find_by_id(params[:region].to_i)
+    region_ids = params[:region].split('.').collect{ |id| id.to_i } if params[:region]
+    options[:region] = region_ids if params[:region] && params[:region] != "all"
+
+    if @current_region
+      @groups = Group.where(region: @current_region).order(:name)
+      @current_group = Group.find_by_id(params[:group].to_i)
+      region_ids = params[:group].split('.').collect{ |id| id.to_i } if params[:group]
+      options[:group] = region_ids if params[:group] && params[:group] != "all"
+    end
+
+
+    @users = User.where(options)
+                 .where('updated_at is not null')
+                 .order("updated_at DESC")
+                 .paginate(page: (params[:page] || 1), per_page: 100)
+
+            # TODO - not sure if it is needed to included updated_at: nil accounts
+            # they had been tagged at the end but this conflicts with pagination as converts it to an array
+            # User.where('updated_at is null')
+
   end
 
   def show

@@ -1,0 +1,18 @@
+<li>
+  <% more_char = (@regions.count > 1 ? '▼' : '') %>
+  <a href="#" class="button select" data-dropdown="regionSelection" aria-controls="regionSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_region ? @current_region.name + " #{more_char}" : "all regions #{more_char}" %></a>
+  <% if @regions.count > 1 %>
+    <ul id="regionSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
+      <% unless @current_region == 'all' %>
+        <li><%= link_to 'all regions', admin_users_path({region: 'all'}) %></li>
+      <% end %>
+      <% @regions.each do |region| %>
+        <% unless @current_region == region %>
+          <li>
+            <%= link_to region.name, admin_users_path({region: region.id}) %>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  <% end %>
+</li>

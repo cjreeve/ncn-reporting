@@ -1,0 +1,12 @@
+
+<%= will_paginate @users, inner_window: 0, outter_window: 0, previous_label: '❮ prev', next_label: 'next ❯' %>
+<div class='user-count-row'>
+  <span title="<%= @users.total_entries %> users.pagination in selection">
+    <% if @users.total_entries > 10 %>
+      <%= @users.offset + 1 %> to <%= @users.offset + @users.per_page %> of <b><%= @users.total_entries %></b>
+    <% else %>
+      <br><br>
+      <%= @users.total_entries %> <%= 'user'.pluralize(@users.total_entries) %>
+    <% end %>
+  </span>
+</div>

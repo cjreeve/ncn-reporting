@@ -1,0 +1,21 @@
+<% if @administrative_areas.present? %>
+  <li>
+    <a href="#" class="button select" title="<%= @administrative_areas.present? ? 'select to limit by area' : 'no areas for current selections' %>" data-dropdown="administrativeAreaSelection" aria-controls="administrativeAreaSelection" data-options="is_hover:true" aria-expanded="false">
+      <%= @current_administrative_area ? @current_administrative_area.short_name + " ▼" : "all areas ▼" %>
+    </a>
+    <ul id="administrativeAreaSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
+      <% unless @current_administrative_area.nil? %>
+        <li>
+          <%= link_to "all areas", issues_path(filter_params(params, {area: nil})) %>
+        </li>
+      <% end %>
+      <% @administrative_areas.sort_by{ |a| a.short_name }.each do |area| %>
+        <% unless (@current_administrative_area && @current_administrative_area == area) %>
+          <li>
+            <%= link_to area.short_name, issues_path(filter_params(params, {area: area.id})) %>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </li>
+<% end %>
