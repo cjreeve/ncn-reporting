@@ -1,0 +1,4 @@
+
+<li class='search-result'>
+  <%= link_to result.name, admin_users_path(route: result.try(:slug) || result.id) %>
+</li>

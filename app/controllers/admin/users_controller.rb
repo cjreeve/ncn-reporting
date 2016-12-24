@@ -7,6 +7,7 @@ class Admin::UsersController < ApplicationController
 
   def index
     options = {}
+    include_tables = []
 
     @regions = Region.all.order(:name)
     @current_region = Region.find_by_id(params[:region].to_i)
@@ -20,11 +21,20 @@ class Admin::UsersController < ApplicationController
       options[:group] = region_ids if params[:group] && params[:group] != "all"
     end
 
+    @routes = Route.joins(:users).order(:name).uniq.limit(10).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
+    @current_route ||= Route.find_by_slug(params[:route])
+    route_ids = params[:route].split('.').collect{ |r| Route.find_by_slug(r).try(:id) } if params[:route]
+    options[:routes] = { id: route_ids } if params[:route] && params[:route] != "all"
+    include_tables << :routes
 
-    @users = User.where(options)
-                 .where('updated_at is not null')
-                 .order("updated_at DESC")
+
+    @users = User.includes(include_tables)
+                 .where(options)
+                 .where.not(users: { updated_at: nil})
+                 .order(updated_at: :desc)
                  .paginate(page: (params[:page] || 1), per_page: 100)
+
+
 
             # TODO - not sure if it is needed to included updated_at: nil accounts
             # they had been tagged at the end but this conflicts with pagination as converts it to an array

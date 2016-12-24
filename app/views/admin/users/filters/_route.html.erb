@@ -1,15 +1,20 @@
 <li>
-  <a href="#" class="button select" data-dropdown="routeSelection" aria-controls="routeSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_route ? @current_route.name + " ▼" : "all routes ▼" %></a>
-  <ul id="routeSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
+  <a href="#" class="button select" aria-haspopup="true" data-dropdown="routeSelection" aria-controls="routeSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_route ? @current_route.name + " ▼" : "all routes ▼" %></a>
+  <ul id="routeSelection" class="f-dropdown" aria-autoclose="false" data-dropdown-content >
+    <li class='search-option'>
+      <%= form_tag mini_search_path, method: :get, remote: true do %>
+        <%= text_field_tag :query, nil, {placeholder: 'search', autocomplete: :off} %>
+      <% end %>
+    </li>
     <% unless @current_route.nil? %>
-      <li>
-        <%= link_to "all routes", issues_path(filter_params(params, {route: nil})) %>
+      <li class='default-options all'>
+        <%= link_to "all routes", admin_users_path(filter_params(params, {route: nil})) %>
       </li>
     <% end %>
     <% @routes.each do |route| %>
       <% unless @current_route == route %>
-        <li>
-          <%= link_to route.name, issues_path(filter_params(params, {route: route.slug})) %>
+        <li class='default-options'>
+          <%= link_to route.name, admin_users_path(filter_params(params, {route: route.slug})) %>
         </li>
       <% end %>
     <% end %>

@@ -55,6 +55,8 @@ Rails.application.routes.draw do
   end
   get '/' => 'site#welcome'
 
+  get '/site/mini_search' => 'site#mini_search', as: :mini_search
+
   resources :issues do
     member do
       put 'progress'

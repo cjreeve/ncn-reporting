@@ -56,4 +56,8 @@ class SiteController < ApplicationController
     render layout: false
   end
 
+  def mini_search
+    @mini_search_results = Route.order(:name).where("name ILIKE ?", "%#{ params[:query] }%").limit(10)
+  end
+
 end
