@@ -1,8 +1,8 @@
 <li>
   <a href="#" class="button select" aria-haspopup="true" data-dropdown="routeSelection" aria-controls="routeSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_route ? @current_route.name + " ▼" : "all routes ▼" %></a>
   <ul id="routeSelection" class="f-dropdown" aria-autoclose="false" data-dropdown-content >
-    <li class='search-option'>
-      <%= form_tag mini_search_path, method: :get, remote: true do %>
+    <li class='search-option' data-mini-search='route'>
+      <%= form_tag mini_search_path(type: 'route'), method: :get, remote: true do %>
         <%= text_field_tag :query, nil, {placeholder: 'search', autocomplete: :off} %>
       <% end %>
     </li>

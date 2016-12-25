@@ -4,12 +4,12 @@
   <% if @regions.count > 1 %>
     <ul id="regionSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
       <% unless @current_region == 'all' %>
-        <li><%= link_to 'all regions', admin_users_path({region: 'all'}) %></li>
+        <li><%= link_to 'all regions', admin_users_path(filter_params(params, {region: 'all'})) %></li>
       <% end %>
       <% @regions.each do |region| %>
         <% unless @current_region == region %>
           <li>
-            <%= link_to region.name, admin_users_path({region: region.id}) %>
+            <%= link_to region.name, admin_users_path(filter_params(params, {region: region.id})) %>
           </li>
         <% end %>
       <% end %>

@@ -17,12 +17,13 @@ class Admin::UsersController < ApplicationController
     if @current_region
       @groups = Group.where(region: @current_region).order(:name)
       @current_group = Group.find_by_id(params[:group].to_i)
-      region_ids = params[:group].split('.').collect{ |id| id.to_i } if params[:group]
-      options[:group] = region_ids if params[:group] && params[:group] != "all"
+      group_ids = params[:group].split('.').collect{ |id| id.to_i } if params[:group]
+      options[:groups] = { id: group_ids } if params[:group] && params[:group] != "all"
+      include_tables << :groups
     end
 
     @routes = Route.joins(:users).order(:name).uniq.limit(10).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
-    @current_route ||= Route.find_by_slug(params[:route])
+    @current_route = Route.find_by_slug(params[:route])
     route_ids = params[:route].split('.').collect{ |r| Route.find_by_slug(r).try(:id) } if params[:route]
     options[:routes] = { id: route_ids } if params[:route] && params[:route] != "all"
     include_tables << :routes

@@ -57,7 +57,8 @@ class SiteController < ApplicationController
   end
 
   def mini_search
-    @mini_search_results = Route.order(:name).where("name ILIKE ?", "%#{ params[:query] }%").limit(10)
+    @search_type = params[:type]
+    @mini_search_results = @search_type.classify.constantize.order(:name).where("name ILIKE ?", "%#{ params[:query] }%").limit(10)
   end
 
 end

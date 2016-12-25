@@ -1,5 +1,5 @@
 $('.default-options').hide();
 $('.search-result').remove();
 <% @mini_search_results.reverse.each do |result| %>
-  $('li.search-option').after("<%= j( render 'site/mini_search', result: result ) %>");
+  $("li[data-mini-search='<%= @search_type %>'").after("<%= j( render 'site/mini_search', result: result ) %>");
 <% end %>

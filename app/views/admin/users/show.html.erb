@@ -46,6 +46,9 @@
             <td>Region:</td><td><%= @user.region.try(:name) %></td>
           </tr>
           <tr>
+            <td>Groups:</td><td><%= @user.groups.collect(&:name).to_sentence %></td>
+          </tr>
+          <tr>
             <td>Areas:</td><td><%= @user.administrative_areas.collect(&:short_name).to_sentence %></td>
           </tr>
           <tr>
