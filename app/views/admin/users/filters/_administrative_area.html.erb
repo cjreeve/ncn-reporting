@@ -11,13 +11,13 @@
     </li>
     <% unless @current_administrative_area.nil? %>
       <li>
-        <%= link_to "all areas", issues_path(filter_params(params, {area: nil})) %>
+        <%= link_to "all areas", admin_users_path(filter_params(params, {area: nil})) %>
       </li>
     <% end %>
     <% @administrative_areas.sort_by{ |a| a.short_name }.each do |area| %>
       <% unless (@current_administrative_area && @current_administrative_area == area) %>
         <li>
-          <%= link_to area.short_name, issues_path(filter_params(params, {area: area.id})) %>
+          <%= link_to area.short_name, admin_users_path(filter_params(params, {area: area.id})) %>
         </li>
       <% end %>
     <% end %>

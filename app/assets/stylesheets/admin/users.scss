@@ -76,3 +76,67 @@
     }
   }
 }
+
+
+.admin{
+  &.users{
+
+    .send-site-notifications{
+      display: inline-block;
+      .button.tiny{
+        margin-right: rem-calc(5);
+        margin-bottom: rem-calc(5);
+        @media #{$medium-up}{
+          margin-bottom: rem-calc(30);
+        }
+      }
+    }
+    .site-notification-sent-time{
+      font-size: rem-calc(12);
+      color: $red;
+      &.today{
+        color: $dark-green;
+      }
+      &.recently{
+        color: $grey;
+      }
+      @media #{$small-only}{
+        display: block;
+        margin-bottom: rem-calc(30);
+      }
+    }
+  }
+
+  table.users{
+    width: 100%;
+    tr{
+      td{
+        height: rem-calc(50);
+        @media #{$large-up}{
+          height: auto;
+        }
+        img{
+          border-left: rem-calc(4) solid $light-grey;
+        }
+        img{
+          width: rem-calc(30);
+          @media #{$large-up}{
+            width: rem-calc(50);
+          }
+        }
+      }
+      &.recently img{
+        border-color: darken($light-pink, 9);
+      }
+      &.today img{
+       border-color: $yellow;
+      }
+      &.yesterday img{
+       border-color: darken($light-green, 10);
+      }
+      &.month img{
+       border-color: lighten($light-blue-grey, 10);
+      }
+    }
+  }
+}

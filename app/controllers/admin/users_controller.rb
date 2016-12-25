@@ -23,9 +23,9 @@ class Admin::UsersController < ApplicationController
     end
 
     @administrative_areas = AdministrativeArea.joins(:issues).limit(10).merge(Issue.order(updated_at: :desc)).to_a.uniq
-    @current_administrative_area = AdministrativeArea.find_by_id(params[:administrative_area].to_i)
-    administrative_area_ids = params[:administrative_area].split('.').collect{ |id| id.to_i } if params[:administrative_area]
-    options[:administrative_areas] = { id: administrative_area_ids } if params[:administrative_area] && params[:administrative_area] != "all"
+    @current_administrative_area = AdministrativeArea.find_by_id(params[:area].to_i)
+    administrative_area_ids = params[:area].split('.').collect{ |id| id.to_i } if params[:area]
+    options[:administrative_areas] = { id: administrative_area_ids } if params[:area] && params[:area] != "all"
     include_tables << :administrative_areas
 
     @routes = Route.joins(:issues).merge(Issue.order(updated_at: :desc)).limit(10).to_a.uniq.sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
