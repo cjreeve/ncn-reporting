@@ -1,21 +1,26 @@
-<% if @administrative_areas.present? %>
-  <li>
-    <a href="#" class="button select" title="<%= @administrative_areas.present? ? 'select to limit by area' : 'no areas for current selections' %>" data-dropdown="administrativeAreaSelection" aria-controls="administrativeAreaSelection" data-options="is_hover:true" aria-expanded="false">
-      <%= @current_administrative_area ? @current_administrative_area.short_name + " ▼" : "all areas ▼" %>
-    </a>
-    <ul id="administrativeAreaSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
-      <% unless @current_administrative_area.nil? %>
+
+<li>
+  <a href="#" class="button select" title="<%= @administrative_areas.present? ? 'select to limit by area' : 'no areas for current selections' %>" data-dropdown="administrativeAreaSelection" aria-controls="administrativeAreaSelection" data-options="is_hover:true" aria-expanded="false">
+    <%= @current_administrative_area ? @current_administrative_area.short_name + " ▼" : "all areas ▼" %>
+  </a>
+  <ul id="administrativeAreaSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" aria-autoclose="false">
+    <li class='search-option' data-mini-search='administrative_area'>
+      <%= form_tag mini_search_path(type: 'administrative_area'), method: :get, remote: true do %>
+        <%= text_field_tag :query, nil, {placeholder: 'search', autocomplete: :off} %>
+      <% end %>
+    </li>
+    <% unless @current_administrative_area.nil? %>
+      <li>
+        <%= link_to "all areas", issues_path(filter_params(params, {area: nil})) %>
+      </li>
+    <% end %>
+    <% @administrative_areas.sort_by{ |a| a.short_name }.each do |area| %>
+      <% unless (@current_administrative_area && @current_administrative_area == area) %>
         <li>
-          <%= link_to "all areas", issues_path(filter_params(params, {area: nil})) %>
+          <%= link_to area.short_name, issues_path(filter_params(params, {area: area.id})) %>
         </li>
       <% end %>
-      <% @administrative_areas.sort_by{ |a| a.short_name }.each do |area| %>
-        <% unless (@current_administrative_area && @current_administrative_area == area) %>
-          <li>
-            <%= link_to area.short_name, issues_path(filter_params(params, {area: area.id})) %>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
-  </li>
-<% end %>
+    <% end %>
+  </ul>
+</li>
+

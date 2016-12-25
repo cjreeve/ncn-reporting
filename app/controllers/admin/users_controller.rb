@@ -22,7 +22,13 @@ class Admin::UsersController < ApplicationController
       include_tables << :groups
     end
 
-    @routes = Route.joins(:users).order(:name).uniq.limit(10).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
+    @administrative_areas = AdministrativeArea.joins(:issues).limit(10).merge(Issue.order(updated_at: :desc)).to_a.uniq
+    @current_administrative_area = AdministrativeArea.find_by_id(params[:administrative_area].to_i)
+    administrative_area_ids = params[:administrative_area].split('.').collect{ |id| id.to_i } if params[:administrative_area]
+    options[:administrative_areas] = { id: administrative_area_ids } if params[:administrative_area] && params[:administrative_area] != "all"
+    include_tables << :administrative_areas
+
+    @routes = Route.joins(:issues).merge(Issue.order(updated_at: :desc)).limit(10).to_a.uniq.sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
     @current_route = Route.find_by_slug(params[:route])
     route_ids = params[:route].split('.').collect{ |r| Route.find_by_slug(r).try(:id) } if params[:route]
     options[:routes] = { id: route_ids } if params[:route] && params[:route] != "all"
