@@ -34,6 +34,10 @@ class Admin::UsersController < ApplicationController
     options[:routes] = { id: route_ids } if params[:route] && params[:route] != "all"
     include_tables << :routes
 
+    @roles = User::ROLES
+    @current_role = params[:role]
+    options[:role] = params[:role] if params[:role]
+
 
     @users = User.includes(include_tables)
                  .where(options)
