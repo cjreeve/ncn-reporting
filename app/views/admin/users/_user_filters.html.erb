@@ -1,4 +1,11 @@
 
+<span class='filter-options-label'>
+  User filter options
+  <% unless filter_params(params).blank? %>
+    - <%= link_to 'reset', admin_users_path %>
+  <% end %>
+</span>
+
 <div class='row'>
   <div class='medium-8 large-9 columns'>
     <ul class='small-block-grid-1 medium-block-grid-4 large-block-grid-6 user-filters'>
