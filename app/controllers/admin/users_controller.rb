@@ -16,27 +16,50 @@ class Admin::UsersController < ApplicationController
 
     if @current_region
       @groups = Group.where(region: @current_region).order(:name)
-      @current_group = Group.find_by_id(params[:group].to_i)
-      group_ids = params[:group].split('.').collect{ |id| id.to_i } if params[:group]
-      options[:groups] = { id: group_ids } if params[:group] && params[:group] != "all"
+    end
+    if params[:group] && params[:group] != "all"
+      if params[:group] == 'none'
+        @current_group = 'none'
+        options[:groups] = { id: nil }
+      else
+        @current_group = Group.find_by_id(params[:group].to_i)
+        group_ids = params[:group].split('.').collect{ |id| id.to_i }
+        options[:groups] = { id: group_ids }
+      end
       include_tables << :groups
     end
 
     @administrative_areas = AdministrativeArea.joins(:issues).limit(10).merge(Issue.order(updated_at: :desc)).to_a.uniq
-    @current_administrative_area = AdministrativeArea.find_by_id(params[:area].to_i)
-    administrative_area_ids = params[:area].split('.').collect{ |id| id.to_i } if params[:area]
-    options[:administrative_areas] = { id: administrative_area_ids } if params[:area] && params[:area] != "all"
-    include_tables << :administrative_areas
+    if params[:area] && params[:area] != "all"
+      if params[:area] == 'none'
+        @current_administrative_area = 'none'
+        options[:administrative_areas] = { id: nil }
+      else
+        @current_administrative_area = AdministrativeArea.find_by_id(params[:area].to_i)
+        administrative_area_ids = params[:area].split('.').collect{ |id| id.to_i }
+        options[:administrative_areas] = { id: administrative_area_ids }
+      end
+      include_tables << :administrative_areas
+    end
 
     @routes = Route.joins(:issues).merge(Issue.order(updated_at: :desc)).limit(10).to_a.uniq.sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
-    @current_route = Route.find_by_slug(params[:route])
-    route_ids = params[:route].split('.').collect{ |r| Route.find_by_slug(r).try(:id) } if params[:route]
-    options[:routes] = { id: route_ids } if params[:route] && params[:route] != "all"
-    include_tables << :routes
+    if params[:route] && params[:route] != "all"
+      if params[:route] == 'none'
+        @current_route = 'none'
+        options[:routes] = { id: nil }
+      else
+        @current_route = Route.find_by_slug(params[:route])
+        route_ids = params[:route].split('.').collect{ |r| Route.find_by_slug(r).try(:id) } if params[:route]
+        options[:routes] = { id: route_ids }
+      end
+      include_tables << :routes
+    end
 
     @roles = User::ROLES
-    @current_role = params[:role]
-    options[:role] = params[:role] if params[:role]
+    if params[:role]
+      @current_role = User::ROLES.include?(params[:role]) ? params[:role] : 'customised'
+      options[:role] = params[:role].split('.')
+    end
 
 
     @users = User.includes(include_tables)

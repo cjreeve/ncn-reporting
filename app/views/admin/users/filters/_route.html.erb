@@ -1,6 +1,6 @@
 <% if @routes.present? %>
   <li>
-    <a href="#" class="button select" aria-haspopup="true" data-dropdown="routeSelection" aria-controls="routeSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_route ? @current_route.name + " ▼" : "all routes ▼" %></a>
+    <a href="#" class="button select" aria-haspopup="true" data-dropdown="routeSelection" aria-controls="routeSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_route ? (@current_route.try(:name) || @current_route) + " ▼" : "all routes ▼" %></a>
     <ul id="routeSelection" class="f-dropdown" aria-autoclose="false" data-dropdown-content >
       <li class='search-option' data-mini-search='route'>
         <%= form_tag mini_search_path(type: 'route'), method: :get, remote: true do %>
@@ -18,6 +18,12 @@
             <%= link_to route.name, admin_users_path(filter_params(params, {route: route.slug})) %>
           </li>
         <% end %>
+      <% end %>
+
+      <% unless @current_route == 'none' %>
+        <li>
+          <%= link_to 'no route', admin_users_path(filter_params(params, {route: 'none'})) %>
+        </li>
       <% end %>
     </ul>
   </li>

@@ -44,7 +44,8 @@ module Workspace
       :region,
       :route,
       :state,
-      :user]
+      :user,
+      :role]
 
     config.site_url = "https://ncn-reporting.herokuapp.com"
 

@@ -1,7 +1,7 @@
 <% if @groups.present? %>
   <li>
     <% more_char = (@groups.count > 1 ? '▼' : '') %>
-    <a href="#" class="button select" data-dropdown="groupSelection" aria-controls="groupSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_group ? @current_group.name + " #{more_char}" : "all groups #{more_char}" %></a>
+    <a href="#" class="button select" data-dropdown="groupSelection" aria-controls="groupSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_group ? (@current_group.try(:name) || @current_group) + " #{more_char}" : "all groups #{more_char}" %></a>
     <% if @groups.count > 1 %>
       <ul id="groupSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
         <% unless @current_group == 'all' %>
@@ -13,6 +13,11 @@
               <%= link_to group.name, admin_users_path(filter_params(params, {group: group.id})) %>
             </li>
           <% end %>
+        <% end %>
+        <% unless @current_group == 'none' %>
+          <li>
+            <%= link_to 'no group', admin_users_path(filter_params(params, {group: 'none'})) %>
+          </li>
         <% end %>
       </ul>
     <% end %>
