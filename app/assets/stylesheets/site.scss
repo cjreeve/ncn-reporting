@@ -182,3 +182,26 @@ ul.f-dropdown{
     }
   }
 }
+
+.filter-name-search .search-and-submit{
+  display: table;
+  width: 100%;
+  >div{
+    display: table-cell;
+    vertical-align: top;
+  }
+  input#query, button{
+    height: rem-calc(35);
+    margin: 0;
+  }
+  input#query{
+    color: $dark-grey;
+  }
+  button{
+    width: rem-calc(25);
+    padding: rem-calc(7 2);
+    font-size: rem-calc(11);
+    background-color: $light-blue-grey;
+    color: white;
+  }
+}

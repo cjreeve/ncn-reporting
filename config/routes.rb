@@ -25,11 +25,7 @@ Rails.application.routes.draw do
   resources :comments
 
   namespace :admin do
-    # get 'users/index'
-    # get 'users/show'
-    # get 'users/edit'
     resources :users
-    # delete 'users/destroy'
   end
 
   devise_for :users, controllers: { registrations: "users/registrations" }

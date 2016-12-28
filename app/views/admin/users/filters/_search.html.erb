@@ -1,0 +1,15 @@
+<li>
+  <%= form_tag admin_users_path, method: :get, class: 'filter-name-search' do %>
+    <div class='search-and-submit'>
+      <div class='search'>
+        <%= text_field_tag :query, params[:query], { placeholder: 'search', title: 'enter part or full name' } %>
+      </div>
+      <div class='submit'>
+        <%= button_tag 'GO', { title: 'search by user name' } %>
+      </div>
+    </div>
+    <% filter_params(params).to_a.each do |param| %>
+      <%= hidden_field_tag param[0].to_sym, param[1] %>
+    <% end %>
+  <% end %>
+</li>

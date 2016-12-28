@@ -65,8 +65,11 @@ class Admin::UsersController < ApplicationController
     @users = User.includes(include_tables)
                  .where(options)
                  .where.not(users: { updated_at: nil})
-                 .order(updated_at: :desc)
-                 .paginate(page: (params[:page] || 1), per_page: 100)
+
+    @users = @users.where("users.name ILIKE ?", "%#{ params[:query] }%") if params[:query].present?
+
+    @users = @users.order(updated_at: :desc)
+                   .paginate(page: (params[:page] || 1), per_page: 100)
 
 
 
