@@ -190,6 +190,27 @@ ul.f-dropdown{
     display: table-cell;
     vertical-align: top;
   }
+  .search{
+    position: relative;
+    a{
+      display: none;
+    }
+    a.clear-text-field{
+      position: absolute;
+      right: rem-calc(3);
+      top: rem-calc(12);
+      padding: rem-calc(2);
+      line-height: 0.5;
+      font-size: rem-calc(16);
+      color: $grey;
+      &:hover{
+        color: $dark-grey;
+      }
+    }
+    &:hover a.clear-text-field{
+      display: inline-block;
+    }
+  }
   input#query, button{
     height: rem-calc(35);
     margin: 0;

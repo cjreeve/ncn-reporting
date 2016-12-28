@@ -3,13 +3,14 @@
     <div class='search-and-submit'>
       <div class='search'>
         <%= text_field_tag :query, params[:query], { placeholder: 'search', title: 'enter part or full name' } %>
+        <%= link_to "&times;".html_safe, '#', class:"#{ params[:query].present? ? 'clear-text-field' : '' }", title: "clear search entry" %>
       </div>
       <div class='submit'>
         <%= button_tag 'GO', { title: 'search by user name' } %>
       </div>
     </div>
     <% filter_params(params).to_a.each do |param| %>
-      <%= hidden_field_tag param[0].to_sym, param[1] %>
+      <%= hidden_field_tag param[0].to_sym, param[1] unless param[0].to_s == 'query' %>
     <% end %>
   <% end %>
 </li>
