@@ -35,6 +35,23 @@
           margin-bottom: rem-calc(10);
         }
       }
+      &.filter-checkboxes{
+        form:first-of-type div{
+          margin-top: rem-calc(-2);
+        }
+        form:last-of-type div{
+          margin-top: rem-calc(-6);
+        }
+        input{
+          margin: 0;
+        }
+        label{
+          margin: rem-calc(0 0 0 3);
+          vertical-align: top;
+          line-height: 1.5;
+          font-size: rem-calc(11);
+        }
+      }
     }
     .f-dropdown{
       max-width: rem-calc(103);

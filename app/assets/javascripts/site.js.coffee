@@ -13,3 +13,6 @@ jQuery ->
       e.preventDefault()
       $(this).parent().find('input[type="text"]').val('')
       $(this).closest('form').submit()
+
+    $('.filter-checkboxes input').on 'change', ->
+      $(this).closest('form').submit()

@@ -61,6 +61,9 @@ class Admin::UsersController < ApplicationController
       options[:role] = params[:role].split('.')
     end
 
+    options[:is_admin] = true if params[:admin]
+    options[:is_locked] = true if params[:locked]
+
 
     @users = User.includes(include_tables)
                  .where(options)
