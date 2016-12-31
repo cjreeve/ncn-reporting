@@ -1,4 +1,7 @@
-
+<%
+  search_option = (result.try(:slug) ? { route: result.slug } : { id: result.id })
+  search_link = category == 'issue' ? issues_path(search_option) : admin_users_path(search_option)
+%>
 <li class='search-result'>
-  <%= link_to (result.try(:short_name) || result.name), admin_users_path(route: result.try(:slug) || result.id) %>
+  <%= link_to (result.try(:short_name) || result.name), search_link %>
 </li>

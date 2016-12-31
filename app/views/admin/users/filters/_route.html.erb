@@ -8,13 +8,13 @@
         <% end %>
       </li>
       <% unless @current_route.nil? %>
-        <li class='default-options all'>
+        <li class='default-option all'>
           <%= link_to "all routes", admin_users_path(filter_params(params, {route: nil})) %>
         </li>
       <% end %>
       <% @routes.each do |route| %>
         <% unless @current_route == route %>
-          <li class='default-options'>
+          <li class='default-option'>
             <%= link_to route.name, admin_users_path(filter_params(params, {route: route.slug})) %>
           </li>
         <% end %>

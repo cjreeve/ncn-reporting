@@ -58,6 +58,7 @@ class SiteController < ApplicationController
 
   def mini_search
     @search_type = params[:type]
+    @category = params[:category]
     @mini_search_results = @search_type.classify.constantize.order(:name).where("name ILIKE ?", "%#{ params[:query] }%").limit(10)
   end
 

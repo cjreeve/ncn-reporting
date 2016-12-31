@@ -5,25 +5,25 @@
   </a>
   <ul id="administrativeAreaSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" aria-autoclose="false">
     <li class='search-option' data-mini-search='administrative_area'>
-      <%= form_tag mini_search_path(type: 'administrative_area'), method: :get, remote: true do %>
+      <%= form_tag mini_search_path(type: 'administrative_area', category: 'user'), method: :get, remote: true do %>
         <%= text_field_tag :query, nil, {placeholder: 'search', autocomplete: :off} %>
       <% end %>
     </li>
     <% unless @current_administrative_area.nil? %>
-      <li>
+      <li class='default-option'>
         <%= link_to "all areas", admin_users_path(filter_params(params, {area: nil})) %>
       </li>
     <% end %>
     <% @administrative_areas.sort_by{ |a| a.short_name }.each do |area| %>
       <% unless (@current_administrative_area && @current_administrative_area == area) %>
-        <li>
+        <li class='default-option'>
           <%= link_to area.short_name, admin_users_path(filter_params(params, {area: area.id})) %>
         </li>
       <% end %>
     <% end %>
 
     <% unless @current_administrative_area == 'none' %>
-      <li>
+      <li class='default-option'>
         <%= link_to 'no area', admin_users_path(filter_params(params, {area: 'none'})) %>
       </li>
     <% end %>

@@ -3,18 +3,28 @@
   <a href="#" class="button select" title="<%= @administrative_areas.present? ? 'select to limit by area' : 'no areas for current selections' %>" data-dropdown="administrativeAreaSelection" aria-controls="administrativeAreaSelection" data-options="is_hover:true" aria-expanded="false">
     <%= @current_administrative_area ? @current_administrative_area.short_name + " ▼" : "all areas ▼" %>
   </a>
-  <ul id="administrativeAreaSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" >
+  <ul id="administrativeAreaSelection" class="f-dropdown" data-dropdown-content aria-hidden="true" aria-autoclose="false">
+    <% if @administrative_areas.size > 10 %>
+      <li class='search-option' data-mini-search='administrative_area'>
+        <%= form_tag mini_search_path(type: 'administrative_area', category: 'issue'), method: :get, remote: true do %>
+          <%= text_field_tag :query, nil, {placeholder: 'search', autocomplete: :off} %>
+        <% end %>
+      </li>
+    <% end %>
     <% unless @current_administrative_area.nil? %>
-      <li>
+      <li class='default-option'>
         <%= link_to "all areas", issues_path(filter_params(params, {area: nil})) %>
       </li>
     <% end %>
-    <% @administrative_areas.sort_by{ |a| a.short_name }.each do |area| %>
+    <% @administrative_areas[0..9].sort_by{ |a| a.short_name }.each do |area| %>
       <% unless (@current_administrative_area && @current_administrative_area == area) %>
-        <li>
+        <li class='default-option'>
           <%= link_to area.short_name, issues_path(filter_params(params, {area: area.id})) %>
         </li>
       <% end %>
+    <% end %>
+    <% if @administrative_areas.size > 10 %>
+      <li class='default-option more'><span>&hellip;</span></li>
     <% end %>
   </ul>
 </li>

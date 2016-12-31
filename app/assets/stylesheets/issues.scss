@@ -176,7 +176,7 @@ article.issue{
     }
     .f-dropdown{
       max-width: rem-calc(103);
-      a{
+      a, span{
         font-size: rem-calc(14);
         padding: rem-calc(5 8);
         line-height: 1.5;
@@ -187,6 +187,16 @@ article.issue{
         }
         @media #{$large-up} {
           font-size: rem-calc(12);
+        }
+      }
+      li.more{
+        &:hover{
+          background: none;
+          cursor: default;
+        }
+        span{
+          display: block;
+          color: $grey;
         }
       }
     }

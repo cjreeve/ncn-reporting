@@ -2,13 +2,13 @@
   <a href="#" class="button select" aria-haspopup="true" data-dropdown="roleSelection" aria-controls="roleSelection" data-options="is_hover:true" aria-expanded="false"><%= @current_role ? @current_role + " ▼" : "all roles ▼" %></a>
   <ul id="roleSelection" class="f-dropdown" aria-autoclose="false" data-dropdown-content >
     <% unless @current_role.nil? %>
-      <li class='default-options all'>
+      <li class='default-option all'>
         <%= link_to "all roles", admin_users_path(filter_params(params, {role: nil})) %>
       </li>
     <% end %>
     <% @roles.each do |role| %>
       <% unless @current_role == role %>
-        <li class='default-options'>
+        <li class='default-option'>
           <%= link_to role, admin_users_path(filter_params(params, {role: role})) %>
         </li>
       <% end %>
