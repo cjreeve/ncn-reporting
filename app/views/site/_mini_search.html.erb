@@ -1,5 +1,5 @@
 <%
-  search_option = (result.try(:slug) ? { route: result.slug } : { id: result.id })
+  search_option = { @search_type.gsub('administrative_area', 'area') => (result.try(:slug) || result.id ) }
   search_link = category == 'issue' ? issues_path(search_option) : admin_users_path(search_option)
 %>
 <li class='search-result'>
