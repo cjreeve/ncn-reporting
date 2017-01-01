@@ -18,7 +18,9 @@
             <%#= g.input :src, as: :file, label: 'Profile picture' %>
           <%# end %>
           <%= f.association :routes, label: "Routes (Ctrl-select)" %>
-          <%= f.association :groups, label: "Groups (Ctrl-select)" if current_user.role == 'staff' %>
+          <% if current_user.role == 'staff' %>
+            <%= f.association :groups, collection: Group.where(region: current_user.region), label: "Groups (Ctrl-select)" %>
+          <% end %>
           <%= f.label :administrative_area_tokens, "Managed areas" %>
           <%= f.text_field :administrative_area_tokens,
               "data-pre" => @user.administrative_areas.collect{ |a| {id: a.id, name: a.short_name }}.to_json
