@@ -1,5 +1,6 @@
-$('.default-option').hide();
-$('.search-result').remove();
+var miniSearchObject = $("[data-mini-search='<%= @search_type %>']")
+miniSearchObject.parent().find(".default-option").hide();
+miniSearchObject.parent().find('.search-result').remove();
 <% @mini_search_results.reverse.each do |result| %>
   $("li[data-mini-search='<%= @search_type %>'").after("<%= j( render 'site/mini_search', result: result, category: @category ) %>");
 <% end %>
