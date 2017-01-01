@@ -8582,6 +8582,43 @@ ul.token-input-list-facebook, ul.token-input-list {
   html body .reveal-modal.medium {
     width: 80%; } }
 
+ul.f-dropdown li.search-option input {
+  margin-bottom: 0.625rem; }
+
+.filter-name-search .search-and-submit {
+  display: table;
+  width: 100%; }
+  .filter-name-search .search-and-submit > div {
+    display: table-cell;
+    vertical-align: top; }
+  .filter-name-search .search-and-submit .search {
+    position: relative; }
+    .filter-name-search .search-and-submit .search a {
+      display: none; }
+    .filter-name-search .search-and-submit .search a.clear-text-field {
+      position: absolute;
+      right: 0.1875rem;
+      top: 0.75rem;
+      padding: 0.125rem;
+      line-height: 0.5;
+      font-size: 1rem;
+      color: #888; }
+      .filter-name-search .search-and-submit .search a.clear-text-field:hover {
+        color: #555; }
+    .filter-name-search .search-and-submit .search:hover a.clear-text-field {
+      display: inline-block; }
+  .filter-name-search .search-and-submit input#query, .filter-name-search .search-and-submit button {
+    height: 2.1875rem;
+    margin: 0; }
+  .filter-name-search .search-and-submit input#query {
+    color: #555; }
+  .filter-name-search .search-and-submit button {
+    width: 1.5625rem;
+    padding: 0.4375rem 0.125rem;
+    font-size: 0.6875rem;
+    background-color: #b4c8db;
+    color: white; }
+
 .user-info {
   display: none; }
 
@@ -8611,6 +8648,112 @@ ul.token-input-list-facebook, ul.token-input-list {
 p.tip {
   font-size: 0.6875rem;
   color: #555; }
+
+.admin.users .filter-options-label {
+  font-size: 0.75rem;
+  color: #aaa; }
+  .admin.users .filter-options-label a {
+    color: #aaa; }
+.admin.users .user-filters a:hover {
+  text-decoration: none; }
+.admin.users .user-filters > li {
+  padding-bottom: 0.625rem; }
+  .admin.users .user-filters > li a.button {
+    padding: 0.625rem 0 0 0;
+    margin-bottom: 0;
+    height: 2.5rem;
+    font-size: 0.75rem; }
+    @media only screen and (min-width: 40.0625em) and (max-width: 64em) {
+      .admin.users .user-filters > li a.button {
+        font-size: 0.6875rem; } }
+    @media only screen and (min-width: 40.0625em) {
+      .admin.users .user-filters > li a.button {
+        height: 2.1875rem; } }
+  @media only screen and (max-width: 40em) {
+    .admin.users .user-filters > li {
+      padding-bottom: 0.625rem; }
+      .admin.users .user-filters > li > a {
+        margin-bottom: 0.625rem; } }
+  .admin.users .user-filters > li.filter-checkboxes form:first-of-type div {
+    margin-top: -0.125rem; }
+  .admin.users .user-filters > li.filter-checkboxes form:last-of-type div {
+    margin-top: -0.375rem; }
+  .admin.users .user-filters > li.filter-checkboxes input {
+    margin: 0; }
+  .admin.users .user-filters > li.filter-checkboxes label {
+    margin: 0 0 0 0.1875rem;
+    vertical-align: top;
+    line-height: 1.5;
+    font-size: 0.6875rem; }
+.admin.users .user-filters .f-dropdown {
+  max-width: 6.4375rem; }
+  .admin.users .user-filters .f-dropdown a {
+    font-size: 0.875rem;
+    padding: 0.3125rem 0.5rem;
+    line-height: 1.5; }
+    @media only screen and (min-width: 40.0625em) {
+      .admin.users .user-filters .f-dropdown a {
+        font-size: 0.6875rem;
+        padding: 0.1875rem 0.5rem;
+        line-height: 1.2; } }
+    @media only screen and (min-width: 64.0625em) {
+      .admin.users .user-filters .f-dropdown a {
+        font-size: 0.75rem; } }
+.admin.users .user-count-row {
+  text-align: right;
+  font-size: 0.75rem;
+  color: grey; }
+.admin.users .pagination {
+  height: 2.5rem;
+  padding-top: 0.3125rem;
+  font-size: 0.75rem;
+  text-align: right; }
+  .admin.users .pagination a {
+    font-size: 0.75rem; }
+  .admin.users .pagination .disabled {
+    color: #aaa; }
+
+.admin.users .send-site-notifications {
+  display: inline-block; }
+  .admin.users .send-site-notifications .button.tiny {
+    margin-right: 0.3125rem;
+    margin-bottom: 0.3125rem; }
+    @media only screen and (min-width: 40.0625em) {
+      .admin.users .send-site-notifications .button.tiny {
+        margin-bottom: 1.875rem; } }
+.admin.users .site-notification-sent-time {
+  font-size: 0.75rem;
+  color: #E41634; }
+  .admin.users .site-notification-sent-time.today {
+    color: #43ac6a; }
+  .admin.users .site-notification-sent-time.recently {
+    color: #888; }
+  @media only screen and (max-width: 40em) {
+    .admin.users .site-notification-sent-time {
+      display: block;
+      margin-bottom: 1.875rem; } }
+.admin table.users {
+  width: 100%; }
+  .admin table.users tr td {
+    height: 3.125rem; }
+    @media only screen and (min-width: 64.0625em) {
+      .admin table.users tr td {
+        height: auto; } }
+    .admin table.users tr td img {
+      border-left: 0.25rem solid #f5f5f5; }
+    .admin table.users tr td img {
+      width: 1.875rem; }
+      @media only screen and (min-width: 64.0625em) {
+        .admin table.users tr td img {
+          width: 3.125rem; } }
+  .admin table.users tr.recently img {
+    border-color: #ffb3b3; }
+  .admin table.users tr.today img {
+    border-color: #FE9; }
+  .admin table.users tr.yesterday img {
+    border-color: #b1f6b1; }
+  .admin table.users tr.month img {
+    border-color: #d6e1ec; }
 
 #comments .show-previous-comments {
   display: block;
@@ -8917,18 +9060,24 @@ article.issue .issue-filters > li {
         margin-bottom: 0.625rem; } }
 article.issue .issue-filters .f-dropdown {
   max-width: 6.4375rem; }
-  article.issue .issue-filters .f-dropdown a {
+  article.issue .issue-filters .f-dropdown a, article.issue .issue-filters .f-dropdown span {
     font-size: 0.875rem;
     padding: 0.3125rem 0.5rem;
     line-height: 1.5; }
     @media only screen and (min-width: 40.0625em) {
-      article.issue .issue-filters .f-dropdown a {
+      article.issue .issue-filters .f-dropdown a, article.issue .issue-filters .f-dropdown span {
         font-size: 0.6875rem;
         padding: 0.1875rem 0.5rem;
         line-height: 1.2; } }
     @media only screen and (min-width: 64.0625em) {
-      article.issue .issue-filters .f-dropdown a {
+      article.issue .issue-filters .f-dropdown a, article.issue .issue-filters .f-dropdown span {
         font-size: 0.75rem; } }
+  article.issue .issue-filters .f-dropdown li.more:hover {
+    background: none;
+    cursor: default; }
+  article.issue .issue-filters .f-dropdown li.more span {
+    display: block;
+    color: #888; }
 article.issue .post-title-text {
   display: inline-block;
   margin-left: 0.625rem;
@@ -9409,46 +9558,6 @@ article.user ul.user-list li {
   background: none;
   padding: 0;
   text-align: right; }
-
-.admin.users .send-site-notifications {
-  display: inline-block; }
-  .admin.users .send-site-notifications .button.tiny {
-    margin-right: 0.3125rem;
-    margin-bottom: 0.3125rem; }
-    @media only screen and (min-width: 40.0625em) {
-      .admin.users .send-site-notifications .button.tiny {
-        margin-bottom: 1.875rem; } }
-.admin.users .site-notification-sent-time {
-  font-size: 0.75rem;
-  color: #E41634; }
-  .admin.users .site-notification-sent-time.today {
-    color: #43ac6a; }
-  .admin.users .site-notification-sent-time.recently {
-    color: #888; }
-  @media only screen and (max-width: 40em) {
-    .admin.users .site-notification-sent-time {
-      display: block;
-      margin-bottom: 1.875rem; } }
-.admin table.users tr td {
-  height: 3.125rem; }
-  @media only screen and (min-width: 64.0625em) {
-    .admin table.users tr td {
-      height: auto; } }
-  .admin table.users tr td img {
-    border-left: 0.25rem solid #f5f5f5; }
-  .admin table.users tr td img {
-    width: 1.875rem; }
-    @media only screen and (min-width: 64.0625em) {
-      .admin table.users tr td img {
-        width: 3.125rem; } }
-.admin table.users tr.recently img {
-  border-color: #ffb3b3; }
-.admin table.users tr.today img {
-  border-color: #FE9; }
-.admin table.users tr.yesterday img {
-  border-color: #b1f6b1; }
-.admin table.users tr.month img {
-  border-color: #d6e1ec; }
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Set default font family to sans-serif.

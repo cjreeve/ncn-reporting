@@ -21380,8 +21380,19 @@ $(document).ready(function() {
 (function() {
   jQuery(function() {
     return $(document).ready(function() {
-      return $('#close-warning-banner').on('click', function() {
+      $('#close-warning-banner').on('click', function() {
         return $('#warning-banner').fadeOut("fast");
+      });
+      $('.search-option input#query').on('input', function() {
+        return $(this).closest('form').submit();
+      });
+      $('.clear-text-field').on('click', function(e) {
+        e.preventDefault();
+        $(this).parent().find('input[type="text"]').val('');
+        return $(this).closest('form').submit();
+      });
+      return $('.filter-checkboxes input').on('change', function() {
+        return $(this).closest('form').submit();
       });
     });
   });
