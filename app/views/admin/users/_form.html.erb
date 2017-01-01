@@ -8,15 +8,15 @@
   <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
   <%= f.input :is_admin, label: "administrator" %>
   <%= f.input :is_locked, label: "locked" %>
-  <%= f.association :routes %>
-  <%= f.association :groups, label: "Groups" %>
+  <%= f.association :routes, label: "Routes (Ctrl-select)" %>
+  <%= f.association :groups, label: "Groups (Ctrl-select)" %>
 
   <%= f.label :administrative_area_tokens, "Managed areas" %>
   <%= f.text_field :administrative_area_tokens,
       "data-pre" => @user.administrative_areas.collect{ |a| {id: a.id, name: a.short_name }}.to_json
   %>
 
-  <%= f.association :labels, label: "Label for notification" %>
+  <%= f.association :labels, label: "Label for notification (Ctrl-select)" %>
   <%= f.input :receive_email_notifications %>
 
 
