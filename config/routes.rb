@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   resources :regions
+  get 'regions/:id/group_options' => 'regions#group_options'
 
   resources :labels
 

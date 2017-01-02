@@ -1,0 +1,6 @@
+
+<% @groups.each do |group| %>
+  <%= content_tag :option, value: group.id do %>
+    <%= group.name %>
+  <% end %>
+<% end %>

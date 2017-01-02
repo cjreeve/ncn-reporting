@@ -22,3 +22,12 @@ jQuery ->
           # $(this).find('.user-info').removeClass('loading')
           $(this).find('.user-info').html(data)
 
+    $('#user_region_id').on 'change', ->
+      $.ajax
+        dataType: 'html'
+        url :'/regions/' + $(this).val() + '/group_options'
+        error: (jqXHR, textStatus, errorThrown) ->
+          $('#user_group_ids').html('Error loading groups')
+        success: (data, textStatus, jqXHR) =>
+          $('#user_group_ids').html(data)
+

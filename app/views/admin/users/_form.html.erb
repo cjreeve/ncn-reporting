@@ -3,13 +3,13 @@
 <div class="form-inputs">
   <%= f.input :name, autofocus: true %>
   <%= f.input :email %>
-  <%= f.association :region %>
   <%= f.label :role %>
   <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
   <%= f.input :is_admin, label: "administrator" %>
   <%= f.input :is_locked, label: "locked" %>
+  <%= f.association :region %>
+  <%= f.association :groups, collection: Group.where(region: (f.object.region || current_user.region)), label: "Groups (Ctrl-select)" %>
   <%= f.association :routes, label: "Routes (Ctrl-select)" %>
-  <%= f.association :groups, label: "Groups (Ctrl-select)" %>
 
   <%= f.label :administrative_area_tokens, "Managed areas" %>
   <%= f.text_field :administrative_area_tokens,

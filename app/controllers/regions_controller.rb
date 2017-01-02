@@ -37,6 +37,11 @@ class RegionsController < ApplicationController
     respond_with(@region)
   end
 
+  def group_options
+    @groups = Group.where(region: params[:id])
+    render layout: false
+  end
+
   private
     def set_region
       @region = Region.find(params[:id])
