@@ -70,10 +70,14 @@
 
     var GLOBE_WIDTH = 256; // a constant in Google's map projection
 
-    <% if this_issue.present? %>
-      map.setZoom(17);
+    // add cycle layer to search and issue show views
+    <% if this_issue.present? || defined?(your_coord) %>
       var bikeLayer = new google.maps.BicyclingLayer();
       bikeLayer.setMap(map);
+    <% end %>
+
+    <% if this_issue.present? %>
+      map.setZoom(17);
     <% elsif defined?(your_coord) %>
       if ($('html').width() > 628) {
         map.setZoom(14);
