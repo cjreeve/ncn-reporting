@@ -83,6 +83,8 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.google_api_key = 'AIzaSyBVBkvm0xBTvzFNxcZ8Ny3YTHAaOKPy6Ps'
+  # TODO: code also saved here: config/initializers/geocoder.rb
+  # not sure if can get from here with "#{ Rails.application.config.google_api_key }"
 
   config.action_mailer.smtp_settings = {
     :domain => 'ncn-reporting.herokuapp.com',
