@@ -241,6 +241,8 @@ class IssuesController < ApplicationController
 
       # search for if not a valid coordinate
       unless @lng && @lat && (@lng > min_lng && @lng < max_lng) && (@lat > min_lat &&  @lat < max_lat)
+        # results = Geocoder.search("Greenwich, London")
+        # results.first.data["geometry"]["location"]["lat"]
         l = Location.find_or_create_by(id: 1)
         l.address = params[:q]
         l.save

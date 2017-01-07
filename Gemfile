@@ -30,7 +30,7 @@ gem 'will_paginate', '~> 3.0'
 gem 'devise', '~> 3.5'
 gem 'cancancan', '~> 1.10'
 gem 'redcarpet', '~> 3.3'
-gem 'geocoder', '~> 1.2'
+gem 'geocoder', '~> 1.4'
 gem 'gpx', '~> 0.8'
 #generate PDFs
 gem 'prawn', '~> 2.0'
