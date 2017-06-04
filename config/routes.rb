@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   get 'users' => 'users#index', as: 'users_index'
   get '/users/:id/user_info' => 'users#user_info'
+  get 'user/route_areas' => 'users#route_areas', as: :user_route_areas
 
   resources :comments
 

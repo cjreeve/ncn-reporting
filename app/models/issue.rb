@@ -3,6 +3,8 @@ class Issue < ActiveRecord::Base
 
   require "open-uri"
 
+  include Geocodeable
+
   belongs_to :route
   belongs_to :group
   belongs_to :administrative_area
@@ -189,34 +191,6 @@ class Issue < ActiveRecord::Base
 
   def longitude
     self.lng
-  end
-
-  def get_address_component(results, types)
-    address_component = results.collect{ |r|
-      r.address_components.find{ |c|
-        types.all?{ |t| c["types"].include?(t) }
-      }.try(:[], "short_name")
-    }.compact.first
-    address_component ||= ""
-  end
-
-  def get_location_name(results)
-    location_name = get_address_component(results, ["neighborhood"])
-    if location_name.blank?
-      location_name = get_address_component(results, ["locality"])
-      if location_name.blank? || location_name == "London"
-        location_name = get_address_component(results, ["route"])
-      end
-    end
-    location_name
-  end
-
-  def get_admin_area(results)
-    admin_area = get_address_component(results, ["administrative_area_level_3"])
-    if admin_area.blank?
-      admin_area = get_address_component(results, ["administrative_area_level_2"])
-    end
-    admin_area
   end
 
   def find_group_from_coordinate

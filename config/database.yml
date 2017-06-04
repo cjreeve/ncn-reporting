@@ -13,7 +13,7 @@ default: &default
 
 development:
   <<: *default
-  database: ncnreporting_2016_09_11_development
+  database: ncn_reporting_development
   host: localhost
   pool: 5
   username: msdev

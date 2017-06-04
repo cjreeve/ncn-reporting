@@ -16,6 +16,9 @@
       "data-pre" => @user.administrative_areas.collect{ |a| {id: a.id, name: a.short_name }}.to_json
   %>
 
+<%= link_to "locate areas on map", '#', class: 'areas-finder-modal-link' %>
+
+
   <%= f.association :labels, label: "Label for notification (Ctrl-select)" %>
   <%= f.input :receive_email_notifications %>
 
@@ -26,3 +29,9 @@
   <%= f.input :creator_id, as: :hidden, input_html: { value: current_user.id } %>
 </div>
 
+
+
+<div id="areasFinderModal" class="reveal-modal" data-reveal aria-hidden="true" role="dialog">
+  <div id="areas-map-canvas" style="height: 400px;"></div>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>

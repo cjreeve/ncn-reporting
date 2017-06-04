@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  include Geocodeable
+
   ROLES = %w[staff coordinator ranger volunteer guest]
 
   has_one :image, as: :owner, dependent: :destroy

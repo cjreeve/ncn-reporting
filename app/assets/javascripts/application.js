@@ -29,6 +29,7 @@
 //= require search
 //= require site
 //= require user
+//= require user_areas_finder
 //= require tokeninput
 //= require turbolinks
 //# require_tree .

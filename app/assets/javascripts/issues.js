@@ -67,6 +67,9 @@ function initializeCoordFinder() {
   coordFinderMap = new google.maps.Map(document.getElementById('coord-map-canvas'),
       mapOptions);
 
+  var drawingManager = new google.maps.drawing.DrawingManager();
+  drawingManager.setMap(coordFinderMap);
+
   var bikeLayer = new google.maps.BicyclingLayer();
   bikeLayer.setMap(coordFinderMap);
 

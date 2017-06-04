@@ -16,6 +16,8 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+.rbenv-gemsets
+.ruby-version
 
 .sass-cache
 

@@ -507,9 +507,11 @@ class IssuesController < ApplicationController
     unless followers.present?
       followers += load_coordinator_route_managers(issue)
     end
-    if followers.blank? && issue.lat.present? && issue.lng.present?
-      followers += all_route_section_managers.select{ |u| u.role == "staff" }
-    end
+
+    # TODO - disabled this because too many issues being assigned to all staff. Need it to be more specific.
+    # if followers.blank? && issue.lat.present? && issue.lng.present?
+    #   followers += all_route_section_managers.select{ |u| u.role == "staff" }
+    # end
 
     followers << current_user
     issue.followers += followers.uniq
