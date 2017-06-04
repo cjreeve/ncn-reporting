@@ -8908,7 +8908,7 @@ header {
           top: -1.375rem;
           right: -1.25rem; } }
   header .user-messaging-area {
-    width: 18.75rem;
+    width: 16.25rem;
     padding-top: 1.25rem; }
     header .user-messaging-area a {
       font-weight: bold; }
@@ -9558,6 +9558,10 @@ article.user ul.user-list li {
   background: none;
   padding: 0;
   text-align: right; }
+
+.areas-finder-modal-link {
+  display: block;
+  margin: -0.9375rem 0 0.9375rem 0; }
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Set default font family to sans-serif.

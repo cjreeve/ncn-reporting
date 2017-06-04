@@ -20173,7 +20173,7 @@ var DEFAULT_SETTINGS = {
 	// Tokenization settings
     tokenLimit: null,
     tokenDelimiter: ",",
-    preventDuplicates: false,
+    preventDuplicates: true,
 
 	// Output settings
     tokenValue: "id",
@@ -20555,7 +20555,7 @@ $.TokenList = function (input, url_or_data, settings) {
             }
         });
     }
-    
+
     this.getTokens = function() {
    		return saved_tokens;
    	}
@@ -20799,7 +20799,7 @@ $.TokenList = function (input, url_or_data, settings) {
     function highlight_term(value, term) {
         return value.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + term + ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<b>$1</b>");
     }
-    
+
     function find_value_and_highlight_term(template, value, term) {
         return template.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + value + ")(?![^<>]*>)(?![^&;]+;)", "g"), highlight_term(value, term));
     }
@@ -20822,11 +20822,11 @@ $.TokenList = function (input, url_or_data, settings) {
 
             $.each(results, function(index, value) {
                 var this_li = settings.resultsFormatter(value);
-                
-                this_li = find_value_and_highlight_term(this_li ,value[settings.propertyToSearch], query);            
-                
+
+                this_li = find_value_and_highlight_term(this_li ,value[settings.propertyToSearch], query);
+
                 this_li = $(this_li).appendTo(dropdown_ul);
-                
+
                 if(index % 2) {
                     this_li.addClass(settings.classes.dropdownItem);
                 } else {
@@ -21107,6 +21107,9 @@ function initializeCoordFinder() {
   };
   coordFinderMap = new google.maps.Map(document.getElementById('coord-map-canvas'),
       mapOptions);
+
+  var drawingManager = new google.maps.drawing.DrawingManager();
+  drawingManager.setMap(coordFinderMap);
 
   var bikeLayer = new google.maps.BicyclingLayer();
   bikeLayer.setMap(coordFinderMap);
@@ -21442,6 +21445,103 @@ $(document).ready(function() {
   });
 
 }).call(this);
+
+var areaFinderMap;
+var userRouteLines;
+
+
+$(document).ready(function() {
+
+  function wait(ms){
+     var start = new Date().getTime();
+     var end = start;
+     while(end < start + ms) {
+       end = new Date().getTime();
+    }
+  }
+
+  $('.areas-finder-modal-link').click(function() {
+    $('#areasFinderModal').foundation('reveal', 'open');
+
+    // $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
+      wait(1000);
+
+      $('html,body').animate({
+         scrollTop: $("#areasFinderModal").offset().top
+      });
+
+      // $('#areasFinderModal').css('top', '10px');
+      initializeCoordFinder();
+      // $('#areasFinderModal').css('height', '600px');
+    // });
+  });
+
+});
+
+
+function initializeCoordFinder() {
+
+  var lat = 51.520058;
+  var lng =  -0.103112;
+  var zoom = 11;
+
+  var mapOptions = {
+    zoom: zoom,
+    center: new google.maps.LatLng(lat, lng),
+    mapTypeId: 'OCM',
+    mapTypeControl: false,
+    streetViewControl: false
+  };
+  areaFinderMap = new google.maps.Map(
+    document.getElementById('areas-map-canvas'),
+    mapOptions
+  );
+
+  areaFinderMap.mapTypes.set("OCM", new google.maps.ImageMapType({
+    getTileUrl: function(coord, zoom) {
+      // "Wrap" x (logitude) at 180th meridian properly
+      var tilesPerGlobe = 1 << zoom;
+      var x = coord.x % tilesPerGlobe;
+      if (x < 0) x = tilesPerGlobe+x;
+      return "http://tile.opencyclemap.org/cycle/" + zoom + "/" + x + "/" + coord.y + ".png";
+    },
+    tileSize: new google.maps.Size(256, 256),
+    name: "OpenStreetMap",
+    maxZoom: 18
+  }));
+
+  var drawingManager = new google.maps.drawing.DrawingManager({
+    drawingMode: google.maps.drawing.OverlayType.POLYLINE,
+    drawingControl: true,
+    drawingControlOptions: {
+      position: google.maps.ControlPosition.TOP_CENTER,
+      drawingModes: ['polyline']
+    }
+  });
+  drawingManager.setMap(areaFinderMap);
+
+  google.maps.event.addListener(drawingManager, 'polylinecomplete', function(line) {
+    // alert(line.getPath().getArray().toString());
+    userRouteLines = line.getPath().getArray();
+    // JSON.stringify
+
+    $.ajax({
+      type: "GET",
+      data: {coords: JSON.stringify(userRouteLines)},
+      dataType: 'json',
+      url: "/user/route_areas",
+      success: function(results) {
+        // $('.answer').html(results);
+        // $("#user_administrative_area_tokens").populate_dropdown(query, results)
+        // var query = 'none';
+        $.each(results, function(i, item) {
+          $("#user_administrative_area_tokens").tokenInput("add", item);
+        });
+      }
+    });
+  });
+
+};
 
 $(function() {
   $("#user_administrative_area_tokens").tokenInput("/administrative_areas.json", {
@@ -22260,6 +22360,7 @@ function initialiseFollowerTokens() {
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 
 
 
