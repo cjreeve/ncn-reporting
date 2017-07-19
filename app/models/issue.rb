@@ -207,6 +207,31 @@ class Issue < ActiveRecord::Base
     end
   end
 
+  def route_section_managers
+    # two searches are added together to allow for any routes none are selected and the administrative_area is selected
+    # and visa versa
+    User.includes(:administrative_areas, :routes)
+        .where(
+          administrative_areas: {id: [nil, self.administrative_area.try(:id)]},
+          routes: {id: self.route.try(:id)}) +
+    User.includes(:administrative_areas, :routes)
+        .where(
+          administrative_areas: {id: self.administrative_area.try(:id)},
+          routes: {id: [nil, self.route.try(:id)]})
+  end
+
+  def staff_section_managers
+    self.route_section_managers.select{ |u| u.role == "staff" }.uniq
+  end
+
+  def ranger_section_managers
+    self.route_section_managers.select{ |u| u.role == "ranger" }.uniq
+  end
+
+  def ranger_and_staff_section_managers
+    self.route_section_managers.select{ |u| %w(ranger staff).include?(u.role)}.uniq
+  end
+
   private
 
   def lat_or_lng_changed?

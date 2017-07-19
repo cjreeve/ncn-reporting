@@ -88,7 +88,7 @@ class IssuesController < ApplicationController
     @new_comment = Comment.new
 
     if @issue.administrative_area && @issue.route
-      all_route_section_managers = load_all_route_section_managers(@issue)
+      all_route_section_managers = @issue.route_section_managers
       @staff_route_managers = all_route_section_managers.select{ |u| u.role == "staff" }.uniq
       @ranger_route_managers = all_route_section_managers.select{ |u| u.role == "ranger" }.uniq
       @coordinator_route_managers = load_coordinator_route_managers(@issue)
@@ -140,7 +140,7 @@ class IssuesController < ApplicationController
     respond_to do |format|
       if @issue.save
 
-        @issue = set_issue_followers(@issue, load_all_route_section_managers(@issue))
+        @issue = set_issue_followers(@issue, @issue.route_section_managers)
         @issue.save
 
         format.html { redirect_to @issue, notice: 'Issue was successfully created.' }
@@ -161,9 +161,9 @@ class IssuesController < ApplicationController
     flash[:uniqueness_properties_changed] = uniqueness_properties_changed?(@issue)
 
     if notifiable_properties_changed?(@issue)
-      @issue = set_issue_followers(@issue, load_all_route_section_managers(@issue))
+      @issue = set_issue_followers(@issue, @issue.route_section_managers)
     elsif !old_label_names.include?("sustrans") && @issue.labels.collect(&:name).include?("sustrans")
-      @issue.followers << load_all_route_section_managers(@issue).select{ |u| u.role == "staff" }
+      @issue.followers << @issue.route_section_managers.select{ |u| u.role == "staff" }
       @issue.followers = @issue.followers.uniq
     end
 
@@ -478,18 +478,19 @@ class IssuesController < ApplicationController
     end
   end
 
-  def load_all_route_section_managers(issue)
-    # two searches are added together to allow for any routes none are selected and the administrative_area is selected
-    # and visa versa
-    User.includes(:administrative_areas, :routes)
-        .where(
-          administrative_areas: {id: [nil, issue.administrative_area.try(:id)]},
-          routes: {id: issue.route.try(:id)}) +
-    User.includes(:administrative_areas, :routes)
-        .where(
-          administrative_areas: {id: issue.administrative_area.try(:id)},
-          routes: {id: [nil, issue.route.try(:id)]})
-  end
+  # replaced by Issue.route_section_managers
+  # def load_all_route_section_managers(issue)
+  #   # two searches are added together to allow for any routes none are selected and the administrative_area is selected
+  #   # and visa versa
+  #   User.includes(:administrative_areas, :routes)
+  #       .where(
+  #         administrative_areas: {id: [nil, issue.administrative_area.try(:id)]},
+  #         routes: {id: issue.route.try(:id)}) +
+  #   User.includes(:administrative_areas, :routes)
+  #       .where(
+  #         administrative_areas: {id: issue.administrative_area.try(:id)},
+  #         routes: {id: [nil, issue.route.try(:id)]})
+  # end
 
   def load_coordinator_route_managers(issue)
     User.includes(:groups)

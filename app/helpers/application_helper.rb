@@ -145,7 +145,7 @@ module ApplicationHelper
   end
 
   def can_publish_issue?(issue)
-    current_user.is_admin? || current_user.staff? ||
+    issue.ranger_and_staff_section_managers.blank? || current_user.is_admin? || current_user.staff? ||
     (current_user.coordinator? && current_user.groups.include?(issue.group)) ||
     ((current_user.ranger_like? && current_user.routes.include?(issue.route) && current_user.administrative_areas.include?(issue.administrative_area)))
   end
