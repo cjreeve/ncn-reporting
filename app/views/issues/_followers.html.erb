@@ -4,8 +4,8 @@
   <div class='follower-list-container'>
     <b>Notified</b>:
     <%=
-      if @issue.followers.present?
-        follower_links @issue.followers
+      if @issue.active_followers.present?
+        follower_links @issue.active_followers
       else
         "&nbsp;none".html_safe
       end
@@ -21,7 +21,7 @@
 <div id='follower-tokens' style='display:none;'>
   <%= simple_form_for @issue, remote: true do |f| %>
     <%= f.text_field :user_tokens,
-        "data-pre" => @issue.followers.collect{ |u| {id: u.id, name: u.name }}.to_json
+        "data-pre" => @issue.active_followers.collect{ |u| {id: u.id, name: u.name }}.to_json
     %>
     <%=
       f.button :submit,

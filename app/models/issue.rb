@@ -158,6 +158,10 @@ class Issue < ActiveRecord::Base
     self.lat.present? && (self.lat > min_lat &&  self.lat < max_lat)
   end
 
+  def active_followers
+    followers.active
+  end
+
   def status
     return self.resolution if self.state == 'closed'
     I18n.t('state.'+self.state)

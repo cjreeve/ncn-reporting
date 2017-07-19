@@ -40,6 +40,8 @@ class User < ActiveRecord::Base
     self.issue_filter_mode = 'regional' unless %w(national regional customised).include?(self.issue_filter_mode)
   end
 
+  scope :active, -> { where(is_locked: false) }
+
   def administrative_area_tokens=(ids)
     self.administrative_area_ids = ids.split(",")
   end

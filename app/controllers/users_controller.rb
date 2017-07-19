@@ -6,9 +6,9 @@ class UsersController < ApplicationController
 
   def index
     if params[:q]
-      @users = User.where("name ilike ?", "%#{params[:q]}%")
+      @users = User.active.where("name ilike ?", "%#{params[:q]}%")
     else
-      @users = User.where(region: @current_region, is_locked: false).order("lower(name) ASC")
+      @users = User.active.where(region: @current_region).order("lower(name) ASC")
     end
     respond_to do |format|
       format.html
