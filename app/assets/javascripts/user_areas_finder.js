@@ -24,7 +24,7 @@ $(document).ready(function() {
       });
 
       // $('#areasFinderModal').css('top', '10px');
-      initializeCoordFinder();
+      initializeAreaFinder();
       // $('#areasFinderModal').css('height', '600px');
     // });
   });
@@ -32,7 +32,7 @@ $(document).ready(function() {
 });
 
 
-function initializeCoordFinder() {
+function initializeAreaFinder() {
 
   var lat = 51.520058;
   var lng =  -0.103112;
@@ -56,7 +56,7 @@ function initializeCoordFinder() {
       var tilesPerGlobe = 1 << zoom;
       var x = coord.x % tilesPerGlobe;
       if (x < 0) x = tilesPerGlobe+x;
-      return "http://tile.opencyclemap.org/cycle/" + zoom + "/" + x + "/" + coord.y + ".png";
+      return "https://tile.thunderforest.com/cycle/" + zoom + "/" + x + "/" + coord.y + ".png?apikey=78f1eea50a5a47e5a576d30f13fed26e";
     },
     tileSize: new google.maps.Size(256, 256),
     name: "OpenStreetMap",

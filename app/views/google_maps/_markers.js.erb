@@ -21,10 +21,22 @@
     %>
 
     var mapCenter = new google.maps.LatLng(<%= this_lat %>, <%= this_lng %>);
-    var mapOptions = {
-      zoom: <%= coord_stats[:max_spread] ? (1.0/coord_stats[:max_spread]).to_i : 15 %>,
-      center: mapCenter
-    };
+
+    <% if this_issue.present? %>
+      var mapOptions = {
+        zoom: <%= coord_stats[:max_spread] ? (1.0/coord_stats[:max_spread]).to_i : 15 %>,
+        center: mapCenter,
+        mapTypeId: 'OCM',
+        mapTypeControl: false,
+        streetViewControl: false,
+        disableDefaultUI: true
+      };
+    <% else %>
+      var mapOptions = {
+        zoom: <%= coord_stats[:max_spread] ? (1.0/coord_stats[:max_spread]).to_i : 15 %>,
+        center: mapCenter
+      };
+    <% end %>
 
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
@@ -72,8 +84,18 @@
 
     <% if this_issue.present? %>
       map.setZoom(17);
-      var bikeLayer = new google.maps.BicyclingLayer();
-      bikeLayer.setMap(map);
+      map.mapTypes.set("OCM", new google.maps.ImageMapType({
+        getTileUrl: function(coord, zoom) {
+          // "Wrap" x (logitude) at 180th meridian properly
+          var tilesPerGlobe = 1 << zoom;
+          var x = coord.x % tilesPerGlobe;
+          if (x < 0) x = tilesPerGlobe+x;
+          return "https://tile.thunderforest.com/cycle/" + zoom + "/" + x + "/" + coord.y + ".png?apikey=78f1eea50a5a47e5a576d30f13fed26e";
+        },
+        tileSize: new google.maps.Size(256, 256),
+        name: "OpenStreetMap",
+        maxZoom: 18
+      }));
     <% elsif defined?(your_coord) %>
       if ($('html').width() > 628) {
         map.setZoom(14);

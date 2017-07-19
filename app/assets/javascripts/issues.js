@@ -62,16 +62,34 @@ function initializeCoordFinder() {
 
   var mapOptions = {
     zoom: zoom,
-    center: new google.maps.LatLng(lat, lng)
+    center: new google.maps.LatLng(lat, lng),
+    mapTypeId: 'OCM',
+    mapTypeControl: false,
+    streetViewControl: false,
+    disableDefaultUI: true
   };
   coordFinderMap = new google.maps.Map(document.getElementById('coord-map-canvas'),
-      mapOptions);
+    mapOptions
+  );
 
-  var drawingManager = new google.maps.drawing.DrawingManager();
-  drawingManager.setMap(coordFinderMap);
+  coordFinderMap.mapTypes.set("OCM", new google.maps.ImageMapType({
+    getTileUrl: function(coord, zoom) {
+      // "Wrap" x (logitude) at 180th meridian properly
+      var tilesPerGlobe = 1 << zoom;
+      var x = coord.x % tilesPerGlobe;
+      if (x < 0) x = tilesPerGlobe+x;
+      return "https://tile.thunderforest.com/cycle/" + zoom + "/" + x + "/" + coord.y + ".png?apikey=78f1eea50a5a47e5a576d30f13fed26e";
+    },
+    tileSize: new google.maps.Size(256, 256),
+    name: "OpenStreetMap",
+    maxZoom: 18
+  }));
 
-  var bikeLayer = new google.maps.BicyclingLayer();
-  bikeLayer.setMap(coordFinderMap);
+  // var drawingManager = new google.maps.drawing.DrawingManager();
+  // drawingManager.setMap(coordFinderMap);
+
+  // var bikeLayer = new google.maps.BicyclingLayer();
+  // bikeLayer.setMap(coordFinderMap);
 
 
 
