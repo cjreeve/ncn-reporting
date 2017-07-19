@@ -25,7 +25,7 @@ development:
 
 test:
   <<: *default
-  database: ncnreporting_2016_09_11_test
+  database: ncnreporting_test
   host: localhost
   username: msdev
   password: password

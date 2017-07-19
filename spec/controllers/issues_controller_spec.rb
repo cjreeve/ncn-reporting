@@ -10,7 +10,8 @@ RSpec.describe IssuesController, type: :controller do
 
       context "no attributes" do
 
-        let(:ranger) { FactoryGirl.create(:ranger) }
+        # TODO: test national, regeional and custom settings
+        let(:ranger) { FactoryGirl.create(:ranger, issue_filter_mode: "national") }
 
         before(:each) do
           sign_in ranger
