@@ -5,6 +5,7 @@ class SiteController < ApplicationController
   end
 
   def notifications
+    return nil unless current_user
     @user = current_user
 
     #################### shared with email notifier ###################
@@ -50,6 +51,7 @@ class SiteController < ApplicationController
 
 
   def updates_count
+    return nil unless updates_count
     last_visit = current_user.visited_updates_at
     @updates_count = Issue.where('updated_at > ?', last_visit).count
     @updates_count += Page.where('updated_at > ?', last_visit).count
