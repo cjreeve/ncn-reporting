@@ -51,7 +51,7 @@ class SiteController < ApplicationController
 
 
   def updates_count
-    return nil unless updates_count
+    return nil unless current_user
     last_visit = current_user.visited_updates_at
     @updates_count = Issue.where('updated_at > ?', last_visit).count
     @updates_count += Page.where('updated_at > ?', last_visit).count
