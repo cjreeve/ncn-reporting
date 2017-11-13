@@ -9,4 +9,6 @@ class Group < ActiveRecord::Base
 
   belongs_to :region
 
+  validates :name, uniqueness: true
+
 end
