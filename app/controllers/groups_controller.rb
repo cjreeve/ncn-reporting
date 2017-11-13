@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_regions, only: [:new, :edut, :update]
   load_and_authorize_resource
 
   # GET /groups
@@ -68,6 +69,9 @@ class GroupsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_group
       @group = Group.find(params[:id])
+    end
+
+    def set_regions
       @regions = Region.all.order(:name)
     end
 
