@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
-  before_action :set_regions, only: [:new, :edut, :update]
+  before_action :set_regions, only: [:new, :edit, :update]
   load_and_authorize_resource
 
   # GET /groups
