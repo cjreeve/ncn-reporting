@@ -106,9 +106,9 @@ RSpec.describe IssuesController, type: :controller do
               controller.stub(:current_user).and_return(coordinator)
             end
 
-            it "coordinator does not see the council 'reporting-prompt'" do
+            it "coordinator sees the council 'reporting-prompt'" do
               get :show, issue_number: issue.issue_number
-              expect(response.body).not_to have_css('div.reporting-prompt')
+              expect(response.body).to have_css('div.reporting-prompt')
             end
           end
 
@@ -159,6 +159,12 @@ RSpec.describe IssuesController, type: :controller do
 
           let(:issue) { FactoryGirl.create(:issue, label_names: ['council'], user_name: volunteer.name, state: 'open', priority: 2) }
 
+          let(:administrative_area) { issue.administrative_area }
+
+          before(:each) do
+            ranger.administrative_areas << administrative_area
+          end
+
           context "signed in as ranger" do
             before(:each) do
               sign_in ranger
@@ -189,6 +195,12 @@ RSpec.describe IssuesController, type: :controller do
           let(:volunteer) { FactoryGirl.create(:volunteer) }
 
           let(:issue) { FactoryGirl.create(:issue, label_names: ['council'], user_name: volunteer.name, state: 'open', priority: 2) }
+
+          let(:administrative_area) { issue.administrative_area }
+
+          before(:each) do
+            ranger.administrative_areas << administrative_area
+          end
 
           context "signed in as ranger" do
             before(:each) do
