@@ -390,7 +390,7 @@ class IssuesController < ApplicationController
     if %w{csv gpx pdf}.include? params[:format]
       per_page = Issue.count
     else
-      per_page = 10
+      per_page = params[:per_page] || 10
     end
 
     @regions = Region.all.order(:name)

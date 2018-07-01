@@ -48,6 +48,7 @@
           </tbody>
         </table>
       <div class='download-issues'>
+        show <%= link_to '100 per page', issues_path(filter_params(params, {per_page: 100})) %> |
         download
         <%= link_to "CSV", issues_path(filter_params(params, {format: "csv"})) %>,
         <%= link_to "PDF", issues_path(filter_params(params, {format: "pdf"})), target: :_blank %>
