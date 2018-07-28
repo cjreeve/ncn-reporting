@@ -6,8 +6,10 @@
   <body>
     <p><%= @exception.message %></p>
     <br>
-    <% @exception.backtrace[0..10].each do |line| %>
-      <p><%= line %></p>
-    <% end %>
+    <p>
+      <% @exception.backtrace[0..200].each do |line| %>
+        <%= line %><br>
+      <% end %>
+    </p>
   </body>
 </html>
