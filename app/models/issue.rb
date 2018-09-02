@@ -214,15 +214,17 @@ class Issue < ActiveRecord::Base
   def route_section_managers
     # two searches are added together to allow for any routes none are selected and the administrative_area is selected
     # and visa versa
-    User.includes(:administrative_areas, :routes)
-        .where(
-          administrative_areas: {id: [nil, self.administrative_area.try(:id)]},
-          routes: {id: self.route.try(:id)}) +
-    User.includes(:administrative_areas, :routes)
-        .where(
-          administrative_areas: {id: self.administrative_area.try(:id)},
-          routes: {id: [nil, self.route.try(:id)]})
+    User.includes(:administrative_areas, :routes).where(administrative_areas: {id: [nil, self.administrative_area.try(:id)]}, routes: {id: self.route.try(:id)}).uniq +
+    User.includes(:groups, :routes).
+         where(groups: {id: self.group.try(:id)}, routes: {id: [nil, self.route.try(:id)]}).uniq
   end
+
+  # def route_section_managers
+  #   User.joins(:administrative_areas, :routes).
+  #        where(administrative_areas: {id: [nil, self.administrative_area.try(:id)]}, routes: {id: self.route.try(:id)}).
+  #        union(User.joins(:groups, :routes).where(groups: {id: self.group.try(:id)}, routes: {id: [nil, self.route.try(:id)]})).
+  #        uniq
+  # end
 
   def staff_section_managers
     self.route_section_managers.select{ |u| u.role == "staff" }.uniq

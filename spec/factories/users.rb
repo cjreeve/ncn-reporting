@@ -15,27 +15,36 @@ FactoryGirl.define do
       role 'guest'
     end
 
+    # TODO - after create is not working
     factory :volunteer do
       role 'volunteer'
-      groups        { [ Route.find_by(name: group_name) || FactoryGirl.create(:group, name: group_name) ] }
-      routes        { [ Route.find_by(name: route_name) || FactoryGirl.create(:route, name: route_name) ] }
+      after(:create) do |user|
+        user.groups        { [ Route.find_by(name: group_name) || FactoryGirl.create(:group, name: group_name) ] }
+        user.routes        { [ Route.find_by(name: route_name) || FactoryGirl.create(:route, name: route_name) ] }
+      end
     end
 
     factory :ranger do
       role 'ranger'
-      groups        { [ Route.find_by(name: group_name) || FactoryGirl.create(:group, name: group_name) ] }
-      routes        { [ Route.find_by(name: route_name) || FactoryGirl.create(:route, name: route_name) ] }
+      after(:create) do |user|
+        user.groups        { [ Route.find_by(name: group_name) || FactoryGirl.create(:group, name: group_name) ] }
+        user.routes        { [ Route.find_by(name: route_name) || FactoryGirl.create(:route, name: route_name) ] }
+      end
     end
 
     factory :coordinator do
       role 'coordinator'
-      groups        { [ Route.find_by(name: group_name) || FactoryGirl.create(:group, name: group_name) ] }
-      routes        { [ Route.find_by(name: route_name) || FactoryGirl.create(:route, name: route_name) ] }
+      after(:create) do |user|
+        user.groups        { [ Route.find_by(name: group_name) || FactoryGirl.create(:group, name: group_name) ] }
+        user.routes        { [ Route.find_by(name: route_name) || FactoryGirl.create(:route, name: route_name) ] }
+      end
     end
 
     factory :staff do
       role 'staff'
-      groups        { [ Route.find_by(name: group_name) || FactoryGirl.create(:group, name: group_name) ] }
+      after(:create) do |user|
+        user.groups        { [ Route.find_by(name: group_name) || FactoryGirl.create(:group, name: group_name) ] }
+      end
     end
   end
 end

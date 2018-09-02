@@ -80,13 +80,24 @@ RSpec.describe IssuesController, type: :controller do
       context "central area and route 1" do
 
         context "ranger published issue with label council" do
+          let(:group) { FactoryGirl.create(:group, name: 'Central') }
+          let(:route) { FactoryGirl.create(:route, name: 'NCN 1') }
           let(:staff) { FactoryGirl.create(:staff) }
           let(:coordinator) { FactoryGirl.create(:coordinator) }
           let(:ranger) { FactoryGirl.create(:ranger) }
           let(:volunteer) { FactoryGirl.create(:volunteer) }
-          let(:guest) { FactoryGirl.create(:volunteer) }
+          let(:guest) { FactoryGirl.create(:guest) }
 
-          let(:issue) { FactoryGirl.create(:issue, label_names: ['council'], user_name: ranger.name, state: 'open', priority: 2) }
+          let(:issue) { FactoryGirl.create(:issue, label_names: ['council'], user_name: ranger.name, state: 'open') }
+
+          before(:each) do
+            coordinator.groups << group
+            coordinator.routes << route
+            ranger.groups << group
+            ranger.routes << route
+            volunteer.groups << group
+            issue.update_attribute :priority, 2
+          end
 
           context "signed in as staff" do
             before(:each) do
@@ -154,15 +165,22 @@ RSpec.describe IssuesController, type: :controller do
 
       if Rails.application.config.enable_issue_reporting_prompt
         context "volunteer published issue with label council" do
+          let(:group) { Group.find_by_name('Central') || FactoryGirl.create(:group, name: 'Central') }
+          let(:route) { Route.find_by_name('NCN 1') || FactoryGirl.create(:route, name: 'NCN 1') }
+
           let(:ranger) { FactoryGirl.create(:ranger) }
           let(:volunteer) { FactoryGirl.create(:volunteer) }
 
-          let(:issue) { FactoryGirl.create(:issue, label_names: ['council'], user_name: volunteer.name, state: 'open', priority: 2) }
+          let(:issue) { FactoryGirl.create(:issue, label_names: ['council'], user_name: volunteer.name, state: 'open') }
 
           let(:administrative_area) { issue.administrative_area }
 
           before(:each) do
             ranger.administrative_areas << administrative_area
+            ranger.groups << group
+            ranger.routes << route
+            volunteer.groups << group
+            issue.update_attribute :priority, 2
           end
 
           context "signed in as ranger" do
@@ -191,6 +209,8 @@ RSpec.describe IssuesController, type: :controller do
         end
 
         context "volunteer submitted issue with label council" do
+          let(:group) { Group.find_by_name('Central') || FactoryGirl.create(:group, name: 'Central') }
+          let(:route) { Route.find_by_name('NCN 1') || FactoryGirl.create(:route, name: 'NCN 1') }
           let(:ranger) { FactoryGirl.create(:ranger) }
           let(:volunteer) { FactoryGirl.create(:volunteer) }
 
@@ -200,6 +220,10 @@ RSpec.describe IssuesController, type: :controller do
 
           before(:each) do
             ranger.administrative_areas << administrative_area
+            ranger.groups << group
+            ranger.routes << route
+            volunteer.groups << group
+            issue.update_attribute :priority, 2
           end
 
           context "signed in as ranger" do
