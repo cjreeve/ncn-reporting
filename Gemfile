@@ -46,6 +46,8 @@ gem 'remotipart', '~> 1.2'
 # gem 'rmagick'
 gem 'fog', '~> 1.22'
 
+# error catching service
+gem 'rollbar'
 
 
 # Gems used for precompilling assets
