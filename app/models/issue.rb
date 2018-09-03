@@ -212,19 +212,15 @@ class Issue < ActiveRecord::Base
   end
 
   def route_section_managers
-    # two searches are added together to allow for any routes none are selected and the administrative_area is selected
-    # and visa versa
-    User.includes(:administrative_areas, :routes).where(administrative_areas: {id: [nil, self.administrative_area.try(:id)]}, routes: {id: self.route.try(:id)}).uniq +
-    User.includes(:groups, :routes).
-         where(groups: {id: self.group.try(:id)}, routes: {id: [nil, self.route.try(:id)]}).uniq
-  end
+    area_managers = User.includes(administrative_areas: :group).includes(:routes).
+      where(administrative_areas: {id: [nil, administrative_area.try(:id)]}, routes: {id: route.try(:id)})
 
-  # def route_section_managers
-  #   User.joins(:administrative_areas, :routes).
-  #        where(administrative_areas: {id: [nil, self.administrative_area.try(:id)]}, routes: {id: self.route.try(:id)}).
-  #        union(User.joins(:groups, :routes).where(groups: {id: self.group.try(:id)}, routes: {id: [nil, self.route.try(:id)]})).
-  #        uniq
-  # end
+    group_managers = User.includes(:groups, :routes).
+      where(groups: {id: group.try(:id)}, routes: {id: [nil, route.try(:id)]}).
+      reject{ |u| u.administrative_areas.collect(&:group).uniq.include? group }
+
+    (area_managers + group_managers).uniq
+  end
 
   def staff_section_managers
     self.route_section_managers.select{ |u| u.role == "staff" }.uniq
