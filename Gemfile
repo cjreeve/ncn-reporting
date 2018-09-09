@@ -24,7 +24,12 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 
 gem 'foundation-rails', '~> 5.5'
+gem 'sass-rails', '~> 5.0'
+gem 'coffee-rails', '~> 4.1'
+gem 'uglifier', '~> 2.7'
 gem 'foundation-icons-sass-rails', '~> 3.0'
+
+
 gem 'simple_form', '~> 3.1'
 gem 'state_machine', '~> 1.2'
 gem 'will_paginate', '~> 3.0'
@@ -52,10 +57,7 @@ gem 'rollbar'
 
 # Gems used for precompilling assets
 group :assets do
-  gem 'sass-rails', '~> 5.0'
   # gem 'compass-rails'
-  gem 'coffee-rails', '~> 4.1'
-  gem 'uglifier', '~> 2.7'
   # Add Foundation Here
   gem 'compass-rails', '~> 2.0' # you need this or you get an err
 end
