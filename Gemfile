@@ -57,8 +57,7 @@ gem 'rollbar'
 
 # Gems used for precompilling assets
 group :assets do
-  # gem 'compass-rails'
-  # Add Foundation Here
+  gem 'sprockets', '~> 2.12.5'
   gem 'compass-rails', '~> 2.0' # you need this or you get an err
 end
 
