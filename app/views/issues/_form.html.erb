@@ -95,20 +95,26 @@
 
 <div class='edit-issue-image-fields'>
   <h2>Photos</h2>
-  <p class='tip'>
-    There are two ways to upload pictures:<br>
-    1) Copy the URL of an image that is publicly available on the internet (e.g. google photos that are added to a shared folder)<br>
-    2) Browse/locate the image on your phone or computer.<br>
-    Use the second method if you wish to upload a photo by directly taking a photo with your phone. Once you have chosen a photo by one of these methods then click Create/Update Issue on the bottom of the page to save your changes. You can only upload one image at a time. To upload a second image, click edit on the issue and select a new file to upload. Note that it can take a long time to upload photos from your phone using a rural mobile data connection.
-  </p>
+  <% if @issue.new_record? %>
+    <p class='tip'>
+      You can upload an image here after you have saved the issue. Simply click on the edit button after you have clicked 'Create issue' and following the next instructions.
+    </p>
+  <% else %>
+    <p class='tip'>
+      There are two ways to upload pictures:<br>
+      1) Copy the URL of an image that is publicly available on the internet (e.g. google photos that are added to a shared folder)<br>
+      2) Browse/locate the image on your phone or computer.<br>
+      Use the second method if you wish to upload a photo by directly taking a photo with your phone. Once you have chosen a photo by one of these methods then click Create/Update Issue on the bottom of the page to save your changes. You can only upload one image at a time. To upload a second image, click edit on the issue and select a new file to upload. Note that it can take a long time to upload photos from your phone using a rural mobile data connection.
+    </p>
 
-  <%= f.simple_fields_for :images do |g|  %>
-    <%= render 'image_fields', f: g %>
+    <%= f.simple_fields_for :images do |g|  %>
+      <%= render 'image_fields', f: g %>
+    <% end %>
+
+    <%= link_to 'photos.google.com', 'https://photos.google.com/', class: 'input-prompt', target: '_blank' %>
+    &nbsp;
+    <span data-tooltip aria-haspopup="true" class="has-tip input-prompt" title="You can upload photos to the volunteers google acoount. Once uploaded, open and then right click on the image (mobiles: long touch) and copy the image url. Then paste the image url here.">(?)</span>
   <% end %>
-
-  <%= link_to 'photos.google.com', 'https://photos.google.com/', class: 'input-prompt', target: '_blank' %>
-  &nbsp;
-  <span data-tooltip aria-haspopup="true" class="has-tip input-prompt" title="You can upload photos to the volunteers google acoount. Once uploaded, open and then right click on the image (mobiles: long touch) and copy the image url. Then paste the image url here.">(?)</span>
 </div>
 
 <div class='hide-for-small-when <%= @issue.id.present? ? "update" : "new" %>'>
