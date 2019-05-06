@@ -1,4 +1,4 @@
-<div class="comment number-<%= comment.id %>">
+<div class="comment number-<%= comment.id %> <%= 'last-comment' if comment == @last_comment %> <%= 'hidden' if defined?(hide_comment) %>">
   <% if can? :delete, comment %>
     <%= link_to "&times".html_safe,
         comment_path(comment), method: :delete,
@@ -10,10 +10,16 @@
     <%= comment.formatted_content %>
   </div>
   <div class='comment-footer'>
+    <% if comment == @last_comment && comment.user == current_user %>
+      <%= link_to 'Edit', edit_comment_path(comment), id: 'edit-comment', remote: true %>
+    <% else %>
+      &nbsp;
+    <% end %>
     <div class='comment-label'>
       <%= render 'users/user_info_link', user: comment.user %>
       at
       <%= comment.created_at.strftime("%H:%M on %d %b %Y") %>
+      <%= '(edited)' unless comment.created_at == comment.updated_at %>
     </div>
   </div>
 </div>

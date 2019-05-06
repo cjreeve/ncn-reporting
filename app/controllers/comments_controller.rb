@@ -8,6 +8,7 @@ class CommentsController < ApplicationController
     per_page = Rails.application.config.comments_per_page
     @issue = Issue.find_by_id(params[:issue_id])
     @comments = @issue.comments.order(created_at: :desc).paginate(page: params[:page], per_page: per_page)
+    @last_comment = @comments.first
     respond_to do |format|
       format.js { return (render :index) }
     end
@@ -19,6 +20,7 @@ class CommentsController < ApplicationController
   end
 
   def edit
+    @last_comment = @comment
   end
 
   def create
@@ -32,6 +34,7 @@ class CommentsController < ApplicationController
       if @comment.save
         @issue.followers << current_user
         @issue.save
+        @last_comment = @comment
 
         format.html { redirect_to :show, status: :created }
         format.js {
@@ -47,10 +50,10 @@ class CommentsController < ApplicationController
     end
   end
 
+
   def update
     @comment.update(comment_params)
-    @comment.issue.update
-    respond_with(@comment)
+    @last_comment = @comment
   end
 
   def destroy

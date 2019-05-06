@@ -278,9 +278,11 @@ article.issue{
 
   #comments{
     .comment{
+      position: relative;
       .delete-comment{
-        float: right;
-        margin-right: rem-calc(5);
+        position: absolute;
+        right: 5px;
+        top: -5px;
         visibility: hidden;
 
       }
@@ -302,17 +304,27 @@ article.issue{
       }
       .comment-footer{
         background-color: $very-light-blue;
-        padding: rem-calc(0 10);
+        padding: rem-calc(5 10);
         margin-bottom: rem-calc(5);
-        line-heiht: 0;
-        text-align: right;
+        font-size: rem-calc(11);
+        line-height: 1;
         .comment-label{
+          float: right;
           display: inline-block;
-          font-size: rem-calc(11);
-          line-height: 1;
+        }
+      }
+      #edit-comment{
+        visibility: hidden;
+      }
+      &:hover{
+        #edit-comment{
+          visibility: visible;
         }
       }
     }
+  }
+  .edit-comment-form {
+    display: none;
   }
   .edit-issue-image-fields{
     border: rem-calc(1) solid #aaa;

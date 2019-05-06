@@ -3,6 +3,8 @@
 <% if @validation_errors.present? %>
   $('.comment-form').replaceWith("<%= j(render 'issues/comment_form', comment: @comment, issue: @issue) %>");
 <% else %>
+  $('.last-comment').removeClass('last-comment')
+  $('#edit-comment').hide()
   $('#comments .comment-list').append("<%= j(render 'comments/comment', comment: @comment) %>");
   $('.comment-form').replaceWith("<%= j(render 'issues/comment_form', comment: @new_comment, issue: @issue) %>");
 <% end %>

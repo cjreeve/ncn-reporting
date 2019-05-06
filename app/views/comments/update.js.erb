@@ -1,0 +1,7 @@
+
+<% if @comment.valid? %>
+  $('.last-comment').replaceWith("<%=j render('comments/comment', comment: @comment, hide_comment: true) %>")
+  $('.last-comment').slideDown()
+  $('.edit-comment-form').fadeOut()
+  $('.comment-form').fadeIn()
+<% end %>

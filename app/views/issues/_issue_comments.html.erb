@@ -1,6 +1,8 @@
 <% if can? :read, Comment %>
   <div id='comments'>
     <%= render 'comments/comments', comments: @comments, issue: @issue %>
+
+    <%= render 'issues/edit_comment_form' %>
     <%= render 'issues/comment_form', comment: @new_comment, issue: @issue %>
   </div>
 <% end %>

@@ -1,0 +1,18 @@
+<% if @last_comment.user == current_user %>
+  <div class='edit-comment-form'>
+    <%= simple_form_for(@last_comment, remote: true) do |f| %>
+      <%= f.error_notification %>
+
+      <div class="form-inputs">
+        <%= f.input :content, label: false, input_html: {rows: 3} %>
+        <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+        <%= f.input :issue_id, as: :hidden, input_html: { value: @last_comment.issue_id } %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, 'Update', class: 'button tiny', data: {'disable-with' => 'updating'}  %>
+        <%= link_to 'cancel', '#', id: 'cancel-comment-changes' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
