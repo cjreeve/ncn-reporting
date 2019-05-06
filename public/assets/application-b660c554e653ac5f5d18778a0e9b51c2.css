@@ -12494,6 +12494,11 @@ http://ryanfait.com/
 
 */
 /* line 40, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+.hidden {
+  display: none;
+}
+
+/* line 44, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 #warning-banner {
   position: relative;
   padding: 0.3125rem 1.25rem;
@@ -12503,12 +12508,12 @@ http://ryanfait.com/
   font-size: 0.875rem;
   line-height: 1.2;
 }
-/* line 48, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 52, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 #warning-banner a {
   font-weight: 700;
   color: white;
 }
-/* line 52, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 56, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 #warning-banner #close-warning-banner {
   position: absolute;
   top: 0;
@@ -12518,44 +12523,44 @@ http://ryanfait.com/
   color: #555;
 }
 @media only screen and (min-width: 64.0625em) {
-  /* line 52, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+  /* line 56, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
   #warning-banner #close-warning-banner {
     right: 1.25rem;
   }
 }
-/* line 62, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 66, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 #warning-banner #close-warning-banner:hover {
   color: #434343;
 }
-/* line 67, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 71, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 #warning-banner.secondary {
   background-color: #f18d19;
 }
-/* line 69, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 73, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 #warning-banner.secondary #close-warning-banner {
   line-height: 0.75;
 }
 
-/* line 76, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 80, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .search-bar {
   display: table;
 }
-/* line 78, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 82, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .search-bar > div {
   display: table-row;
 }
-/* line 80, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 84, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .search-bar > div > div {
   display: table-cell;
   vertical-align: top;
 }
-/* line 86, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 90, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .search-bar div.search-field input[type="search"] {
   height: 1.25rem;
   margin: 0;
   padding: 0.3125rem 0.625rem;
 }
-/* line 93, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 97, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .search-bar div.search-button input[type="submit"] {
   height: 2rem;
   margin: 0;
@@ -12563,65 +12568,65 @@ http://ryanfait.com/
   border: 0.0625rem solid #aaa;
   color: #888;
 }
-/* line 99, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 103, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .search-bar div.search-button input[type="submit"].searching {
   background: url("/assets/icons/ajax-loader-fb.gif") no-repeat;
   background-position: center center;
   background-color: #e8e8e8;
   color: transparent;
 }
-/* line 107, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 111, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .search-bar .prompt {
   font-size: 0.625rem;
   padding: 0 0 0.625rem 0.625rem;
   color: #888;
 }
 
-/* line 114, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 118, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 span.highlight {
   color: #E41634;
 }
 
-/* line 118, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 122, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 ul.token-input-list-facebook, ul.token-input-list {
   width: 100%;
   margin-bottom: 1rem;
   border: 0.0625rem solid #ccc;
 }
-/* line 122, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 126, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 ul.token-input-list-facebook li, ul.token-input-list li {
   font-family: 'PT Sans', sans-serif;
   color: #333;
 }
-/* line 125, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 129, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 ul.token-input-list-facebook li tester, ul.token-input-list li tester {
   cursor: pointer;
 }
-/* line 127, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 131, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 ul.token-input-list-facebook li tester:hover, ul.token-input-list li tester:hover {
   cursor: pointer;
 }
 
-/* line 135, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 139, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .new {
   color: #E41634;
   font-size: 0.6875rem;
   cursor: default;
 }
 
-/* line 141, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 145, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .submit-or-cancel {
   margin: 1.25rem 0;
   text-align: right;
 }
-/* line 144, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 148, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .submit-or-cancel a:first-of-type {
   display: inline-block;
   padding-right: 0.625rem;
 }
 
 @media only screen and (max-width: 40em) {
-  /* line 151, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+  /* line 155, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
   html body .reveal-modal {
     width: 96%;
     margin-left: 2%;
@@ -12629,54 +12634,54 @@ ul.token-input-list-facebook li tester:hover, ul.token-input-list li tester:hove
   }
 }
 @media only screen and (min-width: 40.0625em) and (max-width: 64em) {
-  /* line 157, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+  /* line 161, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
   html body .reveal-modal.tiny {
     width: 55%;
   }
 }
 @media only screen and (min-width: 40.0625em) and (max-width: 64em) {
-  /* line 162, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+  /* line 166, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
   html body .reveal-modal.small {
     width: 45%;
   }
 }
 @media only screen and (min-width: 64.0625em) {
-  /* line 162, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+  /* line 166, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
   html body .reveal-modal.small {
     width: 35%;
   }
 }
 @media only screen and (min-width: 40.0625em) and (max-width: 64em) {
-  /* line 170, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+  /* line 174, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
   html body .reveal-modal.medium {
     width: 80%;
   }
 }
 
-/* line 180, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 184, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 ul.f-dropdown li.search-option input {
   margin-bottom: 0.625rem;
 }
 
-/* line 186, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 190, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .filter-name-search .search-and-submit {
   display: table;
   width: 100%;
 }
-/* line 189, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 193, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .filter-name-search .search-and-submit > div {
   display: table-cell;
   vertical-align: top;
 }
-/* line 193, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 197, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .filter-name-search .search-and-submit .search {
   position: relative;
 }
-/* line 195, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 199, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .filter-name-search .search-and-submit .search a {
   display: none;
 }
-/* line 198, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 202, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .filter-name-search .search-and-submit .search a.clear-text-field {
   position: absolute;
   right: 0.1875rem;
@@ -12686,24 +12691,24 @@ ul.f-dropdown li.search-option input {
   font-size: 1rem;
   color: #888;
 }
-/* line 206, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 210, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .filter-name-search .search-and-submit .search a.clear-text-field:hover {
   color: #555;
 }
-/* line 210, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 214, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .filter-name-search .search-and-submit .search:hover a.clear-text-field {
   display: inline-block;
 }
-/* line 214, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 218, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .filter-name-search .search-and-submit input#query, .filter-name-search .search-and-submit button {
   height: 2.1875rem;
   margin: 0;
 }
-/* line 218, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 222, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .filter-name-search .search-and-submit input#query {
   color: #555;
 }
-/* line 221, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+/* line 225, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
 .filter-name-search .search-and-submit button {
   width: 1.5625rem;
   padding: 0.4375rem 0.125rem;
@@ -13576,73 +13581,89 @@ article.issue .pagination a {
 article.issue .pagination .disabled {
   color: #aaa;
 }
-/* line 281, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 280, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+article.issue #comments .comment {
+  position: relative;
+}
+/* line 282, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 article.issue #comments .comment .delete-comment {
-  float: right;
-  margin-right: 0.3125rem;
+  position: absolute;
+  right: 5px;
+  top: -5px;
   visibility: hidden;
 }
-/* line 288, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 290, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 article.issue #comments .comment:hover .delete-comment {
   visibility: visible;
   color: grey;
 }
-/* line 291, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 293, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 article.issue #comments .comment:hover .delete-comment:hover {
   font-weight: 700;
   text-decoration: none;
 }
-/* line 297, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 299, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 article.issue #comments .comment .comment-content {
   background-color: #f5f5f5;
   padding: 0.3125rem 0.625rem;
   font-size: 0.8125rem;
   line-height: 1.3;
 }
-/* line 303, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 305, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 article.issue #comments .comment .comment-footer {
   background-color: #EEF;
-  padding: 0 0.625rem;
+  padding: 0.3125rem 0.625rem;
   margin-bottom: 0.3125rem;
-  line-heiht: 0;
-  text-align: right;
-}
-/* line 309, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
-article.issue #comments .comment .comment-footer .comment-label {
-  display: inline-block;
   font-size: 0.6875rem;
   line-height: 1;
 }
-/* line 317, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 311, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+article.issue #comments .comment .comment-footer .comment-label {
+  float: right;
+  display: inline-block;
+}
+/* line 316, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+article.issue #comments .comment #edit-comment {
+  visibility: hidden;
+}
+/* line 320, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+article.issue #comments .comment:hover #edit-comment {
+  visibility: visible;
+}
+/* line 326, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+article.issue .edit-comment-form {
+  display: none;
+}
+/* line 329, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 article.issue .edit-issue-image-fields {
   border: 0.0625rem solid #aaa;
   padding: 0.625rem;
   margin-bottom: 0.9375rem;
   background-color: #f5f5f5;
 }
-/* line 322, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 334, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 article.issue .edit-issue-image-fields h2 {
   font-size: 1.25rem;
 }
-/* line 326, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 338, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 article.issue .edit-issue-image-fields .image-fields input {
   margin: 0;
 }
-/* line 329, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 341, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 article.issue .edit-issue-image-fields .image-fields .remove-photo-fields {
   font-size: 0.8125rem;
   color: #888;
 }
-/* line 334, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 346, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 article.issue .edit-issue-image-fields .image-fields .thumb-container {
   position: relative;
 }
-/* line 336, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 348, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 article.issue .edit-issue-image-fields .image-fields .thumb-container img.thumb {
   width: 100%;
   margin-bottom: 0.125rem;
 }
-/* line 340, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 352, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 article.issue .edit-issue-image-fields .image-fields .thumb-container .rotation-controls {
   display: table;
   position: absolute;
@@ -13651,26 +13672,26 @@ article.issue .edit-issue-image-fields .image-fields .thumb-container .rotation-
   left: 0;
   right: 0;
 }
-/* line 347, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 359, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 article.issue .edit-issue-image-fields .image-fields .thumb-container .rotation-controls > a {
   display: table-cell;
 }
-/* line 349, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 361, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 article.issue .edit-issue-image-fields .image-fields .thumb-container .rotation-controls > a img {
   width: 100%;
 }
 @media only screen and (min-width: 40.0625em) {
-  /* line 349, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+  /* line 361, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
   article.issue .edit-issue-image-fields .image-fields .thumb-container .rotation-controls > a img {
     visibility: hidden;
   }
 }
-/* line 356, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 368, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 article.issue .edit-issue-image-fields .image-fields .thumb-container .rotation-controls > a:hover img {
   cursor: pointer;
   visibility: visible;
 }
-/* line 363, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 375, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 article.issue .edit-issue-image-fields .image-fields .thumb-container .rotation-label {
   position: absolute;
   top: 0;
@@ -13680,45 +13701,45 @@ article.issue .edit-issue-image-fields .image-fields .thumb-container .rotation-
   color: white;
 }
 @media only screen and (min-width: 40.0625em) {
-  /* line 363, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+  /* line 375, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
   article.issue .edit-issue-image-fields .image-fields .thumb-container .rotation-label {
     display: none;
   }
 }
-/* line 375, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 387, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 article.issue .edit-issue-image-fields .image-fields .thumb-container:hover .rotation-label {
   display: block;
 }
-/* line 383, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 395, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 article.issue .issue-contacts {
   margin-bottom: 1.25rem;
   font-size: 0.875rem;
 }
 
-/* line 390, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 402, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .searching-location {
   display: inline-block;
   margin-left: 1.875rem;
   font-size: 0.8125rem;
   color: grey;
 }
-/* line 395, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 407, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .searching-location img {
   width: 0.9375rem;
 }
 
-/* line 403, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 415, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 #issue-page-images .issue-image-container img:hover {
   cursor: pointer;
 }
 
-/* line 410, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 422, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .issue-image-container {
   position: relative;
   display: inline-block;
   border: 0.0625rem solid #444;
 }
-/* line 414, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 426, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .issue-image-container .caption {
   position: absolute;
   bottom: 0;
@@ -13727,7 +13748,7 @@ article.issue .issue-contacts {
   padding: 0 0.625rem;
 }
 
-/* line 424, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 436, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 #imageZoomModal.reveal-modal {
   background: none;
   border: none;
@@ -13736,67 +13757,67 @@ article.issue .issue-contacts {
   text-align: center;
 }
 @media only screen and (min-width: 40.0625em) {
-  /* line 424, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+  /* line 436, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
   #imageZoomModal.reveal-modal {
     padding: 0.3125rem 0;
   }
 }
-/* line 434, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 446, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 #imageZoomModal.reveal-modal a.close-reveal-modal {
   top: 0;
   right: 0.625rem;
   color: #444;
 }
-/* line 442, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 454, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 #imageZoomModal.reveal-modal .issue-image-container {
   display: inline-block;
 }
 
-/* line 448, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 460, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .reveal-modal-bg {
   background-color: rgba(140, 140, 140, 0.95);
 }
 
-/* line 453, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 465, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .owl-theme .owl-controls {
   position: absolute;
   top: -2.5rem;
   width: 100%;
   text-align: center;
 }
-/* line 458, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 470, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .owl-theme .owl-controls .owl-pagination {
   position: relative;
   top: 2.5rem;
   display: inline-block;
 }
-/* line 463, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 475, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .owl-theme .owl-controls .owl-buttons {
   position: absolute;
   top: 9.375rem;
   width: 100%;
 }
-/* line 467, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 479, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .owl-theme .owl-controls .owl-buttons .owl-prev, .owl-theme .owl-controls .owl-buttons .owl-next {
   position: absolute;
   height: 5rem;
   width: 1.625rem;
   opacity: 0.8;
 }
-/* line 473, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 485, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .owl-theme .owl-controls .owl-buttons div.owl-prev {
   left: 0;
   background: none;
   background: url("/assets/icons/arrow-large-left-dark-grey.svg") no-repeat;
 }
-/* line 478, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 490, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .owl-theme .owl-controls .owl-buttons .owl-next {
   right: 0;
   background: none;
   background: url("/assets/icons/arrow-large-right-dark-grey.svg") no-repeat;
 }
 
-/* line 486, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 498, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .owl-theme .owl-controls .owl-buttons div {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -13804,79 +13825,79 @@ article.issue .issue-contacts {
   border-top-right-radius: 0;
 }
 
-/* line 493, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 505, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .close-reveal-modal {
   z-index: 999999;
 }
 
-/* line 497, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 509, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 input.success.publish-issue.disabled {
   cursor: pointer;
 }
 
 @media only screen and (max-width: 40em) {
-  /* line 501, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+  /* line 513, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
   #missing-details-issue-modal.reveal-modal {
     width: 96%;
     margin-left: 2%;
   }
 }
 @media only screen and (min-width: 40.0625em) {
-  /* line 501, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+  /* line 513, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
   #missing-details-issue-modal.reveal-modal {
     width: 60%;
   }
 }
 @media only screen and (min-width: 64.0625em) {
-  /* line 501, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+  /* line 513, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
   #missing-details-issue-modal.reveal-modal {
     width: 55%;
   }
 }
-/* line 513, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 525, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 #missing-details-issue-modal.reveal-modal .row {
   margin: 0 -0.9375rem;
 }
-/* line 517, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 529, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 #missing-details-issue-modal.reveal-modal .input.issue_label_ids .checkbox {
   display: inline-block;
   width: 100%;
   float: left;
 }
 @media only screen and (min-width: 40.0625em) {
-  /* line 517, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+  /* line 529, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
   #missing-details-issue-modal.reveal-modal .input.issue_label_ids .checkbox {
     width: 50%;
   }
 }
 @media only screen and (min-width: 64.0625em) {
-  /* line 517, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+  /* line 529, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
   #missing-details-issue-modal.reveal-modal .input.issue_label_ids .checkbox {
     width: 30%;
   }
 }
-/* line 527, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 539, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 #missing-details-issue-modal.reveal-modal .input.issue_label_ids .checkbox label {
   position: relative;
 }
-/* line 529, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 541, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 #missing-details-issue-modal.reveal-modal .input.issue_label_ids .checkbox label input {
   position: relative;
   top: 0.125rem;
   margin: 0 0.3125rem 0.625rem 0;
 }
-/* line 537, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 549, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 #missing-details-issue-modal.reveal-modal input.button {
   margin: 1.25rem 0 0 0;
 }
 
 @media only screen and (max-width: 40em) {
-  /* line 543, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+  /* line 555, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
   .follow-issue-toggle-option {
     margin: -0.625rem 0 1.25rem 0;
   }
 }
-/* line 547, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 559, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .follow-issue-toggle-option i {
   color: #43ac6a;
   border: 0.0625rem solid #aaa;
@@ -13887,12 +13908,12 @@ input.success.publish-issue.disabled {
   display: inline-block;
   text-align: center;
 }
-/* line 557, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 569, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .follow-issue-toggle-option a {
   color: #555;
 }
 
-/* line 562, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 574, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 #cancel-issue-follower-update {
   color: #888;
   font-size: 0.6875rem;
@@ -13901,7 +13922,7 @@ input.success.publish-issue.disabled {
   margin-right: 0.9375rem;
 }
 
-/* line 570, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 582, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .reporting-prompt {
   border: 0.125rem solid #888;
   background-color: #f5f5f5;
@@ -13909,37 +13930,37 @@ input.success.publish-issue.disabled {
   font-size: 0.8125rem;
   line-height: 1.3;
 }
-/* line 576, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 588, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .reporting-prompt.emphasise {
   border: 0.125rem solid #E41634;
   background-color: #ffe0e0;
 }
-/* line 579, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 591, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .reporting-prompt.emphasise p {
   display: inline;
   font-size: inherit;
   line-height: inherit;
 }
-/* line 583, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 595, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .reporting-prompt.emphasise p a {
   line-height: inherit;
   color: inherit;
   font-size: inherit;
 }
-/* line 587, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 599, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .reporting-prompt.emphasise p a:hover {
   text-decoration: underline;
 }
-/* line 594, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 606, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .reporting-prompt form .controls {
   text-align: right;
 }
-/* line 596, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 608, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .reporting-prompt form .controls input {
   padding: 0.625rem;
   margin: 0;
 }
-/* line 600, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
+/* line 612, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/issues.scss */
 .reporting-prompt form .controls .cancel-editing-reporting-prompt {
   padding-right: 0.625rem;
 }

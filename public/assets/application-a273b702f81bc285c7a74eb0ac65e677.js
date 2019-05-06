@@ -21003,6 +21003,17 @@ $.TokenList.Cache = function (options) {
     };
 };
 }(jQuery));
+(function() {
+  $(document).on('ready page:load', function() {
+    return $('#comments').on('click', '#cancel-comment-changes', function(e) {
+      e.preventDefault();
+      $('.last-comment').slideDown();
+      $('.edit-comment-form').fadeOut();
+      return $('.comment-form').fadeIn();
+    });
+  });
+
+}).call(this);
 $(window).bind('page:change', function() {
   watch_followers_edit_click();
 });
@@ -22380,6 +22391,7 @@ function initialiseFollowerTokens() {
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 
 
 
