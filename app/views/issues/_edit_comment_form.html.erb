@@ -1,4 +1,4 @@
-<% if @last_comment.user == current_user %>
+<% if @last_comment && @last_comment.user == current_user %>
   <div class='edit-comment-form'>
     <%= simple_form_for(@last_comment, remote: true) do |f| %>
       <%= f.error_notification %>
