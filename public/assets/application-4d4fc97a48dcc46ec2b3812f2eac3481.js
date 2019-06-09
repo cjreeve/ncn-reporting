@@ -21005,11 +21005,15 @@ $.TokenList.Cache = function (options) {
 }(jQuery));
 (function() {
   $(document).on('ready page:load', function() {
-    return $('#comments').on('click', '#cancel-comment-changes', function(e) {
+    $('#comments').on('click', '#cancel-comment-changes', function(e) {
       e.preventDefault();
       $('.last-comment').slideDown();
       $('.edit-comment-form').fadeOut();
       return $('.comment-form').fadeIn();
+    });
+    return $('article.issue').on('click', '.upload-icon', function(e) {
+      $(this).hide();
+      return $('.comment_image_src').fadeIn();
     });
   });
 
