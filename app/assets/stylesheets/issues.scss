@@ -434,6 +434,16 @@ article.issue{
     background-color: rgba(250,250,250,0.5);
     width: 100%;
     padding: rem-calc(0 10);
+    span{
+      &.cropped{
+        &:after{
+          content: "…";
+        }
+      }
+      &.remainder{
+        display: none;
+      }
+    }
   }
 }
 
@@ -462,6 +472,12 @@ article.issue{
   }
   .caption{
     text-align: left;
+    span{
+      &:after{
+        content: '';
+      }
+      display: inline;
+    }
   }
 }
 
@@ -641,5 +657,15 @@ input.success.publish-issue.disabled{
     &:hover{
       color: darken($grey, 5);
     }
+  }
+}
+
+
+.input.issue_images_taken_on{
+  display: table;
+  width: 100%;
+  select{
+    display: table-cell;
+    width: 30%;
   }
 }

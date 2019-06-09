@@ -14,6 +14,9 @@
   </div>
   <div class='medium-5 columns'>
     <%= f.input :caption, label: 'Caption' %>
-    <%= link_to '> remove image and caption', '#', class: 'remove-photo-fields', style: 'float:right', :'data-image-form-id' => f.index %>
+    <% f.object.taken_on ||= f.object.created_at %>
+    <%= f.input :taken_on, as: :date, start_year: Date.today.year, end_year: (Date.today.year - 10), order: [:day, :month, :year], label: "Photo date" %>
+    <%= link_to "&#10060;  remove image and caption".html_safe, '#', class: 'remove-photo-fields', style: 'float:right', :'data-image-form-id' => f.index %>
   </div>
 </div>
+<hr>

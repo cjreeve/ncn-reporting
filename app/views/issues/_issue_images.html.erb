@@ -8,7 +8,9 @@
       <br>
     <% end %>
     <div class='caption'>
-      <%= image.caption.to_s[0..185] %><%= "…" if image.caption.to_s.length > 186 %>
+      <%= "#{image.photo_date.strftime('%d/%m/%y')} #{' - ' if image.caption.present?}"  unless image.caption.to_s.match /(\d+\/\d+\/\d+)/ %>
+      <% long_cpation = image.caption.to_s.length > 171 %>
+      <%= content_tag :span, image.caption.to_s[0..170], class: "#{'cropped' if long_cpation}" %><%= content_tag :span, image.caption.to_s[171..-1], class: "remainder" if long_cpation %>
     </div>
 
     <% if defined?(is_modal) %>

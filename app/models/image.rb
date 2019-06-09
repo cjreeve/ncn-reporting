@@ -14,6 +14,10 @@ class Image < ActiveRecord::Base
 
   alias_method :issue, :owner
 
+  def photo_date
+    taken_on || created_at
+  end
+
   def fetch_remote_image
     self.remote_src_url = self.url if self.url.present? && self.src.blank?
   end

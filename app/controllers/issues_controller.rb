@@ -357,7 +357,7 @@ class IssuesController < ApplicationController
     params.require(:issue).permit(:issue_number, :title, :description, :priority, :reported_at,
       :completed_at, :location_name, :coordinate, :route_id, :group_id, :url, :category_id,
       :problem_id, :user_id, :administrative_area_id, :resolution, :user_tokens,
-      images_attributes: [:id, :url, :src, :caption, :rotation, :_destroy],
+      images_attributes: [:id, :url, :src, :caption, :rotation, :taken_on, :_destroy],
       label_ids: [], follower_ids: [])
   end
 
