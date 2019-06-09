@@ -297,10 +297,15 @@ article.issue{
         }
       }
       .comment-content{
+        vertical-align: top;
         background-color: $light-grey;
         padding: rem-calc(5 10);
         font-size: rem-calc(13);
         line-height: 1.3;
+        img{
+          float: right;
+          margin: rem-calc(0 0 3 10);
+        }
       }
       .comment-footer{
         background-color: $very-light-blue;
@@ -454,6 +459,9 @@ article.issue{
   .issue-image-container{
     display: inline-block;
     // box-shadow: rgba(0,​ 0,​ 0,​ 0.4) 0px 0px 10px 0px;
+  }
+  .caption{
+    text-align: left;
   }
 }
 
@@ -615,4 +623,23 @@ input.success.publish-issue.disabled{
     }
   }
 
+}
+
+.zoomable:hover {
+  cursor: pointer;
+}
+
+.photo-upload{
+  float: right;
+  .comment_image_src{
+    display: none;
+  }
+  .upload-icon{
+    cursor: pointer;
+    font-size: rem-calc(30);
+    color: $grey;
+    &:hover{
+      color: darken($grey, 5);
+    }
+  }
 }

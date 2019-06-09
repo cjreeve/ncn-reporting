@@ -7,6 +7,14 @@
     %>
   <% end %>
   <div class='comment-content'>
+    <% if image = comment.image %>
+      <% if @image_ids.present? %>
+        <% data_attributes = { reveal_id: "imageZoomModal", index: @image_ids.find_index(image.id) } %>
+      <% else %>
+        <% data_attributes = false %>
+      <% end %>
+      <%= image_tag image.src_url(:comment_icon), data: data_attributes, class: "#{ 'zoomable' if data_attributes }" %>
+    <% end %>
     <%= comment.formatted_content %>
   </div>
   <div class='comment-footer'>

@@ -7,8 +7,9 @@
   $('#edit-comment').hide()
   $('#comments .comment-list').append("<%= j(render 'comments/comment', comment: @comment) %>");
   $('.comment-form').replaceWith("<%= j(render 'issues/comment_form', comment: @new_comment, issue: @issue) %>");
+  $('#comment_image_attributes_src').val('')
 <% end %>
 
-$('#followers').html("<%= j(render 'issues/followers', issue: @issue)  %>");
-initialiseFollowerTokens();
-watch_followers_edit_click();
+// $('#followers').html("<%= j(render 'issues/followers', issue: @issue)  %>");
+// initialiseFollowerTokens();
+// watch_followers_edit_click();

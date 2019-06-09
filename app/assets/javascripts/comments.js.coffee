@@ -6,3 +6,7 @@ $(document).on 'ready page:load', ->
     $('.edit-comment-form').fadeOut()
     $('.comment-form').fadeIn()
 
+  $('article.issue').on 'click', '.upload-icon', (e) ->
+    $(this).hide()
+    $('.comment_image_src').fadeIn()
+

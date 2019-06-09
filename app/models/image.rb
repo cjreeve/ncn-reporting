@@ -3,6 +3,7 @@ class Image < ActiveRecord::Base
   attr_accessor :rotate
 
   belongs_to :owner, polymorphic: true
+  belongs_to :comment
 
   mount_uploader :src, ImageUploader
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161218223827) do
+ActiveRecord::Schema.define(version: 20190506204618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,8 +77,10 @@ ActiveRecord::Schema.define(version: 20161218223827) do
     t.string   "src",        limit: 255
     t.integer  "rotation"
     t.string   "owner_type"
+    t.integer  "comment_id"
   end
 
+  add_index "images", ["comment_id"], name: "index_images_on_comment_id", using: :btree
   add_index "images", ["owner_id"], name: "index_images_on_owner_id", using: :btree
   add_index "images", ["owner_type"], name: "index_images_on_owner_type", using: :btree
 
@@ -278,6 +280,7 @@ ActiveRecord::Schema.define(version: 20161218223827) do
   add_index "users", ["role"], name: "index_users_on_role", using: :btree
 
   add_foreign_key "groups", "regions"
+  add_foreign_key "images", "comments"
   add_foreign_key "issue_follower_selections", "issues"
   add_foreign_key "issue_follower_selections", "users"
   add_foreign_key "twins", "issues"

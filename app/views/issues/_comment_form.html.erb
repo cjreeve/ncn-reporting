@@ -10,6 +10,14 @@
     </div>
 
     <div class="form-actions">
+      <div class="photo-upload">
+        <% f.object.image = Image.new %>
+        <%= f.simple_fields_for :image do |g|  %>
+          <%= g.input :src, as: :file, label: false %>
+          <i class="upload-icon fi-photo" title="upload a photo"></i>
+        <% end %>
+      </div>
+
       <%= f.button :submit, 'Comment', class: 'button tiny', data: {'disable-with' => 'posting…'}  %>
     </div>
   <% end %>

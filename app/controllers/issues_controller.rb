@@ -87,6 +87,7 @@ class IssuesController < ApplicationController
     @comments = @issue.comments.order(created_at: :desc).paginate(page: 1, per_page: per_page)
     @new_comment = Comment.new
     @last_comment = @comments.first
+    @image_ids = @issue.image_ids
 
     if @issue.administrative_area && @issue.route
       all_route_section_managers = @issue.route_section_managers

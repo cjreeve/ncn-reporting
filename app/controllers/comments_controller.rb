@@ -32,6 +32,12 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
+        if image = @comment.image
+          image.owner_id = @comment.issue_id
+          image.owner_type = "Issue"
+          image.caption = @comment.content[0..200]
+          image.save
+        end
         @issue.followers << current_user
         @issue.save
         @last_comment = @comment
@@ -79,6 +85,6 @@ class CommentsController < ApplicationController
     end
 
     def comment_params
-      params.require(:comment).permit(:content, :user_id, :issue_id)
+      params.require(:comment).permit(:content, :user_id, :issue_id, image_attributes: [:id, :src])
     end
 end

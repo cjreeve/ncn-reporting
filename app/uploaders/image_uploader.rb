@@ -35,4 +35,8 @@ class ImageUploader < SiteUploader
     process resize_to_fit: [1000, 1000]
   end
 
+  version :comment_icon do
+    process resize_to_fit: [80, 80]
+  end
+
 end
