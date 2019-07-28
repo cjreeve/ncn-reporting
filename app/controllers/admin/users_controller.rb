@@ -2,8 +2,8 @@ class Admin::UsersController < ApplicationController
 
   load_and_authorize_resource #except: [:create]
 
-  before_filter :check_read_authorisation
-  before_filter :check_manage_authorisation, except: [:index, :show]
+  before_action :check_read_authorisation
+  before_action :check_manage_authorisation, except: [:index, :show]
 
   def index
     options = {}

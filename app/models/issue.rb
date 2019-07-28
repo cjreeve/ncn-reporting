@@ -1,4 +1,4 @@
-class Issue < ActiveRecord::Base
+class Issue < ApplicationRecord
   attr_accessor :coordinate
 
   require "open-uri"

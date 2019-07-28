@@ -1,4 +1,4 @@
-class Label < ActiveRecord::Base
+class Label < ApplicationRecord
   has_many :issue_label_selections
   has_many :issues, through: :issue_label_selections
   has_many :user_label_selections#, dependant: :destroy

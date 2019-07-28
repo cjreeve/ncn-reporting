@@ -1,4 +1,4 @@
-class Page < ActiveRecord::Base
+class Page < ApplicationRecord
 
   before_validation :set_slug
   # before_validation :set_role

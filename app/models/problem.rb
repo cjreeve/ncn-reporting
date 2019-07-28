@@ -1,4 +1,4 @@
-class Problem < ActiveRecord::Base
+class Problem < ApplicationRecord
   has_many :categories, through: :category_problem_selections
   has_many :issues
 

@@ -1,4 +1,4 @@
-class Route < ActiveRecord::Base
+class Route < ApplicationRecord
 
   has_many :issues
   has_many :user_managed_route_selections
@@ -10,5 +10,5 @@ class Route < ActiveRecord::Base
   def set_slug
     self.slug = self.name.parameterize
   end
-  
+
 end

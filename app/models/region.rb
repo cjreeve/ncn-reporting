@@ -1,4 +1,4 @@
-class Region < ActiveRecord::Base
+class Region < ApplicationRecord
 
   has_many :groups
   has_many :users
