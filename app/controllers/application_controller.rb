@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
   before_action :log_user_activity
   before_action :load_global_variables
 
-  protect_from_forgery # with: :exception
+  protect_from_forgery prepend: true
+  # with: :exception
 
   after_action :store_location
 

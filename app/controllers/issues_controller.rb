@@ -18,12 +18,12 @@ class IssuesController < ApplicationController
     options[:groups] = {id: group_ids} if params[:group] && params[:group] != "all" && params[:group] != "-1"
     options[:administrative_areas] = {id: area_ids} if params[:area]
     exclusion_options[:issues] = {state: "closed"} unless params[:state] == "closed"
-    @administrative_areas = AdministrativeArea.joins(issues: [:route, :group]).where(options).where.not(exclusion_options).order(:short_name).uniq.limit(11)
+    @administrative_areas = AdministrativeArea.joins(issues: [:route, :group]).where(options).where.not(exclusion_options).order(:short_name).limit(11).distinct
 
-    @groups = Group.joins(:issues).where(region: @current_region).uniq.order(:name)
+    @groups = Group.joins(:issues).where(region: @current_region).distinct.order(:name)
     @current_group = (@current_region.group_ids.include?(params[:group].to_i) ? Group.find_by_id(params[:group].to_i) : nil)
 
-    @routes = Route.joins(issues: [:group, :administrative_area]).where(options).uniq.order(:name).limit(11).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
+    @routes = Route.joins(issues: [:group, :administrative_area]).where(options).distinct.order(:name).limit(11).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
     @current_route ||= Route.find_by_slug(params[:route])
 
     @states = Issue.state_machine.states.collect(&:name) - [:resolved, :unsolvable]
