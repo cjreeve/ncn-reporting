@@ -70,7 +70,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails' #, '~> 3.6'
-  # gem 'factory_girl_rails' #, '~> 4.5.0' # upgrade to factory_bot.
+  gem 'factory_girl_rails' #, '~> 4.5.0'
   gem 'capybara' #, '~> 2.5'
   gem 'faker' #, '~> 1.6.1'
   gem 'pry'
