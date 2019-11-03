@@ -403,7 +403,6 @@ class IssuesController < ApplicationController
     order = :title if params[:order] == 'title'
     order = :problem if params[:order] == 'problem'
     order = :location_name if params[:order] == 'location'
-    order = :route if params[:order] == 'route'
     order = :lat if params[:order] == 'lat'
     order = :lng if params[:order] == 'lng'
     order = :updated_at if params[:order] == 'modified'
