@@ -421,7 +421,7 @@ class IssuesController < ApplicationController
       joined_tables << :category
       joined_order = "categories.name #{ direction.to_s }"
     elsif params[:order] == 'route'
-      table_name << :route
+      joined_tables << :route
       joined_order = "routes.name #{ direction.to_s }"
     end
 
