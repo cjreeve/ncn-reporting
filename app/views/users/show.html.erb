@@ -6,8 +6,7 @@
     <div class='small-12 medium-6 large-4 columns'>
 
       <h1><%= @user.name %></h1>
-
-      <% if @user.image %>
+      <% if @user.image&.src_url(:thumb) %>
         <%= link_to image_tag(@user.image.src_url(:thumb)), '#', data: { reveal_id: 'profilePictureModal' } %>
 
         <div id="profilePictureModal" class="reveal-modal small" data-reveal aria-hidden="true" role="dialog">
