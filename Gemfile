@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.2.2'
 ruby "2.4.1"
+gem 'puma'
+
 # gem 'active_record_union', '~> 1.3'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes

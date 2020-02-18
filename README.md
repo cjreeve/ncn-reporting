@@ -30,3 +30,5 @@ Run the console and reset the first user's account password (if not already asda
     u.save
 
 
+Deploy:
+git push staging dev-2019-07-27-rails-5:master
