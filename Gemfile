@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.2.2'
 ruby "2.4.1"
-# gem 'puma'
+gem 'puma'
 
 # gem 'active_record_union', '~> 1.3'
 
@@ -88,7 +88,6 @@ end
 
 group :production do
   gem 'pg', '>= 0.18', '< 2.0'
-  gem 'rails_12factor' #, '~> 0.0'
 end
 
 # Use ActiveModel has_secure_password
