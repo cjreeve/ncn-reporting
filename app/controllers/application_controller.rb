@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  # rescue_from Exception, with: :mail_exception
+  rescue_from Exception, with: :mail_exception
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
