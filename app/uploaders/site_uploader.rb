@@ -4,7 +4,7 @@ class SiteUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   include Sprockets::Rails::Helper # not sure if it is required
 
-  if Rails.env.development?
+  if %w(development test).include? Rails.env
     storage :file
   else
     storage :fog

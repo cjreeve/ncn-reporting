@@ -61,16 +61,16 @@ RSpec.describe IssuesController, type: :controller do
         end
 
         it "does not raise error" do
-          expect{ get :show, issue_number: issue.issue_number }.to_not raise_error
+          expect{ get :show, params: { issue_number: issue.issue_number }}.to_not raise_error
         end
 
         it "finds the issue" do
-          get :show, issue_number: issue.issue_number
+          get :show, params: { issue_number: issue.issue_number }
           expect( assigns(:issue) ).to eq(issue)
         end
 
         it "does not find other issue" do
-          get :show, issue_number: issue.issue_number
+          get :show, params: { issue_number: issue.issue_number }
           expect( assigns(:issue) ).not_to eq(another_issue)
         end
       end
@@ -106,7 +106,7 @@ RSpec.describe IssuesController, type: :controller do
             end
 
             it "staff does not see the council 'reporting-prompt'" do
-              get :show, issue_number: issue.issue_number
+              get :show, params: { issue_number: issue.issue_number }
               expect(response.body).not_to have_css('div.reporting-prompt')
             end
           end
@@ -118,7 +118,7 @@ RSpec.describe IssuesController, type: :controller do
             end
 
             it "coordinator sees the council 'reporting-prompt'" do
-              get :show, issue_number: issue.issue_number
+              get :show, params: { issue_number: issue.issue_number }
               expect(response.body).to have_css('div.reporting-prompt')
             end
           end
@@ -131,7 +131,7 @@ RSpec.describe IssuesController, type: :controller do
               end
 
               it "ranger sees the council 'reporting-prompt'" do
-                get :show, issue_number: issue.issue_number
+                get :show, params: { issue_number: issue.issue_number }
                 expect(response.body).to have_css('div.reporting-prompt')
               end
             end
@@ -143,7 +143,7 @@ RSpec.describe IssuesController, type: :controller do
               end
 
               it "volunteer does not see the council 'reporting-prompt'" do
-                get :show, issue_number: issue.issue_number
+                get :show, params: { issue_number: issue.issue_number }
                 expect(response.body).not_to have_css('div.reporting-prompt')
               end
             end
@@ -155,7 +155,7 @@ RSpec.describe IssuesController, type: :controller do
               end
 
               it "guest does not see the council 'reporting-prompt'" do
-                get :show, issue_number: issue.issue_number
+                get :show, params: { issue_number: issue.issue_number }
                 expect(response.body).not_to have_css('div.reporting-prompt')
               end
             end
@@ -190,7 +190,7 @@ RSpec.describe IssuesController, type: :controller do
             end
 
             it "ranger sees the council 'reporting-prompt'" do
-              get :show, issue_number: issue.issue_number
+              get :show, params: { issue_number: issue.issue_number }
               expect(response.body).to have_css('div.reporting-prompt')
             end
           end
@@ -202,7 +202,7 @@ RSpec.describe IssuesController, type: :controller do
             end
 
             it "volunteer sees the council 'reporting-prompt'" do
-              get :show, issue_number: issue.issue_number
+              get :show, params: { issue_number: issue.issue_number }
               expect(response.body).to have_css('div.reporting-prompt')
             end
           end
@@ -233,7 +233,7 @@ RSpec.describe IssuesController, type: :controller do
             end
 
             it "ranger sees the council 'reporting-prompt'" do
-              get :show, issue_number: issue.issue_number
+              get :show, params: { issue_number: issue.issue_number }
               expect(response.body).to have_css('div.reporting-prompt')
             end
           end
@@ -245,7 +245,7 @@ RSpec.describe IssuesController, type: :controller do
             end
 
             it "volunteer sees the council 'reporting-prompt'" do
-              get :show, issue_number: issue.issue_number
+              get :show, params: { issue_number: issue.issue_number }
               expect(response.body).to have_css('div.reporting-prompt')
             end
           end
