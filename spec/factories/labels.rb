@@ -1,5 +1,5 @@
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :label do
     name 'volunteer'
   end

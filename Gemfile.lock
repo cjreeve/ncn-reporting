@@ -111,10 +111,10 @@ GEM
     erubi (1.8.0)
     excon (0.65.0)
     execjs (2.7.0)
-    factory_girl (4.9.0)
+    factory_bot (4.8.2)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.9.0)
-      factory_girl (~> 4.9.0)
+    factory_bot_rails (4.8.2)
+      factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
     faker (1.9.6)
       i18n (>= 0.7)
@@ -516,7 +516,7 @@ DEPENDENCIES
   compass-rails
   database_cleaner
   devise
-  factory_girl_rails
+  factory_bot_rails
   faker
   fog
   foundation-icons-sass-rails (~> 3.0)
@@ -555,4 +555,4 @@ RUBY VERSION
    ruby 2.7.0p-1
 
 BUNDLED WITH
-   1.17.3
+   2.1.0.pre.2
