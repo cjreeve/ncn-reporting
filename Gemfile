@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.2.2'
-ruby "2.7.0"
+ruby "2.6.5"
 gem 'puma'
 
 # gem 'active_record_union', '~> 1.3'
