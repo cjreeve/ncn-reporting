@@ -11,7 +11,7 @@ RSpec.describe IssuesController, type: :controller do
       context "no attributes" do
 
         # TODO: test national, regeional and custom settings
-        let(:ranger) { FactoryGirl.create(:ranger, issue_filter_mode: "national") }
+        let(:ranger) { FactoryBot.create(:ranger, issue_filter_mode: "national") }
 
         before(:each) do
           sign_in ranger
@@ -22,7 +22,7 @@ RSpec.describe IssuesController, type: :controller do
         end
 
         context "one published issue" do
-          let(:issue) { FactoryGirl.create(:issue, state: 'open') }
+          let(:issue) { FactoryBot.create(:issue, state: 'open') }
           before(:each) { issue }
 
           it "finds one result" do
@@ -47,30 +47,30 @@ RSpec.describe IssuesController, type: :controller do
 
       context "signed in as ranger" do
 
-        let(:ranger) { FactoryGirl.create(:ranger) }
+        let(:ranger) { FactoryBot.create(:ranger) }
 
         before(:each) do
           sign_in ranger
         end
 
-        let(:issue) { FactoryGirl.create(:issue) }
-        let(:another_issue) { FactoryGirl.create(:issue) }
+        let(:issue) { FactoryBot.create(:issue) }
+        let(:another_issue) { FactoryBot.create(:issue) }
         before(:each) do
           issue
           another_issue
         end
 
         it "does not raise error" do
-          expect{ get :show, issue_number: issue.issue_number }.to_not raise_error
+          expect{ get :show, params: { issue_number: issue.issue_number }}.to_not raise_error
         end
 
         it "finds the issue" do
-          get :show, issue_number: issue.issue_number
+          get :show, params: { issue_number: issue.issue_number }
           expect( assigns(:issue) ).to eq(issue)
         end
 
         it "does not find other issue" do
-          get :show, issue_number: issue.issue_number
+          get :show, params: { issue_number: issue.issue_number }
           expect( assigns(:issue) ).not_to eq(another_issue)
         end
       end
@@ -80,15 +80,15 @@ RSpec.describe IssuesController, type: :controller do
       context "central area and route 1" do
 
         context "ranger published issue with label council" do
-          let(:group) { FactoryGirl.create(:group, name: 'Central') }
-          let(:route) { FactoryGirl.create(:route, name: 'NCN 1') }
-          let(:staff) { FactoryGirl.create(:staff) }
-          let(:coordinator) { FactoryGirl.create(:coordinator) }
-          let(:ranger) { FactoryGirl.create(:ranger) }
-          let(:volunteer) { FactoryGirl.create(:volunteer) }
-          let(:guest) { FactoryGirl.create(:guest) }
+          let(:group) { FactoryBot.create(:group, name: 'Central') }
+          let(:route) { FactoryBot.create(:route, name: 'NCN 1') }
+          let(:staff) { FactoryBot.create(:staff) }
+          let(:coordinator) { FactoryBot.create(:coordinator) }
+          let(:ranger) { FactoryBot.create(:ranger) }
+          let(:volunteer) { FactoryBot.create(:volunteer) }
+          let(:guest) { FactoryBot.create(:guest) }
 
-          let(:issue) { FactoryGirl.create(:issue, label_names: ['council'], user_name: ranger.name, state: 'open') }
+          let(:issue) { FactoryBot.create(:issue, label_names: ['council'], user_name: ranger.name, state: 'open') }
 
           before(:each) do
             coordinator.groups << group
@@ -106,7 +106,7 @@ RSpec.describe IssuesController, type: :controller do
             end
 
             it "staff does not see the council 'reporting-prompt'" do
-              get :show, issue_number: issue.issue_number
+              get :show, params: { issue_number: issue.issue_number }
               expect(response.body).not_to have_css('div.reporting-prompt')
             end
           end
@@ -118,7 +118,7 @@ RSpec.describe IssuesController, type: :controller do
             end
 
             it "coordinator sees the council 'reporting-prompt'" do
-              get :show, issue_number: issue.issue_number
+              get :show, params: { issue_number: issue.issue_number }
               expect(response.body).to have_css('div.reporting-prompt')
             end
           end
@@ -131,7 +131,7 @@ RSpec.describe IssuesController, type: :controller do
               end
 
               it "ranger sees the council 'reporting-prompt'" do
-                get :show, issue_number: issue.issue_number
+                get :show, params: { issue_number: issue.issue_number }
                 expect(response.body).to have_css('div.reporting-prompt')
               end
             end
@@ -143,7 +143,7 @@ RSpec.describe IssuesController, type: :controller do
               end
 
               it "volunteer does not see the council 'reporting-prompt'" do
-                get :show, issue_number: issue.issue_number
+                get :show, params: { issue_number: issue.issue_number }
                 expect(response.body).not_to have_css('div.reporting-prompt')
               end
             end
@@ -155,7 +155,7 @@ RSpec.describe IssuesController, type: :controller do
               end
 
               it "guest does not see the council 'reporting-prompt'" do
-                get :show, issue_number: issue.issue_number
+                get :show, params: { issue_number: issue.issue_number }
                 expect(response.body).not_to have_css('div.reporting-prompt')
               end
             end
@@ -165,13 +165,13 @@ RSpec.describe IssuesController, type: :controller do
 
       if Rails.application.config.enable_issue_reporting_prompt
         context "volunteer published issue with label council" do
-          let(:group) { Group.find_by_name('Central') || FactoryGirl.create(:group, name: 'Central') }
-          let(:route) { Route.find_by_name('NCN 1') || FactoryGirl.create(:route, name: 'NCN 1') }
+          let(:group) { Group.find_by_name('Central') || FactoryBot.create(:group, name: 'Central') }
+          let(:route) { Route.find_by_name('NCN 1') || FactoryBot.create(:route, name: 'NCN 1') }
 
-          let(:ranger) { FactoryGirl.create(:ranger) }
-          let(:volunteer) { FactoryGirl.create(:volunteer) }
+          let(:ranger) { FactoryBot.create(:ranger) }
+          let(:volunteer) { FactoryBot.create(:volunteer) }
 
-          let(:issue) { FactoryGirl.create(:issue, label_names: ['council'], user_name: volunteer.name, state: 'open') }
+          let(:issue) { FactoryBot.create(:issue, label_names: ['council'], user_name: volunteer.name, state: 'open') }
 
           let(:administrative_area) { issue.administrative_area }
 
@@ -190,7 +190,7 @@ RSpec.describe IssuesController, type: :controller do
             end
 
             it "ranger sees the council 'reporting-prompt'" do
-              get :show, issue_number: issue.issue_number
+              get :show, params: { issue_number: issue.issue_number }
               expect(response.body).to have_css('div.reporting-prompt')
             end
           end
@@ -202,19 +202,19 @@ RSpec.describe IssuesController, type: :controller do
             end
 
             it "volunteer sees the council 'reporting-prompt'" do
-              get :show, issue_number: issue.issue_number
+              get :show, params: { issue_number: issue.issue_number }
               expect(response.body).to have_css('div.reporting-prompt')
             end
           end
         end
 
         context "volunteer submitted issue with label council" do
-          let(:group) { Group.find_by_name('Central') || FactoryGirl.create(:group, name: 'Central') }
-          let(:route) { Route.find_by_name('NCN 1') || FactoryGirl.create(:route, name: 'NCN 1') }
-          let(:ranger) { FactoryGirl.create(:ranger) }
-          let(:volunteer) { FactoryGirl.create(:volunteer) }
+          let(:group) { Group.find_by_name('Central') || FactoryBot.create(:group, name: 'Central') }
+          let(:route) { Route.find_by_name('NCN 1') || FactoryBot.create(:route, name: 'NCN 1') }
+          let(:ranger) { FactoryBot.create(:ranger) }
+          let(:volunteer) { FactoryBot.create(:volunteer) }
 
-          let(:issue) { FactoryGirl.create(:issue, label_names: ['council'], user_name: volunteer.name, state: 'open', priority: 2) }
+          let(:issue) { FactoryBot.create(:issue, label_names: ['council'], user_name: volunteer.name, state: 'open', priority: 2) }
 
           let(:administrative_area) { issue.administrative_area }
 
@@ -233,7 +233,7 @@ RSpec.describe IssuesController, type: :controller do
             end
 
             it "ranger sees the council 'reporting-prompt'" do
-              get :show, issue_number: issue.issue_number
+              get :show, params: { issue_number: issue.issue_number }
               expect(response.body).to have_css('div.reporting-prompt')
             end
           end
@@ -245,7 +245,7 @@ RSpec.describe IssuesController, type: :controller do
             end
 
             it "volunteer sees the council 'reporting-prompt'" do
-              get :show, issue_number: issue.issue_number
+              get :show, params: { issue_number: issue.issue_number }
               expect(response.body).to have_css('div.reporting-prompt')
             end
           end

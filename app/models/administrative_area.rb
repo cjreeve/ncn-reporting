@@ -1,4 +1,4 @@
-class AdministrativeArea < ActiveRecord::Base
+class AdministrativeArea < ApplicationRecord
 
   attr_accessor :issue_id
 

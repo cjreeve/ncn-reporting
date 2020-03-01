@@ -1,7 +1,7 @@
 <% image = user.image %>
 
 <div class='profile-image'>
-  <% if image && !image.destroyed? && !image.new_record? %>
+  <% if image && image.src_url(:small_thumb) && !image.destroyed? && !image.new_record? %>
     <%= image_tag image.src_url(:small_thumb) %>
     <%= button_to "&times;".html_safe,
       image_path(image.id),

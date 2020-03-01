@@ -2,15 +2,15 @@ require 'rails_helper'
 
 describe Issue do
 
-  let(:guest) { FactoryGirl.create(:guest) }
-  let(:volunteer) { FactoryGirl.create(:volunteer) }
-  let(:ranger) { FactoryGirl.create(:ranger) }
-  let(:coordinator) { FactoryGirl.create(:coordinator) }
-  let(:staff) { FactoryGirl.create(:staff) }
-  let(:central_group) { Group.find_by_name('Central') || FactoryGirl.create(:group, name: 'Central') }
-  let(:islington_area) { AdministrativeArea.find_by_short_name("Islington") || FactoryGirl.create(:administrative_area) }
-  let(:tower_hamlets_area) { AdministrativeArea.find_by_short_name("Tower Hamlets") || FactoryGirl.create(:administrative_area, name: "Tower Hamlets", short_name: "Tower Hamlets") }
-  let(:route_ncn1) { Route.find_by_name('NCN 1') || FactoryGirl.create(:route, name: 'NCN 1') }
+  let(:guest) { FactoryBot.create(:guest) }
+  let(:volunteer) { FactoryBot.create(:volunteer) }
+  let(:ranger) { FactoryBot.create(:ranger) }
+  let(:coordinator) { FactoryBot.create(:coordinator) }
+  let(:staff) { FactoryBot.create(:staff) }
+  let(:central_group) { Group.find_by_name('Central') || FactoryBot.create(:group, name: 'Central') }
+  let(:islington_area) { AdministrativeArea.find_by_short_name("Islington") || FactoryBot.create(:administrative_area) }
+  let(:tower_hamlets_area) { AdministrativeArea.find_by_short_name("Tower Hamlets") || FactoryBot.create(:administrative_area, name: "Tower Hamlets", short_name: "Tower Hamlets") }
+  let(:route_ncn1) { Route.find_by_name('NCN 1') || FactoryBot.create(:route, name: 'NCN 1') }
 
   describe '#staff_section_managers' do
     context "staff and ranger users assigned to London Central but no area or route" do
@@ -19,7 +19,7 @@ describe Issue do
         ranger.groups << central_group
       end
       context "issue for central & islington & NCN 1" do
-        let(:issue) { FactoryGirl.create(:issue) }
+        let(:issue) { FactoryBot.create(:issue) }
         before(:each) do
           issue.update_attribute :administrative_area, islington_area
         end
@@ -34,7 +34,7 @@ describe Issue do
   describe '#route_section_managers' do
 
     context "issue is for Central, NCN 1 and Tower Hamlets" do
-      let(:issue) { FactoryGirl.create(:issue) }
+      let(:issue) { FactoryBot.create(:issue) }
       before(:each) do
         issue.update_attribute :administrative_area, tower_hamlets_area
       end
@@ -96,9 +96,9 @@ describe Issue do
           staff.routes << route_ncn1
         end
         context "issue for North & Enfield & NCN 1" do
-          let(:issue) { FactoryGirl.create(:issue) }
-          let(:enfield_area) { AdministrativeArea.find_by_short_name("Enfield") || FactoryGirl.create(:administrative_area, name: 'Enfield', short_name: 'Enfield') }
-          let(:north_group) { Group.find_by_name('North') || FactoryGirl.create(:group, name: 'North') }
+          let(:issue) { FactoryBot.create(:issue) }
+          let(:enfield_area) { AdministrativeArea.find_by_short_name("Enfield") || FactoryBot.create(:administrative_area, name: 'Enfield', short_name: 'Enfield') }
+          let(:north_group) { Group.find_by_name('North') || FactoryBot.create(:group, name: 'North') }
           before(:each) do
             issue.update_attributes administrative_area: enfield_area, group: north_group, route: route_ncn1
           end
@@ -115,7 +115,7 @@ describe Issue do
         staff.groups << central_group
       end
       context "issue for central & islington & NCN 1" do
-        let(:issue) { FactoryGirl.create(:issue) }
+        let(:issue) { FactoryBot.create(:issue) }
         before(:each) do
           issue.update_attribute :administrative_area, islington_area
         end
@@ -150,7 +150,7 @@ describe Issue do
             end
 
             context "issue for central & islington & NCN 1" do
-              let(:issue) { FactoryGirl.create(:issue) }
+              let(:issue) { FactoryBot.create(:issue) }
               before(:each) do
                 issue.update_attribute :administrative_area, islington_area
               end
@@ -165,8 +165,8 @@ describe Issue do
             end
 
             context "issue for central & islington & NCN 2" do
-              let(:route_ncn2) { Route.find_by_name('NCN 2') || FactoryGirl.create(:route, name: 'NCN 2') }
-              let(:issue) { FactoryGirl.create(:issue) }
+              let(:route_ncn2) { Route.find_by_name('NCN 2') || FactoryBot.create(:route, name: 'NCN 2') }
+              let(:issue) { FactoryBot.create(:issue) }
               before(:each) do
                 issue.route = route_ncn2
                 issue.administrative_area = islington_area

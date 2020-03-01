@@ -1,4 +1,4 @@
-class Issue < ActiveRecord::Base
+class Issue < ApplicationRecord
   attr_accessor :coordinate
 
   require "open-uri"
@@ -15,7 +15,7 @@ class Issue < ActiveRecord::Base
   has_many :twins
   has_many :twinned_issues, through: :twins, dependent: :destroy
   has_many :issue_follower_selections, dependent: :destroy
-  has_many :followers, -> { uniq }, through: :issue_follower_selections, source: :user
+  has_many :followers, -> { distinct }, through: :issue_follower_selections, source: :user
   belongs_to :category
   belongs_to :problem
   belongs_to :user

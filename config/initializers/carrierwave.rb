@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 CarrierWave.configure do |config|
-  if Rails.env == 'production'
+  if %w(staging production).include? Rails.env
     config.fog_credentials = {
       provider: 'AWS',
       aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],

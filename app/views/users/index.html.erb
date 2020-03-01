@@ -14,7 +14,7 @@
 
               <div class='user-image'>
                 <%= link_to user_path(user) do %>
-                  <%= image_tag user.image_url(:small_thumb), alt: '' if user.image %>
+                  <%= image_tag user.image_url(:small_thumb), alt: '' if user.image && user.image_url(:small_thumb) %>
                 <% end %>
               </div>
 

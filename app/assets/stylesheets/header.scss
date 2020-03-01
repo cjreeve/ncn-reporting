@@ -80,6 +80,7 @@ header{
       }
     }
     .user-controls-area{
+      text-align: right;
       .user-controls{
         @media #{$medium-up} {
           min-width: rem-calc(107);

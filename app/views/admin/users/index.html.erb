@@ -61,7 +61,7 @@
         <tbody>
           <% @users.each do |user| %>
             <tr class="<%= updated_summary(user) %>">
-              <td><%= image_tag user.image_url(:small_thumb), alt: '' %></td>
+              <td><%= image_tag user.image_url(:small_thumb), alt: '' if user.image_url(:small_thumb) %></td>
               <td><%= link_to user.name, admin_user_path(user) %></td>
               <td><%= user.role %></td>
               <td><%= user.is_admin ? 'admin' : '' %>

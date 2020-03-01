@@ -1,4 +1,4 @@
-class UserManagedGroupSelection < ActiveRecord::Base
+class UserManagedGroupSelection < ApplicationRecord
   belongs_to :user
   belongs_to :group
 end

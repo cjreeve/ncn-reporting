@@ -270,7 +270,7 @@ module ApplicationHelper
 
   def filter_params(params, new_params = {})
     the_params = params.permit(Rails.application.config.filter_params)
-    the_params.merge!(new_params).symbolize_keys
+    the_params.merge!(new_params).to_h.symbolize_keys
   end
 
   def issue_number_path2(issue, params = {}, new_params = {})

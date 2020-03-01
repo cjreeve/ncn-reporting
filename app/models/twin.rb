@@ -1,4 +1,4 @@
-class Twin < ActiveRecord::Base
+class Twin < ApplicationRecord
   belongs_to :issue
   belongs_to :twinned_issue, class_name: "Issue"
 

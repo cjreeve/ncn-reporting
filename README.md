@@ -1,24 +1,34 @@
+# NCN Reporting
 
-     ,-----.,--.                  ,--. ,---.   ,--.,------.  ,------.
-    '  .--./|  | ,---. ,--.,--. ,-|  || o   \  |  ||  .-.  \ |  .---'
-    |  |    |  || .-. ||  ||  |' .-. |`..'  |  |  ||  |  \  :|  `--, 
-    '  '--'\|  |' '-' ''  ''  '\ `-' | .'  /   |  ||  '--'  /|  `---.
-     `-----'`--' `---'  `----'  `---'  `--'    `--'`-------' `------'
-    ----------------------------------------------------------------- 
+This code is for the ncn-reporting tool that is used by Sustrans volunteers to report probably on the NCN and collaborate with other volunteers in resolving them.
 
+Getting started instructions for using the site are provided here:
+https://ncn-reporting-staging.herokuapp.com/welcome
 
-Welcome to your Rails project on Cloud9 IDE!
+The site requires rails 5.2.2 and ruby 2.4.1
 
-To get started, just do the following:
+Create a database:
+    sudo -u postgres psql
+    create database ncn_reporting_development
 
-1. Run the project with the "Run Project" button in the menu bar on top of the IDE.
-2. Preview your new app by clicking on the URL that appears in the Run panel below (https://ncn-reporting-cjreeve.c9.io/).
-
-Happy coding!
-The Cloud9 IDE team
+import database:
+    pg_restore --verbose --clean --no-acl --no-owner -h localhost -U msdev -W -d ncn_reporting_development ncn_reporting_development.dump
 
 
-## Support & Documentation
+Rename config/database.yml.example to config/database.yml
 
-Visit http://docs.c9.io for support, or to learn more about using Cloud9 IDE. 
-To watch some training videos, visit http://www.youtube.com/user/c9ide
+Check migrations run:
+    rake db:migrate
+
+Run rails server:
+    rails s
+
+Run the console and reset the first user's account password (if not already asdasdasd)
+    rails c
+    u = User.first
+    u.password = 'asdasdasd'
+    u.save
+
+
+Deploy:
+git push staging dev-2019-07-27-rails-5:master
