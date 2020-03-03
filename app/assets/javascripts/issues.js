@@ -119,7 +119,7 @@ function placeMarker(position, map) {
 }
 
 function findMyCoord() {
-  var crossHairtTmer = setInterval(function(){ myTimer() }, 500);
+  var crossHairtTmer = setInterval(function(){ myTimer() }, 1000);
 
   function myTimer() {
     get_current_location_from_browser();

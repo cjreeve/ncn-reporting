@@ -60,8 +60,7 @@ class ApplicationController < ActionController::Base
   end
 
   def issue_number_path2(issue, params = {}, new_params = {})
-    new_params[:issue_number] = issue.issue_number
-    issue_number_path( filter_params( params, new_params ) )
+    issue_number_path({ issue_number: issue.issue_number}.merge filter_params( params ) )
   end
 
   private
