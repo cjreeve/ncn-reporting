@@ -349,6 +349,7 @@ class IssuesController < ApplicationController
     else
       @issue = Issue.find(params[:id])
     end
+    return redirect_to '/404' unless @issue
     @issue.load_coordinate_string
   end
 
