@@ -11612,15 +11612,15 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
   }
 
 })( jQuery );
-// This [jQuery](http://jquery.com/) plugin implements an `<iframe>`
-// [transport](http://api.jquery.com/extending-ajax/#Transports) so that
+// This [jQuery](https://jquery.com/) plugin implements an `<iframe>`
+// [transport](https://api.jquery.com/jQuery.ajax/#extending-ajax) so that
 // `$.ajax()` calls support the uploading of files using standard HTML file
 // input fields. This is done by switching the exchange from `XMLHttpRequest`
 // to a hidden `iframe` element containing a form that is submitted.
 
-// The [source for the plugin](http://github.com/cmlenz/jquery-iframe-transport)
-// is available on [Github](http://github.com/) and dual licensed under the MIT
-// or GPL Version 2 licenses.
+// The [source for the plugin](https://github.com/cmlenz/jquery-iframe-transport)
+// is available on [Github](https://github.com/) and licensed under the [MIT
+// license](https://github.com/cmlenz/jquery-iframe-transport/blob/master/LICENSE).
 
 // ## Usage
 
@@ -11684,9 +11684,9 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
 // impossible for the javascript code to determine the HTTP status code of the
 // servers response. Effectively, all of the calls you make will look like they
 // are getting successful responses, and thus invoke the `done()` or
-// `complete()` callbacks. You can only determine communicate problems using
-// the content of the response payload. For example, consider using a JSON
-// response such as the following to indicate a problem with an uploaded file:
+// `complete()` callbacks. You can only communicate problems using the content
+// of the response payload. For example, consider using a JSON response such as
+// the following to indicate a problem with an uploaded file:
 
 //     <textarea data-type="application/json">
 //       {"ok": false, "message": "Please only upload reasonably sized files."}
@@ -11710,6 +11710,7 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
   // switches to the "iframe" data type if it is `true`.
   $.ajaxPrefilter(function(options, origOptions, jqXHR) {
     if (options.iframe) {
+      options.originalURL = options.url;
       return "iframe";
     }
   });
@@ -11723,18 +11724,18 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
         name = "iframe-" + $.now(),
         files = $(options.files).filter(":file:enabled"),
         markers = null,
-        accepts;
+        accepts = null;
 
     // This function gets called after a successful submission or an abortion
     // and should revert all changes made to the page to enable the
     // submission via this transport.
     function cleanUp() {
-      markers.each(function(i){
-        $(this).replaceWith(files[i]);
-        markers.splice(i, 1);
+      files.each(function(i, file) {
+        var $file = $(file);
+        $file.data("clone").replaceWith($file);
       });
       form.remove();
-      iframe.bind("load", function() { iframe.remove(); });
+      iframe.one("load", function() { iframe.remove(); });
       iframe.attr("src", "about:blank");
     }
 
@@ -11743,9 +11744,14 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
     // (unsupported) conversion from "iframe" to the actual type.
     options.dataTypes.shift();
 
+    // Use the data from the original AJAX options, as it doesn't seem to be 
+    // copied over since jQuery 1.7.
+    // See https://github.com/cmlenz/jquery-iframe-transport/issues/6
+    options.data = origOptions.data;
+
     if (files.length) {
       form = $("<form enctype='multipart/form-data' method='post'></form>").
-        hide().attr({action: options.url, target: name});
+        hide().attr({action: options.originalURL, target: name});
 
       // If there is any additional data specified via the `data` option,
       // we add it as hidden fields to the form. This (currently) requires
@@ -11769,21 +11775,27 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
       $("<input type='hidden' value='IFrame' name='X-Requested-With' />").
         appendTo(form);
 
-      // Borrowed straight from the JQuery source
-      // Provides a way of specifying the accepted data type similar to HTTP_ACCEPTS
-      accepts = options.dataTypes[ 0 ] && options.accepts[ options.dataTypes[0] ] ?
-        options.accepts[ options.dataTypes[0] ] + ( options.dataTypes[ 0 ] !== "*" ? ", */*; q=0.01" : "" ) :
-        options.accepts[ "*" ]
-
-      $("<input type='hidden' name='X-Http-Accept'>")
-        .attr("value", accepts).appendTo(form);
+      // Borrowed straight from the JQuery source.
+      // Provides a way of specifying the accepted data type similar to the
+      // HTTP "Accept" header
+      if (options.dataTypes[0] && options.accepts[options.dataTypes[0]]) {
+        accepts = options.accepts[options.dataTypes[0]] +
+                  (options.dataTypes[0] !== "*" ? ", */*; q=0.01" : "");
+      } else {
+        accepts = options.accepts["*"];
+      }
+      $("<input type='hidden' name='X-HTTP-Accept'>").
+        attr("value", accepts).appendTo(form);
 
       // Move the file fields into the hidden form, but first remember their
       // original locations in the document by replacing them with disabled
       // clones. This should also avoid introducing unwanted changes to the
       // page layout during submission.
       markers = files.after(function(idx) {
-        return $(this).clone().prop("disabled", true);
+        var $this = $(this),
+            $clone = $this.clone().prop("disabled", true);
+        $this.data("clone", $clone);
+        return $clone;
       }).next();
       files.appendTo(form);
 
@@ -11797,13 +11809,13 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
 
           // The first load event gets fired after the iframe has been injected
           // into the DOM, and is used to prepare the actual submission.
-          iframe.bind("load", function() {
+          iframe.one("load", function() {
 
             // The second load event gets fired when the response to the form
             // submission is received. The implementation detects whether the
             // actual payload is embedded in a `<textarea>` element, and
             // prepares the required conversions to be made in that case.
-            iframe.unbind("load").bind("load", function() {
+            iframe.one("load", function() {
               var doc = this.contentWindow ? this.contentWindow.document :
                 (this.contentDocument ? this.contentDocument : this.document),
                 root = doc.documentElement ? doc.documentElement : doc.body,
@@ -11812,7 +11824,6 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
                 status = textarea && textarea.getAttribute("data-status") || 200,
                 statusText = textarea && textarea.getAttribute("data-statusText") || "OK",
                 content = {
-                  html: root.innerHTML,
                   text: type ?
                     textarea.value :
                     root ? (root.textContent || root.innerText) : null
@@ -11840,7 +11851,7 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
         // aborted.
         abort: function() {
           if (iframe !== null) {
-            iframe.unbind("load").attr("src", "javascript:false;");
+            iframe.unbind("load").attr("src", "about:blank");
             cleanUp();
           }
         }
@@ -11903,7 +11914,7 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
           // Allow remotipartSubmit to be cancelled if needed
           if ($.rails.fire(form, 'ajax:remotipartSubmit', [xhr, settings])) {
             // Second verse, same as the first
-            $.rails.ajax(settings).complete(function(data){
+            $.rails.ajax(settings).always(function(data){
               $.rails.fire(form, 'ajax:remotipartComplete', [data]);
             });
             setTimeout(function(){ $.rails.disableFormElements(form); }, 20);
@@ -21177,14 +21188,20 @@ function placeMarker(position, map) {
 }
 
 function findMyCoord() {
-  var crossHairtTmer = setInterval(function(){ myTimer() }, 500);
+
+  if (crossHairtTmer) {
+    clearInterval(crossHairtTmer);
+  }
+
+  get_current_location_from_browser();
+  var crossHairtTmer = setInterval(function(){ myTimer() }, 10000);
 
   function myTimer() {
-    get_current_location_from_browser();
-
     if(coordFinderMap && (myCoord !== undefined)) {
       showMyCoord();
       clearInterval(crossHairtTmer);
+    } else {
+      get_current_location_from_browser();
     }
   };
 }
@@ -21392,15 +21409,20 @@ $(document).ready(function() {
   }
 
   function findMyCoord() {
-    var crossHairtTmer = setInterval(function(){ myTimer() }, 500);
+    get_current_location_from_browser();
+
+    if (crossHairtTmer) {
+      clearInterval(crossHairtTmer);
+    }
+    var crossHairtTmer = setInterval(function(){ myTimer() }, 10000);
 
     function myTimer() {
-      get_current_location_from_browser();
-
       if(myCoord !== undefined) {
         var coord_string = myCoord.latitude.toFixed(5) + ", " + myCoord.longitude.toFixed(5);
         $('input#q').val(coord_string);
         $('#search-location-button').closest('form').submit();
+      } else {
+        get_current_location_from_browser();
       }
     };
   }
@@ -22418,6 +22440,10 @@ function initialiseFollowerTokens() {
 
 
 
+
+
 //# require_tree .
 
-$(function(){ $(document).foundation(); });
+$(document).on('turbolinks:load', function() {
+  $(function(){ $(document).foundation(); });
+});
