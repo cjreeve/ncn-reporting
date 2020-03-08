@@ -21194,7 +21194,7 @@ function findMyCoord() {
   }
 
   get_current_location_from_browser();
-  var crossHairtTmer = setInterval(function(){ myTimer() }, 10000);
+  var crossHairtTmer = setInterval(function(){ myTimer() }, 5000);
 
   function myTimer() {
     if(coordFinderMap && (myCoord !== undefined)) {
@@ -21258,8 +21258,6 @@ $(document).ready(function() {
 
   });
 });
-
-
 (function() {
   jQuery(function() {
     return $(document.body).ready(function() {
@@ -21414,7 +21412,7 @@ $(document).ready(function() {
     if (crossHairtTmer) {
       clearInterval(crossHairtTmer);
     }
-    var crossHairtTmer = setInterval(function(){ myTimer() }, 10000);
+    var crossHairtTmer = setInterval(function(){ myTimer() }, 5000);
 
     function myTimer() {
       if(myCoord !== undefined) {
