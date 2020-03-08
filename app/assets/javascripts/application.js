@@ -15,6 +15,8 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require foundation
+//= require foundation/foundation
+//= require foundation/foundation.topbar
 //= require turbolinks_loader
 //= require vendor/owl.carousel
 //= require vendor/responsive_tables
@@ -35,4 +37,6 @@
 //= require turbolinks
 //# require_tree .
 
-$(function(){ $(document).foundation(); });
+$(document).on('turbolinks:load', function() {
+  $(function(){ $(document).foundation(); });
+});

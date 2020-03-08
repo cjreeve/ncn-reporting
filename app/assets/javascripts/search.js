@@ -11,15 +11,20 @@ $(document).ready(function() {
   }
 
   function findMyCoord() {
-    var crossHairtTmer = setInterval(function(){ myTimer() }, 500);
+    get_current_location_from_browser();
+
+    if (crossHairtTmer) {
+      clearInterval(crossHairtTmer);
+    }
+    var crossHairtTmer = setInterval(function(){ myTimer() }, 10000);
 
     function myTimer() {
-      get_current_location_from_browser();
-
       if(myCoord !== undefined) {
         var coord_string = myCoord.latitude.toFixed(5) + ", " + myCoord.longitude.toFixed(5);
         $('input#q').val(coord_string);
         $('#search-location-button').closest('form').submit();
+      } else {
+        get_current_location_from_browser();
       }
     };
   }

@@ -119,14 +119,20 @@ function placeMarker(position, map) {
 }
 
 function findMyCoord() {
-  var crossHairtTmer = setInterval(function(){ myTimer() }, 1000);
+
+  if (crossHairtTmer) {
+    clearInterval(crossHairtTmer);
+  }
+
+  get_current_location_from_browser();
+  var crossHairtTmer = setInterval(function(){ myTimer() }, 10000);
 
   function myTimer() {
-    get_current_location_from_browser();
-
     if(coordFinderMap && (myCoord !== undefined)) {
       showMyCoord();
       clearInterval(crossHairtTmer);
+    } else {
+      get_current_location_from_browser();
     }
   };
 }
