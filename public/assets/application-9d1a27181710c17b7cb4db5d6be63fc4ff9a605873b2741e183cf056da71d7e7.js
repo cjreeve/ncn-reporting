@@ -21072,12 +21072,16 @@ $(window).bind('page:change', function() {
   if (typeof(initialize) == "function" && $('#map-canvas').length) {
     initialize();
   }
+  $(document).foundation();
+  $(document).foundation('dropdown', 'reflow');
 });
 
 $(window).bind('page:load', function() {
   if (typeof(initialize) == "function" && $('#map-canvas').length) {
     initialize();
   }
+  $(document).foundation();
+  $(document).foundation('dropdown', 'reflow');
 });
 
 
@@ -22415,8 +22419,6 @@ function initialiseFollowerTokens() {
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-
-
 
 
 
