@@ -2,7 +2,7 @@
 class ImageUploader < SiteUploader
 
   def store_dir
-    "#{ Rails.env }/images/#{model.id}"
+    "#{ %w(staging production).include?(Rails.env) ? 'production' : 'development' }/images/#{model.id}"
   end
 
   def extension_white_list
