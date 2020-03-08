@@ -25,7 +25,7 @@ gem 'jbuilder' #, '~> 2.0'
 
 # , '~> 0.4.0'
 gem 'sdoc',          group: :doc
-
+gem "sentry-raven"
 
 gem 'foundation-rails', '~> 5.5'
 gem 'sass-rails', '~> 5.0'

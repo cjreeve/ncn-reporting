@@ -63,3 +63,7 @@ module Workspace
 
   end
 end
+
+Raven.configure do |config|
+  config.dsn = 'https://91b6f82197684cf092c12b923fa8707e:16b2384500e94ec099e1478dc2ebc331@sentry.io/4068198'
+end

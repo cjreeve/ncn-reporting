@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   rescue_from Exception, with: :mail_exception
+  before_action :set_raven_context
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -72,5 +73,10 @@ class ApplicationController < ActionController::Base
   def load_global_variables
     @current_region = current_user.try(:region)
     @application_tagline = "NCN Reporting app"
+  end
+
+  def set_raven_context
+    Raven.user_context(id: session[:current_user_id]) # or anything else in session
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 end
