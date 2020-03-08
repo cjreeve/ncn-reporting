@@ -16,7 +16,7 @@ $(document).ready(function() {
     if (crossHairtTmer) {
       clearInterval(crossHairtTmer);
     }
-    var crossHairtTmer = setInterval(function(){ myTimer() }, 10000);
+    var crossHairtTmer = setInterval(function(){ myTimer() }, 5000);
 
     function myTimer() {
       if(myCoord !== undefined) {
