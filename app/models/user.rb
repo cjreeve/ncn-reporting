@@ -43,7 +43,10 @@ class User < ApplicationRecord
   scope :active, -> { where(is_locked: false) }
 
   def administrative_area_tokens=(ids)
-    self.administrative_area_ids = ids.split(",")
+    ids_array = ids&.split(",")&.collect(&:to_i)
+    if ids_array && ids_array[0].to_i > 0
+      self.administrative_area_ids = ids_array
+    end
   end
 
   accepts_nested_attributes_for(
