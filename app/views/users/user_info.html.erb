@@ -2,7 +2,7 @@
   <tbody>
     <rtr>
       <td>
-        <% if @user.image %>
+        <% if @user.image&.src_url %>
           <%= image_tag @user.image.src_url(:small_thumb), class: 'profile-image' %>
         <% else %>
           <%= image_tag 'missing-profile-picture.svg', class: 'profile-image' %>
