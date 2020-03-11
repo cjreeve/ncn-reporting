@@ -166,7 +166,7 @@ class IssuesController < ApplicationController
       @issue = set_issue_followers(@issue, @issue.route_section_managers)
     elsif !old_label_names.include?("sustrans") && @issue.labels.collect(&:name).include?("sustrans")
       @issue.followers << @issue.route_section_managers.select{ |u| u.role == "staff" }
-      @issue.followers.uniq!
+      @issue.followers.distinct!
     end
 
     respond_to do |format|
@@ -518,8 +518,8 @@ class IssuesController < ApplicationController
     # end
 
     followers << current_user
-    issue.followers += followers.uniq
-    issue.followers = issue.followers.uniq
+    issue.followers += followers.distinct
+    issue.followers = issue.followers.distinct
     issue
   end
 

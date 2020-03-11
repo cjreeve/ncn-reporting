@@ -149,7 +149,7 @@ class User < ApplicationRecord
       options[:administrative_area] = user_areas if user_areas.present? && !(user_areas.one? && user_areas.first.name.downcase == "other")
       options[:route] =  user_routes if user_routes.present? && !(user_routes.one? && user_routes.first.name.downcase == "other")
       label_key = label.name.parameterize.to_sym
-      open_label_counts[label_key] = Issue.joins(:labels).where(options).uniq.count
+      open_label_counts[label_key] = Issue.joins(:labels).where(options).distinct.count
     end
     open_label_counts
   end
