@@ -518,8 +518,8 @@ class IssuesController < ApplicationController
     # end
 
     followers << current_user
-    issue.followers += followers.distinct
-    issue.followers = issue.followers.distinct
+    issue.followers += followers.uniq
+    issue.followers = issue.followers.uniq
     issue
   end
 
