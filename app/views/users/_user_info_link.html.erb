@@ -1,8 +1,15 @@
-<% strip_role ||= false %>
+<%
+  strip_role ||= false
+  user_name = user.stripper_name(strip_role)
+%>
 
 <span class="<%= can?(:read, current_user) ? 'user-info-link' : '' %>">
-  <%= link_to user.stripper_name(strip_role), user_path(user), data: { user_id: user.id } %>
-  <div class='user-info loading'>
-    <%= image_tag 'icons/ajax-loader-fb.gif', alt: 'loading...' %>
-  </div>
+  <% if user.active? %>
+    <%= link_to user_name, user_path(user), data: { user_id: user.id } %>
+    <div class='user-info loading'>
+      <%= image_tag 'icons/ajax-loader-fb.gif', alt: 'loading...' %>
+    </div>
+  <% else %>
+    <%= user_name %>
+  <% end %>
 </span>

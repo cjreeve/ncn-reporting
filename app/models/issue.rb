@@ -212,10 +212,10 @@ class Issue < ApplicationRecord
   end
 
   def route_section_managers
-    area_managers = User.includes(administrative_areas: :group).includes(:routes).
+    area_managers = User.includes(administrative_areas: :group).includes(:routes).active.
       where(administrative_areas: {id: [nil, administrative_area.try(:id)]}, routes: {id: route.try(:id)})
 
-    group_managers = User.includes(:groups, :routes).
+    group_managers = User.includes(:groups, :routes).active.
       where(groups: {id: group.try(:id)}, routes: {id: [nil, route.try(:id)]}).
       reject{ |u| u.administrative_areas.collect(&:group).uniq.include? group }
 

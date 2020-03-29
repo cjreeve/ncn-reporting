@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   def show
+    redirect_to root_url unless @user&.active?
   end
 
   def index
@@ -56,6 +57,6 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    @user = User.find(params[:id])
+    @user = User.active.find_by_id(params[:id])
   end
 end

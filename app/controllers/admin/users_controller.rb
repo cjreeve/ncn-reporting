@@ -62,7 +62,7 @@ class Admin::UsersController < ApplicationController
     end
 
     options[:is_admin] = true if params[:admin]
-    options[:is_locked] = true if params[:locked]
+    options[:is_locked] = params[:locked].present?
 
 
     @users = User.includes(include_tables)

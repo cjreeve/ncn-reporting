@@ -94,6 +94,10 @@ class User < ApplicationRecord
     role == 'staff'
   end
 
+  def active?
+    !is_locked
+  end
+
   def image_url(version = nil)
     if self.image.present?
       version ? self.image.src_url(version) : self.image.src

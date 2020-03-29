@@ -91,7 +91,7 @@ class IssuesController < ApplicationController
 
     if @issue.administrative_area && @issue.route
       all_route_section_managers = @issue.route_section_managers
-      @staff_route_managers = (all_route_section_managers.select{ |u| u.role == "staff" } + User.joins(:groups).where(role: 'staff', groups: { id: @issue.group})).uniq
+      @staff_route_managers = (all_route_section_managers.select{ |u| u.role == "staff" } + User.active.joins(:groups).where(role: 'staff', groups: { id: @issue.group})).uniq
       @ranger_route_managers = all_route_section_managers.select{ |u| u.role == "ranger" }.uniq
       @coordinator_route_managers = load_coordinator_route_managers(@issue)
     else
@@ -498,7 +498,8 @@ class IssuesController < ApplicationController
   def load_coordinator_route_managers(issue)
     User.includes(:groups).
          where( groups: {id: issue.group.try(:id)}).
-         where(role: "coordinator")
+         where(role: "coordinator").
+         active
   end
 
 
