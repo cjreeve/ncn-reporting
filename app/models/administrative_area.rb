@@ -7,6 +7,7 @@ class AdministrativeArea < ApplicationRecord
 
   has_many :user_admin_area_selections
   has_many :users, through: :user_admin_area_selections
+  has_many :segements, dependent: :destroy
 
   before_validation :set_blank_short_name
   before_validation :set_http

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_09_164859) do
+ActiveRecord::Schema.define(version: 2020_05_23_171403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,6 +187,22 @@ ActiveRecord::Schema.define(version: 2019_06_09_164859) do
     t.index ["slug"], name: "index_routes_on_slug", unique: true
   end
 
+  create_table "segments", force: :cascade do |t|
+    t.string "name"
+    t.bigint "route_id"
+    t.bigint "administrative_area_id"
+    t.integer "last_checked_by_id"
+    t.datetime "last_checked_at"
+    t.text "track"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["administrative_area_id"], name: "index_segments_on_administrative_area_id"
+    t.index ["last_checked_at"], name: "index_segments_on_last_checked_at"
+    t.index ["last_checked_by_id"], name: "index_segments_on_last_checked_by_id"
+    t.index ["name"], name: "index_segments_on_name"
+    t.index ["route_id"], name: "index_segments_on_route_id"
+  end
+
   create_table "twins", id: :serial, force: :cascade do |t|
     t.integer "issue_id"
     t.integer "twinned_issue_id"
@@ -267,6 +283,8 @@ ActiveRecord::Schema.define(version: 2019_06_09_164859) do
   add_foreign_key "images", "comments"
   add_foreign_key "issue_follower_selections", "issues"
   add_foreign_key "issue_follower_selections", "users"
+  add_foreign_key "segments", "administrative_areas"
+  add_foreign_key "segments", "routes"
   add_foreign_key "twins", "issues"
   add_foreign_key "twins", "issues", column: "twinned_issue_id"
   add_foreign_key "user_admin_area_selections", "administrative_areas"
