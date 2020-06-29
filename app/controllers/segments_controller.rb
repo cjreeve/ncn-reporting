@@ -15,6 +15,14 @@ class SegmentsController < ApplicationController
   end
 
   def edit
+    @administrative_areas = AdministrativeArea.all
+    @routes = Route.all
+    @rangers = User.active
+  end
+
+  def update
+    @segment.update(segment_params)
+    respond_with @segment
   end
 
   private
@@ -24,6 +32,6 @@ class SegmentsController < ApplicationController
   end
 
   def segment_params
-    params.require(:segment).permit(:name, :route_id, :administrative_area_id, :last_checked_at)
+    params.require(:segment).permit(:name, :route_id, :administrative_area_id, :last_checked_on, :track_points)
   end
 end

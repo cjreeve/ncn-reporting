@@ -4,7 +4,7 @@ module ApplicationHelper
     "
       <br>
       <hr>
-      #{link_to 'Edit', segment_path(segment)}
+      #{link_to 'Edit', edit_segment_path(segment)}
     "
   end
 

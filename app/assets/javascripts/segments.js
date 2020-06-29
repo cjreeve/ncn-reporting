@@ -43,7 +43,7 @@ function initializeSegmentMap() {
   map = new google.maps.Map(document.getElementById('segment-map-canvas'), mapOptions);
 
   var trackPath = new google.maps.Polyline({
-    path: $('#segment-map-canvas').data('track'),
+    path: mapCanvas.data('track'),
     geodesic: true,
     strokeColor: lineColour,
     strokeOpacity: 1.0,

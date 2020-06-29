@@ -230,3 +230,15 @@ ul.f-dropdown{
     color: white;
   }
 }
+
+.input.date {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  label {
+    flex: 0 0 100%;
+  }
+  select {
+    flex: 0 0 33%;
+  }
+}

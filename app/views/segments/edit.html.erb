@@ -1,2 +1,11 @@
-<h1>Segments#edit</h1>
-<p>Find me in app/views/segments/edit.html.erb</p>
+<div class='row'>
+  <div class='small-12 columns'>
+    <h1>Editing "<%= @segment.name %>"" segment</h1>
+
+    <%= render 'form' %>
+
+    <%= link_to 'Show', @segment %> |
+    <%= link_to 'All segments', segments_path %>
+
+  </div>
+</div>
