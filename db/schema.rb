@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_23_171403) do
+ActiveRecord::Schema.define(version: 2020_06_28_195151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,9 +196,13 @@ ActiveRecord::Schema.define(version: 2020_05_23_171403) do
     t.text "track"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "lat"
+    t.float "lng"
     t.index ["administrative_area_id"], name: "index_segments_on_administrative_area_id"
     t.index ["last_checked_at"], name: "index_segments_on_last_checked_at"
     t.index ["last_checked_by_id"], name: "index_segments_on_last_checked_by_id"
+    t.index ["lat"], name: "index_segments_on_lat"
+    t.index ["lng"], name: "index_segments_on_lng"
     t.index ["name"], name: "index_segments_on_name"
     t.index ["route_id"], name: "index_segments_on_route_id"
   end

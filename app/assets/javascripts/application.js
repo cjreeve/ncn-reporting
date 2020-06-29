@@ -28,6 +28,7 @@
 //= require owl
 //= require problems
 //= require search
+//= require segments
 //= require site
 //= require user
 //= require user_areas_finder

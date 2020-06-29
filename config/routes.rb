@@ -47,6 +47,8 @@ Rails.application.routes.draw do
   put 'images/:id/rotate/:direction' => 'images#rotate', as: :rotate_image
 
   resources :routes
+  resources :segments
+
 
   authenticated :user do
     root to: 'issues#index'

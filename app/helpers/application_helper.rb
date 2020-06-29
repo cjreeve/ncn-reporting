@@ -1,5 +1,13 @@
 module ApplicationHelper
 
+  def segment_actions(segment)
+    "
+      <br>
+      <hr>
+      #{link_to 'Edit', segment_path(segment)}
+    "
+  end
+
   def mode_option(mode)
     is_current_mode = (current_user.issue_filter_mode == mode.to_s)
     content_tag :span,

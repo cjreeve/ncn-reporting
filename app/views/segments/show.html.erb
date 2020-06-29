@@ -1,0 +1,40 @@
+<div class='row'>
+  <div class='small-12 columns'>
+
+    <p id="notice"><%= notice %></p>
+
+    <p>
+      <strong>Name:</strong>
+      <%= @segment.name %>
+    </p>
+
+    <p>
+      <strong>Last checked by:</strong>
+      <%= @segment.ranger.name %>
+    </p>
+
+    <p>
+      <strong>Last checked at:</strong>
+      <%= @segment.last_checked_at %>
+    </p>
+
+    <% if @segment.track.present? %>
+      <%= content_tag :div, nil,
+        id: "segment-map-canvas",
+        style: "width: 100%; height: 500px;",
+        data: {
+          name: @segment.name,
+          description: @segment.description + segment_actions(@segment),
+          track: @segment.google_track,
+          lat: @segment.lat,
+          lng: @segment.lng,
+          alert_level: @segment.alert_level
+        }
+      %>
+    <% end %>
+
+    <%= link_to 'Edit', edit_segment_path(@segment) %> |
+    <%= link_to 'Back', segments_path %>
+
+  </div>
+</div>

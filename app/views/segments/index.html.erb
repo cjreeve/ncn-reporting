@@ -1,0 +1,38 @@
+<div class='segment'>
+  <div class='row'>
+    <div class='small-12 columns'>
+
+      <h1>Segments</h1>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Last checked by</th>
+            <th>Date</th>
+            <th>Coords</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @segments.each do |segment| %>
+            <tr>
+              <td><%= segment.name %></td>
+              <td><%= segment.ranger.name %></td>
+              <td><%= segment.last_checked_at %></td>
+              <td><%= segment.track.size %></td>
+              <td><%= link_to 'Show', segment %></td>
+              <td><%= link_to 'Edit', edit_segment_path(segment) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <br>
+
+      <%= link_to '◂ back to control panel', controls_path %> | <%= link_to 'New Region', new_region_path %>
+
+    </div>
+  </div>
+</div>
