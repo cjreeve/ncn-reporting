@@ -10,6 +10,7 @@ module ApplicationHelper
 
   def map_segment_data
     segments = @segments || [@segment]
+    return '' unless segments.present?
 
     segments.collect { |segment|
       content_tag :div,
@@ -27,30 +28,55 @@ module ApplicationHelper
     }.join("\n").html_safe
   end
 
-  def segment_map_canvas
-    if @segments
+  def map_marker_data
+    return '' unless @issues
+    issue_counter = @issues.size + 1
+    locations = @issues.collect do |issue|
+      [
+        generate_issue_title(issue),
+        issue.lat,
+        issue.lng,
+        (issue_counter -= 1),
+        marker_style(issue.priority, issue.state),
+        formatted_description(issue)
+      ]
+    end
+    content_tag(:div,
+      nil,
+      id: "map-marker-data",
+      style: "display:none",
+      data: { locations: locations }
+    ).html_safe+"\n"
+  end
+
+  def map_canvas
+    if @issues
+      coord_stats = get_issue_coord_stats(@issues) || {}
+      lat, lng = coord_stats[:average_coord]
+      zoom = @current_region.map_zoom
+    elsif @segments
       lat = @current_region.lat
       lng = @current_region.lng
       zoom = @current_region.map_zoom
-    else
+    elsif @segment
       lat = @segment.lat
       lng = @segment.lng
       zoom = 12
     end
     content_tag(:div,
       nil,
-      id: "segment-map-canvas",
+      id: "map-canvas",
       style: "width: 100%; height: 500px;",
       data: {
         lat: lat,
         lng: lng,
         zoom: zoom
       }
-    ).html_safe
+    ).html_safe+"\n"
   end
 
-  def render_segment_map
-    segment_map_canvas + "\n" + map_segment_data
+  def render_map
+    map_canvas + map_segment_data + map_marker_data
   end
 
   def mode_option(mode)

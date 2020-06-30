@@ -59,11 +59,11 @@
       <br>
 
       <% if @issues_with_coords.present? %>
-        <div id="map-canvas" style="width: 100%; height: 500px;"></div>
+        <%= render_map %>
       <% end %>
 
     </div>
   </div>
 </div>
 
-<%= render('google_maps/markers.js', issues: @issues_with_coords) if @issues_with_coords.present? %>
+<%#= render('google_maps/markers.js', issues: @issues_with_coords) if @issues_with_coords.present? %>
