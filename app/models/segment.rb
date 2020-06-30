@@ -19,6 +19,7 @@ class Segment < ApplicationRecord
   end
 
   def track_points
+    return unless track
     track.collect do |track_point|
       <<~STRING
         <trkpt lat="#{track_point.first}" lon="#{track_point.last}" />
