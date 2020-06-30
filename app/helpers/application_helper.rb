@@ -8,6 +8,51 @@ module ApplicationHelper
     "
   end
 
+  def map_segment_data
+    segments = @segments || [@segment]
+
+    segments.collect { |segment|
+      content_tag :div,
+        nil,
+        class: "map-segment-data",
+        style: "display:none",
+        data: {
+          name: segment.name,
+          description: segment.description + segment_actions(segment),
+          track: segment.google_track,
+          lat: segment.lat,
+          lng: segment.lng,
+          alert_level: segment.alert_level
+        }
+    }.join("\n").html_safe
+  end
+
+  def segment_map_canvas
+    if @segments
+      lat = @current_region.lat
+      lng = @current_region.lng
+      zoom = @current_region.map_zoom
+    else
+      lat = @segment.lat
+      lng = @segment.lng
+      zoom = 12
+    end
+    content_tag(:div,
+      nil,
+      id: "segment-map-canvas",
+      style: "width: 100%; height: 500px;",
+      data: {
+        lat: lat,
+        lng: lng,
+        zoom: zoom
+      }
+    ).html_safe
+  end
+
+  def render_segment_map
+    segment_map_canvas + "\n" + map_segment_data
+  end
+
   def mode_option(mode)
     is_current_mode = (current_user.issue_filter_mode == mode.to_s)
     content_tag :span,

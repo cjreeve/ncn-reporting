@@ -16,34 +16,40 @@ $(document).ready(function() {
 });
 
 function initializeSegmentMap() {
-  mapCanvas = $('#segment-map-canvas');
-  title = mapCanvas.data('name');
-  description = mapCanvas.data('description');
-  lat = mapCanvas.data('lat');
-  lng = mapCanvas.data('lng');
-  alertLevel = mapCanvas.data('alert-level');
-  mapCenter = new google.maps.LatLng(lat, lng);
+  var mapCanvas = $('#segment-map-canvas');
+  var mapCenter = new google.maps.LatLng(mapCanvas.data('lat'), mapCanvas.data('lng'));
+  var mapZoom = mapCanvas.data('zoom');
+  var mapOptions = { zoom: mapZoom, center: mapCenter };
+  map = new google.maps.Map(document.getElementById('segment-map-canvas'), mapOptions);
 
-  mapOptions = {
-    zoom: 12,
-    center: mapCenter
-  }
+  $.each( $('.map-segment-data'), function(key, item) {
+    setSegmentTracks(map, item)
+  });
+}
+
+function setSegmentTracks(map, segment) {
+  var title = $(segment).data('name');
+  var description = $(segment).data('description');
+  var lat = $(segment).data('lat');
+  var lng = $(segment).data('lng');
+  var alertLevel = $(segment).data('alert-level');
+  var icon = ''
+  var lineColour = ''
+
 
   if (alertLevel == "1") {
-    icon = "http://maps.google.com/mapfiles/kml/pal4/icon57.png";;
+    icon = "http://maps.google.com/mapfiles/kml/paddle/wht-circle-lv.png";;
     lineColour = "#777777";
   } else if (alertLevel == "2") {
-    icon = "http://maps.google.com/mapfiles/kml/pal3/icon41.png";
+    icon = "http://maps.google.com/mapfiles/kml/paddle/ylw-circle-lv.png";
     lineColour = "#FFAA00";
   } else {
-    icon = "http://maps.google.com/mapfiles/kml/pal3/icon51.png";
+    icon = "http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png";
     lineColour = "#FF0000";
   }
 
-  map = new google.maps.Map(document.getElementById('segment-map-canvas'), mapOptions);
-
   var trackPath = new google.maps.Polyline({
-    path: mapCanvas.data('track'),
+    path: $(segment).data('track'),
     geodesic: true,
     strokeColor: lineColour,
     strokeOpacity: 1.0,
@@ -51,8 +57,6 @@ function initializeSegmentMap() {
   });
 
   trackPath.setMap(map);
-
-
 
   createSegmentMarker(map, title, description, lat, lng, icon);
 }
