@@ -84,6 +84,11 @@
               <li class="<%= params["controller"] == "issues" ? 'current' : '' %>">
                 <%= link_to "Issues", issues_path(filter_params(params)) %>
               </li>
+              <% if can? :read, Segment %>
+                <li class="<%= params["controller"] == "segments" ? 'current' : '' %>">
+                  <%= link_to "Segments", segments_path(filter_params(params)) %>
+                </li>
+              <% end %>
               <% if can? :read, Update %>
                 <li class="<%= params["controller"] == "updates" ? 'current' : '' %>">
                   <%= link_to "Updates<span></span>".html_safe, updates_path, id: 'updates-tab' %>

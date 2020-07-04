@@ -29,12 +29,13 @@ function initializeSegmentMap() {
 }
 
 function showTracks(map) {
-  $.each( $('.map-segment-data'), function(key, item) {
-    setSegmentTracks(map, item)
+  $.each( $('.map-segment-data'), function(index, item) {
+    console.log(index);
+    setSegmentTrack(map, item, index)
   });
 }
 
-function setSegmentTracks(map, segment) {
+function setSegmentTrack(map, segment, index) {
   var title = $(segment).data('name');
   var description = $(segment).data('description');
   var lat = $(segment).data('lat');
@@ -64,10 +65,20 @@ function setSegmentTracks(map, segment) {
   });
 
   trackPath.setMap(map);
+  google.maps.event.addListener(trackPath, 'click', function() {
+    setTrackColor(trackPath, '#00FFaa');
+    setTimeout(function() {
+      setTrackColor(trackPath, lineColour);
+    }, 2000);
+  });
 
   if ($('#map-marker-data').length == 0) {
-    createSegmentMarker(map, title, description, lat, lng, icon);
+    createSegmentMarker(map, title, description, lat, lng, icon, index);
   }
+}
+
+function setTrackColor(trackPath, color) {
+  trackPath.setOptions({strokeColor: color});
 }
 
 function showIssueMarkers(map) {
@@ -79,22 +90,20 @@ function showIssueMarkers(map) {
   }
 }
 
-function createSegmentMarker(map, title, description, lat, lng, icon) {
+function createSegmentMarker(map, title, description, lat, lng, icon, index) {
 
-  zIndex = 1;
-
-  infowindow = new google.maps.InfoWindow({
+  var infowindow = new google.maps.InfoWindow({
       content: description
   });
 
-  myLatLng = new google.maps.LatLng(lat, lng);
+  var myLatLng = new google.maps.LatLng(lat, lng);
 
-  marker = new google.maps.Marker({
+  var marker = new google.maps.Marker({
       position: myLatLng,
       map: map,
       icon: icon,
       title: title,
-      zIndex: zIndex
+      zIndex: index
   });
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.open(map,marker);

@@ -5,6 +5,7 @@ module ApplicationHelper
       <br>
       <hr>
       #{link_to 'Edit', edit_segment_path(segment)}
+      #{link_to 'I just checked this!', '', style: 'float:right'}
     "
   end
 
@@ -54,10 +55,10 @@ module ApplicationHelper
       coord_stats = get_issue_coord_stats(@issues) || {}
       lat, lng = coord_stats[:average_coord]
       zoom = @current_region.map_zoom
-    elsif @segments
-      lat = @current_region.lat
-      lng = @current_region.lng
-      zoom = @current_region.map_zoom
+    elsif @region
+      lat = @region.lat
+      lng = @region.lng
+      zoom = @region.map_zoom
     elsif @segment
       lat = @segment.lat
       lng = @segment.lng

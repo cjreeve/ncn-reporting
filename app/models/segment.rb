@@ -1,12 +1,14 @@
 class Segment < ApplicationRecord
   belongs_to :route
   belongs_to :administrative_area
+  belongs_to :region
   belongs_to :ranger, class_name: 'User', foreign_key: :last_checked_by_id
 
   serialize :track
   attr_accessor :track_points
 
-  validate :track_points_format
+  validates_presence_of :administrative_area, :route, :region
+  # validate :track_points_format
 
   before_validation :set_coordinate
   before_validation :set_name
@@ -60,7 +62,7 @@ class Segment < ApplicationRecord
 
   def set_name
     return unless administrative_area && route
-    self.name = "#{administrative_area.short_name} - #{route.name}" if administrative_area_id_changed? || route_id_changed?
+    self.name = "#{route.name} #{administrative_area.short_name}" if administrative_area_id_changed? || route_id_changed?
   end
 
   def set_coordinate

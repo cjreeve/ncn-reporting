@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_29_124116) do
+ActiveRecord::Schema.define(version: 2020_07_02_190729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -198,12 +198,14 @@ ActiveRecord::Schema.define(version: 2020_06_29_124116) do
     t.datetime "updated_at", null: false
     t.float "lat"
     t.float "lng"
+    t.bigint "region_id"
     t.index ["administrative_area_id"], name: "index_segments_on_administrative_area_id"
     t.index ["last_checked_by_id"], name: "index_segments_on_last_checked_by_id"
     t.index ["last_checked_on"], name: "index_segments_on_last_checked_on"
     t.index ["lat"], name: "index_segments_on_lat"
     t.index ["lng"], name: "index_segments_on_lng"
     t.index ["name"], name: "index_segments_on_name"
+    t.index ["region_id"], name: "index_segments_on_region_id"
     t.index ["route_id"], name: "index_segments_on_route_id"
   end
 
@@ -288,6 +290,7 @@ ActiveRecord::Schema.define(version: 2020_06_29_124116) do
   add_foreign_key "issue_follower_selections", "issues"
   add_foreign_key "issue_follower_selections", "users"
   add_foreign_key "segments", "administrative_areas"
+  add_foreign_key "segments", "regions"
   add_foreign_key "segments", "routes"
   add_foreign_key "twins", "issues"
   add_foreign_key "twins", "issues", column: "twinned_issue_id"

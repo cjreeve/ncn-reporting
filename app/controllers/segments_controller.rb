@@ -1,24 +1,28 @@
 class SegmentsController < ApplicationController
   before_action :set_segment, only: [:show, :edit, :update, :destroy]
-  before_action :set_administrative_areas, only: [:new, :edit, :update]
-  before_action :set_routes, only: [:new, :edit, :update]
-  before_action :set_rangers, only: [:new, :edit, :update]
+  before_action :set_administrative_areas, only: [:new, :create, :edit, :update]
+  before_action :set_routes, only: [:new, :create, :edit, :update]
+  before_action :set_regions, only: [:new, :create, :edit, :update, :index]
+  before_action :set_rangers, only: [:new, :create, :edit, :update]
 
   load_and_authorize_resource
 
   respond_to :html
 
   def index
-    @segments = Segment.all
+    @region = Region.find_by_id(params[:region]) || @current_region || current_user.region
+    @segments = Segment.where(region: @region)
   end
 
   def new
     @segment.ranger ||= current_user
+    @segment.region ||= current_user.region
   end
 
   def create
     @sement = Segment.new(segment_params)
     @sement.save
+    @segment.valid?
     respond_with(@sement)
   end
 
@@ -41,11 +45,15 @@ class SegmentsController < ApplicationController
   end
 
   def set_administrative_areas
-    @administrative_areas = AdministrativeArea.all
+    @administrative_areas = AdministrativeArea.order(:name)
   end
 
   def set_routes
     @routes = Route.all
+  end
+
+  def set_regions
+    @regions = Region.order(:name)
   end
 
   def set_rangers
@@ -53,6 +61,6 @@ class SegmentsController < ApplicationController
   end
 
   def segment_params
-    params.require(:segment).permit(:name, :route_id, :administrative_area_id, :last_checked_by_id, :last_checked_on, :track_points)
+    params.require(:segment).permit(:name, :route_id, :administrative_area_id, :region_id, :last_checked_by_id, :last_checked_on, :track_points)
   end
 end

@@ -1,21 +1,28 @@
 <%= simple_form_for(@segment) do |f| %>
-  <%= f.error_notification %>
-
+<%# binding.pry %>
+  <%= content_tag :p, @segment.errors.full_messages.to_sentence, style: 'color:red' %>
   <div class="row form-inputs">
-    <div class='medium-6 columns'>
+    <div class="medium-4 columns">
       <%= f.input :administrative_area_id, collection: @administrative_areas %>
     </div>
-    <div class='medium-6 columns'>
+    <div class="medium-4 columns">
       <%= f.input :route_id, collection: @routes %>
     </div>
-  </div>
-  <div class="row form-inputs">
-    <div class='medium-6 columns'>
-      <%= f.input :last_checked_by_id, collection: @rangers %>
+    <div class="medium-4 columns">
+      <%= f.input :region_id, collection: @regions %>
     </div>
   </div>
 
-  <%= f.input :last_checked_on %>
+  <div class="row form-inputs">
+    <div class="medium-4 columns large-4">
+      <%= f.input :last_checked_by_id, collection: @rangers %>
+    </div>
+    <div class="medium-8 columns large-8">
+      <%= f.input :last_checked_on %>
+    </div>
+  </div>
+
+
   <%= f.input :track_points, as: :text, input_html: {rows: 10} %>
 
   <div class="form-actions">
