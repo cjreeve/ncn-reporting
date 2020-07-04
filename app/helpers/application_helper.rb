@@ -1,11 +1,13 @@
 module ApplicationHelper
 
   def segment_actions(segment)
+    permitted_params = params.permit(:region)
     "
       <br>
       <hr>
       #{link_to 'Edit', edit_segment_path(segment)}
-      #{link_to 'I just checked this!', '', style: 'float:right'}
+
+      #{link_to 'I just checked this!', check_segment_path(segment, permitted_params), style: 'float:right'}
     "
   end
 

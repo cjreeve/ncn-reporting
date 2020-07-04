@@ -1,5 +1,5 @@
 class SegmentsController < ApplicationController
-  before_action :set_segment, only: [:show, :edit, :update, :destroy]
+  before_action :set_segment, only: [:show, :edit, :update, :destroy, :check]
   before_action :set_administrative_areas, only: [:new, :create, :edit, :update]
   before_action :set_routes, only: [:new, :create, :edit, :update]
   before_action :set_regions, only: [:new, :create, :edit, :update, :index]
@@ -36,6 +36,14 @@ class SegmentsController < ApplicationController
   def update
     @segment.update(segment_params)
     respond_with @segment
+  end
+
+  def check
+    if @segment.check!(current_user)
+      redirect_to segments_path params.permit(:region)
+    else
+      render nothing: true
+    end
   end
 
   private

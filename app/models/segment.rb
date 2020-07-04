@@ -52,7 +52,9 @@ class Segment < ApplicationRecord
     1
   end
 
-
+  def check!(ranger)
+    update_attributes last_checked_by_id: ranger.id, last_checked_on: Date.today
+  end
 
   private
 

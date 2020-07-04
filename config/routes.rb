@@ -47,7 +47,12 @@ Rails.application.routes.draw do
   put 'images/:id/rotate/:direction' => 'images#rotate', as: :rotate_image
 
   resources :routes
-  resources :segments
+
+  resources :segments do
+    member do
+      get 'check'
+    end
+  end
 
 
   authenticated :user do
