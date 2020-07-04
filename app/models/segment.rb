@@ -35,7 +35,7 @@ class Segment < ApplicationRecord
 
   def description
     if formatted_last_checked_date
-      "<b>#{name}</b><br>last checked by #{ranger.name}<br>on #{formatted_last_checked_date}"
+      "<b>#{name}</b><br>last checked by #{ranger_name}<br>on #{formatted_last_checked_date}"
     else
       "#{name} has no record of being checked"
     end
@@ -54,6 +54,10 @@ class Segment < ApplicationRecord
 
   def check!(ranger)
     update_attributes last_checked_by_id: ranger.id, last_checked_on: Date.today
+  end
+
+  def ranger_name
+    ranger&.name || "unknown"
   end
 
   private
@@ -81,8 +85,7 @@ class Segment < ApplicationRecord
     middle_index = (track_points_count*0.5+0.5).to_i
     lat = track[middle_index].first
     lng = track[middle_index].last
-    # lat = (track.collect(&:first).sum / track_points_count).round(5)
-    # lng = (track.collect(&:last).sum / track_points_count).round(5)
+
     {lat: lat, lng: lng}
   end
 end

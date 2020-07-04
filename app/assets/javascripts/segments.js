@@ -69,7 +69,7 @@ function setSegmentTrack(map, segment, index) {
     setTrackColor(trackPath, '#00FFaa');
     setTimeout(function() {
       setTrackColor(trackPath, lineColour);
-    }, 2000);
+    }, 1500);
   });
 
   if ($('#map-marker-data').length == 0) {

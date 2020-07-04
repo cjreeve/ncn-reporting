@@ -11,7 +11,7 @@ class SegmentsController < ApplicationController
 
   def index
     @region = Region.find_by_id(params[:region]) || @current_region || current_user.region
-    @segments = Segment.where(region: @region)
+    @segments = Segment.where(region: @region).order('last_checked_on IS NOT NULL, last_checked_on ASC')
   end
 
   def new

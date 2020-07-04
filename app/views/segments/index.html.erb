@@ -47,8 +47,8 @@
           <% @segments.each do |segment| %>
             <tr>
               <td><%= segment.name %></td>
-              <td><%= segment.ranger.name %></td>
-              <td><%= segment.last_checked_on %></td>
+              <td><%= segment.ranger_name %></td>
+              <td><%= segment.last_checked_on || "unknown" %></td>
               <td><%= segment.track.size %></td>
               <td><%= link_to 'Show', segment %></td>
               <td><%= link_to 'Edit', edit_segment_path(segment) %></td>
