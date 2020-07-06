@@ -30,7 +30,6 @@ function initializeSegmentMap() {
 
 function showTracks(map) {
   $.each( $('.map-segment-data'), function(index, item) {
-    console.log(index);
     setSegmentTrack(map, item, index)
   });
 }
@@ -98,13 +97,20 @@ function createSegmentMarker(map, title, description, lat, lng, icon, index) {
 
   var myLatLng = new google.maps.LatLng(lat, lng);
 
+  var markerIcon = {
+    url: icon,
+    scaledSize: new google.maps.Size(16, 16),
+    anchor: new google.maps.Point(8,8),
+    title: title,
+    zIndex: index
+  }
+
   var marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      icon: icon,
-      title: title,
-      zIndex: index
+    position: myLatLng,
+    map: map,
+    icon: markerIcon
   });
+
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.open(map,marker);
   });
