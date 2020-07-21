@@ -12609,7 +12609,7 @@ ul.token-input-list-facebook li tester:hover, ul.token-input-list li tester:hove
 }
 
 /* line 139, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
-.new {
+.new-record {
   color: #E41634;
   font-size: 0.6875rem;
   cursor: default;
@@ -12716,6 +12716,21 @@ ul.f-dropdown li.search-option input {
   font-size: 0.6875rem;
   background-color: #b4c8db;
   color: white;
+}
+
+/* line 234, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+.input.date {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+/* line 238, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+.input.date label {
+  flex: 0 0 100%;
+}
+/* line 241, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/site.scss */
+.input.date select {
+  flex: 0 0 33%;
 }
 
 /* line 1, /home/cjreeve/cjreeve/Sustrans/ncn-reporting/app/assets/stylesheets/shared.scss */
