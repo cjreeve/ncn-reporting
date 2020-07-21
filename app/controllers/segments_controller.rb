@@ -21,6 +21,7 @@ class SegmentsController < ApplicationController
 
   def create
     @sement = Segment.new(segment_params)
+    @sement.track = track_from_file if segment_params[:track_file]
     @sement.save
     @segment.valid?
     respond_with(@sement)
@@ -34,7 +35,9 @@ class SegmentsController < ApplicationController
   end
 
   def update
-    @segment.update(segment_params)
+    @segment.assign_attributes(segment_params)
+    @segment.track = track_from_file if segment_params[:track_file]
+    @segment.save
     respond_with @segment
   end
 
@@ -57,7 +60,7 @@ class SegmentsController < ApplicationController
   end
 
   def set_routes
-    @routes = Route.all
+    @routes = Route.order(:name)
   end
 
   def set_regions
@@ -68,7 +71,14 @@ class SegmentsController < ApplicationController
     @rangers = User.active
   end
 
+  def track_from_file
+    doc = Nokogiri::XML(segment_params[:track_file].tempfile)
+    doc.xpath('//xmlns:trkpt').collect do |track_point|
+      [track_point.xpath('@lat').to_s.to_f.round(5), track_point.xpath('@lon').to_s.to_f.round(5)]
+    end
+  end
+
   def segment_params
-    params.require(:segment).permit(:name, :route_id, :administrative_area_id, :region_id, :last_checked_by_id, :last_checked_on, :track_points)
+    params.require(:segment).permit(:name, :route_id, :administrative_area_id, :region_id, :last_checked_by_id, :last_checked_on, :track_points, :track_file)
   end
 end

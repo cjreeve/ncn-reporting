@@ -26,7 +26,6 @@ class UsersController < ApplicationController
 
     @administrative_areas = []
 
-# binding.pry
     coords.each do |coord|
       results = Geocoder.search("#{ coord['lat'] }, #{ coord['lng'] }")
       administrative_area_name = results.present? ? User.get_admin_area(results) : nil

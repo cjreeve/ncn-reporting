@@ -477,7 +477,6 @@ class IssuesController < ApplicationController
 
     case params["action"]
     when "index"
-      # binding.pry
       @issues = Issue.joins(joined_tables).includes(include_tables).where(options).where(joined_options).where.not(exclusions).order(joined_order).order(order => direction).paginate(page: params[:page], per_page: per_page)
     when "show"
       @next_issue_id = Issue.joins(joined_tables).includes(include_tables).where(options).where(joined_options).where.not(exclusions).order('issues.issue_number ASC').where('issues.issue_number > ?', params["issue_number"]).limit(1).first.try(:issue_number)

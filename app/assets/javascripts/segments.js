@@ -13,7 +13,9 @@ $(window).bind('page:load', function() {
 
 
 $(document).ready(function() {
-  initializeSegmentMap();
+  if (typeof(initializeSegmentMap) == "function" && $('#map-canvas').length) {
+    initializeSegmentMap();
+  }
 });
 
 function initializeSegmentMap() {

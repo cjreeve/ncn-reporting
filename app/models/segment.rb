@@ -6,6 +6,7 @@ class Segment < ApplicationRecord
 
   serialize :track
   attr_accessor :track_points
+  attr_accessor :track_file
 
   validates_presence_of :administrative_area, :route, :region
   # validate :track_points_format

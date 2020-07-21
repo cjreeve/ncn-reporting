@@ -42,7 +42,7 @@
     &nbsp;
     <span data-tooltip aria-haspopup="true" class="has-tip input-prompt" title="If you can't find your precise location on google maps: save a rough coordinate and then open it using the openstreetmap link. If you can locate the coordinate on openstreetmap: click on their share button and copy and paste their Geo URI or Link to the issue coordinate field. Please don't publish an issue unless you know its precise location.">(?)</span>
   </div>
-  <div class='medium-6 columns hide-for-small-when <%= @issue.id.present? ? "update" : "new" %>'>
+  <div class='medium-6 columns hide-for-small-when <%= @issue.id.present? ? "update" : "new" %>-record'>
     <%= f.input :location_name, label: 'Location (auto-completes when blank)' %>
   </div>
 </div>
@@ -117,7 +117,7 @@
   <% end %>
 </div>
 
-<div class='hide-for-small-when <%= @issue.id.present? ? "update" : "new" %>'>
+<div class='hide-for-small-when <%= @issue.id.present? ? "update" : "new" %>-record'>
   <%= f.input :url, as: :string, label: 'other url (e.g. google street view)' %>
 </div>
 
