@@ -32,3 +32,7 @@ Run the console and reset the first user's account password (if not already asda
 
 Deploy:
 git push staging dev-2019-07-27-rails-5:master
+
+
+Copy production image bucket to staging:
+aws s3 sync s3://ncn-reporting s3://ncn-reporting-staging

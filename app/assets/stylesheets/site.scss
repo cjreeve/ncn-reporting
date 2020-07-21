@@ -136,7 +136,7 @@ ul.token-input-list-facebook, ul.token-input-list{
 }
 
 
-.new{
+.new-record{
   color: $red;
   font-size: rem-calc(11);
   cursor: default;
@@ -228,5 +228,17 @@ ul.f-dropdown{
     font-size: rem-calc(11);
     background-color: $light-blue-grey;
     color: white;
+  }
+}
+
+.input.date {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  label {
+    flex: 0 0 100%;
+  }
+  select {
+    flex: 0 0 33%;
   }
 }

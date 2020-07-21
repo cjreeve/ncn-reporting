@@ -24,3 +24,9 @@ config/database.yml
 public/uploads
 public/development
 .env
+
+aws/
+awscliv2.zip
+node_modules/
+yarn.lock
+

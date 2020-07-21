@@ -1,5 +1,87 @@
 module ApplicationHelper
 
+  def segment_actions(segment)
+    permitted_params = params.permit(:region)
+    "
+      <br>
+      <hr>
+      #{link_to 'Edit', edit_segment_path(segment)}
+
+      #{link_to 'I just checked this!', check_segment_path(segment, permitted_params), style: 'float:right'}
+    "
+  end
+
+  def map_segment_data
+    segments = @segments || [@segment]
+    return '' unless segments.present?
+
+    segments.collect { |segment|
+      content_tag :div,
+        nil,
+        class: "map-segment-data",
+        style: "display:none",
+        data: {
+          name: segment.name,
+          description: segment.description + segment_actions(segment),
+          track: segment.google_track,
+          lat: segment.lat,
+          lng: segment.lng,
+          alert_level: segment.alert_level
+        }
+    }.join("\n").html_safe
+  end
+
+  def map_marker_data
+    return '' unless @issues
+    issue_counter = @issues.size + 1
+    locations = @issues.collect do |issue|
+      [
+        generate_issue_title(issue),
+        issue.lat,
+        issue.lng,
+        (issue_counter -= 1),
+        marker_style(issue.priority, issue.state),
+        formatted_description(issue)
+      ]
+    end
+    content_tag(:div,
+      nil,
+      id: "map-marker-data",
+      style: "display:none",
+      data: { locations: locations }
+    ).html_safe+"\n"
+  end
+
+  def map_canvas
+    if @issues
+      coord_stats = get_issue_coord_stats(@issues) || {}
+      lat, lng = coord_stats[:average_coord]
+      zoom = @current_region.map_zoom
+    elsif @region
+      lat = @region.lat
+      lng = @region.lng
+      zoom = @region.map_zoom
+    elsif @segment
+      lat = @segment.lat
+      lng = @segment.lng
+      zoom = 12
+    end
+    content_tag(:div,
+      nil,
+      id: "map-canvas",
+      style: "width: 100%; height: 500px;",
+      data: {
+        lat: lat,
+        lng: lng,
+        zoom: zoom
+      }
+    ).html_safe+"\n"
+  end
+
+  def render_map
+    map_canvas + map_segment_data + map_marker_data
+  end
+
   def mode_option(mode)
     is_current_mode = (current_user.issue_filter_mode == mode.to_s)
     content_tag :span,

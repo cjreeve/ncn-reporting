@@ -1,0 +1,31 @@
+<div class='row'>
+  <div class='small-12 columns'>
+
+    <p id="notice"><%= notice %></p>
+
+    <p>
+      <strong>Name:</strong>
+      <%= @segment.name %>
+    </p>
+
+    <p>
+      <strong>Last checked by:</strong>
+      <%= @segment.ranger_name %>
+    </p>
+
+    <p>
+      <strong>Last checked on:</strong>
+      <%= @segment.last_checked_on %>
+    </p>
+
+    <% if @segment.track.present? %>
+      <%= render_map %>
+    <% else %>
+      <p>No segment track available</p>
+    <% end %>
+
+    <%= link_to 'Edit', edit_segment_path(@segment) %> |
+    <%= link_to 'All segments', segments_path %>
+
+  </div>
+</div>

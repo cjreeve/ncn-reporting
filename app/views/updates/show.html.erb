@@ -10,10 +10,7 @@
       <br>
       <br>
       <ul class='updates-list'>
-        <%# binding.pry %>
         <% @issues.each do |issue| %>
-
-          <%# show page updates %>
           <% while @page_ids_and_update_times.present? && @page_ids_and_update_times.last[1] > issue.updated_at  do %>
             <%= render 'page_update', page:  @page_ids_and_update_times.pop %>
           <% end %>

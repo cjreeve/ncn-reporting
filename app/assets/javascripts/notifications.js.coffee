@@ -34,7 +34,7 @@ $(document).on 'ready page:load', ->
     setTimeout(get_notifications, 60000)
 
 
-  if $('#controls-cog').is(":visible")
+  if $('#controls-cog').is(":visible") && $('.show-notifications').length > 0
     get_notifications()
     $('.site-notifications-small').foundation('dropdown', 'reflow')
 

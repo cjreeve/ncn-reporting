@@ -1,7 +1,7 @@
 Users:  first_name, last_name, email, volunter_number, date_joined, active, has:roll
 
 Issue:  Title, description, priority, reported_at, completed_at, issue_number
-        has:state, has:comments, has:reporter, has:assignee, has:images, 
+        has:state, has:comments, has:reporter, has:assignee, has:images,
         has:location, has:route, has:region, belongs_to:category
         > rails g scaffold Issue issue_number:integer:uniq:index title:string:index description:text priority:integer:index, reported_at:datetime:index, completed_at:datetime:index
 
@@ -33,7 +33,7 @@ Route: Name, url to gpx track, has:comments
        > rails g scaffold Route name:string
        > rails g migration AddRouteRefToIssues route:references
 Area: Name
-       > rails g scaffold Area name:string 
+       > rails g scaffold Area name:string
        > rails g migration AddAreaRefToIssues area:references
 
 Roll: name
@@ -55,8 +55,14 @@ VIEWS
 * Routes: index, edit, new, show
 
 
-(o) = optional
 
 
-## Comands
-rails g scaffold 
+Segments
+
+rails g model Segment name:string:index route:references administrative_area:references last_checked_by_id:integer:index last_checked_at:datetime:index track:text
+
+
+sudo -u postgres psql
+\c ncn_reporting_development
+\d segments
+

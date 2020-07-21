@@ -48,6 +48,13 @@ Rails.application.routes.draw do
 
   resources :routes
 
+  resources :segments do
+    member do
+      get 'check'
+    end
+  end
+
+
   authenticated :user do
     root to: 'issues#index'
   end

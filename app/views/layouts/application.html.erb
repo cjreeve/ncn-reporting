@@ -42,8 +42,7 @@
 
 
   </head>
-
-  <body>
+  <body class="<%= "#{controller.controller_name} #{controller.action_name}" %> <%= 'show-notifications' unless Rails.env.development? %>">
     <%= render 'layouts/header', user: current_user %>
     <div class='wrapper'>
       <%= yield :warning_banner %>
