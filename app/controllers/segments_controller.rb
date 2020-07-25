@@ -24,20 +24,24 @@ class SegmentsController < ApplicationController
     @sement.track = track_from_file if segment_params[:track_file]
     @sement.save
     @segment.valid?
-    respond_with(@sement)
+    respond_with @sement
   end
 
   def show
   end
 
   def edit
-    @rangers = User.active
   end
 
   def update
     @segment.assign_attributes(segment_params)
     @segment.track = track_from_file if segment_params[:track_file]
     @segment.save
+    respond_with @segment
+  end
+
+  def destroy
+    @segment.destroy
     respond_with @segment
   end
 
@@ -68,7 +72,7 @@ class SegmentsController < ApplicationController
   end
 
   def set_rangers
-    @rangers = User.active
+    @rangers = User.active.order(:name)
   end
 
   def track_from_file

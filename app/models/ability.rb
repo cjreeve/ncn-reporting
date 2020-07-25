@@ -35,7 +35,7 @@ class Ability
 
     if user.ranger_like? && !user.is_locked?
       can :read, Region
-      can [:read, :edit, :update], Segment
+      can [:manage], Segment
       can [:read, :create, :edit, :update, :progress], Issue
       can [:destroy], Issue, user_id: user.id
       can :follow, Issue

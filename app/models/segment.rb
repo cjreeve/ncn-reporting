@@ -64,6 +64,10 @@ class Segment < ApplicationRecord
     ranger&.name || "unknown"
   end
 
+  def deletable?
+    track.blank?
+  end
+
   private
 
   def track_points_format
