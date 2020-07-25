@@ -79,6 +79,6 @@ class SegmentsController < ApplicationController
   end
 
   def segment_params
-    params.require(:segment).permit(:name, :route_id, :administrative_area_id, :region_id, :last_checked_by_id, :last_checked_on, :track_points, :track_file)
+    params.require(:segment).permit(:name, :location, :route_id, :administrative_area_id, :region_id, :last_checked_by_id, :last_checked_on, :track_points, :track_file)
   end
 end

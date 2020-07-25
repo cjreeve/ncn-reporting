@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_02_190729) do
+ActiveRecord::Schema.define(version: 2020_07_25_205310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(version: 2020_07_02_190729) do
     t.float "lat"
     t.float "lng"
     t.bigint "region_id"
+    t.string "location"
     t.index ["administrative_area_id"], name: "index_segments_on_administrative_area_id"
     t.index ["last_checked_by_id"], name: "index_segments_on_last_checked_by_id"
     t.index ["last_checked_on"], name: "index_segments_on_last_checked_on"

@@ -13,6 +13,9 @@ class Segment < ApplicationRecord
 
   before_validation :set_coordinate
   before_validation :set_name
+  before_validation do
+    self.location&.strip!
+  end
 
   def track_points=(new_track_points)
     doc = Nokogiri::XML("<trkseg>"+new_track_points+"</trkseg>")
@@ -69,7 +72,10 @@ class Segment < ApplicationRecord
 
   def set_name
     return unless administrative_area && route
-    self.name = "#{route.name} #{administrative_area.short_name}" if administrative_area_id_changed? || route_id_changed?
+    if administrative_area_id_changed? || route_id_changed? || location_changed?
+      location_string = location.present? ? " (#{location})" : ""
+      self.name = "#{route.name} #{administrative_area.short_name}#{location_string}"
+    end
   end
 
   def set_coordinate
