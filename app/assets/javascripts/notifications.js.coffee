@@ -1,4 +1,4 @@
-$(document).on 'ready page:load', ->
+$(document).ready ->
 
   get_notifications = () ->
 

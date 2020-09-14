@@ -38,7 +38,7 @@ http://ryanfait.com/
 */
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 #warning-banner{
@@ -240,5 +240,20 @@ ul.f-dropdown{
   }
   select {
     flex: 0 0 33%;
+  }
+}
+
+
+.show-inline-block-for-mobile {
+  display: inline-block;
+  @media #{$medium-up} {
+    display: none;
+  }
+}
+
+.show-inline-block-for-medium-up {
+  display: none;
+  @media #{$medium-up} {
+    display: inline-block;
   }
 }

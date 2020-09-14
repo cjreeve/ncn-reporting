@@ -2,7 +2,7 @@
 
 jQuery ->
 
-  $(document.body).ready ->
+  $(document).ready ->
 
     $('.reporting-prompt').on 'click', '.edit-reporting-prompt', (e) ->
       $(e).preventDefault

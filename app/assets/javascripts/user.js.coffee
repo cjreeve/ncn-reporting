@@ -1,6 +1,6 @@
 jQuery ->
 
-  $(document.body).ready ->
+  $(document).ready ->
 
     $('article.user').on 'change', 'input#image_src', ->
       $('article.user input#image_src').closest('form').submit()

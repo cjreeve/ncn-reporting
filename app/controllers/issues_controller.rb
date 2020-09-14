@@ -59,13 +59,14 @@ class IssuesController < ApplicationController
   # GET /issues/1
   # GET /issues/1.json
   def show
-    exclusion_options = {lat: nil, lng: nil}
+    exclusion_options = {lat: nil, lng: nil, id: @issue.id}
     exclusion_options[:state] = 'closed' if params['excl_closed'] == 'true'
-    near_range = 0.03
+    near_range = 0.1
     @issues = Issue.where(
       lat: (@issue.lat.to_f-near_range)..(@issue.lat.to_f+near_range),
       lng: (@issue.lng.to_f-near_range)..(@issue.lng.to_f+near_range)
     ).order('lng DESC').where.not(exclusion_options)
+
     @issue_labels_count = @issue.labels.count
     @labels = Label.all.order(:name)
     @routes = Route.all.order(:name).sort_by{ |r| r.name.gsub('Other','999').gsub(/[^0-9 ]/i, '').to_i }
@@ -236,10 +237,8 @@ class IssuesController < ApplicationController
   end
 
   def search
-    @issues_with_coords = []
-
     if params[:q]
-      near_range = 0.03
+      near_range = 0.15
       min_lng, max_lng = Rails.application.config.coord_limits[:lng]
       min_lat, max_lat = Rails.application.config.coord_limits[:lat]
 
@@ -256,7 +255,7 @@ class IssuesController < ApplicationController
         @lat = l.latitude
       end
 
-      @issues_with_coords = Issue.where(
+      @issues = Issue.where(
         lat: (@lat-near_range)..(@lat+near_range),
         lng: (@lng-near_range)..(@lng+near_range)
       )

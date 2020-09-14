@@ -5,6 +5,7 @@ module ApplicationHelper
     "
       <br>
       <hr>
+      #{link_to 'Show', segment_path(segment)} &middot;
       #{link_to 'Edit', edit_segment_path(segment)}
 
       #{link_to 'I just checked this!', check_segment_path(segment, permitted_params), style: 'float:right'}
@@ -12,6 +13,7 @@ module ApplicationHelper
   end
 
   def map_segment_data
+    return '' unless @segments
     segments = @segments || [@segment]
     return '' unless segments.present?
 
@@ -52,8 +54,14 @@ module ApplicationHelper
     ).html_safe+"\n"
   end
 
-  def map_canvas
-    if @issues
+  def map_canvas(data = {})
+    if @issue
+      lat, lng = @issue.lat, @issue.lng
+      zoom = 17
+    elsif data[:type] == "search"
+      lat, lng = @lat, @lng
+      zoom = 16
+    elsif @issues
       coord_stats = get_issue_coord_stats(@issues) || {}
       lat, lng = coord_stats[:average_coord]
       zoom = @current_region.map_zoom
@@ -66,20 +74,23 @@ module ApplicationHelper
       lng = @segment.lng
       zoom = 12
     end
+
     content_tag(:div,
       nil,
-      id: "map-canvas",
+      id: "map-canvas#{data[:map]}",
       style: "width: 100%; height: 500px;",
       data: {
         lat: lat,
         lng: lng,
+        region_lat: @current_region.lat,
+        region_lng: @current_region.lng,
         zoom: zoom
-      }
+      }.merge(data)
     ).html_safe+"\n"
   end
 
-  def render_map
-    map_canvas + map_segment_data + map_marker_data
+  def render_map(data = {})
+    map_canvas(data) + map_segment_data + map_marker_data
   end
 
   def mode_option(mode)

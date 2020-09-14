@@ -1,8 +1,8 @@
-$(window).bind('page:change', function() {
-  watch_followers_edit_click();
-});
+// $(window).bind('page:change', function() {
+//   watch_followers_edit_click();
+// });
 
-$(window).bind('page:load', function() {
+$(document).ready(function() {
   watch_followers_edit_click();
 });
 

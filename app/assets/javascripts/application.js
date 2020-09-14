@@ -11,11 +11,11 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery.turbolinks
+//# require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require foundation
-//= require turbolinks_loader
+//# require turbolinks_loader
 //= require vendor/owl.carousel
 //= require vendor/responsive_tables
 //= require vendor/jquery.tokeninput
@@ -33,10 +33,10 @@
 //= require user
 //= require user_areas_finder
 //= require tokeninput
-//= require turbolinks
+//# require turbolinks
 //# require_tree .
 
-$(document).on('turbolinks:load', function() {
+$(document).ready(function() {
   $(function(){ $(document).foundation(); });
 });
 

@@ -36,7 +36,9 @@
 </div>
 <div class='row'>
   <div class='medium-6 columns'>
-    <span id="coord-data" style="display:none" data-lat="<%= @issue.lat %>" data-lng="<%= @issue.lng %>" > </span>
+    <%#= content_tag :span, nil, id: "coord-data", styl: "display:none",
+      data: { lat: @issue.lat, lng: @issue.lng, region_lat: @current_region.lat, region_lng: @current_region.lng }
+    %>
     <%= f.input :coordinate, label: 'Coordinate (e.g. 51.52009, -0.10309)' %>
     <%= link_to "#{ @issue.lat && @issue.lng ? 'Edit' : 'Find' } your coordinate", '#', id: "openCoordModal", class: 'input-prompt' %>
     &nbsp;
@@ -60,22 +62,17 @@
   <div class='medium-6 columns'>
 
     <div id="myCoordModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-      <p class='show-for-small-only'>
-        Tap the location and close
-        <span class='searching-location'>
-          searching
-          <%= image_tag 'icons/ajax-loader-fb.gif' %>
-        </span>
-      </p>
-      <p class='show-for-medium-up'>
-        Click the location and close
-        <span class='searching-location'>
+      <p>
+        <span class='show-inline-block-for-mobile'>Tap</span>
+        <span class='show-inline-block-for-medium-up'>Click</span>
+        the location and close
+        <span class='searching-location hidden'>
           searching
           <%= image_tag 'icons/ajax-loader-fb.gif' %>
         </span>
       </p>
 
-      <div id="coord-map-canvas" style="height: 400px;"></div>
+      <%= map_canvas({type: (@issue.new_record? ? 'new' : 'edit'), zoom: 17, map: '-ocm'}) %>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
 

@@ -76,13 +76,11 @@
     <div class='small-12 columns'>
       <br><br>
 
-      <div id="map-canvas" style="width: 100%; height: 400px;"></div>
+      <%= render_map({type: 'show', map: '-ocm'}) %>
 
       <%= render 'issue_footer_nav' %>
     </div>
   </div>
 </article>
-
-<%= render 'google_maps/markers.js', issues: @issues, this_issue: @issue unless (@issue.lat.blank? || @issue.lng.blank?) %>
 
 <%= render 'issue_missing_details_model' %>

@@ -1,32 +1,22 @@
 
-$(window).bind('page:change', function() {
-  if (typeof(initialize) == "function" && $('#map-canvas').length) {
-    initialize();
+$(document).ready(function() {
+  if ($('#map-canvas-ocm').length > 0) {
+    initializeOcmMap();
   }
-  $(document).foundation();
-  $(document).foundation('dropdown', 'reflow');
-});
-
-$(window).bind('page:load', function() {
-  if (typeof(initialize) == "function" && $('#map-canvas').length) {
-    initialize();
-  }
-  $(document).foundation();
-  $(document).foundation('dropdown', 'reflow');
+  // $(document).foundation();
+  // $(document).foundation('dropdown', 'reflow');
 });
 
 
-var coordFinderMap;
+var ocmMap;
 var myCoord;
 var myCoordMarker;
-var crosshairPosition;
 
 $(document).ready(function() {
-
   $('#openCoordModal').click(function() {
     $('#myCoordModal').foundation('reveal', 'open');
     $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
-      initializeCoordFinder();
+      initializeOcmMap();
     });
   });
 
@@ -34,14 +24,7 @@ $(document).ready(function() {
     e.preventDefault();
     $('#missing-details-issue-modal').foundation('reveal', 'open');
   });
-
-  // add target='_blank' to banner prompting users to report an issue
-  // if ($('.reporting-prompt p a').length > 0){
-  //   $('.reporting-prompt p a').attr('target','_blank');
-  // }
-  $('.edit-reporting-prompt')
 });
-
 
 function get_current_location_from_browser() {
   if (navigator.geolocation) {
@@ -51,18 +34,19 @@ function get_current_location_from_browser() {
   }
 }
 
-function initializeCoordFinder() {
+function initializeOcmMap() {
 
-  var lat = 51.517106;
-  var lng = -0.113615;
-  var zoom = 11;
+  var canvas = $('#map-canvas-ocm');
 
-  if (myCoord) {
-    lat = myCoord.latitude;
-    lng = myCoord.longitude;
-    zoom = 17;
-    $('.searching-location').hide();
+  if (canvas.data('lng') == undefined || canvas.data('lng').length == 0) {
+    lat = canvas.data('region-lat');
+    lng = canvas.data('region-lng');
+    findMyCoord();
+  } else {
+    var lat = canvas.data('lat');
+    var lng = canvas.data('lng');
   }
+  var zoom = canvas.data('zoom');;
 
   var mapOptions = {
     zoom: zoom,
@@ -72,11 +56,14 @@ function initializeCoordFinder() {
     streetViewControl: false,
     disableDefaultUI: true
   };
-  coordFinderMap = new google.maps.Map(document.getElementById('coord-map-canvas'),
-    mapOptions
-  );
 
-  coordFinderMap.mapTypes.set("OCM", new google.maps.ImageMapType({
+  if (ocmMap == undefined) {
+    ocmMap = new google.maps.Map(document.getElementById('map-canvas-ocm'),
+      mapOptions
+    );
+  }
+
+  ocmMap.mapTypes.set("OCM", new google.maps.ImageMapType({
     getTileUrl: function(coord, zoom) {
       // "Wrap" x (logitude) at 180th meridian properly
       var tilesPerGlobe = 1 << zoom;
@@ -89,40 +76,65 @@ function initializeCoordFinder() {
     maxZoom: 18
   }));
 
-  // var drawingManager = new google.maps.drawing.DrawingManager();
-  // drawingManager.setMap(coordFinderMap);
 
-  // var bikeLayer = new google.maps.BicyclingLayer();
-  // bikeLayer.setMap(coordFinderMap);
+  if (canvas.data('type') == 'edit') {
+    crossHairMarker(ocmMap, lat, lng)
+    addCoordinateOnClick(ocmMap);
 
+  } else if (canvas.data('type') == 'new') {
+    findMyCoord(ocmMap);
+    addCoordinateOnClick(ocmMap);
 
-
-  google.maps.event.addListener(coordFinderMap, 'click', function(e) {
-    placeMarker(e.latLng, coordFinderMap);
-    var theCoord = e.latLng.lat().toFixed(5) + ", " + e.latLng.lng().toFixed(5)
-    document.getElementById('issue_coordinate').value = theCoord;
-  });
-
-
-  if (!myCoord) {
-    findMyCoord();
+  } else if (canvas.data('type') == 'show') {
+    position = new google.maps.LatLng(lat, lng);
+    placeMarker(position, ocmMap)
+  } else if (canvas.data('type') == 'search') {
+    position = new google.maps.LatLng(lat, lng);
+    crossHairMarker(ocmMap, lat, lng)
   }
-  showMyCoord();
 
+  if ($('#map-marker-data').length > 0) {
+    showIssueMarkers(ocmMap);
+  }
+
+  if($('#add-marker-listener').length > 0){
+    $('#add-marker-listener').fadeIn(3000);
+  }
 };
 
+// Issue edit
+function addCoordinateOnClick(map) {
+  google.maps.event.addListener(map, 'click', function(e) {
+    placeMarker(e.latLng, map);
+    var newCoord = e.latLng.lat().toFixed(5) + ", " + e.latLng.lng().toFixed(5)
+    $('#issue_coordinate').val(newCoord);
+  });
+}
+
 function placeMarker(position, map) {
+  var icon = "https://maps.google.com/mapfiles/ms/icons/pink.png"
   if (myCoordMarker) {
     myCoordMarker.setMap(null);
   }
   myCoordMarker = new google.maps.Marker({
     position: position,
+    icon: icon,
     map: map
   });
   map.panTo(position);
 }
 
-function findMyCoord() {
+function crossHairMarker(map, lat, lng) {
+  var crosshairPosition = new google.maps.LatLng(lat, lng);
+  crosshairMarker = new google.maps.Marker({
+    position: crosshairPosition,
+    map: map,
+    icon: '/images/crosshair.svg'
+  });
+}
+
+function findMyCoord(map) {
+  $('.searching-location').removeClass('hidden')
 
   if (crossHairtTmer) {
     clearInterval(crossHairtTmer);
@@ -132,8 +144,8 @@ function findMyCoord() {
   var crossHairtTmer = setInterval(function(){ myTimer() }, 5000);
 
   function myTimer() {
-    if(coordFinderMap && (myCoord !== undefined)) {
-      showMyCoord();
+    if(map && (myCoord !== undefined)) {
+      showMyCoord(map, myCoord);
       clearInterval(crossHairtTmer);
     } else {
       get_current_location_from_browser();
@@ -141,51 +153,59 @@ function findMyCoord() {
   };
 }
 
-function showMyCoord() {
+function showMyCoord(map, myCoord) {
+  $('.searching-location').addClass('hidden')
+  crossHairMarker(map, myCoord.latitude, myCoord.longitude)
+  var position = new google.maps.LatLng(myCoord.latitude, myCoord.longitude);
+  map.panTo(position);
+}
 
-  var issue_lat = document.getElementById('coord-data').getAttribute('data-lat');
-  var issue_lng = document.getElementById('coord-data').getAttribute('data-lng');
-
-  // show cross hair
-  if((issue_lat.length > 0) || (coordFinderMap && myCoord)) {
-    if (issue_lat) {
-      lat = issue_lat;
-      lng = issue_lng;
-    } else {
-      lat = myCoord.latitude;
-      lng = myCoord.longitude;
-    }
-
-    crosshairPosition = new google.maps.LatLng(lat, lng);
-    crosshairMarker = new google.maps.Marker({
-      position: crosshairPosition,
-      map: coordFinderMap,
-      icon: '/images/crosshair.svg'
+// used by any map that shows issue markers
+function showIssueMarkers(map) {
+  var locationDataContainer = $('#map-marker-data')
+  if (locationDataContainer.length > 0 && locationDataContainer.data('locations').length > 0) {
+    $.each( locationDataContainer.data('locations'), function(key, location) {
+      createMarker(map, location)
     });
-    $('.searching-location').hide();
-    coordFinderMap.setZoom(17);
-    coordFinderMap.panTo(crosshairPosition);
   }
 }
 
+function createMarker(map, location) {
+  var contentString = location[5];
 
+  var infowindow = new google.maps.InfoWindow({
+    content: contentString
+  });
+
+  var myLatLng = new google.maps.LatLng(location[1], location[2]);
+
+  var marker = new google.maps.Marker({
+    position: myLatLng,
+    map: map,
+    icon: location[4],
+    title: location[0],
+    zIndex: location[3]
+  });
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.open(map,marker);
+  });
+}
 
 // search and results map
-
 $(document).ready(function() {
   $('#add-marker-listener').click(function(event){
     event.preventDefault();
 
-    map.setOptions({ draggableCursor : "url(https://labs.google.com/ridefinder/images/mm_20_white.png) 6 32, auto" })
+    ocmMap.setOptions({ draggableCursor : "url(https://labs.google.com/ridefinder/images/mm_20_white.png) 6 32, auto" })
 
-    google.maps.event.addListener(map, 'click', function(e) {
-      placeMarker(e.latLng, map);
+    google.maps.event.addListener(ocmMap, 'click', function(e) {
+      placeMarker(e.latLng, ocmMap);
       var theCoord = e.latLng.lat().toFixed(5) + ", " + e.latLng.lng().toFixed(5)
 
       var infowindow = new google.maps.InfoWindow({
         content: theCoord + '<br>' + '<a href="/issues/new?c=' + theCoord + '" >' + 'Create Issue &gt;' + '</a>'
       });
-      infowindow.open(map, myCoordMarker);
+      infowindow.open(ocmMap, myCoordMarker);
     });
 
     $('#add-marker-listener').html('now click map');

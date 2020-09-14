@@ -14,10 +14,10 @@ gem 'puma'
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~> 4.3'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks', '~> 2.5'
+# gem 'turbolinks', '~> 5.2.0'
 
 # fix top stop turbo links breaking on link page loads
-gem 'jquery-turbolinks', '~> 2.1'
+# gem 'jquery-turbolinks', '~> 2.1'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder' #, '~> 2.0'
