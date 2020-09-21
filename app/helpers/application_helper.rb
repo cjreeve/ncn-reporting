@@ -14,7 +14,7 @@ module ApplicationHelper
 
   def map_segment_data
     segments = @segments || [@segment]
-    return '' unless segments.present?
+    return '' unless segments.any?
 
     segments.collect { |segment|
       content_tag :div,
