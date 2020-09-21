@@ -13,7 +13,6 @@ module ApplicationHelper
   end
 
   def map_segment_data
-    return '' unless @segments
     segments = @segments || [@segment]
     return '' unless segments.present?
 
