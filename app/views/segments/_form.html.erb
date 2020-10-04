@@ -25,7 +25,13 @@
   </div>
 
 
-  <%= f.input :track_points, as: :text, input_html: {rows: 10} %>
+  <%#= f.input :track_points, as: :text, input_html: {rows: 10} %>
+  <% if track_points = f.object.track_points.presence %>
+    <% track_points_count = track_points.scan(/(?=trkpt)/).count %>
+    <p>The uploaded track segment has <%= track_points_count %> <%= "point".pluralize(track_points_count) %>. To replace the segment you can upload a new GPX track.<p>
+  <% else %>
+    <p>Currently no track for the segment has been uploaded. Please browse/upload a GPX track for this segment.</p>
+  <% end %>
 
   <%= f.input :track_file, as: :file %>
 
