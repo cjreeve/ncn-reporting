@@ -46,8 +46,8 @@ Rails.application.configure do
     :perform_deliveries => true,
     :address => "smtp.sendgrid.net",
     :port => 587,
-    :user_name => 'ncn-reporting',
-    :password => 'bhu&6tFDa',
+    :user_name => ENV['SENDGRID_API_NAME'],
+    :password => ENV['SENDGRID_API_KEY'],
     :authentication => 'plain',
     :enable_starttls_auto => true
   }

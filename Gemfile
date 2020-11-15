@@ -74,6 +74,7 @@ group :development, :test do
   gem 'capybara' #, '~> 2.5'
   gem 'faker' #, '~> 1.6.1'
   gem 'pry'
+  gem 'dotenv-rails'
 end
 
 group :development do
