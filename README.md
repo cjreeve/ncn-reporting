@@ -2,6 +2,8 @@
 
 This Ruby on Rails app is for the ncn-reporting tool that is used by (some) Sustrans volunteers to report problems on the Nation Cycle Network and collaborate with other volunteers in resolving them. It was created by Christopher Reeve with input from other Sustrans volunteers. It replaced awkward spreadsheets with the ability to report an issue with a smart phone when out on a ride along an NCN route. Rangers for the particular route segment would be notified of the issue as well as members of Sustrans staff if the type of problem is assigned an urgent priority. Issues can be in the states of *draft*, *submitted*, *published* (accepted by a ranger), *started* and *closed*. A map shows markers were the issues are located as well as when a route was last checked by a ranger.
 
+![Screenshot](https://github.com/cjreeve/ncn-reporting/blob/main/screenshot.png?raw=true)
+
 With the help of more volunteer developers we could potentially open this reporting tool up to the public to alert Sustrans rangers of problems along the NCN.
 
 ## Submitting improvements
