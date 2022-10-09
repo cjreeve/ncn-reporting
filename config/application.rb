@@ -16,7 +16,7 @@ module Workspace
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    config.time_zone = 'London'
+    config.time_zone = ENV['TIME_ZONE']
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
@@ -51,9 +51,9 @@ module Workspace
       :locked,
       :per_page]
 
-    config.site_url = "https://ncn-reporting.herokuapp.com"
+    config.site_url = "https://#{ENV['SITE_URL']}"
 
-    config.dev_email = "cjreeve@gmail.com"
+    config.dev_email = ENV['DEV_EMAIL']
 
     config.coord_limits = { lng: [-11.0, 2.0], lat: [49.0, 61.0] }
 
@@ -65,5 +65,5 @@ module Workspace
 end
 
 Raven.configure do |config|
-  config.dsn = 'https://91b6f82197684cf092c12b923fa8707e:16b2384500e94ec099e1478dc2ebc331@sentry.io/4068198'
+  config.dsn = ENV['SENTRY_DSN']
 end

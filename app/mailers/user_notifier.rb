@@ -1,6 +1,6 @@
 class UserNotifier < ActionMailer::Base
 
-  default from: "ncn-reporting <noreply@ncn-reporting.herokuapp.com>"
+  default from: ENV["FROM_EMAIL"]
 
   def send_system_error_notification(exception)
     @exception = exception

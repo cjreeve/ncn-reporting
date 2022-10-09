@@ -9,7 +9,7 @@ Geocoder.configure(
 
   # api_key: "#{ Rails.application.config.google_api_key }" #,   # API key for geocoding service
   # TODO - get gecoder working with heroku and restricted api key
-  api_key: 'AIzaSyBFm3Yq2z3csVzGGQe_qlKMrMJ8RxdnxiI',
+  api_key: ENV['GOOGLEMAPS_API_KEY'],
 
   # cache: nil,                 # cache object (must respond to #[], #[]=, and #keys)
   # cache_prefix: 'geocoder:',  # prefix (string) to use for all cache keys

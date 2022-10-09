@@ -1,18 +1,21 @@
 # NCN Reporting
 
-This code is for the ncn-reporting tool that is used by Sustrans volunteers to report probably on the NCN and collaborate with other volunteers in resolving them.
+This Ruby on Rails app is for the ncn-reporting tool that is used by (some) Sustrans volunteers to report problems on the Nation Cycle Network and collaborate with other volunteers in resolving them. It was created by Christopher Reeve with input from other Sustrans volunteers. It replaced awkward spreadsheets with the ability to report an issue with a smart phone when out on a ride along an NCN route. Rangers for the particular route segment would be notified of the issue as well as members of Sustrans staff if the type of problem is assigned an urgent priority. Issues can be in the states of *draft*, *submitted*, *published* (accepted by a ranger), *started* and *closed*. A map shows markers were the issues are located as well as when a route was last checked by a ranger.
 
-Getting started instructions for using the site are provided here:
-https://ncn-reporting-staging.herokuapp.com/welcome
+## Submitting improvements
 
-The site requires rails 5.2.2 and ruby 2.4.1
+Please clone the repository, create a branch and create a pull request from your branch to the main branch of this repository.
+
+## Development notes
+
+The site requires rails 5.2.2 and ruby 2.6.5
 
 Create a database:
     sudo -u postgres psql
     create database ncn_reporting_development
 
 import database:
-    pg_restore --verbose --clean --no-acl --no-owner -h localhost -U msdev -W -d ncn_reporting_development ncn_reporting_development.dump
+    pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -W -d ncn_reporting_development ncn_reporting_development.dump
 
 
 Rename config/database.yml.example to config/database.yml
@@ -30,8 +33,8 @@ Run the console and reset the first user's account password (if not already asda
     u.save
 
 
-Deploy:
-git push staging dev-2019-07-27-rails-5:master
+Deploy branch to staging:
+git push staging dev-branch:master
 
 
 Copy production image bucket to staging:

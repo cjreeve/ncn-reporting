@@ -72,7 +72,7 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # required by devise
-  config.action_mailer.default_url_options = { host: "ncn-reporting.herokuapp.com" }
+  config.action_mailer.default_url_options = { host: ENV['SITE_URL'] }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -90,10 +90,10 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.google_api_key = 'AIzaSyBVBkvm0xBTvzFNxcZ8Ny3YTHAaOKPy6Ps'
+  config.google_api_key = ENV['GOOGLEMAPS_API_KEY']
 
   config.action_mailer.smtp_settings = {
-    :domain => 'ncn-reporting.herokuapp.com',
+    :domain => ENV['SITE_URL'],
     :perform_deliveries => true,
     :address => "smtp.sendgrid.net",
     :port => 587,

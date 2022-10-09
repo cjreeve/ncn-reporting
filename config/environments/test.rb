@@ -37,16 +37,16 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  config.google_api_key = 'AIzaSyBFm3Yq2z3csVzGGQe_qlKMrMJ8RxdnxiI'
+  config.google_api_key = ENV['GOOGLEMAPS_API_KEY']
 
 
   config.action_mailer.smtp_settings = {
-    :domain => 'ncn-reporting.herokuapp.com',
+    :domain => ENV['SITE_URL'],
     :perform_deliveries => true,
     :address => "smtp.sendgrid.net",
     :port => 587,
-    :user_name => 'ncn-reporting',
-    :password => 'bhu&6tFDa',
+    :user_name => ENV['SENDGRID_API_NAME'],
+    :password => ENV['SENDGRID_API_KEY'],
     :authentication => 'plain',
     :enable_starttls_auto => true
   }
