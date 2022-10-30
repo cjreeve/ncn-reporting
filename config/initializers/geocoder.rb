@@ -4,6 +4,7 @@ Geocoder.configure(
   lookup: :google,              # name of geocoding service (symbol)
   language: :en,                # ISO-639 language code
   use_https: true,              # use HTTPS for lookup requests? (if supported)
+  bounds: [[49.860538172861155, -6.2023046951665375], [61.12159479058175, 0.6450787158853796]],
   # http_proxy: nil,            # HTTP proxy server (user:pass@host:port)
   # https_proxy: nil,           # HTTPS proxy server (user:pass@host:port)
 
