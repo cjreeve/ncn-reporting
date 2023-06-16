@@ -51,7 +51,11 @@ class Segment < ApplicationRecord
   end
 
   def alert_level
-    return 3 if !last_checked_on || last_checked_on < 6.months.ago
+    return 7 if !last_checked_on || last_checked_on < 6.months.ago
+    return 6 if last_checked_on < 5.months.ago
+    return 5 if last_checked_on < 4.months.ago
+    return 4 if last_checked_on < 3.months.ago
+    return 3 if last_checked_on < 2.months.ago
     return 2 if last_checked_on < 1.month.ago
     1
   end
