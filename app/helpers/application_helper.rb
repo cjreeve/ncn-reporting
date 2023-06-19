@@ -24,6 +24,7 @@ module ApplicationHelper
         data: {
           name: segment.name,
           description: segment.description + segment_actions(segment),
+          rangers: segment.rangers,
           track: segment.google_track,
           lat: segment.lat,
           lng: segment.lng,

@@ -41,6 +41,7 @@ class User < ApplicationRecord
   end
 
   scope :active, -> { where(is_locked: false) }
+  scope :rangers, -> { where(role: "ranger") }
 
   def administrative_area_tokens=(ids)
     ids_array = ids&.split(",")&.collect(&:to_i)

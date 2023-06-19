@@ -38,11 +38,17 @@ class Segment < ApplicationRecord
   end
 
   def description
-    if formatted_last_checked_date
-      "<b>#{name}</b><br>last checked by #{ranger_name}<br>on #{formatted_last_checked_date}"
+    text= []
+    text << "<b>#{name}</b>"
+    text << "#{'Ranger'.pluralize(rangers.size)}: #{rangers.map(&:name).to_sentence.presence || 'none'}"
+
+    text << if formatted_last_checked_date
+      "last checked by #{ranger_name}<br>on #{formatted_last_checked_date}"
     else
-      "#{name} has no record of being checked"
+      "no record of being checked"
     end
+
+    text.join("<br>")
   end
 
   def formatted_last_checked_date
@@ -62,6 +68,10 @@ class Segment < ApplicationRecord
 
   def check!(ranger)
     update_attributes last_checked_by_id: ranger.id, last_checked_on: Date.today
+  end
+
+  def rangers
+    administrative_area.users.rangers
   end
 
   def ranger_name
