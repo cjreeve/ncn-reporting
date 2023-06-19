@@ -481,6 +481,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     state_machine (1.2.0)
+    stringio (3.0.2)
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.9)
@@ -548,6 +549,7 @@ DEPENDENCIES
   spring
   sprockets
   state_machine
+  stringio
   uglifier
   will_paginate
 

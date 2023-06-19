@@ -32,6 +32,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails', '~> 4.1'
 gem 'uglifier' #, '~> 2.7'
 gem 'foundation-icons-sass-rails', '~> 3.0'
+gem 'stringio'
 
 
 gem 'simple_form' #, '~> 3.1'
