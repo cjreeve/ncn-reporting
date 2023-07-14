@@ -33,14 +33,26 @@ function setSegmentTrack(map, segment, index) {
 
 
   if (alertLevel == "1") {
-    icon = "http://maps.google.com/mapfiles/kml/paddle/wht-circle-lv.png";;
-    lineColour = "#777777";
+    icon = "<%= asset_url 'icons/grn-circle-lv.png' %>";
+    lineColour = "#00FF77";
   } else if (alertLevel == "2") {
-    icon = "http://maps.google.com/mapfiles/kml/paddle/ylw-circle-lv.png";
-    lineColour = "#FFAA00";
-  } else {
-    icon = "http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png";
+    icon = "<%= asset_url 'icons/2-lv.png' %>";
+    lineColour = "#FF8800";
+  } else if (alertLevel == "3") {
+    icon = "<%= asset_url 'icons/3-lv.png' %>";
+    lineColour = "#FF6600";
+  } else if (alertLevel == "4") {
+    icon = "<%= asset_url 'icons/4-lv.png' %>";
+    lineColour = "#FF4400";
+  } else if (alertLevel == "5") {
+    icon = "<%= asset_url 'icons/5-lv.png' %>";
+    lineColour = "#FF2200";
+  } else if (alertLevel == "6") {
+    icon = "<%= asset_url 'icons/6-lv.png' %>";
     lineColour = "#FF0000";
+  } else {
+    icon = "<%= asset_url 'icons/purple-circle-lv.png' %>";
+    lineColour = "#8800FF";
   }
 
   var trackPath = new google.maps.Polyline({
