@@ -32,27 +32,27 @@ function setSegmentTrack(map, segment, index) {
   var lineColour = ''
 
 
-  if (alertLevel == "1") {
-    icon = "<%= asset_url 'icons/grn-circle-lv.png' %>";
-    lineColour = "#00FF77";
+  if (alertLevel == "0") {
+    icon = '<%= asset_url "icons/#{Segment::MAP_KEYS[0].icon}" %>';
+    lineColour = "<%= Segment::MAP_KEYS[0].colour %>";
+  } else if (alertLevel == "1") {
+    icon = '<%= asset_url "icons/#{Segment::MAP_KEYS[1].icon}" %>';
+    lineColour = "<%= Segment::MAP_KEYS[1].colour %>";
   } else if (alertLevel == "2") {
-    icon = "<%= asset_url 'icons/2-lv.png' %>";
-    lineColour = "#FF8800";
+    icon = '<%= asset_url "icons/#{Segment::MAP_KEYS[2].icon}" %>';
+    lineColour = "<%= Segment::MAP_KEYS[2].colour %>";
   } else if (alertLevel == "3") {
-    icon = "<%= asset_url 'icons/3-lv.png' %>";
-    lineColour = "#FF6600";
+    icon = '<%= asset_url "icons/#{Segment::MAP_KEYS[3].icon}" %>';
+    lineColour = "<%= Segment::MAP_KEYS[3].colour %>";
   } else if (alertLevel == "4") {
-    icon = "<%= asset_url 'icons/4-lv.png' %>";
-    lineColour = "#FF4400";
+    icon = '<%= asset_url "icons/#{Segment::MAP_KEYS[4].icon}" %>';
+    lineColour = "<%= Segment::MAP_KEYS[4].colour %>";
   } else if (alertLevel == "5") {
-    icon = "<%= asset_url 'icons/5-lv.png' %>";
-    lineColour = "#FF2200";
-  } else if (alertLevel == "6") {
-    icon = "<%= asset_url 'icons/6-lv.png' %>";
-    lineColour = "#FF0000";
+    icon = '<%= asset_url "icons/#{Segment::MAP_KEYS[5].icon}" %>';
+    lineColour = "<%= Segment::MAP_KEYS[5].colour %>";
   } else {
-    icon = "<%= asset_url 'icons/purple-circle-lv.png' %>";
-    lineColour = "#8800FF";
+    icon = '<%= asset_url "icons/#{Segment::MAP_KEYS[6].icon}" %>';
+    lineColour = "<%= Segment::MAP_KEYS[6].colour %>";
   }
 
   var trackPath = new google.maps.Polyline({
