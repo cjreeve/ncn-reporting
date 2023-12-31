@@ -17,6 +17,28 @@ class Segment < ApplicationRecord
     self.location&.strip!
   end
 
+  IconKey = Struct.new(:colour, :icon, :label)
+
+  MAP_KEYS = [
+    IconKey.new("#00FF77", "grn-circle-lv.png", "in the last 1 month"),
+    IconKey.new("#FF8800", "2-lv.png", "in the last 2 months"),
+    IconKey.new("#FF6600", "3-lv.png", "in the last 3 months"),
+    IconKey.new("#FF4400", "4-lv.png", "in the last 4 months"),
+    IconKey.new("#FF2200", "5-lv.png", "in the last 5 months"),
+    IconKey.new("#FF0000", "6-lv.png", "in the last 6 months"),
+    IconKey.new("#8800FF", "purple-circle-lv.png", "more than 6 months ago")
+  ]
+
+  def alert_level
+     return 6 if !last_checked_on || last_checked_on <= 6.months.ago
+     return 0 if last_checked_on > 1.month.ago
+     return 1 if last_checked_on > 2.months.ago
+     return 2 if last_checked_on > 3.months.ago
+     return 3 if last_checked_on > 4.months.ago
+     return 4 if last_checked_on > 5.months.ago
+     return 5 if last_checked_on > 6.months.ago
+   end
+
   def track_points=(new_track_points)
     doc = Nokogiri::XML("<trkseg>"+new_track_points+"</trkseg>")
     self.track = doc.xpath('//trkpt').collect do |track_point|
@@ -38,11 +60,17 @@ class Segment < ApplicationRecord
   end
 
   def description
-    if formatted_last_checked_date
-      "<b>#{name}</b><br>last checked by #{ranger_name}<br>on #{formatted_last_checked_date}"
+    text= []
+    text << "<b>#{name}</b>"
+    text << "#{'Ranger'.pluralize(rangers.size)}: #{rangers.map(&:name).to_sentence.presence || 'none'}"
+
+    text << if formatted_last_checked_date
+      "last checked by #{ranger_name}<br>on #{formatted_last_checked_date}"
     else
-      "#{name} has no record of being checked"
+      "no record of being checked"
     end
+
+    text.join("<br>")
   end
 
   def formatted_last_checked_date
@@ -50,14 +78,12 @@ class Segment < ApplicationRecord
     @formatted_last_checked_date ||= last_checked_on.strftime("%A %d %B %Y")
   end
 
-  def alert_level
-    return 3 if !last_checked_on || last_checked_on < 6.months.ago
-    return 2 if last_checked_on < 1.month.ago
-    1
-  end
-
   def check!(ranger)
     update_attributes last_checked_by_id: ranger.id, last_checked_on: Date.today
+  end
+
+  def rangers
+    administrative_area.users.rangers
   end
 
   def ranger_name

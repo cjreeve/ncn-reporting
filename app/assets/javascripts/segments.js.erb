@@ -32,15 +32,27 @@ function setSegmentTrack(map, segment, index) {
   var lineColour = ''
 
 
-  if (alertLevel == "1") {
-    icon = "http://maps.google.com/mapfiles/kml/paddle/wht-circle-lv.png";;
-    lineColour = "#777777";
+  if (alertLevel == "0") {
+    icon = '<%= asset_url "icons/#{Segment::MAP_KEYS[0].icon}" %>';
+    lineColour = "<%= Segment::MAP_KEYS[0].colour %>";
+  } else if (alertLevel == "1") {
+    icon = '<%= asset_url "icons/#{Segment::MAP_KEYS[1].icon}" %>';
+    lineColour = "<%= Segment::MAP_KEYS[1].colour %>";
   } else if (alertLevel == "2") {
-    icon = "http://maps.google.com/mapfiles/kml/paddle/ylw-circle-lv.png";
-    lineColour = "#FFAA00";
+    icon = '<%= asset_url "icons/#{Segment::MAP_KEYS[2].icon}" %>';
+    lineColour = "<%= Segment::MAP_KEYS[2].colour %>";
+  } else if (alertLevel == "3") {
+    icon = '<%= asset_url "icons/#{Segment::MAP_KEYS[3].icon}" %>';
+    lineColour = "<%= Segment::MAP_KEYS[3].colour %>";
+  } else if (alertLevel == "4") {
+    icon = '<%= asset_url "icons/#{Segment::MAP_KEYS[4].icon}" %>';
+    lineColour = "<%= Segment::MAP_KEYS[4].colour %>";
+  } else if (alertLevel == "5") {
+    icon = '<%= asset_url "icons/#{Segment::MAP_KEYS[5].icon}" %>';
+    lineColour = "<%= Segment::MAP_KEYS[5].colour %>";
   } else {
-    icon = "http://maps.google.com/mapfiles/kml/paddle/red-circle-lv.png";
-    lineColour = "#FF0000";
+    icon = '<%= asset_url "icons/#{Segment::MAP_KEYS[6].icon}" %>';
+    lineColour = "<%= Segment::MAP_KEYS[6].colour %>";
   }
 
   var trackPath = new google.maps.Polyline({

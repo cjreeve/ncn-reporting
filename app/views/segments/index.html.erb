@@ -30,11 +30,25 @@
 
       <%= render_map %>
 
+      <br><br>
+
+      <h5>Last checked:</h5>
+      <ul>
+        <% Segment::MAP_KEYS.each do |key| %>
+          <%= tag.li style: "color:#{key.colour}" do %>
+            <span style="color:black">
+              <%= image_tag("icons/" + key.icon) %> - <%= key.label %>
+            </span>
+          <% end %>
+        <% end %>
+      </ul>
+
       <br><br><br>
 
       <table>
         <thead>
           <tr>
+            <th></th>
             <th>Name</th>
             <th>Last checked by</th>
             <th>Date</th>
@@ -46,6 +60,7 @@
         <tbody>
           <% @segments.each do |segment| %>
             <tr>
+              <td style="background-color:<%= Segment::MAP_KEYS[segment.alert_level].colour %>55;background-opacity:1"></td>
               <td><%= segment.name %></td>
               <td><%= segment.ranger_name %></td>
               <td><%= segment.last_checked_on || "unknown" %></td>
